@@ -17,11 +17,8 @@ public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nickName;
-    private String email;
-    private String pass;
-    private String avatar;
-    private String status;
+    private String rol;
+    private String permisos;
 
     @OneToMany(mappedBy = "rol")
     private List<UserServerRole> userServerRoles;
