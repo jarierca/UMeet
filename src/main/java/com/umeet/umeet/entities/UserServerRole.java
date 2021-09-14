@@ -1,28 +1,31 @@
 package com.umeet.umeet.entities;
 
-import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "servers")
-public class Server {
+@Table(name = "user_server_role")
+public class UserServerRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String description;
-    private String avatar;
-    private String status;
 
-    @OneToMany(mappedBy = "Server")
-    private List<UserServerRole> userServerRole;
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_rol")
+    private Rol rol;
+
+    @ManyToOne
+    @JoinColumn(name = "id_server")
+    private Server server;
 }
