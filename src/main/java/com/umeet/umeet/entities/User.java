@@ -34,4 +34,10 @@ public class User {
 
     @OneToMany(mappedBy = "User")
     private List<UserServerRole> userServerRole;
+
+    @OneToMany(mappedBy = "User")
+    private List<Message> messages;
+
+    @OneToMany(mappedBy = "User")
+    private List<Friend> friends;
 }

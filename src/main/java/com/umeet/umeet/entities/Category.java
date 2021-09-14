@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,4 +19,10 @@ public class Category {
     private Long id;
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "id_server")
+    private Server server;
+
+    @OneToMany(mappedBy = "Category")
+    private List<Channel> channels;
 }

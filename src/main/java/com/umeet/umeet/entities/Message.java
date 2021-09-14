@@ -19,4 +19,11 @@ public class Message {
     private String name;
     private String text;
 
+    @ManyToOne
+    @JoinColumn(name = "id_channel")
+    private Channel channel;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 }

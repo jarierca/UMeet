@@ -25,4 +25,7 @@ public class Server {
 
     @OneToMany(mappedBy = "Server")
     private List<UserServerRole> userServerRole;
+
+    @OneToMany(mappedBy = "Server")
+    private List<Category> categories;
 }

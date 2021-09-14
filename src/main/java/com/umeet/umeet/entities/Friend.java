@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,4 +18,12 @@ public class Friend {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user1")
+    private User user1;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user2")
+    private User user2;
 }

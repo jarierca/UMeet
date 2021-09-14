@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +22,7 @@ public class Rol {
     private String pass;
     private String avatar;
     private String status;
+
+    @OneToMany(mappedBy = "Rol")
+    private List<UserServerRole> userServerRoles;
 }

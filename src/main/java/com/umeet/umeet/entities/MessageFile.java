@@ -19,4 +19,7 @@ public class MessageFile {
     private String name;
     private String code;
     private String url;
+
+    @OneToOne(mappedBy = "MessageFile")
+    private Message message;
 }
