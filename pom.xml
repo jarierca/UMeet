@@ -11,7 +11,7 @@
 	<groupId>com.discord</groupId>
 	<artifactId>discord</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>discord</name>
+	<name>umeet</name>
 	<description>Proyecto Java Hiberus</description>
 	<properties>
 		<java.version>11</java.version>
