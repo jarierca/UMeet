@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.discord.discord.entities;
+package com.umeet.umeet.repositories;
 
 /**
  *
  * @author skudo
  */
-public class Usuarios {
+public interface Prueba {
     
 }
