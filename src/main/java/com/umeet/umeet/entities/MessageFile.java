@@ -19,4 +19,8 @@ public class MessageFile {
     private String name;
     private String code;
     private String url;
+
+    @OneToOne
+    @JoinColumn(name = "id_message_file")
+    private Message message;
 }

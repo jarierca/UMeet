@@ -8,11 +8,11 @@
 		<version>2.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.discord</groupId>
-	<artifactId>discord</artifactId>
+	<groupId>com.umeet</groupId>
+	<artifactId>umeet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>umeet</name>
-	<description>Proyecto Java Hiberus</description>
+	<description>Proyecto Java</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2020.0.3</spring-cloud.version>

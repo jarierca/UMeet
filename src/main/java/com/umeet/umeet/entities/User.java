@@ -26,12 +26,22 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String username;
     private String nickName;
     private String email;
     private String pass;
     private String avatar;
     private String status;
 
-    @OneToMany(mappedBy = "User")
+    @OneToMany(mappedBy = "user")
     private List<UserServerRole> userServerRole;
+
+    @OneToMany(mappedBy = "user")
+    private List<Message> messages;
+
+    @OneToMany(mappedBy = "user1")
+    private List<Friend> friends1;
+
+    @OneToMany(mappedBy = "user2")
+    private List<Friend> friends2;
 }
