@@ -18,7 +18,7 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String rol;
-    private String permisos;
+    private String privileges;
 
     @OneToMany(mappedBy = "rol")
     private List<UserServerRole> userServerRoles;
