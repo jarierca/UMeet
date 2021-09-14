@@ -23,9 +23,9 @@ public class Server {
     private String avatar;
     private String status;
 
-    @OneToMany(mappedBy = "Server")
+    @OneToMany(mappedBy = "server")
     private List<UserServerRole> userServerRole;
 
-    @OneToMany(mappedBy = "Server")
+    @OneToMany(mappedBy = "server")
     private List<Category> categories;
 }

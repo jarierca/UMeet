@@ -23,6 +23,6 @@ public class Rol {
     private String avatar;
     private String status;
 
-    @OneToMany(mappedBy = "Rol")
+    @OneToMany(mappedBy = "rol")
     private List<UserServerRole> userServerRoles;
 }

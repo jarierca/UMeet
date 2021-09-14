@@ -26,4 +26,7 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
+
+    @OneToOne(mappedBy = "message")
+    private MessageFile messageFile;
 }

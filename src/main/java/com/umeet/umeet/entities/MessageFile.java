@@ -20,6 +20,7 @@ public class MessageFile {
     private String code;
     private String url;
 
-    @OneToOne(mappedBy = "MessageFile")
+    @OneToOne
+    @JoinColumn(name = "id_message_file")
     private Message message;
 }

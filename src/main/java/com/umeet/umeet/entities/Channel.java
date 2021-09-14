@@ -23,6 +23,6 @@ public class Channel {
     @JoinColumn(name = "id_category")
     private Category category;
 
-    @OneToMany(mappedBy = "Channel")
+    @OneToMany(mappedBy = "channel")
     private List<Message> messages;
 }

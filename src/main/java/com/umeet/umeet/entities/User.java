@@ -32,12 +32,15 @@ public class User {
     private String avatar;
     private String status;
 
-    @OneToMany(mappedBy = "User")
+    @OneToMany(mappedBy = "user")
     private List<UserServerRole> userServerRole;
 
-    @OneToMany(mappedBy = "User")
+    @OneToMany(mappedBy = "user")
     private List<Message> messages;
 
-    @OneToMany(mappedBy = "User")
-    private List<Friend> friends;
+    @OneToMany(mappedBy = "user1")
+    private List<Friend> friends1;
+
+    @OneToMany(mappedBy = "user2")
+    private List<Friend> friends2;
 }
