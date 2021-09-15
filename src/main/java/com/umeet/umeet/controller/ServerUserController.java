@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.umeet.umeet.repositories.ServersRepository;
+import com.umeet.umeet.repositories.UserRepository;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -21,8 +22,17 @@ public class ServerUserController {
 
     @Autowired
     private ServersRepository repoServer;
+    @Autowired
+    private UserRepository repoUser;
 
-    //mostrar todos los servidores
+    @GetMapping("/byUser")
+    public String serverByUser(Model m, Long userId) {
+
+        m.addAttribute("user", repoUser.findById(userId).get());
+
+        return "/servers/byUser";
+    }
+
     @GetMapping
     public String allServers(Model m) {
 
@@ -33,20 +43,19 @@ public class ServerUserController {
 
     @PostMapping("/filtered")
     public String searchServer(Model m, String name) {
-        
-       List <Server> aux = repoServer.findByNameContaining(name);
-        if(!aux.isEmpty()){
-             m.addAttribute("nam", aux);
+
+        List<Server> aux = repoServer.findByNameContaining(name);
+        if (!aux.isEmpty()) {
+            m.addAttribute("nam", aux);
         }
-        List <Server> aux1 = repoServer.findByDescriptionContaining(name);
-        if(!aux1.isEmpty()){
-             m.addAttribute("des", aux1);
+        List<Server> aux1 = repoServer.findByDescriptionContaining(name);
+        if (!aux1.isEmpty()) {
+            m.addAttribute("des", aux1);
         }
+
         
-        
-         //System.out.println( repoServer.findByNameContaining(name));
         return "servers/filteredServers";
-       
+
     }
 
 }

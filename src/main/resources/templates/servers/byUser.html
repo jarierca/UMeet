@@ -1,0 +1,19 @@
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>ServersById</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+    </body>
+    
+    <table>
+                <th>
+                    Servers
+                </th>
+                <tr th:each="us:${user.userServerRole}">
+                    <td th:text="${us.server.name}"> </td>
+                </tr>
+            </table>
+</html>
