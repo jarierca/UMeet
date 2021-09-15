@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    public List<Category> findCategoryByServer(Server server);
+    public List<Category> findByServer(Server server);
 }
