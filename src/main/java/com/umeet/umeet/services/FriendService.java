@@ -49,6 +49,7 @@ public class FriendService implements IFriendService {
         return Collections.unmodifiableList(nombres);
     }
     
+    //El metodo se llama a si mismo y peta la memoria (Entity User)
     public void deleteFriendCascade(Long id) {
         User user = profileRepository.findById(id).get();
         
