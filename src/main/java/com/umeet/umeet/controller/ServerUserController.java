@@ -6,12 +6,12 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.entities.Server;
+import com.umeet.umeet.repositories.ServerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.umeet.umeet.repositories.ServersRepository;
 import com.umeet.umeet.repositories.UserRepository;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ServerUserController {
 
     @Autowired
-    private ServersRepository repoServer;
+    private ServerRepository repoServer;
     @Autowired
     private UserRepository repoUser;
 
