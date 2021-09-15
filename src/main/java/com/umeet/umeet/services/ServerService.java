@@ -24,7 +24,7 @@ public class ServerService implements IServerService {
     MessageRepository messageRepository;
 
     @Autowired
-    MessageFieldRepository messageFieldRepository;
+    MessageFileRepository messageFieldRepository;
 
     @Autowired
     UserServerRoleRepository userServerRoleRepository;
