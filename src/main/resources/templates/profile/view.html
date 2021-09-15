@@ -7,10 +7,11 @@
     <body>
         <div th:each="p:${profile}" class="card" style="width:400px">
             <div class="card-body">
-                <span th:text="${p.nickName}"></span><br>
+              <span th:text="${p.nickName}"></span><br>
               <span th:text="${p.username}"></span><br>
               <span th:text="${p.email}"></span><br>
-              <span th:text="${p.avatar}"></span><br>
+              <img th:src="@{avatar(url=${p.avatar})}" height="150px" width="250px">
+              <!--<span th:text="${p.avatar}"></span><br>-->
             </div>
             <a class="btn btn-outline-primary" th:href="@{edit(id=${p.id})}">Modificar</a>
             <a class="btn btn-outline-primary" th:href="@{remove(id=${p.id})}">Darse de Baja</a>
