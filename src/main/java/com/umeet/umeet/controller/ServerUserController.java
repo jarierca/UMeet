@@ -24,6 +24,14 @@ public class ServerUserController {
     private ServerRepository repoServer;
     @Autowired
     private UserRepository repoUser;
+    
+    @GetMapping
+    public String allServers(Model m) {
+
+        m.addAttribute("nam", repoServer.findAll());
+
+        return "/servers/allServers";
+    }
 
     @GetMapping("/byUser")
     public String serverByUser(Model m, Long userId) {
@@ -33,13 +41,7 @@ public class ServerUserController {
         return "/servers/byUser";
     }
 
-    @GetMapping
-    public String allServers(Model m) {
-
-        m.addAttribute("nam", repoServer.findAll());
-
-        return "/servers/server";
-    }
+    
 
     @PostMapping("/filtered")
     public String searchServer(Model m, String name) {
@@ -57,5 +59,20 @@ public class ServerUserController {
         return "servers/filteredServers";
 
     }
+    
+    
+    @PostMapping("/addServer")
+    
+    public String addServer (Model model, Server server){
+        
+        
+        repoServer.save(server);
+        
+        return "/servers/allServers";
+               
+    }
+   
+    
+    
 
 }

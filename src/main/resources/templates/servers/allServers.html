@@ -10,9 +10,24 @@
         </style>
     </head>
     <body>
-        <div>
+        <input type="submit" value="universe a un servidor">
+        
+       
+        
+        <!-- 
+            <form th:object="${server}" action="/servers/addServer" method="post">
+                <input type="hidden" th:field="*{id}">
+                <input type="text" th:field="*{name}" placeholder="Name">
+                <input type="text" th:field="*{description}" placeholder="Description">
+                <input type="file" th:field="*{avatar}" placeholder="Avatar">
+                <input type="text" th:field="*{status}" placeholder="Status">
+                <input type="submit" value="añada un servidor">
+            </form>
+         -->
+            <hr/>
+            
             <form action="/servers/filtered" method="post">
-                
+
                 <input type="text" name="name" placeholder="Encuentra un servidor">
                 <input type="submit">
             </form>
@@ -24,6 +39,6 @@
                     <td th:text="${sv.name}"> </td>
                 </tr>
             </table>
-        </div>
+       
     </body>
 </html>
