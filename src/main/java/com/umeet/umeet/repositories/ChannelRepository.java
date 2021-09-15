@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ChannelRepository extends JpaRepository<Channel, Long> {
-    public List<Channel> findChannelByCategory(Category category);
+    public List<Channel> findByCategory(Category category);
 }

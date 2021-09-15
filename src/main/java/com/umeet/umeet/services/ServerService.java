@@ -1,7 +1,6 @@
 package com.umeet.umeet.services;
 
 import com.umeet.umeet.entities.Category;
-import com.umeet.umeet.entities.Friend;
 import com.umeet.umeet.interfaces.IServerService;
 import com.umeet.umeet.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class ServerService implements IServerService {
     
     @Override
     public void deleteServerCascade(Long idServer) {
-        List<Category> categories = categoryRepository.findCategoryByServer(serverRepository.findById(idServer).get());
+        List<Category> categories = categoryRepository.findByServer(serverRepository.findById(idServer).get());
         categories.stream()
                 .forEach(x->{
                     x.getChannels().stream()
