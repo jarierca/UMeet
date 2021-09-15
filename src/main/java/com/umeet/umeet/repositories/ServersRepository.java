@@ -16,6 +16,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ServersRepository extends JpaRepository<Server, Long>{ 
  
     public List <Server> findByDescriptionContaining(String description);
-    
+    public List <Server> findByNameContaining(String name);
     
 }

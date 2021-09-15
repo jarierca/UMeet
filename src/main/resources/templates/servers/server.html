@@ -13,7 +13,7 @@
         <div>
             <form action="/servers/filtered" method="post">
                 
-                <input type="text" name="description" placeholder="Encuentra un servidor">
+                <input type="text" name="name" placeholder="Encuentra un servidor">
                 <input type="submit">
             </form>
             <table>
@@ -23,7 +23,6 @@
                 <tr th:each="sv:${server}">
                     <td th:text="${sv.name}"> </td>
                 </tr>
-
             </table>
         </div>
     </body>

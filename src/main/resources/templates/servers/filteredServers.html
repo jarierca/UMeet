@@ -11,7 +11,12 @@
                 <th>
                     Filtradoss
                 </th>
-                <tr th:each="sv:${server}">
+                <tr th:if="${nam !=null}" th:each="sv:${nam}">
+
+                    <td th:text="${sv.name}"> </td>
+                </tr>
+                <tr th:if="${des !=null}" th:each="sv:${des}">
+
                     <td th:text="${sv.name}"> </td>
                 </tr>
 

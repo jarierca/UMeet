@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.umeet.umeet.repositories.ServersRepository;
+import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -25,16 +26,27 @@ public class ServerUserController {
     @GetMapping
     public String allServers(Model m) {
 
-        m.addAttribute("server", repoServer.findAll());
+        m.addAttribute("nam", repoServer.findAll());
 
         return "/servers/server";
     }
 
     @PostMapping("/filtered")
-    public String searchServer(Model m, String description) {
-
-        m.addAttribute("server", repoServer.findByDescriptionContaining(description));
+    public String searchServer(Model m, String name) {
+        
+       List <Server> aux = repoServer.findByNameContaining(name);
+        if(!aux.isEmpty()){
+             m.addAttribute("nam", aux);
+        }
+        List <Server> aux1 = repoServer.findByDescriptionContaining(name);
+        if(!aux1.isEmpty()){
+             m.addAttribute("des", aux1);
+        }
+        
+        
+         //System.out.println( repoServer.findByNameContaining(name));
         return "servers/filteredServers";
+       
     }
 
 }
