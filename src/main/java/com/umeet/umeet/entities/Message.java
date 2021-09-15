@@ -29,4 +29,8 @@ public class Message {
 
     @OneToOne(mappedBy = "message")
     private MessageFile messageFile;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user_destiny")
+    private User userDestiny;
 }

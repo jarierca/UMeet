@@ -44,4 +44,7 @@ public class User {
 
     @OneToMany(mappedBy = "user2")
     private List<Friend> friends2;
+
+    @OneToMany(mappedBy = "userDestiny")
+    private List<Message> message;
 }
