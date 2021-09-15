@@ -7,10 +7,16 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FriendService implements IFriendService{
-    private List<String> nombres=new ArrayList<>();
+public class FriendService implements IFriendService {
 
-    
+    private List<String> nombres = new ArrayList<>();
+
+    @Override
+    public List<String> getFriendList() {
+        //Devuelve una lista inmutable.
+        return nombres;
+    }
+
     /*
     @Override
     public void altaNombre(String nombre) throws OperacionEnListaException {
@@ -28,10 +34,5 @@ public class FriendService implements IFriendService{
     public void bajaNombre(String nombre) {
         nombres.remove(nombre);
     }
-*/
-    @Override
-    public List<String> getFriendList() {
-        //Devuelve una lista inmutable.
-        return Collections.unmodifiableList(nombres);
-    }
+     */
 }
