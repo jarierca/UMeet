@@ -1,0 +1,29 @@
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Servidores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            table{
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <form action="/servers/filtered" method="post">
+                
+                <input type="text" name="name" placeholder="Encuentra un servidor">
+                <input type="submit">
+            </form>
+            <table>
+                <th>
+                    Servers
+                </th>
+                <tr th:each="sv:${server}">
+                    <td th:text="${sv.name}"> </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
