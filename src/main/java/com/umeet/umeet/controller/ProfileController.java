@@ -13,35 +13,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/profile")
-public class Profile {
+public class ProfileController {
     
     @Autowired
     ProfileRepository profileRepo;
     
-    //Cargar vista con datos del user de la BBDD
-    @GetMapping("/edit")
-    public String edit(Model m, int id){
+    @GetMapping("/view")
+    public String view(Model m, long id){
         Optional<User> profile = profileRepo.findById(id);
         if(profile.isPresent()){
             m.addAttribute("profile", profile.get());
         }else{
             m.addAttribute("error", "Error, el usuario no existe");
         }
-        return "";
+        return "/profile/view";
+    }
+    
+    //Cargar vista con datos del user de la BBDD
+    @GetMapping("/edit")
+    public String edit(Model m, long id){
+        Optional<User> profile = profileRepo.findById(id);
+        if(profile.isPresent()){
+            m.addAttribute("profile", profile.get());
+        }else{
+            m.addAttribute("error", "Error, el usuario no existe");
+        }
+        return "/profile/modify";
     }
     
     //Modifica en la BBDD los datos editados
     @PostMapping("/modify")
-    public String modify(Model m, User user){
+    public String modify(Model m, User user, long id){
         profileRepo.save(user);
-        return "";
+        return "redirect:view";
     }
     
     //Borra los datos mediante el id del user
     @GetMapping("/remove")
-    public String remove(Model m, int id){
+    public String remove(Model m, long id){
         profileRepo.deleteById(id);
-        return "";
+        return "redirect:view";
     }
     
     //Modificar estado del user
