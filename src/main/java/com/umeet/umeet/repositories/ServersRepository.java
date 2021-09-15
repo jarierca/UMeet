@@ -6,6 +6,7 @@
 package com.umeet.umeet.repositories;
 
 import com.umeet.umeet.entities.Server;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface ServersRepository extends JpaRepository<Server, Long>{ 
  
+    public List <Server> findByDescriptionContaining(String description);
     
     
 }
