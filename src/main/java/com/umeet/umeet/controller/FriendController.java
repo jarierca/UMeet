@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class FriendController {
 
-//@Autowired
+@Autowired
 private IFriendService service;
 
 //List friends
