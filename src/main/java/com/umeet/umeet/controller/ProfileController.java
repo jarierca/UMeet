@@ -43,7 +43,8 @@ public class ProfileController {
     
     //Modifica en la BBDD los datos editados
     @PostMapping("/modify")
-    public String modify(Model m, User user, long id){
+    public String modify(Model m, String nickName, String email, String avatar, long id){
+        Usuario
         profileRepo.save(user);
         return "redirect:view?id="+id;
     }
