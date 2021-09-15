@@ -6,12 +6,13 @@
     </head>
     <body>
         <div class="container">
-            <form action="modify" method="post" th:object="${profile}">
+            <form action="modify" method="post" th:object="${profile}" enctype="multipart/form-data">
                 <input name="id" th:field="*{id}" hidden>
                 <input name="nickName" placeholder="nickName" th:field="*{nickName}">
                 <input name="email" placeholder="Email" th:field="*{email}">
-                <input type="file" name="avatar" placeholder="Avatar" th:field="*{avatar}">
-                <input type="submit" value="Guardar">
+                <input type="file" name="avatar" placeholder="Avatar" th:value="*{avatar}">
+                <img th:src="@{avatar(url=*{avatar})}" height="150px" width="250px" title="">
+                <input type="submit" value="Modificar Datos">
             </form>
         </div>
     </body>
