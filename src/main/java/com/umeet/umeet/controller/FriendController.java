@@ -21,6 +21,7 @@ public class FriendController {
     @Autowired
     private FriendRepository friendRepo;
 
+
 //List friends
     @GetMapping("friendsList") //Va la vista poniendo detras ?idUsuario=1 (http://localhost:8090/friends/friendsList?idUsuario=3)
     public String listFriends(Model m, Long idUsuario) {

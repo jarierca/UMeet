@@ -1,0 +1,26 @@
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Filtrados</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="container">
+            
+            <table>
+                <th>
+                    Filtradoss
+                </th>
+                <tr th:if="${nam !=null}" th:each="sv:${nam}">
+
+                    <td th:text="${sv.name}"> </td>
+                </tr>
+                <tr th:if="${des !=null}" th:each="sv:${des}">
+
+                    <td th:text="${sv.name}"> </td>
+                </tr>
+
+            </table>
+        </div>
+    </body>
+</html>
