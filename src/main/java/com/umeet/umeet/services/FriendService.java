@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FriendService implements IFriendService{
-    private List<String> nombres=new ArrayList<>();
+public class FriendService implements IFriendService {
+
 
     @Autowired
     FriendRepository friendRepository;
@@ -21,6 +21,9 @@ public class FriendService implements IFriendService{
     @Autowired
     ProfileRepository profileRepository;
     
+
+    private List<String> nombres = new ArrayList<>();
+
     /*
     @Override
     public void altaNombre(String nombre) throws OperacionEnListaException {
@@ -38,6 +41,7 @@ public class FriendService implements IFriendService{
     public void bajaNombre(String nombre) {
         nombres.remove(nombre);
     }
+
 */
     @Override
     public List<String> getFriendList() {
@@ -59,4 +63,6 @@ public class FriendService implements IFriendService{
         
        //profileRepository.deleteById(id);
     }
+
+
 }
