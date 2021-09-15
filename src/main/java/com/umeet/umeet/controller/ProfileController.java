@@ -45,7 +45,7 @@ public class ProfileController {
     @PostMapping("/modify")
     public String modify(Model m, User user, long id){
         profileRepo.save(user);
-        return "redirect:view";
+        return "redirect:view?id="+id;
     }
     
     //Borra los datos mediante el id del user
