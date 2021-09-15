@@ -15,6 +15,7 @@ public class FriendController {
 @Autowired
 private IFriendService service;
 
+
 //List friends
 @GetMapping("")
 public String listFriends (Model m){
