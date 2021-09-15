@@ -30,12 +30,6 @@ public class ServerService implements IServerService {
     @Autowired
     UserServerRoleRepository userServerRoleRepository;
     
-   // @Autowired
-    //FriendRepository friendRepository;
-    
-    @Autowired
-    ProfileRepository profileRepository;
-    
     @Override
     public void deleteServerCascade(Long idServer) {
         List<Category> categories = categoryRepository.findCategoryByServer(serverRepository.findById(idServer).get());
@@ -55,16 +49,5 @@ public class ServerService implements IServerService {
                 .stream()
                 .forEach(u->userServerRoleRepository.deleteById(u.getId()));
         serverRepository.deleteById(idServer);
-    }
-    
-    
-    public void deleteFriendCascade(Long id) {
-      /*  List<Friend> friends = friendRepository.findFriendByUser(profileRepository.findById(id).get());
-        friends.stream()
-                .forEach(x->{
-                    x.get
-                });
-        
-        friendRepository.deleteAllById();*/
     }
 }

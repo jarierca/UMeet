@@ -3,6 +3,7 @@ package com.umeet.umeet.controller;
 
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.ProfileRepository;
+import com.umeet.umeet.services.FriendService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,11 +33,14 @@ public class ProfileController {
     private String rutaRecursos; 
     
     @Autowired
-    ProfileRepository profileRepo;
+    ProfileRepository profileRepository;
+    
+    @Autowired
+    FriendService friendService;
     
     @GetMapping("/view")
     public String view(Model m, long id){
-        Optional<User> profile = profileRepo.findById(id);
+        Optional<User> profile = profileRepository.findById(id);
         if(profile.isPresent()){
             m.addAttribute("profile", profile.get());
         }else{
@@ -48,7 +52,7 @@ public class ProfileController {
     //Cargar vista con datos del user de la BBDD
     @GetMapping("/edit")
     public String edit(Model m, long id){
-        Optional<User> profile = profileRepo.findById(id);
+        Optional<User> profile = profileRepository.findById(id);
         if(profile.isPresent()){
             m.addAttribute("profile", profile.get());
         }else{
@@ -60,7 +64,7 @@ public class ProfileController {
     //Modifica en la BBDD los datos editados
     @PostMapping("/modify")
     public String modify(Model m, String nickName, String email, MultipartFile avatar, long id){
-        Optional<User> user = profileRepo.findById(id);
+        Optional<User> user = profileRepository.findById(id);
         user.get().setNickName(nickName);
         user.get().setEmail(email);
         
@@ -76,7 +80,7 @@ public class ProfileController {
         
         user.get().setAvatar(ruta);
         
-        profileRepo.save(user.get());
+        profileRepository.save(user.get());
         return "redirect:view?id="+id;
     }   
     
@@ -104,7 +108,8 @@ public class ProfileController {
     //Borra los datos mediante el id del user
     @GetMapping("/remove")
     public String remove(Model m, long id){
-        profileRepo.deleteById(id);
+        friendService.deleteFriendCascade(id);
+        //profileRepository.deleteById(id);
         return "redirect:view";
     }
     
