@@ -5,10 +5,14 @@
  */
 package com.umeet.umeet.repositories;
 
+import com.umeet.umeet.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  *
- * @author skudo
+ * @author Aran
  */
-public interface Prueba {
+public interface UserRepository extends JpaRepository<User, Long>{
+    
     
 }

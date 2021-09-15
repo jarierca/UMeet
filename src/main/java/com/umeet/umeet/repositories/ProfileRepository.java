@@ -5,6 +5,6 @@ import com.umeet.umeet.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface ProfileRepository extends JpaRepository<User, Integer>{
-    
+public interface ProfileRepository extends JpaRepository<User, Long>{
+
 }
