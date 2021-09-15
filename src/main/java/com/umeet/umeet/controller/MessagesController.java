@@ -6,12 +6,15 @@ import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
 import com.umeet.umeet.repositories.ChannelRepository;
 import com.umeet.umeet.repositories.MessageRepository;
+import com.umeet.umeet.repositories.UserRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/msg")
-@ResponseBody
+//@ResponseBody
 public class MessagesController {
     
     @Autowired
@@ -30,6 +33,9 @@ public class MessagesController {
     
     @Autowired
     private ChannelRepository repoChn;
+    
+    @Autowired
+    private UserRepository repoUsr;
     
     @PostMapping("/channel/{id_channel}") //Devuelve un Json con toda la información de un canal
     public List<MessageChannelDto> canales(@PathVariable Long id_channel){
@@ -61,10 +67,23 @@ public class MessagesController {
         return null;
     }
     
-    @PostMapping("/channel/sendmsg")
-    public void mensajeCanal(Message msg){
-        
-        
-        //repoMsg.save(msg);
+    @GetMapping
+    public String inicio(Model m){
+        m.addAttribute("message",new Message());
+        return "/messages/vista";
+    }
+    
+    @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario
+    public void mensajeCanal(Message msg,Long idChannel,Long idUser){
+        msg.setChannel(repoChn.findById(idChannel).get());
+        msg.setUser(repoUsr.findById(idUser).get());
+        repoMsg.save(msg);
+    }
+    
+    @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
+    public void mensajePrivado(Message msg,Long idUser,Long idUserDestiny){
+        msg.setUser(repoUsr.findById(idUser).get());
+        msg.setUserDestiny(repoUsr.findById(idUserDestiny).get());
+        repoMsg.save(msg);
     }
 }

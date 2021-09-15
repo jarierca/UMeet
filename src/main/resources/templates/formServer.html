@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <form th:object="${server}" action="/server/addServer" method="post">
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" name="idUser" th:value="${idUser}">
+            <label>Nombre:</label>
+            <input th:field="*{name}">
+            <label>Descripcion:</label>
+            <textarea th:field="*{description}"></textarea>
+            <label>Avatar</label>
+            <input type="file" th:field="*{avatar}">
+            <input type="submit">
+        </form>
+    </div>
+</body>
+</html>
