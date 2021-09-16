@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <form action="modify" method="post" th:object="${profile}" enctype="multipart/form-data">
+                <input name="id" th:field="*{id}" hidden>
+                <input name="nickName" placeholder="nickName" th:field="*{nickName}">
+                <input name="email" placeholder="Email" th:field="*{email}">
+                <input type="file" name="avatar" placeholder="Avatar" th:value="*{avatar}">
+                <img th:src="@{avatar(url=*{avatar})}" height="150px" width="250px" title="">
+                <input type="submit" value="Modificar Datos">
+            </form>
+        </div>
+    </body>
+</html>
