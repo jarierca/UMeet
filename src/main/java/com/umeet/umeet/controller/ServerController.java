@@ -45,7 +45,7 @@ public class ServerController {
     @Autowired
     UserServerRoleRepository userServerRoleRepository;
 
-    @GetMapping
+    @GetMapping("/allServers")
     public String allServers(Model m) {
 
         m.addAttribute("nam", serverRepository.findAll());
@@ -53,12 +53,15 @@ public class ServerController {
         return "/servers/allServers";
     }
 
+    
+
     @GetMapping("/byUser")
     public String serverByUser(Model m, Long userId) {
 
         m.addAttribute("user", userRepository.findById(userId).get());
 
         return "/servers/byUser";
+        
     }
 
     @PostMapping("/filtered")
