@@ -1,0 +1,21 @@
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Titulo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="container">
+            <div class="container">
+            <h3>Amigos</h3>
+            <table class="table table-striped">
+                <tr th:if=$"{filterUserName!=null}" th:each="f1:${friendsAccepted}">
+                    <td th:text="${f1.avatar}"></td>
+                    <td th:text="${f1.nickName}"></td>
+                    <td th:text="${f1.username}"></td>
+                    <td th:text="${f1.status}"></td>
+                </tr> 
+            </table>
+        </div>
+    </body>
+</html>
