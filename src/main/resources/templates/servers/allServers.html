@@ -7,39 +7,36 @@
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/yeti/bootstrap.min.css" />
         <style>
-            table{
-                border: 1px solid black;
-            }
+
         </style>
     </head>
     <body>
-        <div class="col-2">
+        <div class="row">
 
-            <input type="submit" value="unirse a un servidor">  
-            <form action="/server/filtered" method="post">
+            <div class="col-3 m-2">
 
-                <input type="text" name="name" placeholder="Encuentra un servidor">
-                <input type="submit">
-            </form>
-        </div>
-        <div class="col-10">
+                <input type="submit" value="unirse a un servidor" class="btn btn-primary m-2">  
+                <form action="/server/filtered" method="post">
 
+                    <input type="text" name="name" placeholder="Encuentra un servidor" class="form-control m-2">
+                    <input type="submit" class="btn btn-primary m-2" >
+                </form>
+            </div>
             
-            <a th:href="server/form?idUser=3">Nuevo</a>
-            <table>
-                <th>
-                    Servers
-                </th>
-                <tr th:each="sv:${nam}">
-                    <td th:text="${sv.name}"> </td>
-                <a th:href="@{/server/form(idServer=${server.id})}"></a>
-                <a th:href="@{/server/deleteServer(idServer=${server.id})}"></a>
-               
-                
-                </tr>
-            </table>
+            <div class="col-8 m-2">
+
+                <a href="server/form?idUser=3" class="btn btn-primary m-2" >Nuevo servidor</a>
+                <table class="table">
+
+                    <tr th:each="sv:${nam}">
+                        <td th:text="${sv.name}"> </td>
+                        <td> <a th:href="@{/server/form(idServer=${sv.id})}" class="btn btn-primary">Editar</a> </td>
+                        <td> <a th:href="@{/server/deleteServer(idServer=${sv.id})}" class="btn btn-primary">Eliminar</a></td>
+                    </tr>
+                </table>
 
 
+            </div>
         </div>
 
 

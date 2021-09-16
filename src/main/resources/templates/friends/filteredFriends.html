@@ -9,7 +9,7 @@
             <div class="container">
             <h3>Amigos</h3>
             <table class="table table-striped">
-                <tr th:if=$"{filterUserName!=null}" th:each="f1:${friendsAccepted}">
+                <tr th:if="${userName!=null}" th:each="f1:${friendsAccepted}">
                     <td th:text="${f1.avatar}"></td>
                     <td th:text="${f1.nickName}"></td>
                     <td th:text="${f1.username}"></td>

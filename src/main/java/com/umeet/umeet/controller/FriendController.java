@@ -25,9 +25,11 @@ public class FriendController {
     @Autowired
     private UserRepository userRepo;
 
+    
 //List friends
-    @GetMapping("friendsList") //Va la vista poniendo detras ?idUsuario=1 (http://localhost:8090/friends/friendsList?idUsuario=3)
+    @GetMapping("/friendsList") //Va la vista poniendo detras ?idUsuario=1 (http://localhost:8090/friends/friendsList?idUsuario=3)
     public String listFriends(Model m, Long idUsuario) {
+        
 
         /*List <Friend> aux=friendRepo.findByUser1(idUsuario, );
         if(!aux.isEmpty()){
@@ -45,15 +47,10 @@ public class FriendController {
     @PostMapping("/friendsFilter")
     public String filterFriend(Model m, String user) {
 
-        //List<User> aux = friendRepo.findByUserNameContaining(user);
-        //if (!aux.isEmpty()) {
-        //    m.addAttribute("filterUserName", aux);
-        //}
-        /*List<User> aux1 = friendRepo.findByNickNameContaining(user);
-        if (!aux1.isEmpty()) {
-            m.addAttribute("filterNickName", aux1);
-        }*/
-
+        
+        
+      
+       
         return "friends/filter";
     }
 

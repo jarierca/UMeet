@@ -62,15 +62,15 @@ public class ServerController {
             m.addAttribute("des", aux1);
         }
 
-        return "servers/filteredServers";
+        return "/servers/filteredServers";
     }
 
-   /* @GetMapping("/pruebaServer")
+    /* @GetMapping("/pruebaServer")
     public String prueba(Model model) {
         model.addAttribute("servers", serverRepository.findAll());
         return "prueba";
     }
-*/
+     */
     @GetMapping("/form")
     public String viewServerCreation(Model model, Long idServer, Long idUser) {
         if (idServer == null) {
@@ -81,7 +81,6 @@ public class ServerController {
         model.addAttribute("idUser", idUser);
         return "/servers/formServer";
     }
-    
 
     @PostMapping("/addServer")
     public String addServer(Server server, Long idUser) {
@@ -91,13 +90,13 @@ public class ServerController {
         userServerRole.setRol(rolRepository.findById(1l).get());
         userServerRole.setServer(server);
         userServerRoleRepository.save(userServerRole);
-        return "redirect:server/byUser";
+        return "redirect:/server/byUser";
 
     }
 
     @GetMapping("/deleteServer")
     public String deleteServer(Long idServer) {
         serverService.deleteServerCascade(idServer);
-        return "redirect:server/byUser";
+        return "/redirect:server/byUser";
     }
 }

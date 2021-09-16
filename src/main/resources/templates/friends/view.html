@@ -7,6 +7,13 @@
     <body>
         <div class="container">
             <h3>Amigos</h3>
+            <form action="/friends/friendsFilter" method="post">
+
+                <input type="text" name="user" placeholder="Encuentra tu amigo">
+                <input type="submit">
+            </form>
+            
+            
             <table class="table table-striped">
                 <tr th:each="f1:${friendsAccepted}">
                     <td th:text="${f1.avatar}"></td>
@@ -22,7 +29,7 @@
                     <td th:text="${f2.nickName}"></td>
                     <td th:text="${f2.username}"></td>
                 </tr> 
-            </table>
+            </table> 
         </div>
     </body>
 </html>
