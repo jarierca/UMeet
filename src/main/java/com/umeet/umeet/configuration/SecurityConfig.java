@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private UserDetailsService validacion;    
     
-    //Aquí se configura el acceso
+    //Aquí se configura el acceso 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //Solo permite el acceso a la url login y register, 

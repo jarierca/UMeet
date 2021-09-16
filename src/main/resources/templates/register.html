@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Login</title>
+        <title>Register</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
@@ -41,7 +41,7 @@
     <body>
         <div class="mx-auto" style="width: 400px;">
 
-        <form class="container-fluid">
+            <form class="container-fluid" th:action="@{/newregister}" th:object="${user}">
             <div class="umeet">
                 <i class="fas fa-bezier-curve"></i></br>
                 <label>UMeet</label>
@@ -51,15 +51,15 @@
             
             <div class="mb-3">
               <label  class="form-label">Usuario</label>
-              <input type="text" class="form-control" >
+              <input type="text" th:field="*{username}" class="form-control" >
             </div>
             <div class="mb-3">
               <label  class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" >
+              <input type="email" th:field="*{email}" class="form-control" >
             </div>
             <div class="mb-3">
               <label class="form-label">Password</label>
-              <input type="password" class="form-control">
+              <input type="password" th:field="*{pass}" class="form-control">
             </div>
 
             <!--        <div class="mb-3">
