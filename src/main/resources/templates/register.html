@@ -25,8 +25,6 @@
             .btn-primary{
                 background-color: #61892F;
                 border-color: #61892F;
-                
-
             }
             .btn-primary:hover{
                 background-color: #86C232;
@@ -48,7 +46,12 @@
                 <i class="fas fa-bezier-curve"></i></br>
                 <label>UMeet</label>
                 </br>
-                <label class="inicio">Iniciar Sesión</label>
+                <label class="inicio">Registrarse</label>
+            </div>
+            
+            <div class="mb-3">
+              <label  class="form-label">Usuario</label>
+              <input type="text" class="form-control" >
             </div>
             <div class="mb-3">
               <label  class="form-label">Correo electrónico</label>
@@ -68,17 +71,8 @@
               <input type="password" class="form-control" th:id="usu: ${usu.pass}">
             </div>-->
             
-            <div class="mb-2 form-check flex">
-                <div class="me-auto">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Recordarme</label>
-                </div>
-            </div>
-            <div class="mb-2 flex">
-                <a class="primary" href="/passreset">Contraseña olvidada</a>
-            </div>
-            <div class="mb-5 flex">
-                <a class="primary" href="/register">Registrarse</a>
+            <div class="mb-3 flex">
+                <a class="primary" href="/login">Iniciar Sesión</a>
             </div>
             <button type="submit" class="btn btn-primary">Aceptar</button>
         </form>
