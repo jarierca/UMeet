@@ -58,7 +58,7 @@ public class ProfileController {
         }else{
             m.addAttribute("error", "Error, el usuario no existe");
         }
-        return "/profile/modify";
+        return "editProfile";
     }
     
     //Modifica en la BBDD los datos editados
