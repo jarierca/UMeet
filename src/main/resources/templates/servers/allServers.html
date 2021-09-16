@@ -1,8 +1,11 @@
 <html xmlns:th="https://www.thymeleaf.org">
     <head>
-        <title>Servidores</title>
+        <title>Factura</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/yeti/bootstrap.min.css" />
         <style>
             table{
                 border: 1px solid black;
@@ -10,35 +13,47 @@
         </style>
     </head>
     <body>
-        <input type="submit" value="universe a un servidor">
-        
-       
-        
-        <!-- 
-            <form th:object="${server}" action="/servers/addServer" method="post">
-                <input type="hidden" th:field="*{id}">
-                <input type="text" th:field="*{name}" placeholder="Name">
-                <input type="text" th:field="*{description}" placeholder="Description">
-                <input type="file" th:field="*{avatar}" placeholder="Avatar">
-                <input type="text" th:field="*{status}" placeholder="Status">
-                <input type="submit" value="añada un servidor">
-            </form>
-         -->
-            <hr/>
-            
-            <form action="/servers/filtered" method="post">
+        <div class="col-2">
+
+            <input type="submit" value="unirse a un servidor">  
+            <form action="/server/filtered" method="post">
 
                 <input type="text" name="name" placeholder="Encuentra un servidor">
                 <input type="submit">
             </form>
+        </div>
+        <div class="col-10">
+
+            
+            <a th:href="server/form?idUser=3">Nuevo</a>
             <table>
                 <th>
                     Servers
                 </th>
                 <tr th:each="sv:${nam}">
                     <td th:text="${sv.name}"> </td>
+                <a th:href="@{/server/form(idServer=${server.id})}"></a>
+                <a th:href="@{/server/deleteServer(idServer=${server.id})}"></a>
+               
+                
                 </tr>
             </table>
-       
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-deserialize@2.0.0-rc1/src/jquery.deserialize.min.js"></script>
+
     </body>
 </html>
