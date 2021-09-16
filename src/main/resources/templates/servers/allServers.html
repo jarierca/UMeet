@@ -13,18 +13,19 @@
     <body>
         <div class="row">
 
-            <div class="col-3 m-2">
+            <div class="col-2 m-2">
 
-                <input type="submit" value="unirse a un servidor" class="btn btn-primary m-2">  
+                  
                 <form action="/server/filtered" method="post">
 
                     <input type="text" name="name" placeholder="Encuentra un servidor" class="form-control m-2">
                     <input type="submit" class="btn btn-primary m-2" >
                 </form>
+                 <a href="server/form?idUser=3" class="btn btn-primary m-2">Crea tu servidor</a>
             </div>
 
             <div class="col-8 m-2">
-                <a href="server/form?idUser=3" class="btn btn-primary m-2">Nuevo</a>
+               
                 <table class="table">
                     <th>
                         Lista de servidores
@@ -34,10 +35,10 @@
                         <td th:text="${sv.description}"> </td>
                         <td><a th:href="@{/server/form(idServer=${sv.id})}" class="btn btn-primary m-2" >Editar</a></td>
                         <td><a th:href="@{/server/deleteServer(idServer=${sv.id})}" class="btn btn-primary m-2">Eliminar</a></td>
+                        <td> <input type="submit" value="unirse" class="btn btn-primary m-2"></a></td>
                     </tr>
                 </table>
             </div>
-
 
         </div>
     </div>

@@ -7,13 +7,13 @@
     <body>
         <div class="container">
             <h3>Amigos</h3>
-            <form action="/friends/friendsFilter" method="post">
 
-                <input type="text" name="user" placeholder="Encuentra tu amigo">
+            <form action="/friends/friendsFilter" method="post">
+                <input type="text" name="username" placeholder="Encuentra tu amigo">
                 <input type="submit">
             </form>
-            
-            
+
+            <h3>Aceptados</h3>
             <table class="table table-striped">
                 <tr th:each="f1:${friendsAccepted}">
                     <td th:text="${f1.avatar}"></td>
