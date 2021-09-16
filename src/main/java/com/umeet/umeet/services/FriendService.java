@@ -51,19 +51,6 @@ public class FriendService implements IFriendService {
     
     //El metodo se llama a si mismo y peta la memoria (Entity User)
     public void deleteFriendCascade(Long id) {
-        User user = profileRepository.findById(id).get();
-        
-        List<Friend> friends1 = user.getFriends1();
-        
-        friends1.stream().forEach(x -> System.out.println(x));
-        //friends1.stream().forEach(x->friendRepository.deleteByUser1(id));
-        
-        List<Friend> friends2 = friendRepository.findFriendByUser2(profileRepository.findById(id).get());
-        //friends2.stream().forEach(x -> System.out.println(x));
-       // friends2.stream().forEach(x->friendRepository.deleteByUser2(id));
-        
-       //profileRepository.deleteById(id);
+        profileRepository.deleteById(id);
     }
-
-
 }
