@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+            body{
+                background-color: #222629;
+            }
+            .umeet{
+                color:#86C232;
+                font-size: 50px;
+                text-align:center;
+                padding: 30px 0;
+            }
+            label{
+                color:#86C232;
+            }
+            .btn-primary{
+                background-color: #61892F;
+                border-color: #61892F;
+                
+
+            }
+            .btn-primary:hover{
+                background-color: #86C232;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="mx-auto" style="width: 400px;">
+
+        <form class="container-fluid">
+            <div class="umeet">
+                <i class="fas fa-bezier-curve"></i></br>
+                <label>UMeet</label>
+            </div>
+            <div class="mb-3">
+              <label th:for="usu: ${usu.email}" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" th:id="usu: ${usu.email}">
+            </div>
+            <div class="mb-3">
+              <label th:for="usu: ${usu.pass}" class="form-label">Password</label>
+              <input type="password" class="form-control" th:id="usu: ${usu.pass}">
+            </div>
+            <div class="mb-3 form-check flex">
+                <div class="me-auto">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Recordarme</label>
+                </div>
+                <div class="d-flex">
+                    <label class="form-check-label" for="exampleCheck1">Contraseña olvidada</label>
+                </div>
+              
+            </div>
+            <button type="submit" class="btn btn-primary">Aceptar</button>
+        </form>
+        </div>
+        
+        
+        <!-- La solución optima es poner los scripts al final -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+    </body>
+</html>
