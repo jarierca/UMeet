@@ -1,14 +1,14 @@
 {
     "elements": {},
     "attributes": {
-        "th:text": {
-            "context": "span"
+        "th:object": {
+            "context": "form"
         },
-        "th:src": {
-            "context": "img"
+        "th:field": {
+            "context": "input"
         },
-        "th:href": {},
-        "th:each": {},
-        "th:field": {}
+        "th:value": {
+            "context": "input"
+        }
     }
 }
