@@ -10,11 +10,23 @@
               <span th:text="${p.nickName}"></span><br>
               <span th:text="${p.username}"></span><br>
               <span th:text="${p.email}"></span><br>
+              <span th:text="${p.status}"></span><br>
               <img th:src="@{avatar(url=${p.avatar})}" height="150px" width="250px">
               <!--<span th:text="${p.avatar}"></span><br>-->
             </div>
             <a class="btn btn-outline-primary" th:href="@{edit(id=${p.id})}">Modificar</a>
             <a class="btn btn-outline-primary" th:href="@{remove(id=${p.id})}">Darse de Baja</a>
+<!--            <a class="btn btn-outline-primary" th:href="@{status(id=${p.id})}">Modificar Status</a>-->
+            
+            <form method="post" action="status">
+                <select name="status">
+                    <option value="conectado" selected>Conectado</option>
+                    <option value="desconectado">Desconectado</option>
+                    <option value="ocupado">Ocupado</option>
+                </select>
+                <input hidden th:value="${p.id}" name="id">
+                <input type="submit" value="Modificar Estado">
+            </form>
         </div> 
     </body>
 </html>
