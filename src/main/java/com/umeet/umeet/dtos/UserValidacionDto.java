@@ -19,12 +19,8 @@ public class UserValidacionDto implements UserDetails{
 
     private Long id;
     private String username;
-    private String nickName;
-    private String email;
     private String pass;
-    private String avatar;
-    private String status;
-    
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
