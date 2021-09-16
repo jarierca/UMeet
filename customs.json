@@ -1,48 +1,14 @@
-<<<<<<< HEAD
 {
     "elements": {},
     "attributes": {
-        "th:text": {
-            "context": "span"
-        },
         "th:object": {
-            "context": "div"
-        },
-        "th:src": {
-            "context": "img"
+            "context": "form"
         },
         "th:field": {
-            "context": "span"
-        },
-        "th:href": {
-            "context": "a"
-        },
-        "th:each": {
-            "context": "div"
+            "context": "input"
         },
         "th:value": {
             "context": "input"
         }
     }
-=======
-{
-    "elements": {},
-    "attributes": {
-        "th:text": {
-            "context": "span"
-        },
-        "th:object": {
-            "context": "div"
-        },
-        "th:field": {
-            "context": "span"
-        },
-        "th:href": {
-            "context": "a"
-        },
-        "th:each": {
-            "context": "div"
-        }
-    }
->>>>>>> origin/develop
 }
