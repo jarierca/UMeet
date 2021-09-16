@@ -7,15 +7,19 @@
     <body>
         <div class="container">
             <div class="container">
-            <h3>Amigos</h3>
-            <table class="table table-striped">
-                <tr th:if="${userName!=null}" th:each="f1:${friendsAccepted}">
-                    <td th:text="${f1.avatar}"></td>
-                    <td th:text="${f1.nickName}"></td>
-                    <td th:text="${f1.username}"></td>
-                    <td th:text="${f1.status}"></td>
-                </tr> 
-            </table>
-        </div>
+                <form action="/friends/friendsFilter" method="post">
+                    <input type="text" name="idUsuario" placeholder="Encuentra un amigo">
+                    <input type="submit">
+                </form>
+                <h3>Amigos</h3>
+                <table class="table table-striped">
+                    <tr th:each="f1:${filterUserName}">
+                        <td th:text="${f1.avatar}"></td>
+                        <td th:text="${f1.nickName}"></td>
+                        <td th:text="${f1.username}"></td>
+                        <td th:text="${f1.status}"></td>
+                    </tr> 
+                </table>
+            </div>
     </body>
 </html>
