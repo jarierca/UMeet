@@ -25,17 +25,15 @@
         <div class="col-10">
 
             
-            <a th:href="server/form?idUser=3">Nuevo</a>
+            <a href="server/form?idUser=3">Nuevo</a>
             <table>
                 <th>
                     Servers
                 </th>
                 <tr th:each="sv:${nam}">
                     <td th:text="${sv.name}"> </td>
-                <a th:href="@{/server/form(idServer=${server.id})}"></a>
-                <a th:href="@{/server/deleteServer(idServer=${server.id})}"></a>
-               
-                
+                    <td><a th:href="@{/server/form(idServer=${sv.id})}">Editar</a></td>
+                    <td><a th:href="@{/server/deleteServer(idServer=${sv.id})}">Eliminar</a></td>
                 </tr>
             </table>
 

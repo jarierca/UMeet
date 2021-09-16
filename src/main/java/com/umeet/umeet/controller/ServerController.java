@@ -7,17 +7,28 @@ import com.umeet.umeet.entities.UserServerRole;
 import com.umeet.umeet.interfaces.IServerService;
 import com.umeet.umeet.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/server")
 public class ServerController {
+
+    @Value("${carpetas.recursos.umeet}")
+    private String rutaRecursos;
 
     @Autowired
     ServerRepository serverRepository;
@@ -84,14 +95,28 @@ public class ServerController {
     
 
     @PostMapping("/addServer")
-    public String addServer(Server server, Long idUser) {
+    public String addServer(Server server, Long idUser, MultipartFile file) {
+        if(!file.isEmpty()){
+            String ruta = rutaRecursos + "\\avatar\\users\\" + server.getName() + ".png";
+            File f = new File(ruta);
+            f.getParentFile().mkdirs();
+            try{
+                Files.copy(file.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            server.setAvatar(ruta);
+        }
         serverRepository.save(server);
-        UserServerRole userServerRole = new UserServerRole();
-        userServerRole.setUser(userRepository.findById(idUser).get());
-        userServerRole.setRol(rolRepository.findById(1l).get());
-        userServerRole.setServer(server);
-        userServerRoleRepository.save(userServerRole);
-        return "redirect:server/byUser";
+        List<UserServerRole> userServerRoles = userServerRoleRepository.findByServer(server);
+        if(userServerRoles.isEmpty()){
+            UserServerRole userServerRole = new UserServerRole();
+            userServerRole.setUser(userRepository.findById(idUser).get());
+            userServerRole.setRol(rolRepository.findById(1l).get());
+            userServerRole.setServer(server);
+            userServerRoleRepository.save(userServerRole);
+        }
+        return "redirect:/server/byUser?userId="+idUser;
 
     }
 
