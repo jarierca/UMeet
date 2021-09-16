@@ -1,5 +1,7 @@
 {
-    "elements": {},
+    "elements": {
+        "th:block": {}
+    },
     "attributes": {
         "th:object": {
             "context": "form"
@@ -10,5 +12,8 @@
         "th:value": {
             "context": "input"
         }
+        "th:src": {},
+        "th:fragment": {},
+        "th:href": {}
     }
 }

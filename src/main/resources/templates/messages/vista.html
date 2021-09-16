@@ -11,11 +11,22 @@
     </head>
     <body>
         <div>
+            Mandar mensaje privado
             <form th:object="${message}" action="/msg/private/sendmsg" method="post">
                 <input th:field="*{id}" />
                 <input th:field="*{text}" placeholder="Texto del mensaje" />
                 <input th:field="*{name}" />
                 <input name="idUserDestiny" type="number" value="1" />
+                <input name="idUser" type="number" value="1" />
+
+                <input type="submit">
+            </form>
+            <hr />Mandar mensaje a canal
+            <form th:object="${message}" action="/msg/channel/sendmsg" method="post">
+                <input th:field="*{id}" />
+                <input th:field="*{text}" placeholder="Texto del mensaje" />
+                <input th:field="*{name}" />
+                <input name="idChannel" type="number" value="1" />
                 <input name="idUser" type="number" value="1" />
 
                 <input type="submit">

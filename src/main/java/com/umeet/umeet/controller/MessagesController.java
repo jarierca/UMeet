@@ -37,7 +37,9 @@ public class MessagesController {
     @Autowired
     private UserRepository repoUsr;
     
-    @PostMapping("/channel/{id_channel}") //Devuelve un Json con toda la información de un canal
+    //localhost:8090/msg/channel/1 obtiene todos los mensajes del canal indicado
+    @ResponseBody
+    @PostMapping("/channel/{id_channel}") //Devuelve un Json con todos los mensajes de un canal
     public List<MessageChannelDto> canales(@PathVariable Long id_channel){
         Optional<Channel> aux = repoChn.findById(id_channel);
         if (aux.isPresent()){
@@ -51,22 +53,33 @@ public class MessagesController {
         return null;
     }
     
-    @PostMapping("/private/{id_user}") //Devuelve un Json con los mensajes privados de 1 usuario origen
+    //localhost:8090/msg/private/5 (5 seria el usuario que esta obteniendo sus mensajes privados)
+    @ResponseBody
+    @PostMapping("/private/{id_user}") //Devuelve un Json con todos los mensajes privados
     public List<MessageChannelDto> privados(@PathVariable Long id_user){
         List<Message> aux = repoMsg.findAll();
         if (!aux.isEmpty()){
-            aux = aux.stream()
-                      .filter(x->x.getUser().getId()==id_user && x.getUserDestiny()!=null)
+            List<Message> origen = aux.stream()
+                      .filter(x->x.getUser().getId()==id_user && x.getUserDestiny()!=null) //Obtiene mensajes que el ha mandado
                       .collect(Collectors.toList());
-            List<MessageChannelDto> res = aux.stream()
+            List<Message> destino = aux.stream()
+                      .filter(x->x.getUserDestiny()!=null && x.getUserDestiny().getId()==id_user)                      //Obtiene mensajes que ha recibido
+                      .collect(Collectors.toList());
+            List<MessageChannelDto> res = origen.stream()
                                         .map(x->mapper.map(x, MessageChannelDto.class))
                                         .collect(Collectors.toList());
+            res.addAll(destino.stream()
+                            .map(x->mapper.map(x, MessageChannelDto.class))
+                            .collect(Collectors.toList()));
            
             return res;
         }
         return null;
     }
     
+    
+    
+    //De aqui para abajo no son json, se podria sacar a otro controller y dejar solo los Json en este
     @GetMapping
     public String inicio(Model m){
         m.addAttribute("message",new Message());
@@ -84,6 +97,6 @@ public class MessagesController {
     public void mensajePrivado(Message msg,Long idUser,Long idUserDestiny){
         msg.setUser(repoUsr.findById(idUser).get());
         msg.setUserDestiny(repoUsr.findById(idUserDestiny).get());
-        repoMsg.save(msg);
+        repoMsg.save(msg); 
     }
 }
