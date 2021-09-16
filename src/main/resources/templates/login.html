@@ -39,13 +39,23 @@
                 <label>UMeet</label>
             </div>
             <div class="mb-3">
-              <label th:for="usu: ${usu.email}" class="form-label">Correo electrónico</label>
+              <label  class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" >
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control">
+            </div>
+
+            <!--        <div class="mb-3">
+                <label th:for="usu: ${usu.email}" class="form-label">Correo electrónico</label>
               <input type="email" class="form-control" th:id="usu: ${usu.email}">
             </div>
             <div class="mb-3">
               <label th:for="usu: ${usu.pass}" class="form-label">Password</label>
               <input type="password" class="form-control" th:id="usu: ${usu.pass}">
-            </div>
+            </div>-->
+            
             <div class="mb-3 form-check flex">
                 <div class="me-auto">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">

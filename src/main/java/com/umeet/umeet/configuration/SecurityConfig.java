@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,28 +23,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     //Aquí se configura el acceso
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        //Solo permite el acceso a la url login y register, 
+        //para acceder a cualquier otra se necesita estar autentificado
+        
+        http
+             .csrf().disable()
+             .authorizeRequests()
              .antMatchers("/register").permitAll()
              .antMatchers("/login").permitAll()
-             .antMatchers("/profile/**").hasAnyRole("Usuario")
-             .antMatchers("/vuelos/**").hasAnyRole("Usuario")
-             .antMatchers("/profile/**").hasAnyRole("Usuario");
-        http.formLogin();   //  /login. Spring
-        http.csrf().disable();
-        //http.formLogin();   //  /login. Spring
+             .anyRequest().authenticated()
+             .and()
+             .formLogin()
+             .loginPage("/login");
     }
 
-    
-    
     
     //Aquí se configura Usuario/Password
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /*auth.inMemoryAuthentication()
-                 .withUser("jorge").password("{noop}1111").roles("Usuario")
-                 .and()
-                 .withUser("juan").password("{noop}1111").roles("Administrador");*/
-        int a=3;
         auth.userDetailsService(validacion).passwordEncoder(passwordEncoder());
     }
     
