@@ -5,15 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        
+
     </body>
-    
+
+    <form action="/servers/filtered" method="post">
+
+        <input type="text" name="name" placeholder="Encuentra un servidor">
+        <input type="submit">
+    </form>
+
     <table>
-                <th>
-                    Servers
-                </th>
-                <tr th:each="us:${user.userServerRole}">
-                    <td th:text="${us.server.name}"> </td>
-                </tr>
-            </table>
+        <th>
+            Servers
+        </th>
+        <tr th:each="us:${user.userServerRole}">
+            <td th:text="${us.server.name}"> </td>
+        </tr>
+    </table>
 </html>
