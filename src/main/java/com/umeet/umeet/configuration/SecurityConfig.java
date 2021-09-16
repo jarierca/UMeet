@@ -27,8 +27,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         //para acceder a cualquier otra se necesita estar autentificado
         
         http
+                /* Con esto registra
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/*").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/inicio", true);*/
+                
+                
              .csrf().disable()
              .authorizeRequests()
+             .antMatchers("/newregister").permitAll()
              .antMatchers("/register").permitAll()
              .antMatchers("/login").permitAll()
              .anyRequest().authenticated()

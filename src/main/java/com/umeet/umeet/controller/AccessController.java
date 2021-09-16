@@ -28,16 +28,16 @@ public class AccessController {
     }
     
     @PostMapping("/newregister")
-    public void newregister(User user){
+    public String newregister(User user){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPass());
         user.setPass(encodedPassword);
+        
         user.setNickName(user.getUsername());
-        user.setAvatar("avatar");
+        user.setAvatar("C:\\zzUpload\\avatar\\users\\avatar-stock.png");
         user.setStatus("desconectado");
         
         userRepository.save(user);
-        user.toString();
-        //return "index";
+        return "login";
     }
 }
