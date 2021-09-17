@@ -49,6 +49,10 @@
                 <label class="inicio">Registrarse</label>
             </div>
             
+            <div th:if="${error}" class="alert alert-error" style="color: red">    
+                El nombre de usuario no esta disponible
+            </div>
+                
             <div class="mb-3">
               <label  class="form-label">Usuario</label>
               <input type="text" th:field="*{username}" class="form-control" >

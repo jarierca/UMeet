@@ -27,17 +27,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         //para acceder a cualquier otra se necesita estar autentificado
         
         http
-                /* Con esto registra
+                // Con esto registra
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/*").permitAll()
-                .anyRequest().authenticated()
-                .and()
+                    .antMatchers("/*").permitAll()
+                    //.anyRequest().authenticated()
+                    .and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/inicio", true);*/
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/index", true)
+                    .and()
+                .logout();
                 
-                
+             /*   
              .csrf().disable()
              .authorizeRequests()
              .antMatchers("/newregister").permitAll()
@@ -48,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
              .formLogin()
              .loginPage("/login")
              .defaultSuccessUrl("/profile")
-             .failureUrl("/login?error=true");
+             .failureUrl("/login?error=true");*/
     }
 
     
