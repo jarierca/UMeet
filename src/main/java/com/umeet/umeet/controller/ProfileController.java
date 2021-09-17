@@ -1,4 +1,3 @@
-
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.entities.User;
@@ -58,7 +57,7 @@ public class ProfileController {
         }else{
             m.addAttribute("error", "Error, el usuario no existe");
         }
-        return "editProfile";
+        return "/profile/modify";
     }
     
     //Modifica en la BBDD los datos editados
@@ -109,13 +108,15 @@ public class ProfileController {
     @GetMapping("/remove")
     public String remove(Model m, long id){
         friendService.deleteFriendCascade(id);
-        //profileRepository.deleteById(id);
         return "redirect:view";
     }
     
     //Modificar estado del user
     @PostMapping("/status")
-    public String status(){
-        return "";
+    public String status(String status, Long id){
+        Optional<User> user = profileRepository.findById(id);
+        user.get().setStatus(status);
+        profileRepository.save(user.get());
+        return "redirect:view?id="+id;
     }
 }
