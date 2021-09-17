@@ -90,7 +90,7 @@
                             <!-- Anyadir servidores -->
                             <ul class="navbar-nav">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#"><i class="fas fa-user-friends otroi"></i>Servidores</a>
+                                    <a class="nav-link" href="#" id="inventado" onclick="servidor()"><i class="fas fa-user-friends otroi"></i>Servidores</a>
                                 </li>
                             </ul>
                             
@@ -153,6 +153,23 @@
                                                             size: "large",
                                                             message: pHtml
                                                         })
+                                                    },
+                                                    error: function (xhr, status, error) {
+                                                        alert(xhr.responseText);
+                                                    }
+                                                });
+                                            }
+                                            function servidor(){
+                                                //$("#inventado").attr("href","/server/byUser?idUser=" + $.cookie("idUser"));
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "/server/byUser", //<--Ejecutamos del contra esta url
+                                                    data: {
+                                                        idUser: $.cookie("idUser"), //Obtener id con las cookies del usuario
+                                                        //$.cookie("idUser")
+                                                    },
+                                                    success: function (pHtml) {    //<- Nos devuelven la respuesta. 
+                                                        $("#contentBody").html(pHtml);
                                                     },
                                                     error: function (xhr, status, error) {
                                                         alert(xhr.responseText);
