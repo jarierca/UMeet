@@ -1,9 +1,10 @@
 package com.umeet.umeet.controller;
 
+import com.umeet.umeet.dtos.CategoryDto;
 import com.umeet.umeet.dtos.CategoryViewDto;
-import com.umeet.umeet.dtos.ServerDto;
+import com.umeet.umeet.entities.Category;
+import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Server;
-import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.UserServerRole;
 import com.umeet.umeet.interfaces.IServerService;
 import com.umeet.umeet.repositories.*;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -22,6 +24,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -60,15 +63,15 @@ public class ServerController {
         return "/servers/allServers";
     }
 
+    
+
     @GetMapping("/byUser")
     public String serverByUser(Model m, Long idUser) {
 
-        //m.addAttribute("user", userRepository.findById(userId).get());
-        User user = userRepository.findById(idUser).get();
-        m.addAttribute("server", userServerRoleRepository.findByUser(user).stream().map(x-> mapper.map(x,ServerDto.class)));
+        m.addAttribute("user", userRepository.findById(idUser).get());
 
         return "/servers/byUser";
-
+        
     }
 
     @PostMapping("/filtered")
@@ -105,27 +108,27 @@ public class ServerController {
 
     @PostMapping("/addServer")
     public String addServer(Server server, Long idUser, MultipartFile file) {
-        if (!file.isEmpty()) {
+        if(!file.isEmpty()){
             String ruta = rutaRecursos + "\\avatar\\users\\" + server.getName() + ".png";
             File f = new File(ruta);
             f.getParentFile().mkdirs();
-            try {
+            try{
                 Files.copy(file.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
+            }catch(IOException e){
                 e.printStackTrace();
             }
             server.setAvatar(ruta);
         }
         serverRepository.save(server);
         List<UserServerRole> userServerRoles = userServerRoleRepository.findByServer(server);
-        if (userServerRoles.isEmpty()) {
+        if(userServerRoles.isEmpty()){
             UserServerRole userServerRole = new UserServerRole();
             userServerRole.setUser(userRepository.findById(idUser).get());
             userServerRole.setRol(rolRepository.findById(1l).get());
             userServerRole.setServer(server);
             userServerRoleRepository.save(userServerRole);
         }
-        return "redirect:/server/byUser?userId=" + idUser;
+        return "redirect:/server/byUser?userId="+idUser;
     }
 
     @GetMapping("/deleteServer")
@@ -135,15 +138,16 @@ public class ServerController {
     }
 
     @GetMapping("/one")
-    public String viewServer(Model model, Long idServer) {
+    public String viewServer(Model model, Long idServer){
         Server server = serverRepository.findById(idServer).get();
 
         List<CategoryViewDto> categories = categoryRepository.findByServer(server).stream()
-                .map(x -> mapper.map(x, CategoryViewDto.class))
-                .collect(Collectors.toList());
+                        .map(x->mapper.map(x, CategoryViewDto.class))
+                        .collect(Collectors.toList());
 
         model.addAttribute("categories", categories);
         return "/servers/viewServer";
     }
-
+    
+    
 }
