@@ -43,7 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .logout()
                     .logoutSuccessUrl("/login")
                     .deleteCookies("idUser")
-                    .deleteCookies("idServer");
+                    .deleteCookies("idServer")
+                    .deleteCookies("remember-me")
+                    .and()
+                .rememberMe().key("uniqueAndSecret");
                 
              /*   
              .csrf().disable()
