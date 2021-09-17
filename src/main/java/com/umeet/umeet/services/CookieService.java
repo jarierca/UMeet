@@ -18,8 +18,8 @@ public class CookieService {
         //30 * 24 * 60 * 60  --> un mes
         cookieUser.setMaxAge(maxAge);
         //Encripta la cookie
-        cookieUser.setSecure(true);
-        cookieUser.setHttpOnly(true);
+        //cookieUser.setSecure(true);
+        //cookieUser.setHttpOnly(true);
         
         response.addCookie(cookieUser);
 
