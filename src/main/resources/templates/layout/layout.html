@@ -111,7 +111,7 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-dark">
                                         <li><a class="dropdown-item" onclick="editProfile()">Editar perfil</a></li>
-                                        <li><button type="button" class="btn btn-success align-items-center">Desconectar</button></li>
+                                        <li><a th:href="@{/logout}" class="btn btn-success align-items-center">Desconectar</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -131,11 +131,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
         <footer th:fragment="footer">
             <p>HIBERUS</p>
         </footer>
