@@ -33,11 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .antMatchers("/*").permitAll()
                     //.anyRequest().authenticated()
                     .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/index", true)
-                    .and()
-                .logout();
+                .formLogin();
+                    //.loginPage("/login")
+                    //.defaultSuccessUrl("/index", true)
+                    //.and()
+                //.logout();
                 
              /*   
              .csrf().disable()
