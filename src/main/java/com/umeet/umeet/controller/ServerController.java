@@ -1,7 +1,6 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.CategoryViewDto;
-import com.umeet.umeet.dtos.ServerDto;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.UserServerRole;
@@ -60,13 +59,13 @@ public class ServerController {
         return "/servers/allServers";
     }
 
-    @GetMapping("/byUser")
+    @PostMapping("/byUser")
     public String serverByUser(Model m, Long idUser) {
 
         //m.addAttribute("user", userRepository.findById(userId).get());
         User user = userRepository.findById(idUser).get();
-        m.addAttribute("server", userServerRoleRepository.findByUser(user).stream().map(x-> mapper.map(x,ServerDto.class)));
-
+        List<Server> usr = userServerRoleRepository.findByUser(user).stream().map(x->x.getServer()).collect(Collectors.toList());
+        m.addAttribute("server", usr);
         return "/servers/byUser";
 
     }
