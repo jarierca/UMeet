@@ -14,11 +14,9 @@
                         <th>Filtrados</th>
                     </tr>
                     <tr th:if="${name!=null}" th:each="nam:${name}">
-
                         <td th:text="${nam.username}"></td>
                     </tr> 
                     <tr th:if="${nick !=null}" th:each="nk:${nick}">
-
                         <td th:text="${nk.nickName}"></td>
                     </tr>
                 </table>
