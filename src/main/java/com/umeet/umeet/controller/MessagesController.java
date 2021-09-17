@@ -82,8 +82,9 @@ public class MessagesController {
     //De aqui para abajo no son json, se podria sacar a otro controller y dejar solo los Json en este
     @GetMapping
     public String inicio(Model m){
-        m.addAttribute("message",new Message());
-        return "/messages/vista";
+        //m.addAttribute("message",new Message());
+        //return "/messages/vista";
+        return "/layout/layout";
     }
     
     @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario
