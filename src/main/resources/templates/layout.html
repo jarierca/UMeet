@@ -83,7 +83,7 @@
                                     <img alt="Avatar" class="avatar" th:src="usu: ${usu.avatar}" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Gran_Sabana_paisaje_1.jpg/800px-Gran_Sabana_paisaje_1.jpg">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" th:href="/profile/edit?id=1">Editar perfil</a></li>
+                                    <li><a class="dropdown-item" onclick="editProfile()">Editar perfil</a></li>
                                     <li><button type="button" class="btn btn-success align-items-center">Desconectar</button></li>
                                 </ul>
                             </li>
@@ -108,5 +108,26 @@
         <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>    
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+        <script>
+            function editProfile(){
+                $.ajax({
+                    
+                    url:"/profile/edit",   //<--Ejecutamos del contra esta url
+                    data: {
+                        id: 1, //Obtener id con las cookies del usuario
+                    },
+                    success: function(pHtml){    //<- Nos devuelven la respuesta. 
+                        bootbox.dialog({
+                            title: 'Editar perfil',
+                            size: "large",
+                            message:pHtml
+                        })
+                    },
+                    error: function(xhr, status, error) {
+                      alert(xhr.responseText);
+                    }
+                });
+            }
+        </script>
   </body>
 </html>
