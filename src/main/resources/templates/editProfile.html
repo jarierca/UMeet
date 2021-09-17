@@ -67,13 +67,27 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-12">
-                        <input type="submit" class="btn btn-success col-6"></input>  
+                    <div class="col-6">
+                        <img th:src="@{avatar(url=*{avatar})}" class="avatar" title="avatar">
+                        <input name="avatar" type="file" class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <label for="status">Estado</label>
+                        <select th:field="*{status}" class="form-control" >
+                            <option value="Conectado">Conectado</option>
+                            <option value="Ocupado">Ocupado</option>
+                            <option value="Desconectado">Desconectado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 text-center">
+                        <input type="submit" class="btn btn-success col-6 "></input>  
                     </div>
                 </div>  
             </form>
-        </div>            
-            
+        </div>  
+         
         <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>    
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>   

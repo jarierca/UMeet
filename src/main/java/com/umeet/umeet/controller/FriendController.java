@@ -52,17 +52,28 @@ public class FriendController {
         return "friends/filteredFriends";
     }
 
-    /*Search all users
-    @GetMapping("/userList")
-    public String searchAllUsers(Model m, Long userId) {
+ //Invite new user
+    @GetMapping("/inviteUser")
+    public String searchAllUsers(Model m) {
 
-        m.addAttribute("user", userRepo.findById(userId).get());
+     
 
-        return "/friends/allUsers";
-    }*/
- /*Invite user
-    @PostMapping
-    public String inviteUser(Model m, Long userId) {
-        m.addAttribute("invite", userRepo.)
-    }*/
+        return "/friends/inviteNewUser";
+    }
+    
+    @PostMapping("/addUser")
+    public String userInvite(Model m, String username) {
+
+        List<User> aux = userRepo.findByUsernameContaining(username);
+        if (!aux.isEmpty()) {
+            m.addAttribute("name", aux);
+        }
+
+        List<User> aux1 = userRepo.findByNickNameContaining(username);
+        if (!aux1.isEmpty()) {
+            m.addAttribute("nick", aux1);
+        }
+
+        return "friends/searchResultFriends";
+    }
 }

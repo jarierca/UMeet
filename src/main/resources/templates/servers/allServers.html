@@ -1,7 +1,13 @@
 <html xmlns:th="https://www.thymeleaf.org">
-    <head th:include="layout/layout::head"></head>
+           
+  <head th:include="layout/layout::head">
+        
+    </head>
     <body>
-        <div th:include="/layout/layout::nav"></div>
+         <div th:include="/layout/layout::navbar">
+
+
+        </div>
         <div class="row">
             <div class="col-2 m-2">
                 <form action="/server/filtered" method="post">
@@ -19,13 +25,12 @@
                     <tr th:each="sv:${nam}">
                         <td th:text="${sv.name}"> </td>
                         <td th:text="${sv.description}"> </td>
-                        <td><a th:href="@{/server/form(idServer=${sv.id})}" class="btn btn-primary m-2" >Editar</a></td>
-                        <td><a th:href="@{/server/deleteServer(idServer=${sv.id})}" class="btn btn-primary m-2">Eliminar</a></td>
                         <td> <input type="submit" value="unirse" class="btn btn-primary m-2"></a></td>
                     </tr>
                 </table>
             </div>
         </div>
+
     
         <div th:include="/layout/layout::footer"></div>
         <div th:include="/layout/layout::scripts"></div>

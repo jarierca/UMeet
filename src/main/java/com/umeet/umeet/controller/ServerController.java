@@ -127,4 +127,6 @@ public class ServerController {
         serverService.deleteServerCascade(idServer);
         return "/redirect:server/byUser";
     }
+    
+    
 }
