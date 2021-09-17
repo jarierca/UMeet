@@ -17,7 +17,7 @@ public class CookieService {
         //30 * 24 * 60 * 60  --> un mes
         cookieUser.setMaxAge(maxAge);
         //Encripta la cookie
-        cookieUser.setSecure(true);
+        //cookieUser.setSecure(true);
         
         response.addCookie(cookieUser);
 
@@ -30,7 +30,7 @@ public class CookieService {
         //30 * 24 * 60 * 60  --> un mes
         cookieServer.setMaxAge(maxAge);
         //Encripta la cookie
-        cookieServer.setSecure(true);
+        //cookieServer.setSecure(true);
         
         response.addCookie(cookieServer);
 

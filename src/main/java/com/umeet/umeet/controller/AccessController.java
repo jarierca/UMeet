@@ -4,8 +4,12 @@ package com.umeet.umeet.controller;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.UserRepository;
+import com.umeet.umeet.services.CookieService;
 import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AccessController {
+    
+    //@Autowired
+    //private CookieService CookieService;
     
     @Autowired
     private UserRepository userRepository;
@@ -68,8 +75,18 @@ public class AccessController {
         }
     }
     
-    @GetMapping
+    @GetMapping("/index")
     public String index(){
+        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+        if (auth!=null){
+            String username = auth.getName();
+           
+            Optional<User> user = userRepository.findByUsername(username);
+        
+            //HttpServletResponse response = new HttpServletResponse();
+           // CookieService.setCookieUser(response, user.get(), 30 * 24 * 60 * 60);
+        }
+        
         return "index";
     }
 }

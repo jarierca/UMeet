@@ -29,7 +29,7 @@ public class ValidacionService implements UserDetailsService{
             
             UserValidacionDto user = new UserValidacionDto();
             user.setUsername(usuario.get().getUsername());
-            user.setPass(usuario.get().getPass());
+            user.setPassword(usuario.get().getPass());
             List<GrantedAuthority> lista=new ArrayList<GrantedAuthority>();
             lista.add(new SimpleGrantedAuthority("ROLE_Usuario"));
             user.setRoles(lista);

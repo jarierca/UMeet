@@ -30,14 +30,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 // Con esto registra
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/*").permitAll()
-                    //.anyRequest().authenticated()
+                    .antMatchers("/newregister").permitAll()
+                    .antMatchers("/register").permitAll()
+                    .antMatchers("/login").permitAll()
+                    .antMatchers("/*").hasAnyRole("Usuario")
+                    .anyRequest().authenticated()
                     .and()
-                .formLogin();
-                    //.loginPage("/login")
-                    //.defaultSuccessUrl("/index", true)
-                    //.and()
-                //.logout();
+                .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/index", true)
+                    .and()
+                .logout();
                 
              /*   
              .csrf().disable()
@@ -59,13 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(validacion).passwordEncoder(passwordEncoder());
     }
-    
-    
+     
     @Bean(name="passwordEncoder")
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
-    }
-    
-    
-    
+    }  
 }

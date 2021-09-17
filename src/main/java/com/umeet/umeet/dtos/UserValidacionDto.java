@@ -19,7 +19,7 @@ public class UserValidacionDto implements UserDetails{
 
     private Long id;
     private String username;
-    private String pass;
+    private String password;
     private List<GrantedAuthority> roles;
 
     @Override
@@ -30,7 +30,7 @@ public class UserValidacionDto implements UserDetails{
 
     @Override
     public String getPassword() {
-        return pass;
+        return password;
     }
 
     @Override
