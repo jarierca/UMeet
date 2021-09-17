@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,8 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class AccessController {
     
-    //@Autowired
-    //private CookieService CookieService;
+    @Autowired
+    private CookieService CookieService;
     
     @Autowired
     private UserRepository userRepository;
@@ -48,7 +49,7 @@ public class AccessController {
     public String info(){
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         if (auth!=null){
-            return auth.getName();
+            return auth.getName() + auth.getDetails();
         }else{
             return "Nadie";
         }
@@ -76,15 +77,14 @@ public class AccessController {
     }
     
     @GetMapping("/index")
-    public String index(){
+    public String index(HttpServletResponse response){
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         if (auth!=null){
             String username = auth.getName();
            
             Optional<User> user = userRepository.findByUsername(username);
         
-            //HttpServletResponse response = new HttpServletResponse();
-           // CookieService.setCookieUser(response, user.get(), 30 * 24 * 60 * 60);
+            CookieService.setCookieUser(response, user.get(), 30 * 24 * 60 * 60);
         }
         
         return "index";

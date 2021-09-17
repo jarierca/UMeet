@@ -5,10 +5,11 @@ import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
+@Service
 public class CookieService {
 
     public String setCookieUser(HttpServletResponse response, User user, int maxAge) {
@@ -17,7 +18,8 @@ public class CookieService {
         //30 * 24 * 60 * 60  --> un mes
         cookieUser.setMaxAge(maxAge);
         //Encripta la cookie
-        //cookieUser.setSecure(true);
+        cookieUser.setSecure(true);
+        cookieUser.setHttpOnly(true);
         
         response.addCookie(cookieUser);
 
@@ -30,7 +32,8 @@ public class CookieService {
         //30 * 24 * 60 * 60  --> un mes
         cookieServer.setMaxAge(maxAge);
         //Encripta la cookie
-        //cookieServer.setSecure(true);
+        cookieServer.setSecure(true);
+        cookieServer.setHttpOnly(true);
         
         response.addCookie(cookieServer);
 
