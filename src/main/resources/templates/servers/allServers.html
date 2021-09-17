@@ -1,10 +1,11 @@
 <html xmlns:th="https://www.thymeleaf.org">
-
-    
-
+           
+  <head th:include="layout/layout::head">
+        
     </head>
     <body>
-        <div th:include="/layout/layout::nav">
+         <div th:include="/layout/layout::navbar">
+
 
         </div>
         <div class="row">
@@ -36,12 +37,7 @@
 
         </div>
 
-        <div th:include="/layout/layout::footer">
-        </div>
-
-
-        <div th:include="/layout/layout::scripts">
-        </div>
-
+    
+        <div th:include="/layout/layout::footer"></div>
     </body>
 </html>
