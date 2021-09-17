@@ -45,7 +45,7 @@ public class ServerController {
     @Autowired
     UserServerRoleRepository userServerRoleRepository;
 
-    @GetMapping
+    @GetMapping("/allServers")
     public String allServers(Model m) {
 
         m.addAttribute("nam", serverRepository.findAll());
@@ -53,12 +53,15 @@ public class ServerController {
         return "/servers/allServers";
     }
 
+    
+
     @GetMapping("/byUser")
     public String serverByUser(Model m, Long userId) {
 
         m.addAttribute("user", userRepository.findById(userId).get());
 
         return "/servers/byUser";
+        
     }
 
     @PostMapping("/filtered")
@@ -73,15 +76,15 @@ public class ServerController {
             m.addAttribute("des", aux1);
         }
 
-        return "servers/filteredServers";
+        return "/servers/filteredServers";
     }
 
-   /* @GetMapping("/pruebaServer")
+    /* @GetMapping("/pruebaServer")
     public String prueba(Model model) {
         model.addAttribute("servers", serverRepository.findAll());
         return "prueba";
     }
-*/
+     */
     @GetMapping("/form")
     public String viewServerCreation(Model model, Long idServer, Long idUser) {
         if (idServer == null) {
@@ -92,7 +95,6 @@ public class ServerController {
         model.addAttribute("idUser", idUser);
         return "/servers/formServer";
     }
-    
 
     @PostMapping("/addServer")
     public String addServer(Server server, Long idUser, MultipartFile file) {
@@ -123,6 +125,6 @@ public class ServerController {
     @GetMapping("/deleteServer")
     public String deleteServer(Long idServer) {
         serverService.deleteServerCascade(idServer);
-        return "redirect:server/byUser";
+        return "/redirect:server/byUser";
     }
 }

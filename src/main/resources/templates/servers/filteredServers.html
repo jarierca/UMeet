@@ -1,26 +1,55 @@
 <html xmlns:th="https://www.thymeleaf.org">
+    <head th:include="layout/layout::head">
+
+    <head>
+        <title>Factura</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/yeti/bootstrap.min.css" />
     <head>
         <title>Filtrados</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <div th:include="/layout/layout::nav">
+
+        </div>
         <div class="container">
 
-            <table>
+            <table class="table">
                 <th>
                     Filtradoss
                 </th>
                 <tr th:if="${nam !=null}" th:each="sv:${nam}">
 
                     <td th:text="${sv.name}"> </td>
+                    <td th:text="${sv.description}"> </td>
+                    <td><a th:href="@{/server/form(idServer=${sv.id})}" class="btn btn-primary m-2" >Editar</a></td>
+                    <td><a th:href="@{/server/deleteServer(idServer=${sv.id})}" class="btn btn-primary m-2">Eliminar</a></td>
+                    
                 </tr>
                 <tr th:if="${des !=null}" th:each="sv:${des}">
 
                     <td th:text="${sv.name}"> </td>
+                    <td th:text="${sv.description}"> </td>
+                    <td><a th:href="@{/server/form(idServer=${sv.id})}" class="btn btn-primary m-2" >Editar</a></td>
+                    <td><a th:href="@{/server/deleteServer(idServer=${sv.id})}" class="btn btn-primary m-2">Eliminar</a></td>
+
                 </tr>
 
+
             </table>
+        </div>
+
+
+        <div th:include="/layout/layout::footer">
+        </div>
+
+
+        <div th:include="/layout/layout::scripts">
         </div>
     </body>
 </html>
