@@ -46,7 +46,7 @@
         </style>
     </head>
     <body>
-        <div  th:fragment="navbar">
+        <div  th:fragment="navbar"> 
             <div class="row">
                 <div class="col-md-12">
                     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid">
@@ -89,37 +89,23 @@
 
                         </div>     
                     </nav>
-                    <div class="row container" style="text-align: center; align-content:center;">
-                        <div class="col-md-12">
-                            <!-- <div><i class="fas fa-ghost ghost"></i></div>-->
 
-                        </div>
-                    </div>
 
                 </div>
             </div>
         </div>
 
-    </div>     
-</nav>
-<div class="row container" style="text-align: center; align-content:center;">
-    <div class="col-md-12">
-        <!-- <div><i class="fas fa-ghost ghost"></i></div>-->
 
-    </div>
-</div>
 
-</div>
-</div>
-</div>
-<footer th:fragment="footer">
-    <p>HIBERUS</p>
-</footer>
-<myscripts th:fragment="scripts">
-    <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
-    <script>
+
+        <footer th:fragment="footer">
+            <p>HIBERUS</p>
+        </footer>
+    <myscripts th:fragment="scripts">
+        <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+        <script>
                                             function editProfile() {
                                                 $.ajax({
 
@@ -139,7 +125,7 @@
                                                     }
                                                 });
                                             }
-    </script>
-</myscripts>
+        </script>
+    </myscripts>
 </body>
 </html>
