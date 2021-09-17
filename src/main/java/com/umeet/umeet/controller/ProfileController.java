@@ -3,6 +3,7 @@ package com.umeet.umeet.controller;
 
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.ProfileRepository;
+import com.umeet.umeet.services.CookieService;
 import com.umeet.umeet.services.FriendService;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +41,7 @@ public class ProfileController {
     FriendService friendService;
     
     @GetMapping("/view")
-    public String view(Model m, long id){
+    public String view(Model m, @CookieValue(name = "idUser") Long id){
         Optional<User> profile = profileRepository.findById(id);
         if(profile.isPresent()){
             m.addAttribute("profile", profile.get());
@@ -51,7 +53,7 @@ public class ProfileController {
     
     //Cargar vista con datos del user de la BBDD
     @GetMapping("/edit")
-    public String edit(Model m, long id){
+    public String edit(Model m, @CookieValue(name = "idUser") Long id){
         Optional<User> profile = profileRepository.findById(id);
         if(profile.isPresent()){
             m.addAttribute("profile", profile.get());
@@ -63,7 +65,7 @@ public class ProfileController {
     
     //Modifica en la BBDD los datos editados
     @PostMapping("/modify")
-    public String modify(Model m, String nickName,String status, String email, MultipartFile avatar, long id){
+    public String modify(Model m, String nickName,String status, String email, MultipartFile avatar, @CookieValue(name = "idUser") Long id){
         Optional<User> user = profileRepository.findById(id);
         user.get().setNickName(nickName);
         user.get().setEmail(email);
@@ -86,7 +88,7 @@ public class ProfileController {
         }
         
         profileRepository.save(user.get());
-        return "redirect:view?id=" + id;
+        return "redirect:view";
     }
     
     @GetMapping("/avatar")
@@ -112,17 +114,17 @@ public class ProfileController {
     
     //Borra los datos mediante el id del user
     @GetMapping("/remove")
-    public String remove(Model m, long id){
+    public String remove(Model m, @CookieValue(name = "idUser") Long id){
         friendService.deleteFriendCascade(id);
         return "redirect:view";
     }
     
     //Modificar estado del user
     @PostMapping("/status")
-    public String status(String status, Long id){
+    public String status(String status, @CookieValue(name = "idUser") Long id){
         Optional<User> user = profileRepository.findById(id);
         user.get().setStatus(status);
         profileRepository.save(user.get());
-        return "redirect:view?id="+id;
+        return "redirect:view";
     }
 }

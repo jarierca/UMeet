@@ -33,8 +33,8 @@ public class CookieService {
         //30 * 24 * 60 * 60  --> un mes
         cookieServer.setMaxAge(maxAge);
         //Encripta la cookie
-        cookieServer.setSecure(true);
-        cookieServer.setHttpOnly(true);
+        //cookieServer.setSecure(true);
+        //cookieServer.setHttpOnly(true);
         
         response.addCookie(cookieServer);
 
@@ -50,13 +50,5 @@ public class CookieService {
         response.addCookie(cookieServer);
 
         return idUserServer+"eliminada";
-    }
-    
-    public String readCookieIdUser(@CookieValue(value = "idUser") String idUser) {
-        return idUser;
-    }
-    
-    public String readCookieIdServer(@CookieValue(value = "idServer") String idServer) {
-        return idServer;
-    }
+    }  
 }
