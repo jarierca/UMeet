@@ -11,7 +11,7 @@
 	<groupId>com.umeet</groupId>
 	<artifactId>umeet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>umeet</name>
+	<name>LoginUmeet</name>
 	<description>Proyecto Java</description>
 	<properties>
 		<java.version>11</java.version>
