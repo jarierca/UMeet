@@ -103,25 +103,27 @@
         </footer>
     <myscripts th:fragment="scripts">
         <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script> 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
         <script>
-            function editProfile() {
+            function editProfile(){
                 $.ajax({
-
-                    url: "/profile/edit", //<--Ejecutamos del contra esta url
+                    
+                    url:"/profile/edit",   //<--Ejecutamos del contra esta url
                     data: {
-                        id: 1, //Obtener id con las cookies del usuario
+                        id: $.cookie("idUser"), //Obtener id con las cookies del usuario
+                            //$.cookie("idUser")
                     },
-                    success: function (pHtml) {    //<- Nos devuelven la respuesta. 
+                    success: function(pHtml){    //<- Nos devuelven la respuesta. 
                         bootbox.dialog({
                             title: 'Editar perfil',
                             size: "large",
-                            message: pHtml
+                            message:pHtml
                         })
                     },
-                    error: function (xhr, status, error) {
-                        alert(xhr.responseText);
+                    error: function(xhr, status, error) {
+                      alert(xhr.responseText);
                     }
                 });
             }
