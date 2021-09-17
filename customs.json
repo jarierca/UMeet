@@ -6,14 +6,18 @@
         "th:object": {
             "context": "form"
         },
+        "th:src": {},
+        "th:action": {},
         "th:field": {
             "context": "input"
+        },
+        "th:fragment": {},
+        "th:href": {},
+        "th:each": {
+            "context": "tr"
         },
         "th:value": {
             "context": "input"
         }
-        "th:src": {},
-        "th:fragment": {},
-        "th:href": {}
     }
 }

@@ -15,14 +15,19 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     public List<Friend> deleteByUser1(Long id);
 
     public List<Friend> deleteByUser2(Long id);
+    
+   
 
     //Filtrar por nombre de usuario y por nick
-    public List<Friend> findByUserNameContaining(String username);
-
-    public List<Friend> findByNickNameContaining(String nickName);
+    /*@Query("select f.user2 from Friend f where f.user1.id = :idUsuario  and f.status = :estado")
+    public List<User> findByUserNameContaining(Long idUsuario, String estado);
+    
+    @Query("select f.user2 from Friend f where f.user1.id = :idUsuario  and f.status = :estado")
+    public List<Friend> findByNickNameContaining(Long idUsuario, String nickName);
+*/
 
     @Query("select f.user2 from Friend f where f.user1.id = :idUsuario  and f.status = :estado")
     public List<User> findByAmigos(Long idUsuario, String estado);
     //public List <Friend> findByUser2(Long idUser2);
-
+    
 }

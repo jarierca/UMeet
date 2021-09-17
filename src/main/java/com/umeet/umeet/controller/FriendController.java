@@ -25,26 +25,25 @@ public class FriendController {
     @Autowired
     private UserRepository userRepo;
 
+    
 //List friends
-    @GetMapping("friendsList") //Va la vista poniendo detras ?idUsuario=1 (http://localhost:8090/friends/friendsList?idUsuario=3)
+    @GetMapping("/friendsList") //Va la vista poniendo detras ?idUsuario=1 (http://localhost:8090/friends/friendsList?idUsuario=3)
     public String listFriends(Model m, Long idUsuario) {
+        
 
-        /*List <Friend> aux=friendRepo.findByUser1(idUsuario, );
-        if(!aux.isEmpty()){
-            List <Friend> aux2=friendRepo.findByUser2(idUsuario);
-            if(!aux2.isEmpty()){
-                aux.addAll(aux2);
-            }
-        }*/
         m.addAttribute("friendsAccepted", friendRepo.findByAmigos(idUsuario, "Aceptado"));
         m.addAttribute("friendsPending", friendRepo.findByAmigos(idUsuario, "Invitado"));
+        
         return "friends/view";
     }
 
 //Filter friends    
-    @PostMapping("/friendsFilter")
-    public String filterFriend(Model m, String user) {
+    /*@PostMapping("/friendsFilter")
+    public String filterFriend(Model m, Long idUsuario) {
 
+        m.addAttribute("filterUserName", friendRepo.findByUserNameContaining(idUsuario, "Aceptado1" ));
+        m.addAttribute("filterNickName", friendRepo.findByNickNameContaining(idUsuario, "Aceptado2"));
+        
         //List<User> aux = friendRepo.findByUserNameContaining(user);
         //if (!aux.isEmpty()) {
         //    m.addAttribute("filterUserName", aux);
@@ -52,10 +51,10 @@ public class FriendController {
         /*List<User> aux1 = friendRepo.findByNickNameContaining(user);
         if (!aux1.isEmpty()) {
             m.addAttribute("filterNickName", aux1);
-        }*/
+        }
 
         return "friends/filter";
-    }
+    }*/
 
 //Search all users
     /*@GetMapping("/userList")
