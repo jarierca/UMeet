@@ -7,6 +7,7 @@
             "context": "form"
         },
         "th:src": {},
+        "th:action": {},
         "th:field": {
             "context": "input"
         },
