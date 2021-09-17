@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-class ServerDto {
+public class ServerDto {
     private Long id;
     private String name;
     private String description;

@@ -20,12 +20,11 @@
         <div class="col-9">
             <table class="table">
                 
-                <tr th:each="us:${user.userServerRole}">
-                    <td th:text="${us.server.name}"> </td>
-                    <td th:text="${us.server.description}"> </td>
-                    <td><a th:href="@{/server/form(idServer=${us.server.id})}" class="btn btn-primary m-2" >Editar</a></td>
-                    <td><a th:href="@{/server/deleteServer(idServer=${us.server.id})}" class="btn btn-primary m-2">Eliminar</a></td>
-
+                <tr th:each="us:${server}">
+                    
+                    <td><img th:src="@{/profile/avatar(url=*{avatar})}" class="avatar" title="avatar">
+                    <td th:text="${us.name}"> </td>
+                   
                 </tr>
             </table>
         </div>
