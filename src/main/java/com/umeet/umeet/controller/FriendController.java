@@ -25,50 +25,61 @@ public class FriendController {
     @Autowired
     private UserRepository userRepo;
 
-    
 //List friends
     @GetMapping("/friendsList") //Va la vista poniendo detras ?idUsuario=1 (http://localhost:8090/friends/friendsList?idUsuario=3)
     public String listFriends(Model m, Long idUsuario) {
-        
 
         m.addAttribute("friendsAccepted", friendRepo.findByAmigos(idUsuario, "Aceptado"));
         m.addAttribute("friendsPending", friendRepo.findByAmigos(idUsuario, "Invitado"));
-        
+
         return "friends/view";
     }
 
 //Filter friends    
-    /*@PostMapping("/friendsFilter")
-    public String filterFriend(Model m, Long idUsuario) {
+    @PostMapping("/friendsFilter")
+    public String filterFriend(Model m, String username) {
 
-        m.addAttribute("filterUserName", friendRepo.findByUserNameContaining(idUsuario, "Aceptado1" ));
-        m.addAttribute("filterNickName", friendRepo.findByNickNameContaining(idUsuario, "Aceptado2"));
-        
-        //List<User> aux = friendRepo.findByUserNameContaining(user);
-        //if (!aux.isEmpty()) {
-        //    m.addAttribute("filterUserName", aux);
-        //}
-        /*List<User> aux1 = friendRepo.findByNickNameContaining(user);
-        if (!aux1.isEmpty()) {
-            m.addAttribute("filterNickName", aux1);
+        List<User> aux = userRepo.findByUsernameContaining(username);
+        if (!aux.isEmpty()) {
+            m.addAttribute("name", aux);
         }
 
-        return "friends/filter";
-    }*/
+        List<User> aux1 = userRepo.findByNickNameContaining(username);
+        if (!aux1.isEmpty()) {
+            m.addAttribute("nick", aux1);
+        }
 
-//Search all users
-    /*@GetMapping("/userList")
-    public String searchAllUsers(Model m, Long userId) {
-
-        m.addAttribute("user", userRepo.findById(userId).get());
-
-        return "/friends/allUsers";
+        return "friends/filteredFriends";
     }
 
-   
-//Invite user
-    @PostMapping
-    public String inviteUser(Model m, Long userId) {
-        m.addAttribute("invite", userRepo.)
+    //Invite new user
+    @GetMapping("/inviteUser")
+    public String searchAllUsers(Model m) {
+
+        return "/friends/inviteNewUser";
+    }
+
+    @PostMapping("/foundUser")
+    public String userInvite(Model m, String username) {
+
+        List<User> aux = userRepo.findByUsernameContaining(username);
+        if (!aux.isEmpty()) {
+            m.addAttribute("name", aux);
+        }
+
+        List<User> aux1 = userRepo.findByNickNameContaining(username);
+        if (!aux1.isEmpty()) {
+            m.addAttribute("nick", aux1);
+        }
+
+        return "friends/searchResultFriends";
+    }
+
+    /*@PostMapping("/addFriend")
+    public String addUser(User user, Long idUser) {
+        user.setId(userRepo.findById(idUser).get());
+        userRepo.save(user);
+        return "redirect:searchResultFriends?idCategory=" + user.getId();
     }*/
+
 }

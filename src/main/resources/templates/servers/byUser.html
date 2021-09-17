@@ -1,25 +1,40 @@
 <html xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <title>ServersById</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <head th:include="layout/layout::head">
+        
     </head>
     <body>
+         <div th:include="/layout/layout::navbar">
 
+
+        </div>
+
+    <div class="row">
+        <div class="col-3">
+            <form action="/server/filtered" method="post">
+
+                <input type="text" name="name" placeholder="Encuentra un servidor" class="form-control m-2">
+                <input type="submit" class="btn btn-primary m-2" >
+            </form>
+
+        </div>
+        <div class="col-9">
+            <table class="table">
+                <th>
+                    Servers
+                </th>
+                <tr th:each="us:${user.userServerRole}">
+                    <td th:text="${us.server.name}"> </td>
+                    <td th:text="${us.server.description}"> </td>
+                    <td><a th:href="@{/server/form(idServer=${us.server.id})}" class="btn btn-primary m-2" >Editar</a></td>
+                    <td><a th:href="@{/server/deleteServer(idServer=${us.server.id})}" class="btn btn-primary m-2">Eliminar</a></td>
+                   
+                </tr>
+            </table>
+        </div>
+
+
+        
+        <div th:include="/layout/layout::footer"></div>
+        <div th:include="/layout/layout::scripts"></div>
     </body>
-
-    <form action="/servers/filtered" method="post">
-
-        <input type="text" name="name" placeholder="Encuentra un servidor">
-        <input type="submit">
-    </form>
-
-    <table>
-        <th>
-            Servers
-        </th>
-        <tr th:each="us:${user.userServerRole}">
-            <td th:text="${us.server.name}"> </td>
-        </tr>
-    </table>
 </html>

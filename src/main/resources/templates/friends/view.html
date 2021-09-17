@@ -1,19 +1,21 @@
 <html xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <title>Titulo</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <head th:include="layout/layout::head">
+
     </head>
     <body>
+        <div th:include="/layout/layout::navbar"></div>
+        
         <div class="container">
-            <h3>Amigos</h3>
-            <form action="/friends/friendsFilter" method="post">
-
-                <input type="text" name="user" placeholder="Encuentra tu amigo">
-                <input type="submit">
-            </form>
-            
-            
+            <div>
+                <h3>Amigos</h3>
+                <form action="/friends/friendsFilter" method="post">
+                    <input type="text" name="username" placeholder="Encuentra tu amigo">
+                    <input type="submit">
+                </form>
+                <a th:href="@{/friends/inviteUser}" class="btn btn-success"> <i class="fas fa-user-plus"></i>&nbsp;Añadir amigos</a>
+            </div>
+            <h3>Aceptados</h3>
             <table class="table table-striped">
                 <tr th:each="f1:${friendsAccepted}">
                     <td th:text="${f1.avatar}"></td>
@@ -22,6 +24,7 @@
                     <td th:text="${f1.status}"></td>
                 </tr> 
             </table>
+
             <h3>Invitados</h3>
             <table class="table table-striped">
                 <tr th:each="f2:${friendsPending}">
@@ -29,7 +32,9 @@
                     <td th:text="${f2.nickName}"></td>
                     <td th:text="${f2.username}"></td>
                 </tr> 
-            </table> 
+            </table>
         </div>
+    <div th:include="/layout/layout::footer"></div>
+        <div th:include="/layout/layout::scripts"></div>
     </body>
 </html>

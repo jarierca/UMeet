@@ -1,11 +1,14 @@
 package com.umeet.umeet.controller;
 
+import com.umeet.umeet.dtos.CategoryDto;
+import com.umeet.umeet.dtos.CategoryViewDto;
 import com.umeet.umeet.entities.Category;
 import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.UserServerRole;
 import com.umeet.umeet.interfaces.IServerService;
 import com.umeet.umeet.repositories.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -45,7 +49,13 @@ public class ServerController {
     @Autowired
     UserServerRoleRepository userServerRoleRepository;
 
-    @GetMapping
+    @Autowired
+    CategoryRepository categoryRepository;
+
+    @Autowired
+    private ModelMapper mapper;
+
+    @GetMapping("/allServers")
     public String allServers(Model m) {
 
         m.addAttribute("nam", serverRepository.findAll());
@@ -53,12 +63,15 @@ public class ServerController {
         return "/servers/allServers";
     }
 
+    
+
     @GetMapping("/byUser")
     public String serverByUser(Model m, Long userId) {
 
         m.addAttribute("user", userRepository.findById(userId).get());
 
         return "/servers/byUser";
+        
     }
 
     @PostMapping("/filtered")
@@ -116,12 +129,25 @@ public class ServerController {
             userServerRoleRepository.save(userServerRole);
         }
         return "redirect:/server/byUser?userId="+idUser;
-
     }
 
     @GetMapping("/deleteServer")
     public String deleteServer(Long idServer) {
         serverService.deleteServerCascade(idServer);
-        return "/redirect:server/byUser";
+        return "redirect:/server/byUser";
     }
+
+    @GetMapping("/one")
+    public String viewServer(Model model, Long idServer){
+        Server server = serverRepository.findById(idServer).get();
+
+        List<CategoryViewDto> categories = categoryRepository.findByServer(server).stream()
+                        .map(x->mapper.map(x, CategoryViewDto.class))
+                        .collect(Collectors.toList());
+
+        model.addAttribute("categories", categories);
+        return "/servers/viewServer";
+    }
+    
+    
 }
