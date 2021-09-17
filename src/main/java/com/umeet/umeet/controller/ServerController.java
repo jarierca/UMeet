@@ -2,6 +2,7 @@ package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.CategoryViewDto;
 import com.umeet.umeet.entities.Server;
+import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.UserServerRole;
 import com.umeet.umeet.interfaces.IServerService;
 import com.umeet.umeet.repositories.*;
