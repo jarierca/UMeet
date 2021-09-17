@@ -127,4 +127,10 @@ public class ProfileController {
         profileRepository.save(user.get());
         return "redirect:view";
     }
+    
+    @GetMapping("/getUser")
+    public void getUser(Model m, @CookieValue(name = "idUser") Long id){
+        Optional<User> user = profileRepository.findById(id);
+        m.addAttribute("user",user.get());
+    }           
 }

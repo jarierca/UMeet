@@ -98,7 +98,7 @@
                             <ul class="navbar-nav mr-auto" >
                                 <li class="nav-item active">
                                     <a class="nav-link" href="#">
-                                        <img alt="Avatar" class="avatar" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Gran_Sabana_paisaje_1.jpg/800px-Gran_Sabana_paisaje_1.jpg">
+                                        
                                     </a>
                                 </li>
                             </ul>
@@ -107,7 +107,8 @@
                             <ul class="navbar-nav dropdown d-flex">
                                 <li class="nav-item dropleft">
                                     <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-toggle="dropdown">
-                                        <!-- <img alt="Avatar" class="avatar" th:src="usu: ${usu.avatar}" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Gran_Sabana_paisaje_1.jpg/800px-Gran_Sabana_paisaje_1.jpg">-->
+                                        <span th:if="${user != null}" th:object="${user}" th:text="*{username}"></span>
+                                        <img th:if="${user != null}" alt="Avatar" class="avatar" th:object="${user}" th:src="@{/profile/avatar(url=*{avatar})}">
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-dark">
                                         <li><a class="dropdown-item" onclick="editProfile()">Editar perfil</a></li>
@@ -124,10 +125,6 @@
                             <div class="overflow-auto scrollbar">NARANAJAJAJAJAJAJAJAJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ</div>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
         </div>
@@ -140,42 +137,42 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
         <script>
-                                            function editProfile() {
-                                                $.ajax({
-                                                    url: "/profile/edit", //<--Ejecutamos del contra esta url
-                                                    data: {
-                                                        id: $.cookie("idUser"), //Obtener id con las cookies del usuario
-                                                        //$.cookie("idUser")
-                                                    },
-                                                    success: function (pHtml) {    //<- Nos devuelven la respuesta. 
-                                                        bootbox.dialog({
-                                                            title: 'Editar perfil',
-                                                            size: "large",
-                                                            message: pHtml
-                                                        })
-                                                    },
-                                                    error: function (xhr, status, error) {
-                                                        alert(xhr.responseText);
-                                                    }
-                                                });
-                                            }
-                                            function servidor(){
-                                                //$("#inventado").attr("href","/server/byUser?idUser=" + $.cookie("idUser"));
-                                                $.ajax({
-                                                    type: "POST",
-                                                    url: "/server/byUser", //<--Ejecutamos del contra esta url
-                                                    data: {
-                                                        idUser: $.cookie("idUser"), //Obtener id con las cookies del usuario
-                                                        //$.cookie("idUser")
-                                                    },
-                                                    success: function (pHtml) {    //<- Nos devuelven la respuesta. 
-                                                        $("#contentBody").html(pHtml);
-                                                    },
-                                                    error: function (xhr, status, error) {
-                                                        alert(xhr.responseText);
-                                                    }
-                                                });
-                                            }
+            function editProfile() {
+                $.ajax({
+                    url: "/profile/edit", //<--Ejecutamos del contra esta url
+                    data: {
+                        id: $.cookie("idUser"), //Obtener id con las cookies del usuario
+                        //$.cookie("idUser")
+                    },
+                    success: function (pHtml) {    //<- Nos devuelven la respuesta. 
+                        bootbox.dialog({
+                            title: 'Editar perfil',
+                            size: "large",
+                            message: pHtml
+                        })
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseText);
+                    }
+                });
+            }
+            function servidor(){
+                //$("#inventado").attr("href","/server/byUser?idUser=" + $.cookie("idUser"));
+                $.ajax({
+                    type: "POST",
+                    url: "/server/byUser", //<--Ejecutamos del contra esta url
+                    data: {
+                        idUser: $.cookie("idUser"), //Obtener id con las cookies del usuario
+                        //$.cookie("idUser")
+                    },
+                    success: function (pHtml) {    //<- Nos devuelven la respuesta. 
+                        $("#contentBody").html(pHtml);
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseText);
+                    }
+                });
+            }
         </script>
     </myscripts>
 </body>

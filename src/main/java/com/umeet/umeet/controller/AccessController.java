@@ -76,8 +76,8 @@ public class AccessController {
         }
     }
     
-    @GetMapping("/index")
-    public String index(HttpServletResponse response){
+    @GetMapping("/home")
+    public String index(HttpServletResponse response , Model m){
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         if (auth!=null){
             String username = auth.getName();
@@ -85,6 +85,8 @@ public class AccessController {
             Optional<User> user = userRepository.findByUsername(username);
         
             CookieService.setCookieUser(response, user.get(), 30 * 24 * 60 * 60);
+            
+            m.addAttribute("user",user.get());
         }
         
         return "index";
