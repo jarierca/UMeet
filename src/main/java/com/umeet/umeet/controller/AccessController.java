@@ -49,7 +49,7 @@ public class AccessController {
     public String info(){
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         if (auth!=null){
-            return auth.getName() + auth.getDetails();
+            return auth.getName() + auth.getDetails().toString();
         }else{
             return "Nadie";
         }
@@ -97,9 +97,9 @@ public class AccessController {
             String username = auth.getName();
            
             Optional<User> user = userRepository.findByUsername(username);
-        
-            CookieService.setCookieUser(response, user.get(), 30 * 24 * 60 * 60);
-        }
+
+            CookieService.setCookieUser(response, user.get(), 0 * 24 * 60 * 60);
+        } 
         
         return "index";
     }
