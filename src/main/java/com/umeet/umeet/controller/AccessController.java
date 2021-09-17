@@ -89,4 +89,18 @@ public class AccessController {
         
         return "index";
     }
+    
+    @GetMapping("/logout")
+    public String logout(HttpServletResponse response){
+        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+        if (auth!=null){
+            String username = auth.getName();
+           
+            Optional<User> user = userRepository.findByUsername(username);
+        
+            CookieService.setCookieUser(response, user.get(), 30 * 24 * 60 * 60);
+        }
+        
+        return "index";
+    }
 }

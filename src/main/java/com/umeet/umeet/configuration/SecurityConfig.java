@@ -40,7 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .loginPage("/login")
                     .defaultSuccessUrl("/index", true)
                     .and()
-                .logout();
+                .logout()
+                    .logoutSuccessUrl("/login")
+                    .deleteCookies("idUser")
+                    .deleteCookies("idServer");
                 
              /*   
              .csrf().disable()
