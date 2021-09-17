@@ -1,10 +1,10 @@
 <html xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <title>Invitar a usuarios</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <head th:include="layout/layout::head">
+
     </head>
     <body>
+        <div th:include="/layout/layout::navbar"></div>
         <div class="container">
             <h3>Añade nuevos amigos</h3>
             <div class="container col-5">
@@ -16,10 +16,9 @@
                     </div>
                 </form>
             </div>
-            
-           
-             
-          
+
         </div>
+        <div th:include="/layout/layout::footer"></div>
+        <div th:include="/layout/layout::scripts"></div>
     </body>
 </html>
