@@ -6,22 +6,22 @@
     </head>
     <body>
         <h2>¡Hemos encontrado al usuario que buscas!</h2>
-        <table>
-            <tr th:if="${name!=null}" th:each="nam:${name}">
-                <td th:text="${nam.username}">
-                    <form action="/friends/searchResultFriends" th:object="${user}" method="post">
-                        <input  type="submit" value="Guardar" class="btn btn-success mt-4"></input>
-                    </form>
-                </td>
-            </tr> 
-            <tr th:if="${nick !=null}" th:each="nk:${nick}">
-                <td th:text="${nk.nickName}">
-                    <form action="/friends/searchResultFriends" th:object="${user}" method="post">
-                        <input  type="submit" value="Guardar" class="btn btn-success mt-4"></input>
-                    </form>
-                </td>
-            </tr>
-        </table> 
+        <form action="/friends/searchResultFriends" th:object="${user}" method="post">
+            <table>
+                <tr th:if="${name!=null}" th:each="nam:${name}">
+                    <td th:text="${nam.username}"></td>
+                    <td>
+                        <input  type="submit" value="Guardar" class="btn btn-success mt-4">
+                    </td>
+                </tr> 
+                <tr th:if="${nick !=null}" th:each="nk:${nick}">
+                    <td th:text="${nk.nickName}"></td>
+                    <td>
+                        <input  type="submit" value="Guardar" class="btn btn-success mt-4">
+                    </td>
+                </tr>
+            </table>
+        </form>
     </body>
 </html>
 
