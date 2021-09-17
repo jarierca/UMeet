@@ -58,31 +58,36 @@ public class ProfileController {
         }else{
             m.addAttribute("error", "Error, el usuario no existe");
         }
-        return "/profile/modify";
+        return "editProfile";
     }
     
     //Modifica en la BBDD los datos editados
     @PostMapping("/modify")
-    public String modify(Model m, String nickName, String email, MultipartFile avatar, long id){
+    public String modify(Model m, String nickName,String status, String email, MultipartFile avatar, long id){
         Optional<User> user = profileRepository.findById(id);
         user.get().setNickName(nickName);
         user.get().setEmail(email);
+        user.get().setStatus(status);
         
-        String ruta = rutaRecursos + "\\avatar\\users\\" + user.get().getUsername()+".png";
-        File f = new File(ruta);
-        f.getParentFile().mkdirs();
-        try{
-            Files.copy(avatar.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);    
-        }catch(IOException e){
-            e.printStackTrace();
-            m.addAttribute("error", "Error inesperado");
-        }    
-        
-        user.get().setAvatar(ruta);
+
+        if (!avatar.isEmpty()) {
+
+            String ruta = rutaRecursos + "\\avatar\\users\\" + user.get().getUsername() + ".png";
+            File f = new File(ruta);
+            f.getParentFile().mkdirs();
+            try {
+                Files.copy(avatar.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+                m.addAttribute("error", "Error inesperado");
+            }
+
+            user.get().setAvatar(ruta);
+        }
         
         profileRepository.save(user.get());
-        return "redirect:view?id="+id;
-    }   
+        return "redirect:view?id=" + id;
+    }
     
     @GetMapping("/avatar")
     public ResponseEntity<Resource> avatar(String url){
