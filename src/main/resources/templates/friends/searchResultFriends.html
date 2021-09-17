@@ -1,0 +1,27 @@
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Titulo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>¡Hemos encontrado al usuario que buscas!</h2>
+        <table>
+            <tr th:if="${name!=null}" th:each="nam:${name}">
+                <td th:text="${nam.username}">
+                    <form action="/friends/searchResultFriends" th:object="${user}" method="post">
+                        <input  type="submit" value="Guardar" class="btn btn-success mt-4"></input>
+                    </form>
+                </td>
+            </tr> 
+            <tr th:if="${nick !=null}" th:each="nk:${nick}">
+                <td th:text="${nk.nickName}">
+                    <form action="/friends/searchResultFriends" th:object="${user}" method="post">
+                        <input  type="submit" value="Guardar" class="btn btn-success mt-4"></input>
+                    </form>
+                </td>
+            </tr>
+        </table> 
+    </body>
+</html>
+
