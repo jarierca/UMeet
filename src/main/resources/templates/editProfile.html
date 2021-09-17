@@ -16,12 +16,6 @@
                 padding-right: 10px;
                 font-size: 24px;
             }
-            .ghost{
-                color:#6B6E70;
-                font-size:500px;
-                text-align: center;
-                opacity:0.2;
-            }
             p{
                 color:#6B6E70;
                 text-align:center;
@@ -42,83 +36,32 @@
         </style>
     </head>
     <body>
-        <div class="container ">
+        <div class="container">
+            <h1>Editar Perfil</h1>
             <form enctype="multipart/form-data" class="col-12" action="/profile/modify" id="formulario" th:object="${profile}"  method="POST">
                 <input name="id" th:field="*{id}" hidden>
-                <div class="form-group row">
-                    <div class="col-6">
-                        <label for="nickName">Nickname</label>
+                <div class="row mb-3">
+                    <label for="nickName" class="col-sm-2 col-form-label">Nickname</label>
+                    <div class="col-sm-10">
                         <input th:field="*{nickName}" type="text"  class="form-control" >
                     </div>
-                    <div class="col-6">
-                        <label for="email">Email</label>
-                        <input th:field="*{email}" type="text" class="form-control" >
+                </div>
+                <div class="row mb-3">
+                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input th:field="*{email}" type="text" class="form-control">
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-6">
-                        <img th:src="@{avatar(url=*{avatar})}" class="avatar" title="avatar">
-                        <input name="avatar" type="file" class="form-control" />
+                <div class="row mb-3 ">
+                    <img th:src="@{avatar(url=*{avatar})}" class="avatar align-self-center mr-3" title="avatar">
+                    <div class="col-sm-10 ">
+                        <input name="avatar" type="file" class="form-control " />
                     </div>
-                    
-                    <div class="col-4">
-                        <input type="submit" class="btn btn-success col-10"></input>  
-                    </div>
-                </div>  
+                </div>
+                <div class="row mb-3">
+                    <input type="submit" class="btn btn-success col-10"></input>  
+                </div>            
             </form>
-        </div>  
-        
-        
-        <!-- Carla  -->
-        <div class="container">
-        <form>
-            <div class="row mb-3">
-                <label for="nickName" class="col-sm-2 col-form-label">Nickname</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail3">
-                </div>
-          </div>
-          <div class="row mb-3">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-              <input type="password" class="form-control" id="inputPassword3">
-            </div>
-          </div>
-          <fieldset class="row mb-3">
-            <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-            <div class="col-sm-10">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                <label class="form-check-label" for="gridRadios1">
-                  First radio
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                <label class="form-check-label" for="gridRadios2">
-                  Second radio
-                </label>
-              </div>
-              <div class="form-check disabled">
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
-                <label class="form-check-label" for="gridRadios3">
-                  Third disabled radio
-                </label>
-              </div>
-            </div>
-          </fieldset>
-          <div class="row mb-3">
-            <div class="col-sm-10 offset-sm-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck1">
-                <label class="form-check-label" for="gridCheck1">
-                  Example checkbox
-                </label>
-              </div>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Sign in</button>
-        </form>
         </div>            
             
         <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>    
