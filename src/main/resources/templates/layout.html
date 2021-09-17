@@ -12,7 +12,7 @@
                 background-color: #222629;
             }
 
-           .navbar-nav,.umeet{
+            .navbar-nav,.umeet{
                 color:#86C232;
                 padding-right: 10px;
                 font-size: 24px;
@@ -42,60 +42,64 @@
             }
         </style>
     </head>
-  <body>
-    <div>
-	<div class="row">
-            <div class="col-md-12">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid">
-                    <div class="container-fluid">
-                        <ul class="navbar-nav">
-                            <li><span><i class="fas fa-bezier-curve umeet"></i>UMeet</span></li>
-                        </ul>
-                        <!-- Amigos -->
-                        <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#"><i class="fas fa-user-friends otroi"></i>Amigos <span class="sr-only">(current)</span></a>
-                            </li>
-                        </ul>
-                        <!-- Lista servidores -->
-                        <ul class="navbar-nav me-auto" th:each="ser: ${server}">
-                            <li class="nav-item active">
-                                <a class="nav-link" th:href="#">
-                                    <img alt="Avatar" class="avatar" th:src="ser:${ser.avatar}" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Gran_Sabana_paisaje_1.jpg/800px-Gran_Sabana_paisaje_1.jpg">
-                                </a>
-                            </li>
-                        </ul>
-                        <!-- Perfil usuario -->
-                        <ul class="navbar-nav dropdown d-flex">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown">
-                                    <img alt="Avatar" class="avatar" th:src="usu: ${usu.avatar}" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Gran_Sabana_paisaje_1.jpg/800px-Gran_Sabana_paisaje_1.jpg">
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" th:href="#">Editar perfil</a></li>
-                                    <li><button type="button" class="btn btn-success align-items-center">Desconectar</button></li>
-                                </ul>
-                            </li>
-                        </ul>
-                            
-                    </div>     
-                </nav>
-		<div class="row container" style="text-align: center; align-content:center;">
-                    <div class="col-md-12">
-                        <div><i class="fas fa-ghost ghost"></i></div>
-                        <th:block th:include="${htmlcuerpo}"/>
-                    </div>
-		</div>
-                <footer>
-                    <p>HIBERUS</p>
-                </footer>
-            </div>
-	</div>
-    </div>
+    <body>
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid">
+                        <div class="container-fluid">
+                            <ul class="navbar-nav">
+                                <li><span><i class="fas fa-bezier-curve umeet"></i>UMeet</span></li>
+                            </ul>
+                            <!-- Amigos -->
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#"><i class="fas fa-user-friends otroi"></i>Amigos <span class="sr-only">(current)</span></a>
+                                </li>
+                            </ul>
+                            <!-- Lista servidores -->
+                            <ul class="navbar-nav me-auto" th:each="ser: ${server}">
+                                <li class="nav-item active">
+                                    <a class="nav-link" th:href="#">
+                                        <img alt="Avatar" class="avatar" th:src="ser:${ser.avatar}" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Gran_Sabana_paisaje_1.jpg/800px-Gran_Sabana_paisaje_1.jpg">
+                                    </a>
+                                </li>
+                              
+                            </ul>
 
-<!-- La solución optima es poner los scripts al final -->
+
+
+                            <!-- Perfil usuario -->
+                            <ul class="navbar-nav dropdown d-flex">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+                                        <img alt="Avatar" class="avatar" th:src="usu: ${usu.avatar}" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Gran_Sabana_paisaje_1.jpg/800px-Gran_Sabana_paisaje_1.jpg">
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        <li><a class="dropdown-item" th:href="#">Editar perfil</a></li>
+                                        <li><button type="button" class="btn btn-success align-items-center">Desconectar</button></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        </div>     
+                    </nav>
+                    <div class="row container" style="text-align: center; align-content:center;">
+                        <div class="col-md-12">
+                            <div><i class="fas fa-ghost ghost"></i></div>
+                            <th:block th:include="${htmlcuerpo}"/>
+                        </div>
+                    </div>
+                    <footer>
+                        <p>HIBERUS</p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <!-- La solución optima es poner los scripts al final -->
         <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>    
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
-  </body>
+    </body>
 </html>
