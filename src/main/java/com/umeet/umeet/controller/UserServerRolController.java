@@ -29,10 +29,10 @@ public class UserServerRolController {
     UserServerRoleRepository userServerRoleRepository;
 
     @GetMapping("/joinServer")
-    public String joinServer(Long idServer, @CookieValue(name = "idUser") Long id){
+    public String joinServer(Long idServer, Long idUser){
         Rol rol = rolRepository.findById(2l).get();
         Server server = serverRepository.findById(idServer).get();
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findById(idUser).get();
         UserServerRole relation = new UserServerRole(null, user, rol, server);
         userServerRoleRepository.save(relation);
         return "";

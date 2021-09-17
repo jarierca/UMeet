@@ -22,7 +22,6 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.web.bind.annotation.CookieValue;
 
 
 @Controller
@@ -61,11 +60,11 @@ public class ServerController {
         return "/servers/allServers";
     }
 
-    @PostMapping("/byUser") 
-    public String serverByUser(Model m, @CookieValue(name = "idUser") Long id) {
+    @PostMapping("/byUser")
+    public String serverByUser(Model m, Long idUser) {
 
         //m.addAttribute("user", userRepository.findById(userId).get());
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findById(idUser).get();
         List<Server> usr = userServerRoleRepository.findByUser(user).stream().map(x->x.getServer()).collect(Collectors.toList());
         m.addAttribute("server", usr);
         return "/servers/byUser";
@@ -94,18 +93,18 @@ public class ServerController {
     }
      */
     @GetMapping("/form")
-    public String viewServerCreation(Model model, Long idServer, @CookieValue(name = "idUser") Long id) {
+    public String viewServerCreation(Model model, Long idServer, Long idUser) {
         if (idServer == null) {
             model.addAttribute("server", new Server());
         } else {
             model.addAttribute("server", serverRepository.findById(idServer));
         }
-        model.addAttribute("idUser", id);
+        model.addAttribute("idUser", idUser);
         return "/servers/formServer";
     }
 
     @PostMapping("/addServer")
-    public String addServer(Server server, @CookieValue(name = "idUser") Long id, MultipartFile file) {
+    public String addServer(Server server, Long idUser, MultipartFile file) {
         if(!file.isEmpty()){
             String ruta = rutaRecursos + "\\avatar\\users\\" + server.getName() + ".png";
             File f = new File(ruta);
@@ -121,12 +120,12 @@ public class ServerController {
         List<UserServerRole> userServerRoles = userServerRoleRepository.findByServer(server);
         if(userServerRoles.isEmpty()){
             UserServerRole userServerRole = new UserServerRole();
-            userServerRole.setUser(userRepository.findById(id).get());
+            userServerRole.setUser(userRepository.findById(idUser).get());
             userServerRole.setRol(rolRepository.findById(1l).get());
             userServerRole.setServer(server);
             userServerRoleRepository.save(userServerRole);
         }
-        return "redirect:/server/byUser?userId="+id;
+        return "redirect:/server/byUser?userId="+idUser;
     }
 
     @GetMapping("/deleteServer")
@@ -145,7 +144,5 @@ public class ServerController {
 
         model.addAttribute("categories", categories);
         return "/servers/viewServer";
-    }
-    
-    
+    }   
 }
