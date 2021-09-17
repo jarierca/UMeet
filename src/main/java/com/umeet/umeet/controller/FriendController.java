@@ -52,16 +52,14 @@ public class FriendController {
         return "friends/filteredFriends";
     }
 
- //Invite new user
+    //Invite new user
     @GetMapping("/inviteUser")
     public String searchAllUsers(Model m) {
 
-     
-
         return "/friends/inviteNewUser";
     }
-    
-    @PostMapping("/addUser")
+
+    @PostMapping("/foundUser")
     public String userInvite(Model m, String username) {
 
         List<User> aux = userRepo.findByUsernameContaining(username);
@@ -76,4 +74,12 @@ public class FriendController {
 
         return "friends/searchResultFriends";
     }
+
+    /*@PostMapping("/addFriend")
+    public String addUser(User user, Long idUser) {
+        user.setId(userRepo.findById(idUser).get());
+        userRepo.save(user);
+        return "redirect:searchResultFriends?idCategory=" + user.getId();
+    }*/
+
 }
