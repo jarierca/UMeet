@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -77,16 +78,18 @@ public class AccessController {
     }
     
     @GetMapping("/home")
-    public String index(HttpServletResponse response , Model m){
+    public String index(HttpServletResponse response , Model m , @CookieValue(name = "idUser",required = false) Long cookieIdUser){
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         if (auth!=null){
-            String username = auth.getName();
+            if(cookieIdUser == null){
+                String username = auth.getName();
            
-            Optional<User> user = userRepository.findByUsername(username);
-        
-            CookieService.setCookieUser(response, user.get(), 30 * 24 * 60 * 60);
-            
-            m.addAttribute("user",user.get());
+                Optional<User> user = userRepository.findByUsername(username);
+
+                CookieService.setCookieUser(response, user.get(), 30 * 24 * 60 * 60);
+
+                m.addAttribute("user",user.get());
+            }
         }
         
         return "index";

@@ -12,7 +12,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AvatarService implements IAvatarService{
     
     public ResponseEntity<Resource> avatar(String url){
