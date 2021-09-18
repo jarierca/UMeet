@@ -27,39 +27,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         //para acceder a cualquier otra se necesita estar autentificado
         
         http
-                // Con esto registra
-                .csrf().disable()
-                .authorizeRequests()
-                    .antMatchers("/newregister").permitAll()
-                    .antMatchers("/register").permitAll()
-                    .antMatchers("/login").permitAll()
-                    .antMatchers("/*").hasAnyRole("Usuario")
-                    .anyRequest().authenticated()
-                    .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/home", true)
-                    .and()
-                .logout()
-                    .logoutSuccessUrl("/login")
-                    .deleteCookies("idUser")
-                    .deleteCookies("idServer")
-                    .deleteCookies("remember-me")
-                    .and()
-                .rememberMe().key("uniqueAndSecret");
-                
-             /*   
-             .csrf().disable()
-             .authorizeRequests()
-             .antMatchers("/newregister").permitAll()
-             .antMatchers("/register").permitAll()
-             .antMatchers("/login").permitAll()
-             .anyRequest().authenticated()
-             .and()
-             .formLogin()
-             .loginPage("/login")
-             .defaultSuccessUrl("/profile")
-             .failureUrl("/login?error=true");*/
+            .csrf().disable()
+            .authorizeRequests()
+                .antMatchers("/newregister").permitAll()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/*").hasAnyRole("Usuario")
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/home", true)
+                .and()
+            .logout()
+                .logoutSuccessUrl("/login")
+                .deleteCookies("idUser")
+                .deleteCookies("idServer")
+                .deleteCookies("remember-me")
+                .and()
+            .rememberMe().key("uniqueAndSecret");
+
+         /*   
+         .csrf().disable()
+         .authorizeRequests()
+         .antMatchers("/newregister").permitAll()
+         .antMatchers("/register").permitAll()
+         .antMatchers("/login").permitAll()
+         .anyRequest().authenticated()
+         .and()
+         .formLogin()
+         .loginPage("/login")
+         .defaultSuccessUrl("/profile")
+         .failureUrl("/login?error=true");*/
     }
 
     
