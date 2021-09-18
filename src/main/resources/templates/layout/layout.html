@@ -104,11 +104,11 @@
                             </ul>
                              
                             <!-- Perfil usuario -->
-                            <ul class="navbar-nav dropdown d-flex">
+                            <ul class="navbar-nav dropdown d-flex" >
                                 <li class="nav-item dropleft">
-                                    <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-toggle="dropdown">
-                                        <span th:if="${user != null}" th:object="${user}" th:text="*{username}"></span>
-                                        <img th:if="${user != null}" alt="Avatar" class="avatar" th:object="${user}" th:src="@{/profile/avatar(url=*{avatar})}">
+                                    <a class="nav-link dropdown-toggle" id="user-profile" role="button" data-toggle="dropdown">
+                                        <span></span>
+                                        <img  alt="Avatar" class="avatar" name="avatar">
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-dark">
                                         <li><a class="dropdown-item" onclick="editProfile()">Editar perfil</a></li>
@@ -137,6 +137,22 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
         <script>
+            $(document).ready(
+                function loadProfile() {
+                    $.ajax({
+                        url: "/profile/getUser", 
+                        success: function (pHtml) { 
+                            console.log(pHtml);
+                            console.log(pHtml.username);
+                            console.log(pHtml.avatar);
+                            document.getElementById("user-profile").innerHTML = '<span>'+pHtml.username+'</span><img alt="Avatar" class="avatar" src="avatar?url='+pHtml.avatar+'">';
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }        
+            );
             function editProfile() {
                 $.ajax({
                     url: "/profile/edit", //<--Ejecutamos del contra esta url

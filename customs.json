@@ -3,6 +3,7 @@
         "th:block": {}
     },
     "attributes": {
+        "th:if": {},
         "th:object": {
             "context": "form"
         },

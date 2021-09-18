@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -147,13 +148,11 @@ public class ProfileController {
     }
     
     @GetMapping("/getUser")
-    public String getUser(Model m, @CookieValue(name = "idUser",required = false) Long id){
-        if(id == null){
-            return "redirect:/logout";
-        }
+    @ResponseBody
+    public User getUser(Model m, @CookieValue(name = "idUser",required = false) Long id){
         
         Optional<User> user = profileRepository.findById(id);
         m.addAttribute("user",user.get());
-        return null;
+        return user.get();
     }           
 }
