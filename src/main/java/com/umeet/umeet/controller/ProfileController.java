@@ -41,7 +41,11 @@ public class ProfileController {
     FriendService friendService;
     
     @GetMapping("/view")
-    public String view(Model m, @CookieValue(name = "idUser") Long id){
+    public String view(Model m, @CookieValue(name = "idUser",required = false) Long id){
+        if(id == null){
+            return "redirect:/logout";
+        }
+        
         Optional<User> profile = profileRepository.findById(id);
         if(profile.isPresent()){
             m.addAttribute("profile", profile.get());
@@ -53,7 +57,11 @@ public class ProfileController {
     
     //Cargar vista con datos del user de la BBDD
     @GetMapping("/edit")
-    public String edit(Model m, @CookieValue(name = "idUser") Long id){
+    public String edit(Model m, @CookieValue(name = "idUser",required = false) Long id){
+        if(id == null){
+            return "redirect:/logout";
+        }
+        
         Optional<User> profile = profileRepository.findById(id);
         if(profile.isPresent()){
             m.addAttribute("profile", profile.get());
@@ -65,7 +73,11 @@ public class ProfileController {
     
     //Modifica en la BBDD los datos editados
     @PostMapping("/modify")
-    public String modify(Model m, String nickName,String status, String email, MultipartFile avatar, @CookieValue(name = "idUser") Long id){
+    public String modify(Model m, String nickName,String status, String email, MultipartFile avatar, @CookieValue(name = "idUser",required = false) Long id){
+        if(id == null){
+            return "redirect:/logout";
+        }
+        
         Optional<User> user = profileRepository.findById(id);
         user.get().setNickName(nickName);
         user.get().setEmail(email);
@@ -114,14 +126,20 @@ public class ProfileController {
     
     //Borra los datos mediante el id del user
     @GetMapping("/remove")
-    public String remove(Model m, @CookieValue(name = "idUser") Long id){
+    public String remove(Model m, @CookieValue(name = "idUser",required = false) Long id){
+        if(id == null){
+            return "redirect:/logout";
+        }
         friendService.deleteFriendCascade(id);
         return "redirect:view";
     }
     
     //Modificar estado del user
     @PostMapping("/status")
-    public String status(String status, @CookieValue(name = "idUser") Long id){
+    public String status(String status, @CookieValue(name = "idUser",required = false) Long id){
+        if(id == null){
+            return "redirect:/logout";
+        }
         Optional<User> user = profileRepository.findById(id);
         user.get().setStatus(status);
         profileRepository.save(user.get());
@@ -129,8 +147,13 @@ public class ProfileController {
     }
     
     @GetMapping("/getUser")
-    public void getUser(Model m, @CookieValue(name = "idUser") Long id){
+    public String getUser(Model m, @CookieValue(name = "idUser",required = false) Long id){
+        if(id == null){
+            return "redirect:/logout";
+        }
+        
         Optional<User> user = profileRepository.findById(id);
         m.addAttribute("user",user.get());
+        return null;
     }           
 }
