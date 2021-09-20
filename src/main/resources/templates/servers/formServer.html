@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="https://www.thymeleaf.org"
+th:replace="layout/layout::layout( ~{::body})">
+  
 <body>
     <div>
         <form th:object="${server}" action="/server/addServer" method="post" enctype="multipart/form-data">
