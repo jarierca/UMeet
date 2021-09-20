@@ -4,6 +4,7 @@ package com.umeet.umeet.controller;
 import com.umeet.umeet.dtos.MessageChannelDto;
 import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
+import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.ChannelRepository;
 import com.umeet.umeet.repositories.MessageRepository;
 import com.umeet.umeet.repositories.UserRepository;
@@ -85,7 +86,8 @@ public class MessagesController {
     public String inicio(Model m){
         //m.addAttribute("message",new Message());
         //return "/messages/vista";
-        return "/layout/layout";
+        m.addAttribute("message",new Message());
+        return "/messages/vista";
     }
     
     @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario

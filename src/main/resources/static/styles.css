@@ -1,6 +1,9 @@
 body {
-    overflow: hidden;
     background-color: #222629;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 .btn-primary {
