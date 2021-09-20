@@ -1,6 +1,7 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.CategoryViewDto;
+import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.UserServerRole;
@@ -9,6 +10,7 @@ import com.umeet.umeet.repositories.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -62,12 +64,10 @@ public class ServerController {
     }
 
     @GetMapping("/byUser")
-    public String serverByUser(Model m, @CookieValue(name = "idUser", required = false) Long idUser) {
-        if(idUser == null){
-            return "redirect:/logout";
-        }
+    public String serverByUser(Model m) {
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         //m.addAttribute("user", userRepository.findById(userId).get());
-        User user = userRepository.findById(idUser).get();
+        User user = userRepository.findById(u.getId()).get();
         List<UserServerRole> aux = userServerRoleRepository.findByUser(user);
         if (!aux.isEmpty()){
             List<Server> usr = userServerRoleRepository.findByUser(user).stream().map(x->x.getServer()).collect(Collectors.toList());
@@ -101,21 +101,18 @@ public class ServerController {
     }
      */
     @GetMapping("/form")
-    public String viewServerCreation(Model model, Long idServer /*,Long idUser*/) {
+    public String viewServerCreation(Model model, Long idServer) {
         if (idServer == null) {
             model.addAttribute("server", new Server());
         } else {
             model.addAttribute("server", serverRepository.findById(idServer));
         }
-//        model.addAttribute("idUser", idUser);
         return "/servers/formServer";
     }
 
     @PostMapping("/addServer")
-    public String addServer(Server server, @CookieValue(name = "idUser", required = false) Long idUser, MultipartFile file) {
-        if(idUser == null){
-            return "redirect:/logout";
-        }
+    public String addServer(Server server, MultipartFile file) {
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         if(!file.isEmpty()){
             String ruta = rutaRecursos + "/avatar/servers/" + server.getName() + ".png";
             File f = new File(ruta);
@@ -131,7 +128,7 @@ public class ServerController {
         List<UserServerRole> userServerRoles = userServerRoleRepository.findByServer(server);
         if(userServerRoles.isEmpty()){
             UserServerRole userServerRole = new UserServerRole();
-            userServerRole.setUser(userRepository.findById(idUser).get());
+            userServerRole.setUser(userRepository.findById(u.getId()).get());
             userServerRole.setRol(rolRepository.findById(1l).get());
             userServerRole.setServer(server);
             userServerRoleRepository.save(userServerRole);
@@ -154,6 +151,7 @@ public class ServerController {
                         .collect(Collectors.toList());
 
         model.addAttribute("categories", categories);
+        model.addAttribute("idServer", idServer);
         return "/servers/viewServer";
     }   
 }

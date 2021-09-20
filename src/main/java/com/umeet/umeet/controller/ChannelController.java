@@ -54,7 +54,7 @@ public class ChannelController {
     public String addChannel(Channel channel, Long idCategory){
         channel.setCategory(categoryRepository.findById(idCategory).get());
         channelRepository.save(channel);
-        return "redirect:pruebaChannel?idCategory="+channel.getCategory().getId();
+        return "redirect:/server/one?idServer="+channel.getCategory().getServer().getId();
     }
 
     @GetMapping("/deleteChannel")
@@ -64,8 +64,8 @@ public class ChannelController {
             messageFileRepository.deleteById(m.getMessageFile().getId());
             messageRepository.deleteById(m.getId());
         });
-        long idCategory = channelRepository.findById(idChannel).get().getCategory().getId();
+        long idServer = channelRepository.findById(idChannel).get().getCategory().getServer().getId();
         channelRepository.deleteById(idChannel);
-        return "redirect:pruebaChannel?idCategory="+idCategory;
+        return "redirect:/server/one?idServer="+idServer;
     }
 }

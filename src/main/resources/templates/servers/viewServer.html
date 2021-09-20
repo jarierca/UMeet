@@ -5,13 +5,19 @@
 <body>
     <div th:include="/layout/layout::navbar"></div>
     <div class="col-2">
+        <a th:href="@{/category/form(idServer=${idServer})}" href="">Añadir categoría</a>
         <ul th:each="category:${categories}">
-            <li class="list-group">
-                <a  class="list-group-item list-group-item-action" data-toggle="collapse"
-                    th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation"></a>
+            <li >
+                <div class="list-group-item">
+                    <a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation"></a>
+                    <a th:href="@{/category/form(idCategory=${category.id})}"><i class="far fa-edit"></i></a>
+                </div>
+                <a class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
+                   th:href="@{/channel/form(idCategory=${category.id})}">Añadir canal</a>
                 <ul class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
                     th:each="channel:${category.channels}">
-                    <li class="list-group"><a th:attr="onclick=|chat('${channel.id}')|"  class="list-group-item list-group-item-action" th:text="${channel.name}"></a></li>
+                    <li class="list-group-item"><a th:if="${channel!=null}" th:text="${channel.name}"></a>
+                        <a th:href="@{/channel/form(idChannel=${channel.id})}"><i class="far fa-edit"></i></a></li>
                 </ul>
             </li>
         </ul>

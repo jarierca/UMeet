@@ -30,14 +30,10 @@ public class FriendController {
 
 //List friends
     @GetMapping("/friendsList") //Va la vista poniendo detras ?idUser=1 (http://localhost:8090/friends/friendsList?idUser=3)
-    public String listFriends(Model m, @CookieValue(name = "idUser", required = false) Long idUser) {
-        if (idUser == null) {
-            return "redirect:/profile/logout";
-
-        }
-
-        m.addAttribute("friendsAccepted", friendRepo.findByAmigos(idUser, "Aceptado"));
-        m.addAttribute("friendsPending", friendRepo.findByAmigos(idUser, "Invitado"));
+    public String listFriends(Model m) {
+        UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        m.addAttribute("friendsAccepted", friendRepo.findByAmigos(u.getId(), "Aceptado"));
+        m.addAttribute("friendsPending", friendRepo.findByAmigos(u.getId(), "Invitado"));
 
         return "friends/view";
     }
@@ -78,7 +74,7 @@ public class FriendController {
         List<User> aux = userRepo.findByUsernameContaining(username);
         if (!aux.isEmpty()) {
         }
-        
+
         List<User> aux1 = userRepo.findByNickNameContaining(username);
         if (!aux1.isEmpty()) {
         }
@@ -92,7 +88,7 @@ public class FriendController {
         if (!aux1.isEmpty()) {
             m.addAttribute("idFriend", aux2);
         }
-*/
+         */
         return "friends/searchResultFriends";
     }
 
@@ -100,11 +96,11 @@ public class FriendController {
     public String addUser(Model m, Friend friend, Long idUserFriend) {
         /*if (idUser == null) {
             return "redirect:/profile/logout";
-        }*/ 
+        }*/
 
         friend.setStatus("invitado");
-        System.out.print(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         friend.setUser1(userRepo.findById(u.getId()).get());
         friend.setUser2(userRepo.findById(idUserFriend).get());
 

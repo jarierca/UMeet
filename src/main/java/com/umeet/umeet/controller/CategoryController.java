@@ -54,7 +54,7 @@ public class CategoryController {
     public String addCategory(Category category, Long idServer){
         category.setServer(serverRepository.findById(idServer).get());
         categoryRepository.save(category);
-        return "redirect:pruebaCategory?idServer="+category.getServer().getId();
+        return "redirect:/server/one?idServer="+category.getServer().getId();
     }
 
     @GetMapping("/deleteCategory")
@@ -69,7 +69,7 @@ public class CategoryController {
         });
         long idServer = categoryRepository.findById(idCategory).get().getServer().getId();
         categoryRepository.deleteById(idCategory);
-        return "redirect:pruebaCategory?idServer="+idServer;
+        return "redirect:/server/one?idServer="+idServer;
     }
 
 }
