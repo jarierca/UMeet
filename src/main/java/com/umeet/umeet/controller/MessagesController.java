@@ -91,6 +91,7 @@ public class MessagesController {
     public void mensajeCanal(Message msg,Long idChannel,Long idUser){
         msg.setChannel(repoChn.findById(idChannel).get());
         msg.setUser(repoUsr.findById(idUser).get());
+        msg.setName(msg.getUser().getNickName());
         repoMsg.save(msg);
     }
     

@@ -11,7 +11,7 @@
                     th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation"></a>
                 <ul class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
                     th:each="channel:${category.channels}">
-                    <li class="list-group"><a  class="list-group-item list-group-item-action" th:text="${channel.name}"></a></li>
+                    <li class="list-group"><a th:attr="onclick=|chat('${channel.id}')|"  class="list-group-item list-group-item-action" th:text="${channel.name}"></a></li>
                 </ul>
             </li>
         </ul>

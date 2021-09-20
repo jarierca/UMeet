@@ -142,7 +142,7 @@
         <script>
             $(document).ready(
                 function loadProfile() {
-                    $.ajax({
+                    /*$.ajax({
                         url: "/profile/getUser", 
                         success: function (pHtml) { 
                             var avatar = pHtml.avatar;
@@ -152,9 +152,9 @@
                             document.getElementById("user-profile").innerHTML = '<span>'+pHtml.username+'</span><img alt="Avatar" class="avatar" src="/profile/avatar?url='+avatar+'">';
                         },
                         error: function (xhr, status, error) {
-                            console.log(xhr.responseText);
+                            alert(xhr.responseText);
                         }
-                    });
+                    });*/
                 }        
             );
             function editProfile() {
@@ -187,6 +187,34 @@
                     },*/
                     success: function (pHtml) {    //<- Nos devuelven la respuesta. 
                         $("#contentBody").html(pHtml);
+                    },
+                    error: function (xhr, status, error) {
+                        alert(xhr.responseText);
+                    }
+                });
+            }
+
+            function chat(idCanal){
+                $.ajax({
+                    type: "POST",
+                    url: "/msg/channel/" + idCanal, //<--Ejecutamos del contra esta url
+                    /*data: {
+                        idUser: $.cookie("idUser"), //Obtener id con las cookies del usuario
+                        //$.cookie("idUser")
+                    },*/
+                    success: function (pJson) {    //<- Nos devuelven la respuesta. 
+                        console.log(pJson);
+                        var salida = $("<tr>").html("");
+                        $("#contentBody").html("");         //Generamos los mensajes con un campo para mandar nuevos
+                        for (x of pJson){
+                            $("<tr>").html("<td><p><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</p></td>").appendTo(salida);  
+                        }
+                        $("<tr>").html("<td><form action='/msg/channel/sendmsg' method='post'>" +
+                                        "<input type='hidden' name='idChannel' value='" + idCanal + "' />" +
+                                        "<input type='hidden' name='idUser' value='" + $.cookie("idUser") + "' />" +
+                                        "<input type='text' name='text' />" +
+                                        "<button type='submit'> Enviar </button></td>").appendTo(salida); 
+                        salida.appendTo("#contentBody");
                     },
                     error: function (xhr, status, error) {
                         alert(xhr.responseText);
