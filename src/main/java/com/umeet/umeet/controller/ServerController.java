@@ -61,7 +61,7 @@ public class ServerController {
         return "/servers/allServers";
     }
 
-    @PostMapping("/byUser")
+    @GetMapping("/byUser")
     public String serverByUser(Model m, @CookieValue(name = "idUser", required = false) Long idUser) {
         if(idUser == null){
             return "redirect:/logout";
