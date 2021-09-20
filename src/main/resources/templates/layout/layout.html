@@ -45,7 +45,7 @@
                                 <li class="nav-item dropleft">
                                     <a class="nav-link dropdown-toggle" id="user-profile" role="button" data-toggle="dropdown">
                                         <span></span>
-                                        <img  alt="Avatar" class="avatar" name="avatar">
+                                        <span class="avatar" name="avatar"></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-dark">
                                         <li><a class="dropdown-item" onclick="editProfile()">Editar perfil</a></li>
@@ -79,10 +79,7 @@
                     $.ajax({
                         url: "/profile/getUser", 
                         success: function (pHtml) { 
-                            console.log(pHtml);
-                            console.log(pHtml.username);
-                            console.log(pHtml.avatar);
-                            document.getElementById("user-profile").innerHTML = '<span>'+pHtml.username+'</span><img alt="Avatar" class="avatar" src="avatar?url='+pHtml.avatar+'">';
+                            document.getElementById("user-profile").innerHTML = '<span>'+pHtml.username+'</span><img alt="Avatar" class="avatar" src="/profile/avatar?url='+pHtml.avatar+'">';
                         },
                         error: function (xhr, status, error) {
                             console.log(xhr.responseText);

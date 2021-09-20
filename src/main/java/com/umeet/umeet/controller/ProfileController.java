@@ -41,6 +41,7 @@ public class ProfileController {
     @Autowired
     FriendService friendService;
     
+    //Visualizar los datos del user
     @GetMapping("/view")
     public String view(Model m, @CookieValue(name = "idUser",required = false) Long id){
         if(id == null){
@@ -87,7 +88,7 @@ public class ProfileController {
 
         if (!avatar.isEmpty()) {
 
-            String ruta = rutaRecursos + "\\avatar\\users\\" + user.get().getUsername() + ".png";
+            String ruta = rutaRecursos + "/avatar/users/" + user.get().getUsername() + ".png";
             File f = new File(ruta);
             f.getParentFile().mkdirs();
             try {
@@ -104,6 +105,7 @@ public class ProfileController {
         return "redirect:view";
     }
     
+    //Obtiene la imagen del avatar del user
     @GetMapping("/avatar")
     public ResponseEntity<Resource> avatar(String url){
         
@@ -147,6 +149,7 @@ public class ProfileController {
         return "redirect:view";
     }
     
+    //Obtiene los datos del user
     @GetMapping("/getUser")
     @ResponseBody
     public User getUser(Model m, @CookieValue(name = "idUser",required = false) Long id){
