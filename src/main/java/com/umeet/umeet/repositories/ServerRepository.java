@@ -11,9 +11,5 @@ public interface ServerRepository extends JpaRepository<Server, Long> {
     
     public List <Server> findByDescriptionContaining(String description);
     public List <Server> findByNameContaining(String name);
-   
-    
-    
-    
-    
+
 }

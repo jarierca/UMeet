@@ -1,6 +1,7 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.CategoryViewDto;
+import com.umeet.umeet.dtos.ServerDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -76,6 +77,22 @@ public class ServerController {
             m.addAttribute("server", new Server());
         }
         return "/servers/byUser";
+        
+    }
+    
+    @ResponseBody
+    @PostMapping("/byUser")
+    public List<ServerDto> serverByUserJson(Model m) {
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        //m.addAttribute("user", userRepository.findById(userId).get());
+        User user = userRepository.findById(u.getId()).get();
+        List<UserServerRole> aux = userServerRoleRepository.findByUser(user);
+        if (!aux.isEmpty()){
+            List<ServerDto> usr = userServerRoleRepository.findByUser(user).stream().map(x->mapper.map(x.getServer(),ServerDto.class)).collect(Collectors.toList());
+            return usr;
+        }else{
+            return null;
+        }
         
     }
 

@@ -9,7 +9,7 @@ th:replace="layout/layout::layout( ~{::body})">
         </div>
         <div class="col-9">
             <table class="table">
-
+                <!--
                 <tr th:each="us:${user.userServerRole}">
                 <img th:src="@{/profile/avatar(url=*{avatar})}" class="avatar" title="avatar">
                 <td th:text="${us.server.name}"> </td>
@@ -18,6 +18,12 @@ th:replace="layout/layout::layout( ~{::body})">
                 <td><a th:href="@{/server/deleteServer(idServer=${us.server.id})}" class="btn btn-primary m-2">Eliminar</a></td>
 
                 </tr>
+                -->
+                <tr th:each="us:${server}">
+                    <img th:src="@{/profile/avatar(url=${us.avatar})}" class="avatar" title="avatar">
+                    <td th:text="${us.name}"> </td>
+                    <td th:text="${us.description}"> </td>
+                    
             </table>
         </div>
 

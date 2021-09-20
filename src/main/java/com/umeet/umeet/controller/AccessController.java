@@ -1,18 +1,20 @@
 
 package com.umeet.umeet.controller;
 
+import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
+import com.umeet.umeet.entities.UserServerRole;
+import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
+import com.umeet.umeet.repositories.UserServerRoleRepository;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,12 @@ public class AccessController {
     
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private FriendRepository friendRepo;
+    
+    @Autowired
+    private UserServerRoleRepository usrRepo;
     
     @GetMapping("/login")
     public String login(){ 
@@ -84,11 +92,15 @@ public class AccessController {
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         if (auth!=null){
             if(cookieIdUser == null){
-                String username = auth.getName();
-           
-                Optional<User> user = userRepository.findByUsername(username);
-
-                m.addAttribute("user",user.get());
+                String username = auth.getName(); 
+                UserValidacionDto u = (UserValidacionDto) auth.getPrincipal();
+                Optional<User> user = userRepository.findByUsername(username);              //Obtenemos lista de amigos e invitado para index
+                m.addAttribute("friendsAccepted", friendRepo.findByAmigos(u.getId(), "aceptado"));
+                m.addAttribute("friendsPending", friendRepo.findByAmigos(u.getId(), "invitado"));
+                
+                List<UserServerRole> usrAux = usrRepo.findByUser(user.get());               //Obtenemos lista de servidores por usuario
+                List<Server> servers = usrAux.stream().map(x-> x.getServer()).collect(Collectors.toList());
+                m.addAttribute("userServers",servers);
             }
         }
         
