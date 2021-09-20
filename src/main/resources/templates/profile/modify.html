@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-    </head>
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="layout/layout::layout( ~{::body})">
+
     <body>
         <div class="container">
             <form action="modify" method="post" th:object="${profile}" enctype="multipart/form-data">
