@@ -1,22 +1,17 @@
 <html xmlns:th="https://www.thymeleaf.org">
+</head>
+<body>
 
-    <head th:include="layout/layout::head">
+    <div class="container">
+        <h3>Añade nuevos amigos</h3>
 
-    </head>
-    <body>
-        <div th:include="/layout/layout::navbar"></div>
-        <div class="container">
-            <h3>Añade nuevos amigos</h3>
-            <div class="container col-5">
-                <form action="/friends/foundUser" method="post">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Introduce un nombre de usuario" aria-label="Buscar"
-                               aria-describedby="button-addon2" name="username">
-                        <button class="btn btn-outline-primary" type="submit" id="button-addon2">Buscar</button>
-                    </div>
-                </form>
-        </div>
-        <div th:include="/layout/layout::footer"></div>
-        <div th:include="/layout/layout::scripts"></div>
-    </body>
+        <form action="/friends/foundUser" method="post">
+
+            <input type="text" placeholder="Introduce un nombre de usuario" name="username">
+            <button type="submit">Buscar</button>
+
+        </form>
+
+    </div>
+</body>
 </html>

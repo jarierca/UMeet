@@ -1,10 +1,9 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
-    <head th:include="layout/layout::head">
 
     </head>
     <body>
-        <div th:include="/layout/layout::navbar"></div>
+     
         <h2>¡Hemos encontrado al usuario que buscas!</h2>
 
         <table>
@@ -12,13 +11,12 @@
                 <td th:if="${name!=null}" th:each="nam:${name}" th:text="${nam.username}"></td>
                 <td th:if="${nick!=null}" th:each="nk:${nick}" th:text="${nk.nickName}"></td>
                 <td>
-                    <a class="btn btn-success " th:href="@{addFriend(idUser=${})}"><i class="fas fa-user-plus"></i> Nuevo</a>
+                    <a>Nuevo</a>
                 </td> 
             </tr> 
         </table> 
 
-        <div th:include="/layout/layout::footer"></div>
-        <div th:include="/layout/layout::scripts"></div>
+       
     </body>
 </html>
 
