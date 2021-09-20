@@ -1,6 +1,7 @@
 
 package com.umeet.umeet.controller;
 
+import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.ProfileRepository;
 import com.umeet.umeet.services.CookieService;
@@ -19,6 +20,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -43,12 +45,10 @@ public class ProfileController {
     
     //Visualizar los datos del user
     @GetMapping("/view")
-    public String view(Model m, @CookieValue(name = "idUser",required = false) Long id){
-        if(id == null){
-            return "redirect:/logout";
-        }
+    public String view(Model m){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Optional<User> profile = profileRepository.findById(id);
+        Optional<User> profile = profileRepository.findById(u.getId());
         if(profile.isPresent()){
             m.addAttribute("profile", profile.get());
         }else{
@@ -59,12 +59,10 @@ public class ProfileController {
     
     //Cargar vista con datos del user de la BBDD
     @GetMapping("/edit")
-    public String edit(Model m, @CookieValue(name = "idUser",required = false) Long id){
-        if(id == null){
-            return "redirect:/logout";
-        }
+    public String edit(Model m){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Optional<User> profile = profileRepository.findById(id);
+        Optional<User> profile = profileRepository.findById(u.getId());
         if(profile.isPresent()){
             m.addAttribute("profile", profile.get());
         }else{
@@ -75,12 +73,10 @@ public class ProfileController {
     
     //Modifica en la BBDD los datos editados
     @PostMapping("/modify")
-    public String modify(Model m, String nickName,String status, String email, MultipartFile avatar, @CookieValue(name = "idUser",required = false) Long id){
-        if(id == null){
-            return "redirect:/logout";
-        }
+    public String modify(Model m, String nickName,String status, String email, MultipartFile avatar){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Optional<User> user = profileRepository.findById(id);
+        Optional<User> user = profileRepository.findById(u.getId());
         user.get().setNickName(nickName);
         user.get().setEmail(email);
         user.get().setStatus(status);
@@ -129,21 +125,19 @@ public class ProfileController {
     
     //Borra los datos mediante el id del user
     @GetMapping("/remove")
-    public String remove(Model m, @CookieValue(name = "idUser",required = false) Long id){
-        if(id == null){
-            return "redirect:/logout";
-        }
-        friendService.deleteFriendCascade(id);
+    public String remove(Model m){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        friendService.deleteFriendCascade(u.getId());
         return "redirect:view";
     }
     
     //Modificar estado del user
     @PostMapping("/status")
-    public String status(String status, @CookieValue(name = "idUser",required = false) Long id){
-        if(id == null){
-            return "redirect:/logout";
-        }
-        Optional<User> user = profileRepository.findById(id);
+    public String status(String status){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Optional<User> user = profileRepository.findById(u.getId());
         user.get().setStatus(status);
         profileRepository.save(user.get());
         return "redirect:view";
@@ -152,9 +146,10 @@ public class ProfileController {
     //Obtiene los datos del user
     @GetMapping("/getUser")
     @ResponseBody
-    public User getUser(Model m, @CookieValue(name = "idUser",required = false) Long id){
+    public User getUser(Model m){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Optional<User> user = profileRepository.findById(id);
+        Optional<User> user = profileRepository.findById(u.getId());
         m.addAttribute("user",user.get());
         return user.get();
     }           
