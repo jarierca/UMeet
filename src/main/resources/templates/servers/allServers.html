@@ -26,7 +26,7 @@
                     <tr th:each="sv:${nam}">
                         <td th:text="${sv.name}"> </td>
                         <td th:text="${sv.description}"> </td>
-                        <td> <input type="submit" value="unirse" class="btn btn-primary m-2"></a></td>
+                        <td><a th:href="@{/usr/joinServer(idServer=${sv.id}, idUser=2)}" class="btn btn-primary m-2">Unirse</a></td>
                     </tr>
                 </table>
             </div>
