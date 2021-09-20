@@ -146,6 +146,17 @@ public class ProfileController {
         return "redirect:view";
     }
     
+    @GetMapping("/statusDrop")
+    public String statusDrop(String status){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Optional<User> user = profileRepository.findById(u.getId());
+        user.get().setStatus(status);
+        profileRepository.save(user.get());
+        return "redirect:view";
+    }
+    
+    
     //Obtiene los datos del user
     @GetMapping("/getUser")
     @ResponseBody

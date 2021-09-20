@@ -3,28 +3,179 @@
       th:replace="layout/layout::layout( ~{::body})">
 
     <body>
-        <div th:each="p:${profile}" class="card" style="width:400px">
-            <div class="card-body">
-              <span th:text="${p.nickName}"></span><br>
-              <span th:text="${p.username}"></span><br>
-              <span th:text="${p.email}"></span><br>
-              <span th:text="${p.status}"></span><br>
-              <img th:src="@{avatar(url=${p.avatar})}" height="150px" width="250px">
-              <!--<span th:text="${p.avatar}"></span><br>-->
-            </div>
-            <a class="btn btn-outline-primary" th:href="@{edit(id=${p.id})}">Modificar</a>
-            <a class="btn btn-outline-primary" th:href="@{remove(id=${p.id})}">Darse de Baja</a>
-<!--            <a class="btn btn-outline-primary" th:href="@{status(id=${p.id})}">Modificar Status</a>-->
-            
-            <form method="post" action="status">
-                <select name="status">
-                    <option value="conectado" selected>Conectado</option>
-                    <option value="desconectado">Desconectado</option>
-                    <option value="ocupado">Ocupado</option>
-                </select>
-                <input hidden th:value="${p.id}" name="id">
-                <input type="submit" value="Modificar Estado">
-            </form>
-        </div> 
+
+        <div th:each="p:${profile}">
+            <div class="container text-center mt-5">
+
+                <div class="mt-5 mb-4">
+                    <h1 class="h1 mb-0 text-white">Tu Perfil</h1>
+                </div>
+
+                <div class="row justify-content-center align-self-center mt-4 mb-4 mx-4">
+                    <a th:href="@{edit(id=${p.id})}" class="btn-primary btn-icon-split btn-sm font-btn-user-profile">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-user-edit"></i>
+                        </span>
+                        <span class="text">Editar Datos</span>
+                    </a>
+
+                    <!--                    <a href="" class="btn-whitelist btn-icon-split btn-sm">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-edit"></i>
+                                            </span>
+                                            <span class="text">Editar Contraseña</span>
+                                        </a>-->
+
+                    <a th:href="@{remove(id=${p.id})}" class="btn-primary btn-icon-split btn-sm mx-4 font-btn-user-profile" data-toggle="modal" data-target="#bajaModal">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-user-slash"></i>
+                        </span>
+                        <span class="text">Darse de Baja</span>
+                    </a>
+                </div>  
+
+                <form method="post" action="status">
+                    <select name="status">
+                        <option value="conectado" selected>Conectado</option>
+                        <option value="desconectado">Desconectado</option>
+                        <option value="ocupado">Ocupado</option>
+                        <option value="ausente">Ausente</option>
+                    </select>
+                    <input hidden th:value="${p.id}" name="id">
+                    <input type="submit" value="Modificar Estado">
+                </form>
+
+                <div class="row pt-4 justify-content-center align-self-center">
+
+                    <div class="info-perfil">
+                        <div class="card border-left-primary shadow h-100 py-2 bg-user-profile">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-color-primary">Nick</div>
+                                        <div class="h5 mb-0 font-weight-bold text-white"><span th:text="${p.nickName}"></span></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-user fa-2x text-color-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-perfil">
+                        <div class="card border-left-success shadow h-100 py-2 bg-user-profile">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-color-primary">Username</div>
+                                        <div class="h5 mb-0 font-weight-bold text-white"><span th:text="${p.username}"></span></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-address-book fa-2x text-color-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-perfil">
+                        <div class="card border-left-warning shadow h-100 py-2 bg-user-profile">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-color-primary">Email</div>
+                                        <div class="h5 mb-0 font-weight-bold text-white"><span th:text="${p.email}"></span></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-envelope fa-2x text-color-primary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+
+                <div class="row pt-4 justify-content-center align-self-center">
+                    <div class="info-perfil">
+                        <div class="card border-left-warning shadow h-100 py-2 bg-user-profile">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold verde-perfil text-uppercase mb-1 text-color-primary">Avatar</div>
+                                        <div class="h5 mb-0 font-weight-bold text-color-primary"><img th:src="@{avatar(url=${p.avatar})}" height="150px" width="250px"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+
+<!--                <div class="row pt-4 justify-content-center align-self-center">
+                    <div class="info-avatar">
+                        <div class="card border-left-warning shadow h-100 bg-user-profile">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1 text-color-primary">Avatar</div>
+                                        <div class="h5 mb-0 font-weight-bold text-color-primary"><img th:src="@{avatar(url=${p.avatar})}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-perfil">
+                            <div class="card border-left-primary shadow h-100 py-2 bg-user-profile">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1 text-color-primary">Nick</div>
+                                            <div class="h5 mb-0 font-weight-bold text-white"><span th:text="${p.nickName}"></span></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user fa-2x text-color-primary"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-perfil">
+                            <div class="card border-left-success shadow h-100 py-2 bg-user-profile">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1 text-color-primary">Username</div>
+                                            <div class="h5 mb-0 font-weight-bold text-white"><span th:text="${p.username}"></span></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-address-book fa-2x text-color-primary"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-perfil">
+                            <div class="card border-left-warning shadow h-100 py-2 bg-user-profile">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1 text-color-primary">Email</div>
+                                            <div class="h5 mb-0 font-weight-bold text-white"><span th:text="${p.email}"></span></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-envelope fa-2x text-color-primary"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>-->
+
+                <!--            <a class="btn btn-outline-primary" th:href="@{status(id=${p.id})}">Modificar Status</a>-->
+            </div> 
     </body>
 </html>
