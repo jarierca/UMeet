@@ -78,7 +78,7 @@ public class FriendController {
         List<User> aux = userRepo.findByUsernameContaining(username);
         if (!aux.isEmpty()) {
         }
-
+        
         List<User> aux1 = userRepo.findByNickNameContaining(username);
         if (!aux1.isEmpty()) {
         }
@@ -88,6 +88,11 @@ public class FriendController {
 
         m.addAttribute("name", aux2);
 
+        /*Optional<User> aux2 = userRepo.findByUsername(username);//repositorio no pilla el id??
+        if (!aux1.isEmpty()) {
+            m.addAttribute("idFriend", aux2);
+        }
+*/
         return "friends/searchResultFriends";
     }
 
