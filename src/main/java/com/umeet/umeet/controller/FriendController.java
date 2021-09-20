@@ -7,6 +7,7 @@ import com.umeet.umeet.interfaces.IFriendService;
 import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,20 +67,28 @@ public class FriendController {
         if (!aux.isEmpty()) {
             m.addAttribute("name", aux);
         }
-
+        
         List<User> aux1 = userRepo.findByNickNameContaining(username);
-        if (!aux1.isEmpty()) {
-            m.addAttribute("nick", aux1);
+        if (!aux.isEmpty()) {
+            m.addAttribute("name", aux1);
         }
 
+        /*Optional<User> aux2 = userRepo.findByUsername(username);//repositorio no pilla el id??
+        if (!aux1.isEmpty()) {
+            m.addAttribute("idFriend", aux2);
+        }
+*/
         return "friends/searchResultFriends";
     }
 
-    /*@PostMapping("/addFriend")
-    public String addUser(User user, Long idUser) {
-        user.setId(userRepo.findById(idUser).get());
-        userRepo.save(user);
-        return "redirect:searchResultFriends?idCategory=" + user.getId();
-    }*/
+    @GetMapping("/addFriend")
+    public String addUser(Long idUser) {
+        User user2=userRepo.findById(idUser).get();
+        User user1=userRepo.findById(1L).get();
+        Friend friend=new Friend(null, "Invitado", user1, user2);
+        friendRepo.save(friend);
+        
+        return "friends/friendsList";
+    }
 
 }

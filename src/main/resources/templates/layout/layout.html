@@ -7,70 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <style>
-
-            body{
-                overflow:hidden;
-                background-color: #222629;
-            }
-            .btn-primary{
-                background-color: #61892F;
-                border-color:#61892F;
-                align: center;
-            }
-            .btn-primary:hover{
-                background-color: #86C232;
-                border-color:#86C232;
-            }
-            .form-control{
-                background-color: #3B4247;
-                border-color: #3B4247;
-                color:#EDFED5;
-            }
-            td{
-                color:#EDFED5;
-            }
-            hr{
-                background-color: #3B4247;
-            }
-
-            .dropdown-menu,.dropdown-item{
-                background-color: #3B4247;
-                color:#EDFED5;
-            }
-
-            .navbar-nav,.umeet{
-                color:#86C232;
-                padding-right: 10px;
-                font-size: 24px;
-            }
-            .ghost{
-                color:#6B6E70;
-                font-size:500px;
-                text-align: center;
-                opacity:0.2;
-            }
-            h3{
-                color:#6B6E70;
-                text-align:center;
-            }
-            .fa-user-friends{
-                padding-right: 5px;
-            }
-            .btn-success{
-                background-color:#61892F;
-                float:center;
-            }
-            .avatar {
-                vertical-align: middle;
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-            }
-
-            
-
-        </style>
+        <link rel="stylesheet" href="/styles.css">
     </head>
     <body>
         <div th:fragment="navbar">
@@ -125,9 +62,6 @@
                             <div class="overflow-auto scrollbar">NARANAJAJAJAJAJAJAJAJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ</div>
                         </div>
                     </div>
-                    <div id="contentBody">
-                        
-                    </div>
                 </div>
             </div>
         </div>
@@ -176,11 +110,11 @@
                 //$("#inventado").attr("href","/server/byUser?idUser=" + $.cookie("idUser"));
                 $.ajax({
                     type: "POST",
-                    url: "/server/allServers", //<--Ejecutamos del contra esta url
-                    /*data: {
+                    url: "/server/byUser", //<--Ejecutamos del contra esta url
+                    data: {
                         idUser: $.cookie("idUser"), //Obtener id con las cookies del usuario
                         //$.cookie("idUser")
-                    },*/
+                    },
                     success: function (pHtml) {    //<- Nos devuelven la respuesta. 
                         $("#contentBody").html(pHtml);
                     },

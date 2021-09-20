@@ -10,15 +10,14 @@
         <table>
             <tr>
                 <td th:if="${name!=null}" th:each="nam:${name}" th:text="${nam.username}"></td>
-                <td th:if="${nick!=null}" th:each="nk:${nick}" th:text="${nk.nickName}"></td>
-                <td>
-                    <a class="btn btn-success " th:href="@{addFriend(idUser=${})}"><i class="fas fa-user-plus"></i> Nuevo</a>
-                </td> 
+                <td th:if="${nick!=null}" th:each="nk:${nick}" th:text="${nk.nickName}"></td>    
             </tr> 
         </table> 
-
-        <div th:include="/layout/layout::footer"></div>
-        <div th:include="/layout/layout::scripts"></div>
-    </body>
+    <div>
+        <a class="btn btn-success mt-4" th:href="@{addFriend(idUser=${idFriend})}"><i class="fas fa-user-plus"></i> Añadir</a>
+    </div>
+    <div th:include="/layout/layout::footer"></div>
+    <div th:include="/layout/layout::scripts"></div>
+</body>
 </html>
 
