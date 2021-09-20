@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,8 +62,10 @@ public class ServerController {
     }
 
     @PostMapping("/byUser")
-    public String serverByUser(Model m, Long idUser) {
-
+    public String serverByUser(Model m, @CookieValue(name = "idUser", required = false) Long idUser) {
+        if(idUser == null){
+            return "redirect:/logout";
+        }
         //m.addAttribute("user", userRepository.findById(userId).get());
         User user = userRepository.findById(idUser).get();
         List<UserServerRole> aux = userServerRoleRepository.findByUser(user);
@@ -98,20 +101,23 @@ public class ServerController {
     }
      */
     @GetMapping("/form")
-    public String viewServerCreation(Model model, Long idServer, Long idUser) {
+    public String viewServerCreation(Model model, Long idServer /*,Long idUser*/) {
         if (idServer == null) {
             model.addAttribute("server", new Server());
         } else {
             model.addAttribute("server", serverRepository.findById(idServer));
         }
-        model.addAttribute("idUser", idUser);
+//        model.addAttribute("idUser", idUser);
         return "/servers/formServer";
     }
 
     @PostMapping("/addServer")
-    public String addServer(Server server, Long idUser, MultipartFile file) {
+    public String addServer(Server server, @CookieValue(name = "idUser", required = false) Long idUser, MultipartFile file) {
+        if(idUser == null){
+            return "redirect:/logout";
+        }
         if(!file.isEmpty()){
-            String ruta = rutaRecursos + "\\avatar\\users\\" + server.getName() + ".png";
+            String ruta = rutaRecursos + "/avatar/servers/" + server.getName() + ".png";
             File f = new File(ruta);
             f.getParentFile().mkdirs();
             try{
@@ -130,7 +136,7 @@ public class ServerController {
             userServerRole.setServer(server);
             userServerRoleRepository.save(userServerRole);
         }
-        return "redirect:/server/byUser?userId="+idUser;
+        return "redirect:/server/byUser";
     }
 
     @GetMapping("/deleteServer")
