@@ -1,10 +1,10 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
-    <head th:include="layout/layout::head">
+  
 
     </head>
    <body>
-        <div th:include="/layout/layout::navbar"></div>
+      
 
         <div class="container">
             <div class="container">
@@ -14,17 +14,18 @@
                 <table class="table table-striped">
 
                     <tr>
-                        <th>Filtrados</th>
+                        <th>Nickname</th>
+                        <th>Username</th>
                     </tr>
                     <tr th:if="${name!=null}" th:each="nam:${name}">
+                        
+                        <td th:text="${nam.nickName}"></td>
                         <td th:text="${nam.username}"></td>
                     </tr> 
-                    <tr th:if="${nick !=null}" th:each="nk:${nick}">
-                        <td th:text="${nk.nickName}"></td>
-                    </tr>
+                   
                 </table>
 
- <div th:include="/layout/layout::footer"></div>
+ 
         <div th:include="/layout/layout::scripts"></div>
     </body>
 </html>

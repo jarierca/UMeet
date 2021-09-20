@@ -1,15 +1,18 @@
 package com.umeet.umeet.controller;
 
-import com.umeet.umeet.entities.Friend;
-import com.umeet.umeet.entities.Server;
+import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.User;
-import com.umeet.umeet.interfaces.IFriendService;
+import com.umeet.umeet.entities.Friend;
 import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +29,15 @@ public class FriendController {
     private UserRepository userRepo;
 
 //List friends
-    @GetMapping("/friendsList") //Va la vista poniendo detras ?idUsuario=1 (http://localhost:8090/friends/friendsList?idUsuario=3)
-    public String listFriends(Model m, Long idUsuario) {
+    @GetMapping("/friendsList") //Va la vista poniendo detras ?idUser=1 (http://localhost:8090/friends/friendsList?idUser=3)
+    public String listFriends(Model m, @CookieValue(name = "idUser", required = false) Long idUser) {
+        if (idUser == null) {
+            return "redirect:/profile/logout";
 
-        m.addAttribute("friendsAccepted", friendRepo.findByAmigos(idUsuario, "Aceptado"));
-        m.addAttribute("friendsPending", friendRepo.findByAmigos(idUsuario, "Invitado"));
+        }
+
+        m.addAttribute("friendsAccepted", friendRepo.findByAmigos(idUser, "Aceptado"));
+        m.addAttribute("friendsPending", friendRepo.findByAmigos(idUser, "Invitado"));
 
         return "friends/view";
     }
@@ -41,13 +48,19 @@ public class FriendController {
 
         List<User> aux = userRepo.findByUsernameContaining(username);
         if (!aux.isEmpty()) {
-            m.addAttribute("name", aux);
+
         }
 
         List<User> aux1 = userRepo.findByNickNameContaining(username);
         if (!aux1.isEmpty()) {
-            m.addAttribute("nick", aux1);
+
         }
+
+        List<User> aux2 = Stream.concat(aux.stream(), aux1.stream())
+                .distinct()
+                .collect(Collectors.toList());
+
+        m.addAttribute("name", aux2);
 
         return "friends/filteredFriends";
     }
@@ -64,22 +77,44 @@ public class FriendController {
 
         List<User> aux = userRepo.findByUsernameContaining(username);
         if (!aux.isEmpty()) {
-            m.addAttribute("name", aux);
         }
-
+        
         List<User> aux1 = userRepo.findByNickNameContaining(username);
         if (!aux1.isEmpty()) {
-            m.addAttribute("nick", aux1);
         }
+        List<User> aux2 = Stream.concat(aux.stream(), aux1.stream())
+                .distinct()
+                .collect(Collectors.toList());
 
+        m.addAttribute("name", aux2);
+
+        /*Optional<User> aux2 = userRepo.findByUsername(username);//repositorio no pilla el id??
+        if (!aux1.isEmpty()) {
+            m.addAttribute("idFriend", aux2);
+        }
+*/
         return "friends/searchResultFriends";
     }
 
-    /*@PostMapping("/addFriend")
-    public String addUser(User user, Long idUser) {
-        user.setId(userRepo.findById(idUser).get());
-        userRepo.save(user);
-        return "redirect:searchResultFriends?idCategory=" + user.getId();
-    }*/
+    @PostMapping("/addFriend")
+    public String addUser(Model m, Friend friend, Long idUserFriend) {
+        /*if (idUser == null) {
+            return "redirect:/profile/logout";
+        }*/ 
+
+        friend.setStatus("invitado");
+        System.out.print(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        friend.setUser1(userRepo.findById(u.getId()).get());
+        friend.setUser2(userRepo.findById(idUserFriend).get());
+
+        friendRepo.save(friend);
+
+        List<User> amigos = friendRepo.findByAmigos((idUserFriend), "invitado");
+
+        m.addAttribute("friendsPending", amigos);
+
+        return "friends/view";
+    }
 
 }

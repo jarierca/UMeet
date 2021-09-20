@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,7 +89,7 @@ public class MessagesController {
     }
     
     @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario
-    public void mensajeCanal(Message msg,Long idChannel,Long idUser){
+    public void mensajeCanal(Message msg,Long idChannel, @CookieValue(name = "idUser",required = false)Long idUser){
         msg.setChannel(repoChn.findById(idChannel).get());
         msg.setUser(repoUsr.findById(idUser).get());
         msg.setName(msg.getUser().getNickName());
@@ -96,7 +97,7 @@ public class MessagesController {
     }
     
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
-    public void mensajePrivado(Message msg,Long idUser,Long idUserDestiny){
+    public void mensajePrivado(Message msg, @CookieValue(name = "idUser",required = false) Long idUser,Long idUserDestiny){
         msg.setUser(repoUsr.findById(idUser).get());
         msg.setUserDestiny(repoUsr.findById(idUserDestiny).get());
         repoMsg.save(msg); 
