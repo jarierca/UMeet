@@ -1,10 +1,10 @@
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+th:replace="layout/layout::layout( ~{::body})">
            
-  <head th:include="layout/layout::head">
         
     </head>
     <body>
-         <div th:include="/layout/layout::navbar">
+        
 
         </div>
         <div class="container">
@@ -17,16 +17,16 @@
 
                     <td th:text="${sv.name}"> </td>
                     <td th:text="${sv.description}"> </td>
-                    <td><a th:href="@{/server/form(idServer=${sv.id})}" class="btn btn-primary m-2" >Editar</a></td>
-                    <td><a th:href="@{/server/deleteServer(idServer=${sv.id})}" class="btn btn-primary m-2">Eliminar</a></td>
+                    <td> <a th:href="@{/usr/joinServer(idServer=${sv.id})}" class="btn btn-primary m-2" >Unirse</a></td>
+                   
 
                 </tr>
                 <tr th:if="${des !=null}" th:each="sv:${des}">
 
                     <td th:text="${sv.name}"> </td>
                     <td th:text="${sv.description}"> </td>
-                    <td><a th:href="@{/server/form(idServer=${sv.id})}" class="btn btn-primary m-2" >Editar</a></td>
-                    <td><a th:href="@{/server/deleteServer(idServer=${sv.id})}" class="btn btn-primary m-2">Eliminar</a></td>
+                     <td> <a th:href="@{/usr/joinServer(idServer=${sv.id})}" class="btn btn-primary m-2" >Unirse</a></td>
+                   
 
                 </tr>
 
@@ -34,7 +34,6 @@
             </table>
         </div>
 
-         <div th:include="/layout/layout::footer"></div>
-        <div th:include="/layout/layout::scripts"></div>
+       
     </body>
 </html>

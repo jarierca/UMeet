@@ -1,21 +1,11 @@
-<html xmlns:th="https://www.thymeleaf.org">
-    <head th:include="layout/layout::head">
-
+<html xmlns:th="https://www.thymeleaf.org"
+th:replace="layout/layout::layout( ~{::body})">
+           
     </head>
     <body>
-        <div th:include="/layout/layout::navbar">
-
-
-        </div>
-
+        
         <div class="row">
-
-            <!-- <div class="col-3">
-                <form action="/server/filtered" method="post">
-                        <input type="text" name="name" placeholder="Encuentra un servidor" class="form-control m-2">
-                    <input type="submit" class="btn btn-primary m-2" >
-                </form>
-            --> 
+           
         </div>
         <div class="col-9">
             <table class="table">
@@ -31,9 +21,5 @@
             </table>
         </div>
 
-
-
-        <div th:include="/layout/layout::footer"></div>
-        <div th:include="/layout/layout::scripts"></div>
     </body>
 </html>
