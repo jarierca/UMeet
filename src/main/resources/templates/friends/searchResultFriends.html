@@ -11,7 +11,7 @@
                 <td th:if="${name!=null}" th:each="nam:${name}" th:text="${nam.username}"></td>
                 <td th:if="${nick!=null}" th:each="nk:${nick}" th:text="${nk.nickName}"></td>
                 <td>
-                    <a>Nuevo</a>
+                    <a th:href="/">Nuevo</a>
                 </td> 
             </tr> 
         </table> 
