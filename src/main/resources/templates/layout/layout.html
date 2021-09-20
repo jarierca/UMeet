@@ -116,7 +116,7 @@
                     type: "POST",
                     url: "/server/allServers", //<--Ejecutamos del contra esta url
                     success: function (pHtml) {    //<- Nos devuelven la respuesta.
-                        $("#contentBody").html(pHtml);
+                        $("body").html(pHtml);
                     },
                     error: function (xhr, status, error) {
                         alert(xhr.responseText);
