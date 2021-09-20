@@ -1,4 +1,5 @@
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="layout/layout::layout( ~{::body})">
 </head>
 <body>
 
@@ -7,7 +8,7 @@
 
         <form action="/friends/foundUser" method="post">
 
-            
+
             <input type="text" placeholder="Introduce un nombre de usuario" name="username">
             <button type="submit">Buscar</button>
 

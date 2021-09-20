@@ -1,31 +1,29 @@
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="layout/layout::layout( ~{::body})">
 
-  
 
-    </head>
-   <body>
-      
+</head>
+<body>
 
+
+    <div class="container">
         <div class="container">
-            <div class="container">
 
 
-                <h3>Amigos</h3>
-                <table class="table table-striped">
+            <h3>Amigos</h3>
+            <table class="table table-striped">
 
-                    <tr>
-                        <th>Nickname</th>
-                        <th>Username</th>
-                    </tr>
-                    <tr th:if="${name!=null}" th:each="nam:${name}">
-                        
-                        <td th:text="${nam.nickName}"></td>
-                        <td th:text="${nam.username}"></td>
-                    </tr> 
-                   
-                </table>
+                <tr>
+                    <th>Nickname</th>
+                    <th>Username</th>
+                </tr>
+                <tr th:if="${name!=null}" th:each="nam:${name}">
 
- 
-        <div th:include="/layout/layout::scripts"></div>
-    </body>
-</html>
+                    <td th:text="${nam.nickName}"></td>
+                    <td th:text="${nam.username}"></td>
+                </tr> 
+            </table>
+
+
+            </body>
+            </html>
