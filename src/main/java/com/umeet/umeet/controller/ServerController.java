@@ -65,8 +65,13 @@ public class ServerController {
 
         //m.addAttribute("user", userRepository.findById(userId).get());
         User user = userRepository.findById(idUser).get();
-        List<Server> usr = userServerRoleRepository.findByUser(user).stream().map(x->x.getServer()).collect(Collectors.toList());
-        m.addAttribute("server", usr);
+        List<UserServerRole> aux = userServerRoleRepository.findByUser(user);
+        if (!aux.isEmpty()){
+            List<Server> usr = userServerRoleRepository.findByUser(user).stream().map(x->x.getServer()).collect(Collectors.toList());
+            m.addAttribute("server", usr);
+        }else{
+            m.addAttribute("server", new Server());
+        }
         return "/servers/byUser";
         
     }
