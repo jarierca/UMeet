@@ -52,7 +52,7 @@ public class ServerController {
     @Autowired
     private ModelMapper mapper;
 
-    @GetMapping("/allServers")
+    @PostMapping("/allServers")
     public String allServers(Model m) {
 
         m.addAttribute("nam", serverRepository.findAll());

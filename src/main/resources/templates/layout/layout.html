@@ -125,6 +125,9 @@
                             <div class="overflow-auto scrollbar">NARANAJAJAJAJAJAJAJAJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ</div>
                         </div>
                     </div>
+                    <div id="contentBody">
+                        
+                    </div>
                 </div>
             </div>
         </div>
@@ -176,11 +179,11 @@
                 //$("#inventado").attr("href","/server/byUser?idUser=" + $.cookie("idUser"));
                 $.ajax({
                     type: "POST",
-                    url: "/server/byUser", //<--Ejecutamos del contra esta url
-                    data: {
+                    url: "/server/allServers", //<--Ejecutamos del contra esta url
+                    /*data: {
                         idUser: $.cookie("idUser"), //Obtener id con las cookies del usuario
                         //$.cookie("idUser")
-                    },
+                    },*/
                     success: function (pHtml) {    //<- Nos devuelven la respuesta. 
                         $("#contentBody").html(pHtml);
                     },
