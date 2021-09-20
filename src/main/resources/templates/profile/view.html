@@ -26,7 +26,7 @@
                                             <span class="text">Editar Contraseña</span>
                                         </a>-->
 <!--                    No borra-->
-                    <a th:href="@{remove}" class="btn-primary btn-icon-split btn-sm mx-4 font-btn-user-profile" data-toggle="modal" data-target="#bajaModal">
+                    <a class="btn-primary btn-icon-split btn-sm mx-4 font-btn-user-profile" data-toggle="modal" data-target="#bajaModal">
                         <span class="icon text-white-50">
                             <i class="fas fa-user-slash"></i>
                         </span>
@@ -36,17 +36,17 @@
                 
                 <div class="modal fade" id="bajaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content bg-morado">
+                        <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">¿Deseas darse de baja?</h5>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true"><i class="fas fa-times"></i></span>
                                 </button>
                             </div>
-                            <div class="modal-body">Estas seguro que deseas darse de baja lo y borras todos tus datos. (Esta acción no se podra revertir).</div>
+                            <div class="modal-body text-white">Estas seguro que deseas darse de baja lo y borras todos tus datos. (Esta acción no se podra revertir).</div>
                             <div class="modal-footer">
-                                <button class="btn btn-cancelar" type="button" data-dismiss="modal">Cancelar</button>
-                                <a class="btn btn-cerrar-sesion" href="http://localhost/DigitalKeys/User/darseDeBaja">Darse de Baja</a>
+                                <button class="btn btn-primary" type="button" data-dismiss="modal">Cancelar</button>
+                                <a class="btn btn-primary" th:href="@{remove}">Darse de Baja</a>
                             </div>
                         </div>
                     </div>
