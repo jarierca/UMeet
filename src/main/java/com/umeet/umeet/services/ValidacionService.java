@@ -34,6 +34,7 @@ public class ValidacionService implements UserDetailsService{
             List<GrantedAuthority> lista=new ArrayList<GrantedAuthority>();
             lista.add(new SimpleGrantedAuthority("ROLE_Usuario"));
             user.setRoles(lista);
+            user.set(lista);
              
             return user;
         }else{

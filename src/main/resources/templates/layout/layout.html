@@ -91,7 +91,8 @@
                         document.getElementById("user-status").innerHTML = '<span role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="badge badge-' + pHtml.status + ' badge-counter">&nbsp;</span><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a onClick="editStatus('+"'conectado'"+')" class="dropdown-item">Conectado</a><a onClick="editStatus('+"'desconectado'"+')" class="dropdown-item">Desconectado</a><a onClick="editStatus('+"'ocupado'"+')" class="dropdown-item">Ocupado</a><a onClick="editStatus('+"'ausente'"+')" class="dropdown-item">Ausente</a></div>';
                     },
                     error: function (xhr, status, error) {
-                        alert(xhr.responseText);
+                        console.log(xhr.responseText);
+                        window.location = "/logout";
                     }
                 });
             }

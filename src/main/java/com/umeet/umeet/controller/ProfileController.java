@@ -132,7 +132,7 @@ public class ProfileController {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         friendService.deleteFriendCascade(u.getId());
-        return "redirect:view";
+        return "redirect:/logout";
     }
     
     //Modificar estado del user
