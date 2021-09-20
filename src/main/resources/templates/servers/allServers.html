@@ -1,13 +1,9 @@
 <html xmlns:th="https://www.thymeleaf.org">
            
-  <head th:include="layout/layout::head">
+    <head>
         
     </head>
     <body>
-         <div th:include="/layout/layout::navbar">
-
-
-        </div>
         <div class="row">
             <div class="col-2 m-2">
                 <form action="/server/filtered" method="post">
@@ -26,14 +22,12 @@
                     <tr th:each="sv:${nam}">
                         <td th:text="${sv.name}"> </td>
                         <td th:text="${sv.description}"> </td>
-                        <td><a th:href="@{/usr/joinServer(idServer=${sv.id}, idUser=2)}" class="btn btn-primary m-2">Unirse</a></td>
+                        <td>
+                            <a th:href="@{/usr/joinServer(idServer=${sv.id}, idUser=2)}" class="btn btn-primary m-2">Unirse</a>
+                        </td>
                     </tr>
                 </table>
             </div>
         </div>
-
-    
-        <div th:include="/layout/layout::footer"></div>
-        <div th:include="/layout/layout::scripts"></div>
     </body>
 </html>
