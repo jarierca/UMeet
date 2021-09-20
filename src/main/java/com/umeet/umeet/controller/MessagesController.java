@@ -2,6 +2,7 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.MessageChannelDto;
+import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
 import com.umeet.umeet.entities.User;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -91,15 +93,17 @@ public class MessagesController {
     }
     
     @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario
-    public void mensajeCanal(Message msg,Long idChannel, @CookieValue(name = "idUser",required = false)Long idUser){
+    public void mensajeCanal(Message msg,Long idChannel){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         msg.setChannel(repoChn.findById(idChannel).get());
-        msg.setUser(repoUsr.findById(idUser).get());
+        msg.setUser(repoUsr.findById(u.getId()).get());
         repoMsg.save(msg);
     }
     
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
-    public void mensajePrivado(Message msg, @CookieValue(name = "idUser",required = false) Long idUser,Long idUserDestiny){
-        msg.setUser(repoUsr.findById(idUser).get());
+    public void mensajePrivado(Message msg,Long idUserDestiny){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        msg.setUser(repoUsr.findById(u.getId()).get());
         msg.setUserDestiny(repoUsr.findById(idUserDestiny).get());
         repoMsg.save(msg); 
     }

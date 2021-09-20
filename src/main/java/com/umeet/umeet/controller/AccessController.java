@@ -4,7 +4,6 @@ package com.umeet.umeet.controller;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.UserRepository;
-import com.umeet.umeet.services.CookieService;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.connector.Response;
@@ -24,9 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AccessController {
-    
-    @Autowired
-    private CookieService CookieService;
     
     @Autowired
     private UserRepository userRepository;
@@ -92,8 +88,6 @@ public class AccessController {
            
                 Optional<User> user = userRepository.findByUsername(username);
 
-                CookieService.setCookieUser(response, user.get(), 30 * 24 * 60 * 60);
-
                 m.addAttribute("user",user.get());
             }
         }
@@ -106,10 +100,6 @@ public class AccessController {
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         if (auth!=null){
             String username = auth.getName();
-           
-            Optional<User> user = userRepository.findByUsername(username);
-
-            CookieService.setCookieUser(response, user.get(), 0 * 24 * 60 * 60);
         } 
         
         return "index";

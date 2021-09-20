@@ -1,23 +1,27 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
-    <head th:include="layout/layout::head">
 
-    </head>
-    <body>
-        <div th:include="/layout/layout::navbar"></div>
-        <h2>¡Hemos encontrado al usuario que buscas!</h2>
+</head>
+<body>
 
-        <table>
-            <tr>
-                <td th:if="${name!=null}" th:each="nam:${name}" th:text="${nam.username}"></td>
-                <td th:if="${nick!=null}" th:each="nk:${nick}" th:text="${nk.nickName}"></td>    
-            </tr> 
-        </table> 
-    <div>
-        <a class="btn btn-success mt-4" th:href="@{addFriend(idUser=${idFriend})}"><i class="fas fa-user-plus"></i> Añadir</a>
-    </div>
-    <div th:include="/layout/layout::footer"></div>
-    <div th:include="/layout/layout::scripts"></div>
+    <h2>¡Hemos encontrado al usuario que buscas!</h2>
+
+    <table>
+
+        <tr th:if="${name!=null}" th:each="nam:${name}">
+            <td th:text="${nam.username}"></td>
+
+            <td>
+
+                <form th:action="@{/friends/addFriend}" method="post">
+                    <input type="hidden" th:value="${nam.id}" name="idUserFriend">
+                    <input type="submit" value="añadir">
+                </form>
+            </td> 
+        </tr>  
+
+    </table> 
+
+
 </body>
 </html>
-

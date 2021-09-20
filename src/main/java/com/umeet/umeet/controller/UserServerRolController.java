@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller("/usr")
+@Controller
+@RequestMapping("/usr")
 public class UserServerRolController {
 
     @Autowired
@@ -29,12 +31,15 @@ public class UserServerRolController {
     UserServerRoleRepository userServerRoleRepository;
 
     @GetMapping("/joinServer")
-    public String joinServer(Long idServer, Long idUser){
+    public String joinServer(Long idServer, @CookieValue(name = "idUser", required = false) Long idUser){
+        if(idUser==null){
+            return "redirect:/logout";
+        }
         Rol rol = rolRepository.findById(2l).get();
         Server server = serverRepository.findById(idServer).get();
         User user = userRepository.findById(idUser).get();
         UserServerRole relation = new UserServerRole(null, user, rol, server);
         userServerRoleRepository.save(relation);
-        return "";
+        return "redirect:/server/allServers";
     }
 }
