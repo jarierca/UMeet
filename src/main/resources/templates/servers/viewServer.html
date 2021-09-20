@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head th:include="layout/layout::head">
-</head>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="layout/layout::layout( ~{::body})">>
 <body>
-    <div th:include="/layout/layout::navbar"></div>
     <div class="col-2">
         <a th:href="@{/category/form(idServer=${idServer})}" href="">Añadir categoría</a>
         <ul th:each="category:${categories}">
@@ -22,7 +19,5 @@
             </li>
         </ul>
     </div>
-    <div th:include="/layout/layout::footer"></div>
-    <div th:include="/layout/layout::scripts"></div>
 </body>
 </html>
