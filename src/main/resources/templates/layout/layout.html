@@ -41,18 +41,15 @@
                                 </li>
                             </ul>
                             <!-- Perfil usuario -->
-                            <ul class="navbar-nav dropdown d-flex">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="user-profile" role="button" data-bs-toggle="dropdown">
-                                        <span class="avatar" name="avatar"></span>
-                                        <img alt="Avatar" class="avatar"  >
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-dark">
-                                        <li><a class="dropdown-item" onclick="editProfile()">Editar perfil</a></li>
-                                        <li><a th:href="@{/logout}" class="btn btn-success align-items-center">Desconectar</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <div class="dropleft show">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Perfil
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" onclick="editProfile()">Editar perfil</a>
+                                    <a th:href="@{/logout}" class="btn btn-success align-items-center dropdown-item">Desconectar</a>
+                                </div>
+                            </div>
                         </div>     
                     </nav>
                     <div class="row">
