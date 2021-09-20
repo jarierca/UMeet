@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
 @NoArgsConstructor 
-@AllArgsConstructor
+@AllArgsConstructor 
 
 public class UserValidacionDto implements UserDetails{
 
