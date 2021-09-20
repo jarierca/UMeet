@@ -94,12 +94,7 @@ public class ServerController {
         return "/servers/filteredServers";
     }
 
-    /* @GetMapping("/pruebaServer")
-    public String prueba(Model model) {
-        model.addAttribute("servers", serverRepository.findAll());
-        return "prueba";
-    }
-     */
+    
     @GetMapping("/form")
     public String viewServerCreation(Model model, Long idServer) {
         if (idServer == null) {
