@@ -155,7 +155,7 @@ public class ProfileController {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
          
         Optional<User> user = profileRepository.findById(u.getId());
-        UserDto userDto = mapper.map(user, UserDto.class);
+        UserDto userDto = mapper.map(user.get(), UserDto.class);
         
         //m.addAttribute("user",user.get());
         return userDto;
