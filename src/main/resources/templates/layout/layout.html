@@ -145,11 +145,7 @@
                     $.ajax({
                         url: "/profile/getUser", 
                         success: function (pHtml) { 
-                            var avatar = pHtml.avatar;
-                            for (var i = 0; i < 3; i++) {
-                                avatar = avatar.replace("\\", "%5C");
-                            }
-                            document.getElementById("user-profile").innerHTML = '<span>'+pHtml.username+'</span><img alt="Avatar" class="avatar" src="/profile/avatar?url='+avatar+'">';
+                            document.getElementById("user-profile").innerHTML = '<span>'+pHtml.username+'</span><img alt="Avatar" class="avatar" src="/profile/avatar?url='+pHtml.avatar+'">';
                         },
                         error: function (xhr, status, error) {
                             console.log(xhr.responseText);

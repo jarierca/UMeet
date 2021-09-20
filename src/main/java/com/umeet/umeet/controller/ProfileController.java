@@ -87,7 +87,7 @@ public class ProfileController {
 
         if (!avatar.isEmpty()) {
 
-            String ruta = rutaRecursos + "\\avatar\\users\\" + user.get().getUsername() + ".png";
+            String ruta = rutaRecursos + "/avatar/users/" + user.get().getUsername() + ".png";
             File f = new File(ruta);
             f.getParentFile().mkdirs();
             try {

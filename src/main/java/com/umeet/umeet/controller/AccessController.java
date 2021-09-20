@@ -65,7 +65,7 @@ public class AccessController {
             user.setPass(encodedPassword);
 
             user.setNickName(user.getUsername());
-            user.setAvatar("C:\\zzUpload\\avatar\\avatar-stock.png");
+            user.setAvatar("C:/zzUpload/avatar/avatar-stock.png");
             user.setStatus("desconectado");
 
             userRepository.save(user);
