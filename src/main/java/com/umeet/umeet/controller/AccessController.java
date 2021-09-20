@@ -61,14 +61,20 @@ public class AccessController {
         Optional<User> usuarios = userRepository.findByUsername(user.getUsername());
         if (!usuarios.isPresent()) {
 
-            String encodedPassword = passwordEncoder.encode(user.getPass());
-            user.setPass(encodedPassword);
+            //Restringe si la pass del user es mayor de 8 pero el error que muestra es el otro
+//            if(user.getPass().length() < 8){
+//                 m.addAttribute("error","La contraseña es demasiado corta");
+//                return "register";
+//            }else{
+                String encodedPassword = passwordEncoder.encode(user.getPass());
+                user.setPass(encodedPassword);
 
-            user.setNickName(user.getUsername());
-            user.setAvatar("C:/zzUpload/avatar/avatar-stock.png");
-            user.setStatus("desconectado");
+                user.setNickName(user.getUsername());
+                user.setAvatar("C:/zzUpload/avatar/avatar-stock.png");
+                user.setStatus("desconectado");
 
-            userRepository.save(user);
+                userRepository.save(user);
+//            } 
             
             return "login";
         }else{
