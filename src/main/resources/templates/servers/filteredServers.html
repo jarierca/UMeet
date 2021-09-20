@@ -13,7 +13,7 @@ th:replace="layout/layout::layout( ~{::body})">
                 <th>
                     Filtrados
                 </th>
-                <tr th:if="${nam !=null}" th:each="sv:${nam}">
+                <tr th:if="${nam !=null}"  th:each="sv:${nam}">
 
                     <td th:text="${sv.name}"> </td>
                     <td th:text="${sv.description}"> </td>
