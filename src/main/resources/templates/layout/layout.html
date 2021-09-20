@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="row container" style="text-align: center; align-content:center;">
-                        <div class="col-md-12">
+                        <div id="contentBody" class="col-md-12">
                             <th:block th:include="${htmlcuerpo}"/>
                         </div>
                     </div>
@@ -114,9 +114,9 @@
                 //$("#inventado").attr("href","/server/byUser?idUser=" + $.cookie("idUser"));
                 $.ajax({
                     type: "POST",
-                    url: "/servers/allServers", //<--Ejecutamos del contra esta url
+                    url: "/server/allServers", //<--Ejecutamos del contra esta url
                     success: function (pHtml) {    //<- Nos devuelven la respuesta.
-                        return pHtml;
+                        $("#contentBody").html(pHtml);
                     },
                     error: function (xhr, status, error) {
                         alert(xhr.responseText);
