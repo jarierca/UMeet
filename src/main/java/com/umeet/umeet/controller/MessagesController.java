@@ -57,24 +57,44 @@ public class MessagesController {
     
     //localhost:8090/msg/private/5 (5 seria el usuario que esta obteniendo sus mensajes privados)
     @ResponseBody
-    @PostMapping("/private/{id_user}") //Devuelve un Json con todos los mensajes privados
-    public List<MessageChannelDto> privados(@PathVariable Long id_user){
-        List<Message> aux = repoMsg.findAll();
+    @PostMapping("/private/{id_destino}") //Devuelve un Json con todos los mensajes privados
+    public List<MessageChannelDto> privados(@PathVariable Long id_destino){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        List<Message> aux = repoMsg.findByUser(repoUsr.findById(u.getId()).get());
         if (!aux.isEmpty()){
-            List<Message> origen = aux.stream()
-                      .filter(x->x.getUser().getId()==id_user && x.getUserDestiny()!=null) //Obtiene mensajes que el ha mandado
-                      .collect(Collectors.toList());
-            List<Message> destino = aux.stream()
-                      .filter(x->x.getUserDestiny()!=null && x.getUserDestiny().getId()==id_user)                      //Obtiene mensajes que ha recibido
-                      .collect(Collectors.toList());
-            List<MessageChannelDto> res = origen.stream()
-                                        .map(x->mapper.map(x, MessageChannelDto.class))
-                                        .collect(Collectors.toList());
-            res.addAll(destino.stream()
-                            .map(x->mapper.map(x, MessageChannelDto.class))
-                            .collect(Collectors.toList()));
-           
-            return res;
+            List <Message> origen = aux.stream()
+                                   .filter(x->x.getUserDestiny()!=null && x.getUserDestiny().getId()==id_destino)
+                                   .collect(Collectors.toList());
+            if(!repoMsg.findByUserDestiny(repoUsr.findById(id_destino).get()).isEmpty()){
+                List<Message> aux2 = repoMsg.findByUserDestiny(repoUsr.findById(id_destino).get());
+                
+                List<Message> destino = aux2.stream()
+                          .filter(x-> x.getUserDestiny()!=null && x.getUserDestiny()==repoUsr.findById(u.getId()).get()) //Obtiene mensajes que el ha recibido
+                          .collect(Collectors.toList());
+                
+                List<MessageChannelDto> res = origen.stream()
+                                            .map(x->mapper.map(x, MessageChannelDto.class))
+                                            .collect(Collectors.toList());
+                res.addAll(destino.stream()
+                                .map(x->mapper.map(x, MessageChannelDto.class))
+                                .collect(Collectors.toList()));
+                return res;
+                
+                //Lo comentado abajo devolvia todos los mensajes que habia enviado y recibido, lo de arriba es para mostrar los directos entre usuarios
+                
+                /*List<Message> origen = aux.stream()
+                          .filter(x->x.getUser().getId()==id_user && x.getUserDestiny()!=null) //Obtiene mensajes que el ha mandado
+                          .collect(Collectors.toList());
+                List<Message> destino = aux.stream()
+                          .filter(x->x.getUserDestiny()!=null && x.getUserDestiny().getId()==id_user)                      //Obtiene mensajes que ha recibido
+                          .collect(Collectors.toList());
+                List<MessageChannelDto> res = origen.stream()
+                                            .map(x->mapper.map(x, MessageChannelDto.class))
+                                            .collect(Collectors.toList());
+                res.addAll(destino.stream()
+                                .map(x->mapper.map(x, MessageChannelDto.class))
+                                .collect(Collectors.toList()));*/
+            }
         }
         return null;
     }
@@ -103,6 +123,7 @@ public class MessagesController {
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
     public void mensajePrivado(Message msg,Long idUserDestiny){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        msg.setName(repoUsr.findById(u.getId()).get().getNickName());
         msg.setUser(repoUsr.findById(u.getId()).get());
         msg.setUserDestiny(repoUsr.findById(idUserDestiny).get());
         repoMsg.save(msg); 

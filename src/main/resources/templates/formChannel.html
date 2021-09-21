@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org"
-      th:replace="layout/layout::layout( ~{::body})">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <body>
 <div>
     <form th:object="${channel}" action="/channel/addChannel" method="post">

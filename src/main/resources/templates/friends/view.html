@@ -40,12 +40,16 @@
                                     <th>Avatar</th>
                                     <th>Nickname</th>
                                     <th>Status</th>
+                                    <th></th>
                                 </tr>
                                 <tr th:each="f1:${friendsAccepted}">
 
                                     <td>  <img class='avatar' th:src="|/profile/avatar?url=${f1.avatar}|"></td>
                                     <td th:text="${f1.nickName}"></td>
                                     <td th:text="${f1.status}"></td>
+                                    <td>
+                                        <button th:attr="onclick=|chatPrivado(${f1.id})|" >Meet</button>
+                                    </td>
                                 </tr> 
                             </table>
                         </div>
@@ -83,11 +87,13 @@
 
 
         </div>
-        <div class="col-9">
-            DIV DE JOSE
+        <div id="panelChat" class="col-9">
+            
+           
+        </div>
+        <div id="sendit" class="col-6">
 
         </div>
-
     </div>
 
 

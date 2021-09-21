@@ -228,68 +228,68 @@
                                                 item.scrollLeft -= 100;
                                         });
 
-                                        function chatPrivado(idUser, idDestino) {
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "/msg/private/" + idUser,
-                                                success: function (pJson) {
-                                                    //console.log(pJson);
-                                                    $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Cuentanos tu vida'/>" +
-                                                            "<button onclick=enviarMsgPrivado(" + idDestino + ") >Enviar</button>");
-                                                    var salida = $("<tr>").html("");
-                                                    $("#contentChat").html("");
-                                                    for (x of pJson) {
-                                                        $("<tr>").html("<td><p><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</p></td>").appendTo(salida);
-                                                    }
-                                                    /*$("<tr>").html("<td><form action='/msg/channel/sendmsg' method='post'>" +
-                                                     "<input type='hidden' name='idChannel' value='" + idCanal + "' />" +
-                                                     "<input type='hidden' name='idUser' value='" + $.cookie("idUser") + "' />" +
-                                                     "<input type='text' name='text' />" +
-                                                     "<button type='submit'> Enviar </button></td>").appendTo(salida);*/
-                                                    //console.log(salida);
-                                                    salida.appendTo("#contentChat");
-                                                },
-                                                error: function (xhr, status, error) {
-                                                    console.log(xhr.responseText);
-                                                }
-                                            });
-                                        }
+            function chatPrivado(idDestino) {
+                $.ajax({
+                    type: "POST",
+                    url: "/msg/private/" +idDestino,
+                    success: function (pJson) {
+                        //console.log(pJson);
+                        $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Cuentanos tu vida'/>" +
+                                        "<button onclick=enviarMsgPrivado(" +idDestino +") >Enviar</button>");
+                        var salida = $("<tr>").html("");
+                        $("#panelChat").html("");
+                        for (x of pJson) {
+                            $("<tr>").html("<td><p><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</p></td>").appendTo(salida);
+                        }
+                        /*$("<tr>").html("<td><form action='/msg/channel/sendmsg' method='post'>" +
+                                "<input type='hidden' name='idChannel' value='" + idCanal + "' />" +
+                                "<input type='hidden' name='idUser' value='" + $.cookie("idUser") + "' />" +
+                                "<input type='text' name='text' />" +
+                                "<button type='submit'> Enviar </button></td>").appendTo(salida);*/
+                        //console.log(salida);
+                        salida.appendTo("#panelChat");
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
 
-                                        function enviarMsgPrivado(idDestino) {
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "/msg/private/sendmsg",
-                                                data: {
-                                                    idUserDestiny: idDestino,
-                                                    text: $("#sendMsg").val()
-                                                },
-                                                success: function (pJson) {
-                                                    console.log("Mensaje enviado");
-                                                    chatPrivado();
-                                                },
-                                                error: function (xhr, status, error) {
-                                                    console.log(xhr.responseText);
-                                                }
-                                            });
-                                        }
-
-                                        function amigos() {
-
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "/friends/friendsFilter",
-                                                data: {
-                                                    username: $("#buscaAmigo").val()
-
-                                                },
-                                                success: function (pHtml) {
-                                                    $("#obtenAmigo").html(pHtml);
-                                                },
-                                                error: function (xhr, status, error) {
-                                                    console.log(xhr.responseText);
-                                                }
-                                            });
-                                        }
+            function enviarMsgPrivado(idDestino){
+                $.ajax({
+                    type: "POST",
+                    url: "/msg/private/sendmsg",
+                    data: {
+                        idUserDestiny: idDestino, 
+                        text: $("#sendMsg").val()
+                    }, 
+                    success: function (pJson) {
+                        //console.log("Mensaje enviado");
+                        chatPrivado(idDestino);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+            
+            function amigos() {
+               
+                $.ajax({
+                    type: "POST",
+                    url: "/friends/friendsFilter",
+                    data: {
+                        username:  $("#buscaAmigo").val()
+                        
+                    }, 
+                    success: function (pHtml) {
+                        $("#obtenAmigo").html(pHtml);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
         </script>
     </myscripts>
 </body>
