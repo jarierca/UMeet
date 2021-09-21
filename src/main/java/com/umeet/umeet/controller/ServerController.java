@@ -135,6 +135,7 @@ public class ServerController {
         }
         if(!file.isEmpty()){
             String ruta = rutaRecursos + "/avatar/servers/" + server.getName() + ".png";
+            ruta = ruta.replace(" ", "-");
             File f = new File(ruta);
             f.getParentFile().mkdirs();
             try{
