@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="layout/layout::layout( ~{::body})">>
     <body>
         <div class="row pt-4 justify-content-left align-self-left">
-            <div class="info-perfil">
+            <div class="server-text">
                 <div class="">
                     <a th:if="${usr.rol.id==1}"  th:href="@{/category/form(idServer=${idServer})}" href="">Añadir categoría</a>
                     <ul th:each="category:${categories}">
@@ -23,18 +23,22 @@
                 </div>
             </div>
 
-            
+            <div class="msg-text">
+                <div class="">
+                    <div class="">
+                        <div class="col-10" id="contentChat">
 
-            <div class="info-perfil">
-                <div class="col-10" id="contentChat">
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div id="sendit" class="">
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div id="sendit" class="col-6">
-                </div>
-            </div>
+
 
 
             <!--<div class="row">
