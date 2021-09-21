@@ -28,7 +28,7 @@ public class ValidacionService implements UserDetailsService{
         if (usuario.isPresent()){
             
             UserValidacionDto user = new UserValidacionDto();
-            user.setId(usuario.get().getId());
+            user.setId(usuario.get().getId()); 
             user.setUsername(usuario.get().getUsername());
             user.setPassword(usuario.get().getPass());
             List<GrantedAuthority> lista=new ArrayList<GrantedAuthority>();

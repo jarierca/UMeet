@@ -1,6 +1,7 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.CategoryViewDto;
+import com.umeet.umeet.dtos.ServerDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
@@ -13,19 +14,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-
+    
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import java.util.stream.Stream;
+import org.springframework.web.bind.annotation.ResponseBody;
+       
 
 @Controller
 @RequestMapping("/server")
@@ -78,21 +80,42 @@ public class ServerController {
         return "/servers/byUser";
         
     }
-
+    
+    @ResponseBody
+    @PostMapping("/byUser")
+    public List<ServerDto> serverByUserJson(Model m) {
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        //m.addAttribute("user", userRepository.findById(userId).get());
+        User user = userRepository.findById(u.getId()).get();
+        List<UserServerRole> aux = userServerRoleRepository.findByUser(user);
+        if (!aux.isEmpty()){
+            List<ServerDto> usr = userServerRoleRepository.findByUser(user).stream().map(x->mapper.map(x.getServer(),ServerDto.class)).collect(Collectors.toList());
+            return usr;
+        }else{
+            return null;
+        }
+        
+    }
+    
     @PostMapping("/filtered")
     public String searchServer(Model m, String name) {
 
         List<Server> aux = serverRepository.findByNameContaining(name);
-        if (!aux.isEmpty()) {
-            m.addAttribute("nam", aux);
-        }
+       
         List<Server> aux1 = serverRepository.findByDescriptionContaining(name);
-        if (!aux1.isEmpty()) {
-            m.addAttribute("des", aux1);
-        }
+        
+        List<Server> aux2 = Stream.concat(aux.stream(), aux1.stream())
+                .distinct()
+                .collect(Collectors.toList());
+
+        m.addAttribute("nam", aux2);
+
 
         return "/servers/filteredServers";
     }
+
+
+   
 
     /* @GetMapping("/pruebaServer")
     public String prueba(Model model) {
