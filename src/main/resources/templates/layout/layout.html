@@ -228,8 +228,8 @@
                     type: "POST",
                     url: "/msg/private/" +idDestino,
                     success: function (pJson) {
-                        console.log(pJson);
-                        /*$("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Cuentanos tu vida'/>" +
+                        //console.log(pJson);
+                        $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Cuentanos tu vida'/>" +
                                         "<button onclick=enviarMsgPrivado(" +idDestino +") >Enviar</button>");
                         var salida = $("<tr>").html("");
                         $("#panelChat").html("");
@@ -242,7 +242,7 @@
                                 "<input type='text' name='text' />" +
                                 "<button type='submit'> Enviar </button></td>").appendTo(salida);*/
                         //console.log(salida);
-                        //salida.appendTo("#panelChat");
+                        salida.appendTo("#panelChat");
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -259,24 +259,24 @@
                         text: $("#sendMsg").val()
                     }, 
                     success: function (pJson) {
-                        console.log("Mensaje enviado");
-                        chatPrivado();
+                        //console.log("Mensaje enviado");
+                        chatPrivado(idDestino);
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
                     }
                 });
             }
-
+            
             function amigos() {
-
+               
                 $.ajax({
                     type: "POST",
                     url: "/friends/friendsFilter",
                     data: {
                         username:  $("#buscaAmigo").val()
-
-                    },
+                        
+                    }, 
                     success: function (pHtml) {
                         $("#obtenAmigo").html(pHtml);
                     },
@@ -284,42 +284,6 @@
                         console.log(xhr.responseText);
                     }
                 });
-            }
-
-            function editCategory(idServer, idCategory){
-                $.ajax({
-                    url: "/category/form",
-                    data: {
-                        idServer: idServer,
-                        idCategory: idCategory},
-                    success: function (html){
-                        bootbox.dialog({
-                            title: 'Categoría',
-                            message: html
-                        })
-                    },
-                    error: function (xhr, status, error) {
-                        console.log(xhr.responseText);
-                    }
-                })
-            }
-
-            function editChannel(idCategory, idChannel){
-                $.ajax({
-                    url: "/channel/form",
-                    data: {
-                        idCategory: idCategory,
-                        idChannel: idChannel},
-                    success: function (html){
-                        bootbox.dialog({
-                            title: 'Canal',
-                            message: html
-                        })
-                    },
-                    error: function (xhr, status, error) {
-                        console.log(xhr.responseText);
-                    }
-                })
             }
         </script>
     </myscripts>

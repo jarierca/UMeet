@@ -63,7 +63,7 @@ public class MessagesController {
         List<Message> aux = repoMsg.findByUser(repoUsr.findById(u.getId()).get());
         if (!aux.isEmpty()){
             List <Message> origen = aux.stream()
-                                   .filter(x->x.getUserDestiny().getId()!=null && x.getUserDestiny().getId()==id_destino)
+                                   .filter(x->x.getUserDestiny()!=null && x.getUserDestiny().getId()==id_destino)
                                    .collect(Collectors.toList());
             if(!repoMsg.findByUserDestiny(repoUsr.findById(id_destino).get()).isEmpty()){
                 List<Message> aux2 = repoMsg.findByUserDestiny(repoUsr.findById(id_destino).get());
@@ -123,6 +123,7 @@ public class MessagesController {
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
     public void mensajePrivado(Message msg,Long idUserDestiny){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        msg.setName(repoUsr.findById(u.getId()).get().getNickName());
         msg.setUser(repoUsr.findById(u.getId()).get());
         msg.setUserDestiny(repoUsr.findById(idUserDestiny).get());
         repoMsg.save(msg); 
