@@ -17,9 +17,7 @@ th:replace="layout/layout::layout( ~{::body})">
 
             <div id="contentBody" class="col-8 m-2">
                 <table class="table">
-                    <th>
-                        Lista de servidores
-                    </th>
+                    
                     <tr th:each="sv:${nam}">
                         <td th:text="${sv.name}"> </td>
                         <td th:text="${sv.description}"> </td>

@@ -72,12 +72,9 @@ public class FriendController {
     public String userInvite(Model m, String username) {
 
         List<User> aux = userRepo.findByUsernameContaining(username);
-        if (!aux.isEmpty()) {
-        }
-
+       
         List<User> aux1 = userRepo.findByNickNameContaining(username);
-        if (!aux1.isEmpty()) {
-        }
+       
         List<User> aux2 = Stream.concat(aux.stream(), aux1.stream())
                 .distinct()
                 .collect(Collectors.toList());

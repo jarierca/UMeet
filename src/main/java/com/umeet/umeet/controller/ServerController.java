@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Controller
@@ -83,13 +83,15 @@ public class ServerController {
     public String searchServer(Model m, String name) {
 
         List<Server> aux = serverRepository.findByNameContaining(name);
-        if (!aux.isEmpty()) {
-            m.addAttribute("nam", aux);
-        }
+       
         List<Server> aux1 = serverRepository.findByDescriptionContaining(name);
-        if (!aux1.isEmpty()) {
-            m.addAttribute("des", aux1);
-        }
+        
+        List<Server> aux2 = Stream.concat(aux.stream(), aux1.stream())
+                .distinct()
+                .collect(Collectors.toList());
+
+        m.addAttribute("nam", aux2);
+
 
         return "/servers/filteredServers";
     }
