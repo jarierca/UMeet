@@ -139,6 +139,19 @@ h3 {
     border-radius: 30px;
     box-shadow: inset 0px 0px 0px 0px #F0F0F0;
 }
+
+.server-text{
+    margin-bottom: 1.5rem;
+    margin-left: .5rem;
+    background-color: #343a40;
+    margin-left: 20px
+/*    width: 20%*/
+}
+.msg-text{
+    margin-bottom: 1.5rem;
+    margin-left: .5rem;
+/*    width: 80%;*/
+}
 .prueba{
     height: 400px;
 }

@@ -10,51 +10,30 @@
                             <div class="list-group-item">
                                 <a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation"></a>
                                 <a th:if="${usr.rol.id==1}" th:href="@{/category/form(idCategory=${category.id})}"><i class="far fa-edit"></i></a>
+                                <a th:if="${usr.rol.id==1}" th:href="@{/category/deleteCategory(idCategory=${category.id})}"><i class="far fa-trash-alt"></i></a>
                             </div>
                             <a class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
                                th:if="${usr.rol.id==1}" th:href="@{/channel/form(idCategory=${category.id})}">Añadir canal</a>
                             <ul class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
                                 th:each="channel:${category.channels}">
                                 <li class="list-group-item"><a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}')|" th:text="${channel.name}"></a>
-                                    <a th:if="${usr.rol.id==1}" th:href="@{/channel/form(idChannel=${channel.id})}"><i class="far fa-edit"></i></a></li>
+                                    <a th:if="${usr.rol.id==1}" th:href="@{/channel/form(idChannel=${channel.id})}"><i class="far fa-edit"></i></a>
+                                    <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}"><i class="far fa-trash-alt"></i></a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
-
-
             <div class="info-perfil">
-                <div class="row">
-                    <div id="sendit" class="col-6">
-                    </div>
+                <div class="col-10" id="contentChat">
+
                 </div>
             </div>
 
-
-            <!--<div class="row">
-                <div class="col-2">
-                    <a th:if="${usr.rol.id==1}"  th:href="@{/category/form(idServer=${idServer})}" href="">Añadir categoría</a>
-                    <ul th:each="category:${categories}">
-                        <li >
-                            <div class="list-group-item">
-                                <a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation"></a>
-                                <a th:if="${usr.rol.id==1}" th:href="@{/category/form(idCategory=${category.id})}"><i class="far fa-edit"></i></a>
-                            </div>
-                            <a class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
-                               th:if="${usr.rol.id==1}" th:href="@{/channel/form(idCategory=${category.id})}">Añadir canal</a>
-                            <ul class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
-                                th:each="channel:${category.channels}">
-                                <li class="list-group-item"><a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}')|" th:text="${channel.name}"></a>
-                                    <a th:if="${usr.rol.id==1}" th:href="@{/channel/form(idChannel=${channel.id})}"><i class="far fa-edit"></i></a></li>
-                            </ul>
-                        </li>
-                    </ul>
+            <div class="row">
+                <div id="sendit" class="col-6">
                 </div>
-                <div class="col-10" id="contentChat">
-                </div>
-            </div>-->
-
+            </div>
         </div>
     </body>
 </html>
