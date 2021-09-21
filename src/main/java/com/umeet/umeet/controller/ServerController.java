@@ -59,8 +59,9 @@ public class ServerController {
 
     @PostMapping("/allServers")
     public String allServers(Model m) {
-
-        m.addAttribute("nam", serverRepository.findAll());
+        List<Server> allServers = serverRepository.findAll();
+        allServers = serverService.filterServers(allServers);
+        m.addAttribute("nam", allServers);
 
         return "/servers/allServers";
     }
@@ -107,9 +108,8 @@ public class ServerController {
         List<Server> aux2 = Stream.concat(aux.stream(), aux1.stream())
                 .distinct()
                 .collect(Collectors.toList());
-
+        aux2 = serverService.filterServers(aux2);
         m.addAttribute("nam", aux2);
-
 
         return "/servers/filteredServers";
     }
@@ -180,5 +180,5 @@ public class ServerController {
         model.addAttribute("categories", categories);
         model.addAttribute("idServer", idServer);
         return "/servers/viewServer";
-    }   
+    }
 }
