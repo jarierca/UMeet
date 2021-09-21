@@ -176,7 +176,7 @@
                     success: function (pJson) {
                         //console.log(pJson);
                         $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Cuentanos tu vida'/>" +
-                                        "<button onclick=enviarMsgCanal(" +idCanal +")");
+                                        "<button onclick=enviarMsgCanal(" +idCanal +") >Enviar</button>");
                         var salida = $("<tr>").html("");
                         $("#contentChat").html("");
                         for (x of pJson) {
