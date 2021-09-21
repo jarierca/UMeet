@@ -200,13 +200,13 @@
                     url: "/msg/channel/" + idCanal,
                     success: function (pJson) {
                         //console.log(pJson);
-                        $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'/>" +
+                        $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                                         "<a onclick=enviarMsgCanal(" +idCanal +") ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
                                         +"<a onclick=enviarMsgFileCanal(" +idCanal +") ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
                         var salida = $("<tr>").html("");
                         $("#contentChat").html("");
                         for (x of pJson) {
-                            $("<tr>").html("<td><p><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</p></td>").appendTo(salida);
+                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src='/profile/avatar?url="+x.user.avatar +"'>&nbsp;&nbsp;"+x.user.nickName + ":<br></span> " + x.text + "</p></td>").appendTo(salida);
                         }
                         /*$("<tr>").html("<td><form action='/msg/channel/sendmsg' method='post'>" +
                                 "<input type='hidden' name='idChannel' value='" + idCanal + "' />" +
@@ -254,7 +254,7 @@
                         var salida = $("<tr>").html("");
                         $("#contentChat").html("");
                         for (x of pJson) {
-                            $("<tr>").html("<td><p><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</p></td>").appendTo(salida);
+                            $("<tr>").html("<td><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</td>").appendTo(salida);
                         }
                         /*$("<tr>").html("<td><form action='/msg/channel/sendmsg' method='post'>" +
                                 "<input type='hidden' name='idChannel' value='" + idCanal + "' />" +
