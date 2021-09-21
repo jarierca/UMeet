@@ -32,6 +32,8 @@ public class FriendController {
     @GetMapping("/friendsList") //Va la vista poniendo detras ?idUser=1 (http://localhost:8090/friends/friendsList?idUser=3)
     public String listFriends(Model m) {
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        
         m.addAttribute("friendsAccepted", friendRepo.findByAmigos(u.getId(), "Aceptado"));
         m.addAttribute("friendsPending", friendRepo.findByAmigos(u.getId(), "Invitado"));
 

@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Perfil usuario -->
                             <div class="navbar-nav dropdown row">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" id="user-profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">   
@@ -69,7 +69,12 @@
                         </div>     
                     </nav>
 
-                   
+
+
+
+
+
+
 
                     <div class="" style="text-align: center; align-content:center;">
                         <div id="contentBody" class="">
@@ -200,9 +205,9 @@
                     url: "/msg/channel/" + idCanal,
                     success: function (pJson) {
                         //console.log(pJson);
-                        $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
+                        $("#sendit").html("&nbsp;&nbsp;&nbsp;<input type='text' id='sendMsg' name='text' placeholder='&nbsp;Escribe un mensaje'>" +
                                         "<a onclick=enviarMsgCanal(" +idCanal +") ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
-                                        +"<a onclick=enviarMsgFileCanal(" +idCanal +") ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                                        +"&nbsp;&nbsp;&nbsp;<a onclick=enviarMsgFileCanal(" +idCanal +") ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
                         var salida = $("<tr>").html("");
                         $("#contentChat").html("");
                         for (x of pJson) {
@@ -221,15 +226,14 @@
                     }
                 });
             }
-
-            function enviarMsgCanal(idCanal){
+            function enviarMsgCanal(idCanal) {
                 $.ajax({
                     type: "POST",
                     url: "/msg/channel/sendmsg",
                     data: {
                         idChannel: idCanal, //Obtener id con las cookies del usuario 
                         text: $("#sendMsg").val()
-                    }, 
+                    },
                     success: function (pJson) {
                         console.log("Mensaje enviado");
                         chat(idCanal);
@@ -240,19 +244,23 @@
                 });
             }
             //Rueda mouse horizontal 
-            var item = document.getElementById("userServers"); 
-            window.addEventListener("wheel", function (e) { if (e.deltaY > 0) item.scrollLeft += 100; else item.scrollLeft -= 100; });
-
-            function chatPrivado(idUser,idDestino) {
+            var item = document.getElementById("userServers");
+            window.addEventListener("wheel", function (e) {
+                if (e.deltaY > 0)
+                    item.scrollLeft += 100;
+                else
+                    item.scrollLeft -= 100;
+            });
+            function chatPrivado(idDestino) {
                 $.ajax({
                     type: "POST",
-                    url: "/msg/private/" + idUser,
+                    url: "/msg/private/" +idDestino,
                     success: function (pJson) {
                         //console.log(pJson);
                         $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Cuentanos tu vida'/>" +
                                         "<button onclick=enviarMsgPrivado(" +idDestino +") >Enviar</button>");
                         var salida = $("<tr>").html("");
-                        $("#contentChat").html("");
+                        $("#panelChat").html("");
                         for (x of pJson) {
                             $("<tr>").html("<td><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</td>").appendTo(salida);
                         }
@@ -262,7 +270,7 @@
                                 "<input type='text' name='text' />" +
                                 "<button type='submit'> Enviar </button></td>").appendTo(salida);*/
                         //console.log(salida);
-                        salida.appendTo("#contentChat");
+                        salida.appendTo("#panelChat");
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -279,8 +287,26 @@
                         text: $("#sendMsg").val()
                     }, 
                     success: function (pJson) {
-                        console.log("Mensaje enviado");
-                        chatPrivado();
+                        //console.log("Mensaje enviado");
+                        chatPrivado(idDestino);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+            
+            function amigos() {
+               
+                $.ajax({
+                    type: "POST",
+                    url: "/friends/friendsFilter",
+                    data: {
+                        username:  $("#buscaAmigo").val()
+                        
+                    }, 
+                    success: function (pHtml) {
+                        $("#obtenAmigo").html(pHtml);
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);

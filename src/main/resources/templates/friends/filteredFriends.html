@@ -1,29 +1,18 @@
-<html xmlns:th="https://www.thymeleaf.org"
-      th:replace="layout/layout::layout( ~{::body})">
-
+<html xmlns:th="https://www.thymeleaf.org">
 
 </head>
 <body>
 
+    <table class="table table-striped">
 
-    <div class="container">
-        <div class="container">
-
-
-            <h3>Amigos</h3>
-            <table class="table table-striped">
-
-                <tr>
-                    <th>Nickname</th>
-                    <th>Username</th>
-                </tr>
-                <tr th:if="${name!=null}" th:each="nam:${name}">
-
-                    <td th:text="${nam.nickName}"></td>
-                    <td th:text="${nam.username}"></td>
-                </tr> 
-            </table>
+        
+        <tr th:if="${name!=null}" th:each="nam:${name}">
+            <td>  <img class='avatar' th:src="|/profile/avatar?url=${nam.avatar}|"></td>
+            <td th:text="${nam.nickName}"></td>
 
 
-            </body>
-            </html>
+        </tr> 
+    </table>
+
+</body>
+</html>

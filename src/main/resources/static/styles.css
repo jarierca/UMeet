@@ -152,6 +152,7 @@ h3 {
     border-radius: 30px;
     box-shadow: inset 0px 0px 0px 0px #F0F0F0;
 }
+
 .server-text{
     margin-bottom: 1.5rem;
     /*margin-left: .5rem;*/
@@ -170,17 +171,20 @@ ul li{
     list-style: none
 }
 .send-msg-field {
-    /*background-color: #3b3f45;*/
-    width: 100%;
+    margin-top: 5px;
+    background-color: #3b3f45;
+    width: 99%;
     position: static;
+    border-radius: 10px;
 }
 .send-msg-field input, :focus{
     outline-width: 0;
     background-color: #3b3f45;
-    width: 90%;
+    width: 94%;
     border-radius: 10px;
     color: white;
     height: 45px;
+    border: 0;
 }
 ::placeholder{
     color: white;
@@ -204,3 +208,10 @@ ul li{
 .fnt-aws-size{
     font-size: 22px !important;
 }
+.prueba{
+    height: 400px;
+}
+/*
+p{
+    color: #6B6E70;
+}*/

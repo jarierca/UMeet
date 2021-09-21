@@ -5,28 +5,22 @@
 </head>
 <body>
 
-    <h2>¡Hemos encontrado al usuario que buscas!</h2>
+    <h3>¡Hemos encontrado al usuario que buscas!</h3>
 
-    <table>
-        <tr>
-            <th>Nickname</th>
-            <th>Username</th>
-        </tr>
-
+    <table class="table">
         <tr th:if="${name!=null}" th:each="nam:${name}">
-            <td th:text="${nam.nickName}"></td>
-            <td th:text="${nam.username}"></td>
-
             <td>
-
                 <form th:action="@{/friends/addFriend}" method="post">
-                    <input type="hidden" th:value="${nam.id}" name="idUserFriend">
-                    <input type="submit" value="añadir">
+                    <div class="input-group">
+                        <input type="hidden" th:value="${nam.id}" name="idUserFriend">
+                        <label th:text="${nam.nickName}" class="form-control"> </label>
+                        <button type="submit" class="btn btn-outline-success"><i class="fas fa-user-plus"></i></button>
+                    </div>
                 </form>
             </td> 
         </tr>  
-
     </table> 
+
 
 
 </body>
