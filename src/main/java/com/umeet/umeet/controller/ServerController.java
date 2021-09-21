@@ -164,12 +164,14 @@ public class ServerController {
 
     @GetMapping("/one")
     public String viewServer(Model model, Long idServer){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Server server = serverRepository.findById(idServer).get();
-
+        User user = userRepository.findById(u.getId()).get();
         List<CategoryViewDto> categories = categoryRepository.findByServer(server).stream()
                         .map(x->mapper.map(x, CategoryViewDto.class))
                         .collect(Collectors.toList());
-
+        UserServerRole usr = userServerRoleRepository.findByUserAndServer(user, server).get();
+        model.addAttribute("usr", usr);
         model.addAttribute("categories", categories);
         model.addAttribute("idServer", idServer);
         return "/servers/viewServer";
