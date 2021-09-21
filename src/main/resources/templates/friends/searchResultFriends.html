@@ -8,8 +8,13 @@
     <h2>¡Hemos encontrado al usuario que buscas!</h2>
 
     <table>
+        <tr>
+            <th>Nickname</th>
+            <th>Username</th>
+        </tr>
 
         <tr th:if="${name!=null}" th:each="nam:${name}">
+            <td th:text="${nam.nickName}"></td>
             <td th:text="${nam.username}"></td>
 
             <td>
