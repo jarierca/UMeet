@@ -130,6 +130,9 @@ public class ServerController {
     @PostMapping("/addServer")
     public String addServer(Server server, MultipartFile file) {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        if(server.getId()==null){
+            server.setAvatar(rutaRecursos+"/avatar/server-stock.png");
+        }
         if(!file.isEmpty()){
             String ruta = rutaRecursos + "/avatar/servers/" + server.getName() + ".png";
             File f = new File(ruta);
