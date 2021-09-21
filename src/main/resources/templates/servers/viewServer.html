@@ -2,31 +2,41 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="layout/layout::layout( ~{::body})">>
     <body>
 
-        <div class="row text-white">
-            <div class="col-sm-3 mt-4">
+        <div class="row text-white ml-4">
+            <div class="col-sm-3 mt-4 ml-4">
                 <div class="server-text">
-                    <div class="h1" th:each="ser:${server}">
-                        <span th:text="${ser.name}"></span>
+                    <div class="mt-4 mb-3 ml-4">
+                        <span class="h1" th:each="ser:${server}">
+                            <img th:src="@{/profile/avatar(url=${ser.avatar})}" class="avatar-server" height="150px" width="250px">
+                            <span th:text="${ser.name}"></span>
+                        </span>
+                        <a th:if="${usr.rol.id==1}"  th:href="@{/category/form(idServer=${idServer})}" href="" class="text-white"><i class="fas fa-plus"></i></a>
                     </div>
-                    <div class="">
-                        <a th:if="${usr.rol.id==1}"  th:href="@{/category/form(idServer=${idServer})}" href="">Añadir categoría</a>
+                    <div class="mx-5 pr-4">
+                        
                         <ul th:each="category:${categories}">
                             <li >
                                 <div class="list-group-item">
 
                                     <a data-toggle="collapse" th:href="'#collapse'+${category.id}" id="accordation"><i class='fas fa-chevron-down'></i></a>
-                                    <a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation"></a>
-                                    <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(${category.id})|" href="#"><i class="far fa-edit"></i></a>
-                                    <a th:if="${usr.rol.id==1}" th:href="@{/category/deleteCategory(idCategory=${category.id})}"><i class="far fa-trash-alt"></i></a>
-                                    <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(${idServer})|" href="#"><i class="fas fa-plus"></i></a>
+                                    <a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
+                                    
+                                    <div class="children-cat">
+                                        <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(${category.id})|" href="#"><i class="far fa-edit"></i></a>
+                                        <a th:if="${usr.rol.id==1}" th:href="@{/category/deleteCategory(idCategory=${category.id})}"><i class="far fa-trash-alt"></i></a>
+                                        <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(${idServer})|" href="#"><i class="fas fa-plus"></i></a>
+                                    </div>
                                 </div>
                                 <a class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
                                    th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" href="#"></a>
                                 <ul class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
                                     th:each="channel:${category.channels}">
-                                    <li class="list-group-item"><a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}')|" th:text="${channel.name}"></a>
-                                        <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${channel.id})|" href="#"><i class="far fa-edit"></i></a>
-                                        <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}"><i class="far fa-trash-alt"></i></a>
+                                    <li class="list-group-item">
+                                        <a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}')|" th:text="${channel.name}" id="accordation"></a>
+                                        <div class="children-cat">
+                                            <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${channel.id})|" href="#"><i class="far fa-edit"></i></a>
+                                            <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}"><i class="far fa-trash-alt"></i></a>
+                                        </div>        
                                     </li>
                                 </ul>
                             </li>
@@ -34,10 +44,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8 mt-4">
+            <div class="col-sm-7 mt-4">
                 <div class="msg-text">
-                    <div class="overflow-auto overflow-off-x mb-3" id="contentChat"></div>
-
+                    <div class="overflow-auto overflow-off-x mb-3" id="contentChat">
+                        <div style="text-align: left" class="h1 ml-5 mt-5" th:each="ser:${server}">
+                            <div th:text="${ser.name}"></div>
+                            <div th:text="${ser.description}"></div>
+                        </div>
+                    </div>
                     <div class="row-sin-m">
                         <div id="sendit" class="send-msg-field"></div>
                     </div>
@@ -45,13 +59,9 @@
             </div>
             
             <!<!-- Listar Users en el server -->
-            <div class="col-sm-1 mt-4">
-                <div class="msg-text">
-                    <div class="overflow-auto overflow-off-x" id="contentChat"></div>
-
-                    <div class="row ">
-                        <div id="sendit" class="send-msg-field"></div>
-                    </div>
+            <div class="col-sm-2 mt-4">
+                <div class="friend-list">
+                    
                 </div>
             </div>
         </div>
