@@ -176,6 +176,8 @@ public class ServerController {
                         .map(x->mapper.map(x, CategoryViewDto.class))
                         .collect(Collectors.toList());
         UserServerRole usr = userServerRoleRepository.findByUserAndServer(user, server).get();
+        
+        model.addAttribute("server", server);
         model.addAttribute("usr", usr);
         model.addAttribute("categories", categories);
         model.addAttribute("idServer", idServer);

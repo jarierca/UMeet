@@ -92,7 +92,7 @@ h3 {
     border-radius: 60rem !important;
     position: absolute !important;
     margin-top: 37px !important;
-    left: 68px !important;  
+    right: 38px !important;  
 }
 .badge-conectado{
     border: 3px solid green;
@@ -141,13 +141,52 @@ h3 {
 }
 .server-text{
     margin-bottom: 1.5rem;
-    margin-left: .5rem;
+    /*margin-left: .5rem;*/
     background-color: #343a40;
-    margin-left: 20px
-/*    width: 20%*/
+    margin-left: 20px;
+    
 }
 .msg-text{
     margin-bottom: 1.5rem;
     margin-left: .5rem;
-/*    width: 80%;*/
+    width: 90%;
+    min-width: 0;
+    min-height: 0;
+}
+ul li{
+    list-style: none
+}
+.send-msg-field {
+    /*background-color: #3b3f45;*/
+    width: 100%;
+    position: static;
+}
+.send-msg-field input, :focus{
+    outline-width: 0;
+    background-color: #3b3f45;
+    width: 90%;
+    border-radius: 10px;
+    color: white;
+    height: 45px;
+}
+::placeholder{
+    color: white;
+}
+.list-group-item{
+    background-color: transparent;
+}
+.list-group-item a{
+    color: white;
+    text-decoration: none;
+}
+#contentChat{
+    position: relative;
+    flex: 1 1 auto;
+    vertical-align: baseline;
+}
+#sendit{
+    position: relative;
+}
+.fnt-aws-size{
+    font-size: 22px !important;
 }
