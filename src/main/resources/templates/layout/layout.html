@@ -143,14 +143,14 @@
                     type: "POST",
                     url: "/server/byUser",
                     success: function (pJson) {
-                        console.log(pJson);
+                        //console.log(pJson);
                         $("#userServers").html("");
                         var salida = " ";
                         for (x of pJson){
-                            salida += "<img src='/profile/avatar?url='" + x.avatar +"' />";
+                            salida += "<img class='avatar' src=/profile/avatar?url=" + x.avatar +" >";
                         }
                         console.log(salida);
-                        $("#userServers").html(salida);
+                        $("#userServers").append(salida);
                     },
                     error: function (xhr, status, error) {
                         alert(xhr.responseText);
