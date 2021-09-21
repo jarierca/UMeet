@@ -177,7 +177,7 @@ ul li{
     position: static;
     border-radius: 10px;
 }
-.send-msg-field input, :focus{
+.send-msg-field input, input:focus{
     outline-width: 0;
     background-color: #3b3f45;
     width: 94%;

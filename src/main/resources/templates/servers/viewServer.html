@@ -16,16 +16,16 @@
 
                                     <a data-toggle="collapse" th:href="'#collapse'+${category.id}" id="accordation"><i class='fas fa-chevron-down'></i></a>
                                     <a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation"></a>
-                                    <a th:if="${usr.rol.id==1}" th:href="@{/category/form(idCategory=${category.id})}"><i class="far fa-edit"></i></a>
+                                    <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(${category.id})|" href="#"><i class="far fa-edit"></i></a>
                                     <a th:if="${usr.rol.id==1}" th:href="@{/category/deleteCategory(idCategory=${category.id})}"><i class="far fa-trash-alt"></i></a>
-                                    <a th:if="${usr.rol.id==1}" th:href="@{/channel/form(idCategory=${category.id})}"><i class="fas fa-plus"></i></a>
+                                    <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(${idServer})|" href="#"><i class="fas fa-plus"></i></a>
                                 </div>
                                 <a class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
-                                   th:if="${usr.rol.id==1}" th:href="@{/channel/form(idCategory=${category.id})}"></a>
+                                   th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" href="#"></a>
                                 <ul class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
                                     th:each="channel:${category.channels}">
                                     <li class="list-group-item"><a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}')|" th:text="${channel.name}"></a>
-                                        <a th:if="${usr.rol.id==1}" th:href="@{/channel/form(idChannel=${channel.id})}"><i class="far fa-edit"></i></a>
+                                        <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${channel.id})|" href="#"><i class="far fa-edit"></i></a>
                                         <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}"><i class="far fa-trash-alt"></i></a>
                                     </li>
                                 </ul>
