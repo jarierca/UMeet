@@ -14,12 +14,11 @@
                     </div>
                     <div class="mx-5 pr-4">
                         
-                        <ul th:each="category:${categories}">
+                        <ul class="mb-4" th:each="category:${categories}">
                             <li >
-                                <div class="list-group-item">
+                                <div class="list-group-item mb-2">
 
-                                    <a data-toggle="collapse" th:href="'#collapse'+${category.id}" id="accordation"><i class='fas fa-chevron-down'></i></a>
-                                    <a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
+                                    <i class='fas fa-chevron-down mt-1'></i>&nbsp;&nbsp;<a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
                                     
                                     <div class="children-cat">
                                         <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(${category.id})|" href="#"><i class="far fa-edit"></i></a>
@@ -27,16 +26,19 @@
                                         <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(${idServer})|" href="#"><i class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
-                                <a class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
-                                   th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" href="#"></a>
-                                <ul class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation"
-                                    th:each="channel:${category.channels}">
-                                    <li class="list-group-item">
-                                        <a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}')|" th:text="${channel.name}" id="accordation"></a>
-                                        <div class="children-cat">
-                                            <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${channel.id})|" href="#"><i class="far fa-edit"></i></a>
-                                            <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}"><i class="far fa-trash-alt"></i></a>
-                                        </div>        
+                                
+                                <a class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation" th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" href="#"></a>
+                                
+                                <ul class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation" th:each="channel:${category.channels}">
+                                    <li>
+                                        <div class="list-group-item mb-2">
+                                            <a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}')|" th:text="${channel.name}" id="accordation"></a>
+                                            
+                                            <div class="children-cat">
+                                                <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${channel.id})|" href="#"><i class="far fa-edit"></i></a>
+                                                <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}"><i class="far fa-trash-alt"></i></a>
+                                            </div>    
+                                        </div>
                                     </li>
                                 </ul>
                             </li>
@@ -59,10 +61,19 @@
             </div>
             
             <!<!-- Listar Users en el server -->
-            <div class="col-sm-2 mt-4">
-                <div class="friend-list">
-                    
-                </div>
+            <div class="col-sm-1 mt-4">
+                <div class="overflow-auto overflow-off-x ml-5">
+                    <div class="mt-4 text-white" th:each="usr:${usr}">
+                        <div class="mt-4 text-white" th:each="user:${usr.user}">
+                            <span th:text="${usr.user.nickName}"></span>
+                            <img th:src="@{/profile/avatar(url=${user.avatar})}" class="avatar-msg">
+                            <span th:if="${user.status} == 'conectado'"><a class="badge badge-counter badge-conectado" style="margin-top: 15px !important;">&nbsp;</a></span>
+                            <span th:if="${user.status} == 'desconectado'"><a class="badge badge-counter badge-desconectado" style="margin-top: 15px !important;">&nbsp;</a></span>
+                            <span th:if="${user.status} == 'ocupado'"><a class="badge badge-counter badge-ocupado" style="margin-top: 15px !important;">&nbsp;</a></span>
+                            <span th:if="${user.status} == 'ausente'"><a class="badge badge-counter badge-ausente" style="margin-top: 15px !important;">&nbsp;</a></span>
+                        </div>   
+                    </div>
+                </div>    
             </div>
         </div>
     </body>

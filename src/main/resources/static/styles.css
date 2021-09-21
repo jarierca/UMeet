@@ -184,7 +184,7 @@ h3 {
     margin-right: 0 !important;
     margin-left: 0 !important;
 }
-#contentBody .col-sm-7 ,#contentBody .col-sm-3{
+#contentBody .col-sm-7 ,#contentBody .col-sm-3, #contentBody .col-sm-1{
     padding-right: 0px !important;
     padding-left: 0px !important;
 }
@@ -197,12 +197,16 @@ h3 {
 #contentBody .col-sm-7{
     background-color: #2f3136;
 }
-#contentBody .col-sm-2{
+#contentBody .col-sm-1{
     background-color: #2f3136;
 }
 ul li{
     list-style: none;
     border: 0;
+}
+ul li :hover{
+    background-color: #343a40;
+    border-radius: 15px;
 }
 .list-group-item {
     border: 0;
@@ -210,7 +214,7 @@ ul li{
     display: flex;
 }
 #accordation{
-    flex: 1 initial;
+    flex: 1 0 auto;
 }
 #accordation-2{
     flex: 1 0 auto;
