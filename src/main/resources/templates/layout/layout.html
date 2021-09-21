@@ -178,7 +178,7 @@
                     success: function (pJson) {
                         console.log(pJson);
                         var salida = $("<tr>").html("");
-                        $("#contentBody").html("");
+                        $("#contentChat").html("");
                         for (x of pJson) {
                             $("<tr>").html("<td><p><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</p></td>").appendTo(salida);
                         }
@@ -187,7 +187,7 @@
                                 "<input type='hidden' name='idUser' value='" + $.cookie("idUser") + "' />" +
                                 "<input type='text' name='text' />" +
                                 "<button type='submit'> Enviar </button></td>").appendTo(salida);
-                        salida.appendTo("#contentBody");
+                        salida.appendTo("#contentChat");
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
