@@ -71,3 +71,51 @@ h3 {
     height: 50px;
     border-radius: 50%;
 }
+.info-perfil {
+    margin-bottom: 1.5rem;
+    margin-left: .5rem;
+    width: 480px;
+}
+.info-avatar{
+    margin-left: .5rem;
+    width: 480px;
+}
+.text-color-primary{
+    color:#61892F;
+}
+.bg-user-profile{
+    background-color: #343a40;
+}
+.font-btn-user-profile{
+    font-size: 18px !important;
+}
+.badge-conectado, .badge-desconectado, .badge-ocupado,.badge-ausente{
+    padding: .15em .5em !important;
+    font-size: 12px !important;
+    border-radius: 60rem !important;
+    position: absolute !important;
+    margin-top: 37px !important;
+    left: 70px !important;  
+}
+.badge-conectado{
+    border: 3px solid green;
+    background-color: green;   
+}
+.badge-desconectado{
+    border: 3px solid white;
+    background-color: #343a40;
+}
+.badge-ocupado{
+    border: 3px solid #dc3545;
+    background-color: #dc3545;
+}
+.badge-ausente{
+    border: 3px solid orange;
+    background-color: orange;
+}
+.modal-content{
+    background-color: #343a40;
+}
+.modal-title{
+    color: white;
+}
