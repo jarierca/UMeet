@@ -97,7 +97,7 @@
             function msgSize(){
                 var height = $(window).height();
 
-                $('#contentChat').height(height-160);
+                $('#contentChat').height(height-200);
                 console.log(height);
             }
             function loadProfile() {
@@ -200,13 +200,13 @@
                     url: "/msg/channel/" + idCanal,
                     success: function (pJson) {
                         //console.log(pJson);
-                        $("#sendit").html("&nbsp;&nbsp;&nbsp;<input type='text' id='sendMsg' name='text' placeholder='&nbsp;Escribe un mensaje'>" +
+                        $("#sendit").html("&nbsp;&nbsp;&nbsp;<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                                         "<a onclick=enviarMsgCanal(" +idCanal +") ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
                                         +"&nbsp;&nbsp;&nbsp;<a onclick=enviarMsgFileCanal(" +idCanal +") ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
-                        var salida = $("<tr>").html("");
+                        var salida = $("<tr>").html("<div class='h2 mx-2 my-2 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
                         $("#contentChat").html("");
                         for (x of pJson) {
-                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src='/profile/avatar?url="+x.user.avatar +"'>&nbsp;&nbsp;"+x.user.nickName + ":<br></span> " + x.text + "</p></td>").appendTo(salida);
+                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src='/profile/avatar?url="+x.user.avatar +"'>&nbsp;&nbsp;"+x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
                         }
                         /*$("<tr>").html("<td><form action='/msg/channel/sendmsg' method='post'>" +
                                 "<input type='hidden' name='idChannel' value='" + idCanal + "' />" +
@@ -215,6 +215,8 @@
                                 "<button type='submit'> Enviar </button></td>").appendTo(salida);*/
                         //console.log(salida);
                         salida.appendTo("#contentChat");
+                        
+                        $('#contentChat').scrollTop( $('#contentChat').prop('scrollHeight') ); 
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -222,21 +224,28 @@
                 });
             }
             function enviarMsgCanal(idCanal) {
-                $.ajax({
-                    type: "POST",
-                    url: "/msg/channel/sendmsg",
-                    data: {
-                        idChannel: idCanal, //Obtener id con las cookies del usuario 
-                        text: $("#sendMsg").val()
-                    },
-                    success: function (pJson) {
-                        console.log("Mensaje enviado");
-                        chat(idCanal);
-                    },
-                    error: function (xhr, status, error) {
-                        console.log(xhr.responseText);
-                    }
-                });
+                var msg = $("#sendMsg").val();
+                if(msg.length > 0 && msg != " "){
+
+                    //alert($("#sendMsg").val().length);
+                    $.ajax({
+                        type: "POST",
+                        url: "/msg/channel/sendmsg",
+                        data: {
+                            idChannel: idCanal, //Obtener id con las cookies del usuario 
+                            text: $("#sendMsg").val()
+                        },
+                        success: function (pJson) {
+                            console.log("Mensaje enviado");
+                            chat(idCanal);
+                           
+                            $('#contentChat').scrollTop( $('#contentChat').prop('scrollHeight') ); 
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                } 
             }
             //Rueda mouse horizontal 
             var item = document.getElementById("userServers");

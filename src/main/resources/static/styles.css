@@ -70,8 +70,8 @@ h3 {
 }
 .avatar-msg {
     vertical-align: middle;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
 }
 .info-perfil {
@@ -156,16 +156,30 @@ h3 {
 .server-text{
     margin-bottom: 1.5rem;
     /*margin-left: .5rem;*/
-    background-color: #343a40;
+    background-color: #2f3136;
     margin-left: 20px;
     
 }
 .msg-text{
     margin-bottom: 1.5rem;
-    margin-left: .5rem;
+    /*margin-left: .5rem;*/
     width: 90%;
     min-width: 0;
     min-height: 0;
+    
+}
+#contentChat{
+    background-color: #343a40;
+}
+.row-sin-m{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+#contentBody .col-sm-8 ,#contentBody .col-sm-4{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
 }
 ul li{
     list-style: none
@@ -173,7 +187,7 @@ ul li{
 .send-msg-field {
     margin-top: 5px;
     background-color: #3b3f45;
-    width: 99%;
+    width: 100%;
     position: static;
     border-radius: 10px;
 }
@@ -210,6 +224,14 @@ ul li{
 }
 .prueba{
     height: 400px;
+}
+.mensaje{
+    padding-left: 20px; 
+    color:#86C232;
+}
+.mensaje-2{
+    padding-left: 60px; 
+    color: white;
 }
 /*
 p{
