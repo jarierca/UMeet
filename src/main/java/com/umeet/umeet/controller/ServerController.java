@@ -1,6 +1,7 @@
-ackage com.umeet.umeet.controller;
+package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.CategoryViewDto;
+import com.umeet.umeet.dtos.ServerDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
@@ -13,19 +14,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-
+    
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import java.util.stream.Stream;
+import org.springframework.web.bind.annotation.ResponseBody;
+       
 
 @Controller
 @RequestMapping("/server")
