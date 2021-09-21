@@ -1,19 +1,21 @@
 <html xmlns:th="https://www.thymeleaf.org"
-th:replace="layout/layout::layout( ~{::body})">
-           
+      th:replace="layout/layout::layout( ~{::body})">
+
     <head>
-        
+
     </head>
     <body>
-        <div class="row">
-            <div class="col-2 m-2">
-                <form action="/server/filtered" method="post">
-                    <input type="text" name="name" placeholder="Encuentra un servidor" class="form-control m-2">
-                    <input type="submit" class="btn btn-primary m-2" >
-                </form>
-                <hr class="m-2">
-                <a href="server/form" class="btn btn-primary m-2">Crea tu servidor</a>
-            </div>
+        <div class="row container" style="text-align: center; align-content:center;">
+            <div id="contentBody" class="col-md-12">
+                <div class="row">
+                    <div class="col-2 m-2">
+                        <form action="/server/filtered" method="post">
+                            <input type="text" name="name" placeholder="Encuentra un servidor" class="form-control m-2">
+                            <input type="submit" class="btn btn-primary m-2" >
+                        </form>
+                        <hr class="m-2">
+                        <a href="server/form" class="btn btn-primary m-2">Crea tu servidor</a>
+                    </div>
 
             <div id="contentBody" class="col-8 m-2">
                 <table class="table">

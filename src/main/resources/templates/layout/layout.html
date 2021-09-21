@@ -18,12 +18,19 @@
                     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid">
                         <div class="container-fluid">
                             <ul class="navbar-nav">
-                                <li><img src="https://i.imgur.com/mlDgHkr.jpg" style="width: 50px; height: 50px;"></i></li>
+                                <a class="nav-link" href="/home">
+                                    <li>
+                                        <span>
+                                            <img src="https://i.imgur.com/mlDgHkr.jpg" style="width: 50px; height: 50px;">
+                                            UMeet
+                                        </span>
+                                    </li>
+                                </a>
                             </ul>
                             <!-- Amigos -->
                             <ul class="navbar-nav">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#"><i class="fas fa-user-friends otroi"></i>Amigos <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="/friends/friendsList"><i class="fas fa-user-friends otroi"></i>Amigos <span class="sr-only">(current)</span></a>
                                 </li>
                             </ul>
                             <!-- Anyadir servidores -->
@@ -33,22 +40,27 @@
                                 </li>
                             </ul>
                             <!-- Lista servidores -->
-                            <ul class="navbar-nav me-auto" >
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="#">
-                                        <img alt="Avatar" class="avatar" >
-                                    </a>
-                                </li>
-                            </ul>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div id="userServers" class="overflow-auto scrollbar">
+                                        
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Perfil usuario -->
-                            <div class="dropleft show">
-                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="user-profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="navbar-nav dropdown show">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" id="user-profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Perfil
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" onclick="editProfile()">Editar perfil</a>
+                                    <a class="dropdown-item" href="/profile/view">Ver Perfil</a>
+                                    <a class="dropdown-item" onclick="editProfile()">Editar Perfil</a>
                                     <a th:href="@{/logout}" class="btn btn-success align-items-center dropdown-item">Desconectar</a>
                                 </div>
+
+                                <span id="user-status">
+                                    &nbsp;
+                                </span>
                             </div>
                         </div>     
                     </nav>
@@ -57,8 +69,8 @@
                             <div class="overflow-auto scrollbar">NARANAJAJAJAJAJAJAJAJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ</div>
                         </div>
                     </div>
-                    <div class="row container" style="text-align: center; align-content:center;">
-                        <div id="contentBody" class="col-md-12">
+                    <div class="" style="text-align: center; align-content:center;">
+                        <div id="contentBody" class="">
                             <th:block th:include="${htmlcuerpo}"/>
                         </div>
                     </div>
@@ -69,25 +81,42 @@
             </div>
         </div>
 
-        <myscripts th:fragment="scripts">
+    <myscripts th:fragment="scripts">
         <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
-        <script>
+        <script>   
             $(document).ready(
-                function loadProfile() {
-                    $.ajax({
-                        url: "/profile/getUser",
-                        success: function (pHtml) {
-                            document.getElementById("user-profile").innerHTML = '<span>'+pHtml.username+'</span><img alt="Avatar" class="avatar" src="/profile/avatar?url='+pHtml.avatar+'">';
-                        },
-                        error: function (xhr, status, error) {
-                            alert(xhr.responseText);
-                        }
-                    });
-                }
+                loadProfile()
             );
+            function loadProfile() {
+                $.ajax({
+                    url: "/profile/getUser",
+                    success: function (pHtml) {
+                        document.getElementById("user-profile").innerHTML = '<span>' + pHtml.username + '</span>&nbsp;&nbsp;<img alt="Avatar" class="avatar" src="/profile/avatar?url=' + pHtml.avatar + '">&nbsp;'; //<span class="badge badge-'+pHtml.status+' badge-counter">&nbsp;</span>
+                        document.getElementById("user-status").innerHTML = '<span role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="badge badge-' + pHtml.status + ' badge-counter">&nbsp;</span><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a onClick="editStatus('+"'conectado'"+')" class="dropdown-item">Conectado</a><a onClick="editStatus('+"'desconectado'"+')" class="dropdown-item">Desconectado</a><a onClick="editStatus('+"'ocupado'"+')" class="dropdown-item">Ocupado</a><a onClick="editStatus('+"'ausente'"+')" class="dropdown-item">Ausente</a></div>';
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                        window.location = "/logout";
+                    }
+                });
+            }
+            function editStatus(status) {
+                $.ajax({
+                    url: "/profile/statusDrop",
+                    data: {
+                        status: status
+                    },
+                    success: function (pHtml) {
+                        loadProfile();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
             function editProfile() {
                 $.ajax({
                     url: "/profile/edit", //<--Ejecutamos del contra esta url
@@ -95,7 +124,7 @@
                     //    id: $.cookie("idUser"), //Obtener id con las cookies del usuario
                     //$.cookie("idUser")
                     //},
-                    success: function (pHtml) {    //<- Nos devuelven la respuesta.
+                    success: function (pHtml) {
                         bootbox.dialog({
                             title: 'Editar perfil',
                             size: "large",
@@ -103,52 +132,68 @@
                         })
                     },
                     error: function (xhr, status, error) {
-                        alert(xhr.responseText);
+                        console.log(xhr.responseText);
                     }
                 });
             }
-            function servidor(){
-                //$("#inventado").attr("href","/server/byUser?idUser=" + $.cookie("idUser"));
+            function loadServers(){
+                //userServers
                 $.ajax({
                     type: "POST",
-                    url: "/server/allServers", //<--Ejecutamos del contra esta url
-                    success: function (pHtml) {    //<- Nos devuelven la respuesta.
-                        $("body").html(pHtml);
+                    url: "/server/byUser",
+                    success: function (pJson) {
+                        console.log(pJson);
+                        $("#userServers").html("");
+                        var salida = " ";
+                        for (x of pJson){
+                            salida += "<img src='/profile/avatar?url='" + x.avatar +"' />";
+                        }
+                        console.log(salida);
+                        $("#userServers").html(salida);
                     },
                     error: function (xhr, status, error) {
                         alert(xhr.responseText);
+                    }
+                });
+            } 
+            function servidor() {
+                //$("#inventado").attr("href","/server/byUser?idUser=" + $.cookie("idUser"));
+                $.ajax({
+                    type: "POST",
+                    url: "/server/allServers",
+                    success: function (pHtml) {
+                        $("body").html(pHtml);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
                     }
                 });
             }
 
-            function chat(idCanal){
+            function chat(idCanal) {
                 $.ajax({
                     type: "POST",
-                    url: "/msg/channel/" + idCanal, //<--Ejecutamos del contra esta url
-                    /*data: {
-                        idUser: $.cookie("idUser"), //Obtener id con las cookies del usuario
-                        //$.cookie("idUser")
-                    },*/
-                    success: function (pJson) {    //<- Nos devuelven la respuesta. 
+                    url: "/msg/channel/" + idCanal,
+                    success: function (pJson) {
                         console.log(pJson);
                         var salida = $("<tr>").html("");
-                        $("#contentBody").html("");         //Generamos los mensajes con un campo para mandar nuevos
-                        for (x of pJson){
-                            $("<tr>").html("<td><p><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</p></td>").appendTo(salida);  
+                        $("#contentBody").html("");
+                        for (x of pJson) {
+                            $("<tr>").html("<td><p><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</p></td>").appendTo(salida);
                         }
                         $("<tr>").html("<td><form action='/msg/channel/sendmsg' method='post'>" +
-                                        "<input type='hidden' name='idChannel' value='" + idCanal + "' />" +
-                                        "<input type='hidden' name='idUser' value='" + $.cookie("idUser") + "' />" +
-                                        "<input type='text' name='text' />" +
-                                        "<button type='submit'> Enviar </button></td>").appendTo(salida); 
+                                "<input type='hidden' name='idChannel' value='" + idCanal + "' />" +
+                                "<input type='hidden' name='idUser' value='" + $.cookie("idUser") + "' />" +
+                                "<input type='text' name='text' />" +
+                                "<button type='submit'> Enviar </button></td>").appendTo(salida);
                         salida.appendTo("#contentBody");
                     },
                     error: function (xhr, status, error) {
-                        alert(xhr.responseText);
+                        console.log(xhr.responseText);
                     }
                 });
             }
         </script>
-        </myscripts>
-    </body>
+    </myscripts>
+</body>
 </html>

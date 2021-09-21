@@ -1,7 +1,6 @@
 
 package com.umeet.umeet.controller;
 
-import com.umeet.umeet.dtos.MessageChannelDto;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.User;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -134,7 +132,7 @@ public class ProfileController {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         friendService.deleteFriendCascade(u.getId());
-        return "redirect:view";
+        return "redirect:/logout";
     }
     
     //Modificar estado del user
@@ -147,6 +145,17 @@ public class ProfileController {
         profileRepository.save(user.get());
         return "redirect:view";
     }
+    
+    @GetMapping("/statusDrop")
+    public String statusDrop(String status){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Optional<User> user = profileRepository.findById(u.getId());
+        user.get().setStatus(status);
+        profileRepository.save(user.get());
+        return "redirect:view";
+    }
+    
     
     //Obtiene los datos del user
     @GetMapping("/getUser")
