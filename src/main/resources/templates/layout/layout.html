@@ -146,9 +146,11 @@
                         $("#userServers").html("");
                         var salida = " ";
                         for (x of pJson){
-                            salida += "<img class='avatar' src=/profile/avatar?url=" + x.avatar +" >";
+                            salida += "<a href=/server/one?idServer=" + x.id + ">" +
+                                    "<img class='avatar' src=/profile/avatar?url=" + x.avatar +" >" +
+                                    "</a>";
                         }
-                        console.log(salida);
+                        //console.log(salida);
                         $("#userServers").append(salida);
                     },
                     error: function (xhr, status, error) {
@@ -175,17 +177,20 @@
                     type: "POST",
                     url: "/msg/channel/" + idCanal,
                     success: function (pJson) {
-                        console.log(pJson);
+                        //console.log(pJson);
+                        $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Cuentanos tu vida'/>" +
+                                        "<button onclick=enviarMsgCanal(" +idCanal +")");
                         var salida = $("<tr>").html("");
                         $("#contentChat").html("");
                         for (x of pJson) {
                             $("<tr>").html("<td><p><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</p></td>").appendTo(salida);
                         }
-                        $("<tr>").html("<td><form action='/msg/channel/sendmsg' method='post'>" +
+                        /*$("<tr>").html("<td><form action='/msg/channel/sendmsg' method='post'>" +
                                 "<input type='hidden' name='idChannel' value='" + idCanal + "' />" +
                                 "<input type='hidden' name='idUser' value='" + $.cookie("idUser") + "' />" +
                                 "<input type='text' name='text' />" +
-                                "<button type='submit'> Enviar </button></td>").appendTo(salida);
+                                "<button type='submit'> Enviar </button></td>").appendTo(salida);*/
+                        //console.log(salida);
                         salida.appendTo("#contentChat");
                     },
                     error: function (xhr, status, error) {
@@ -193,6 +198,28 @@
                     }
                 });
             }
+
+            function enviarMsgCanal(idCanal){
+                $.ajax({
+                    type: "POST",
+                    url: "/msg/channel/sendmsg",
+                    data: {
+                        idChannel: idCanal, //Obtener id con las cookies del usuario
+                        idUser: $.cookie("idUser"), 
+                        text: $("#sendMsg").val()
+                    }, 
+                    success: function (pJson) {
+                        console.log("Mensaje enviado");
+                        chat(idCanal);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+            //Rueda mouse horizontal 
+            var item = document.getElementById("userServers"); 
+            window.addEventListener("wheel", function (e) { if (e.deltaY > 0) item.scrollLeft += 100; else item.scrollLeft -= 100; });
         </script>
     </myscripts>
 </body>
