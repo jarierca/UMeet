@@ -1,16 +1,15 @@
-<html xmlns:th="https://www.thymeleaf.org"
- th:replace="layout/layout::layout( ~{::body})">
-    <head>
+<html xmlns:th="https://www.thymeleaf.org">
+
+    <head th:include="layout/layout::head">
+
     </head>
    <body>
-    <div class="container">
-        <div>
-            <h3>Amigos</h3>
-            <form action="/friends/friendsFilter" method="post">
-                <input type="text" name="username" placeholder="Encuentra tu amigo">
-                <input type="submit">
-            </form>
+        <div th:include="/layout/layout::navbar"></div>
 
+        <div class="container">
+
+
+            <h3>Inicio</h3>
         </div>
 
         <h3>Aceptados</h3>

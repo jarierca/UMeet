@@ -40,6 +40,6 @@ public class UserServerRolController {
         User user = userRepository.findById(u.getId()).get();
         UserServerRole relation = new UserServerRole(null, user, rol, server);
         userServerRoleRepository.save(relation);
-        return "redirect:/home";
+        return "redirect:/server/allServers";
     }
 }

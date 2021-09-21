@@ -20,7 +20,6 @@ public class UserValidacionDto implements UserDetails{
     private Long id;
     private String username;
     private String password;
-    private String status;
     private List<GrantedAuthority> roles;
 
     @Override
