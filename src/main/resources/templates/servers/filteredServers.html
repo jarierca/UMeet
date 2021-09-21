@@ -1,39 +1,27 @@
 <html xmlns:th="https://www.thymeleaf.org"
-th:replace="layout/layout::layout( ~{::body})">
-           
-        
-    </head>
-    <body>
-        
-
-        </div>
-        <div class="container">
-
-            <table class="table">
-                <th>
-                    Filtrados
-                </th>
-                <tr th:if="${nam !=null}" th:each="sv:${nam}">
-
-                    <td th:text="${sv.name}"> </td>
-                    <td th:text="${sv.description}"> </td>
-                    <td> <a th:href="@{/usr/joinServer(idServer=${sv.id})}" class="btn btn-primary m-2" >Unirse</a></td>
-                   
-
-                </tr>
-                <tr th:if="${des !=null}" th:each="sv:${des}">
-
-                    <td th:text="${sv.name}"> </td>
-                    <td th:text="${sv.description}"> </td>
-                     <td> <a th:href="@{/usr/joinServer(idServer=${sv.id})}" class="btn btn-primary m-2" >Unirse</a></td>
-                   
-
-                </tr>
+      th:replace="layout/layout::layout( ~{::body})">
 
 
-            </table>
-        </div>
+</head>
+<body>
 
-       
-    </body>
+
+</div>
+<div class="container">
+
+    <table class="table">
+        <th>
+            Filtrados
+        </th>
+        <tr th:if="${nam !=null}"  th:each="sv:${nam}">
+            <td th:text="${sv.name}"> </td>
+            <td th:text="${sv.description}"> </td>
+            <td> <a th:href="@{/usr/joinServer(idServer=${sv.id})}" class="btn btn-primary m-2">Unirse</a></td>
+        </tr>
+
+    </table>
+</div>
+
+
+</body>
 </html>

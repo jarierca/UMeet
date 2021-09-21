@@ -89,7 +89,7 @@ public class MessagesController {
         m.addAttribute("message",new Message());
         return "/messages/vista";
     }
-    
+    @ResponseBody
     @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario
     public void mensajeCanal(Message msg,Long idChannel){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -99,6 +99,7 @@ public class MessagesController {
         repoMsg.save(msg);
     }
     
+    @ResponseBody
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
     public void mensajePrivado(Message msg,Long idUserDestiny){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
