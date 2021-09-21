@@ -223,16 +223,16 @@
             var item = document.getElementById("userServers"); 
             window.addEventListener("wheel", function (e) { if (e.deltaY > 0) item.scrollLeft += 100; else item.scrollLeft -= 100; });
 
-            function chatPrivado(idUser,idDestino) {
+            function chatPrivado(idDestino) {
                 $.ajax({
                     type: "POST",
-                    url: "/msg/private/" + idUser,
+                    url: "/msg/private/" +idDestino,
                     success: function (pJson) {
-                        //console.log(pJson);
-                        $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Cuentanos tu vida'/>" +
+                        console.log(pJson);
+                        /*$("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Cuentanos tu vida'/>" +
                                         "<button onclick=enviarMsgPrivado(" +idDestino +") >Enviar</button>");
                         var salida = $("<tr>").html("");
-                        $("#contentChat").html("");
+                        $("#panelChat").html("");
                         for (x of pJson) {
                             $("<tr>").html("<td><p><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</p></td>").appendTo(salida);
                         }
@@ -242,7 +242,7 @@
                                 "<input type='text' name='text' />" +
                                 "<button type='submit'> Enviar </button></td>").appendTo(salida);*/
                         //console.log(salida);
-                        salida.appendTo("#contentChat");
+                        //salida.appendTo("#panelChat");
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
