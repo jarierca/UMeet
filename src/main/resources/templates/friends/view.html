@@ -5,19 +5,17 @@
 
 </head>
 <body>
-
-
-    <div class="container">
-        <div>
-            <h3>Amigos</h3>
-            <form action="/friends/friendsFilter" method="post">
-                <input type="text" name="username" placeholder="Encuentra tu amigo">
-                <input type="submit">
-            </form>
-
+    <div class="row">
+        
+        <div class="col-4">
+            
         </div>
+         <div class="col-4">
+            
+        </div>
+    </div>
 
-        <h3>Aceptados</h3>
+        <h3>Amigos</h3>
         <table>
             <tr th:each="f1:${friendsAccepted}">
                 <td th:text="${f1.avatar}"></td>
@@ -35,7 +33,19 @@
                 <td th:text="${f2.username}"></td>
             </tr> 
         </table>
-    </div>
+
+
+        <div>
+            <h3>Buscar amigos</h3>
+            <form action="/friends/friendsFilter" method="post">
+                <input type="text" name="username" placeholder="Encuentra tu amigo">
+                <input type="submit">
+            </form>
+
+        </div>
+
+
+   
     <a th:href="@{/friends/inviteUser}" class="btn btn-success"> <i class="fas fa-user-plus"></i>&nbsp;Añadir amigos</a>
 
 
