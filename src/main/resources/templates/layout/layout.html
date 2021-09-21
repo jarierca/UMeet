@@ -63,7 +63,12 @@
                         </div>     
                     </nav>
 
-                   
+
+
+
+
+
+
 
                     <div class="" style="text-align: center; align-content:center;">
                         <div id="contentBody" class="">
@@ -177,7 +182,7 @@
                     success: function (pJson) {
                         //console.log(pJson);
                         $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Cuentanos tu vida'/>" +
-                                        "<button onclick=enviarMsgCanal(" +idCanal +") >Enviar</button>");
+                                        "<a onclick=enviarMsgCanal(" +idCanal +") ><i class='far fa-paper-plane'></i></a>");
                         var salida = $("<tr>").html("");
                         $("#contentChat").html("");
                         for (x of pJson) {
@@ -256,6 +261,24 @@
                     success: function (pJson) {
                         console.log("Mensaje enviado");
                         chatPrivado();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+
+            function amigos() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/friends/friendsFilter",
+                    data: {
+                        username:  $("#buscaAmigo").val()
+
+                    },
+                    success: function (pHtml) {
+                        $("#obtenAmigo").html(pHtml);
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
