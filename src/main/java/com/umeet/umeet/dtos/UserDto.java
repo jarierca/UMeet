@@ -12,7 +12,5 @@ import lombok.NoArgsConstructor;
 public class UserDto {
     private Long id;
     private String nickName;
-    private String username;
     private String avatar;
-    private String status;
 }

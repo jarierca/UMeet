@@ -1,7 +1,6 @@
 
 package com.umeet.umeet.controller;
 
-import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.ProfileRepository;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
@@ -36,9 +34,6 @@ public class ProfileController {
     
     @Value("${carpetas.recursos.umeet}")
     private String rutaRecursos; 
-    
-    @Autowired
-    private ModelMapper mapper;
     
     @Autowired
     ProfileRepository profileRepository;
@@ -132,7 +127,7 @@ public class ProfileController {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         friendService.deleteFriendCascade(u.getId());
-        return "redirect:/logout";
+        return "redirect:view";
     }
     
     //Modificar estado del user
@@ -146,27 +141,14 @@ public class ProfileController {
         return "redirect:view";
     }
     
-    @GetMapping("/statusDrop")
-    public String statusDrop(String status){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        Optional<User> user = profileRepository.findById(u.getId());
-        user.get().setStatus(status);
-        profileRepository.save(user.get());
-        return "redirect:view";
-    }
-    
-    
     //Obtiene los datos del user
     @GetMapping("/getUser")
     @ResponseBody
-    public UserDto getUser(Model m){
+    public User getUser(Model m){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-         
-        Optional<User> user = profileRepository.findById(u.getId());
-        UserDto userDto = mapper.map(user.get(), UserDto.class);
         
-        //m.addAttribute("user",user.get());
-        return userDto;
+        Optional<User> user = profileRepository.findById(u.getId());
+        m.addAttribute("user",user.get());
+        return user.get();
     }           
 }
