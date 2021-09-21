@@ -201,8 +201,7 @@
                     type: "POST",
                     url: "/msg/channel/sendmsg",
                     data: {
-                        idChannel: idCanal, //Obtener id con las cookies del usuario
-                        idUser: $.cookie("idUser"), 
+                        idChannel: idCanal, //Obtener id con las cookies del usuario 
                         text: $("#sendMsg").val()
                     }, 
                     success: function (pJson) {
