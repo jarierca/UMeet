@@ -57,7 +57,7 @@ public class MessagesController {
     
     //localhost:8090/msg/private/5 (5 seria el usuario que esta obteniendo sus mensajes privados)
     @ResponseBody
-    @PostMapping("/private/{id_destino}") //Devuelve un Json con todos los mensajes privados
+    @PostMapping("/private/{id_destino}") //Devuelve un Json con todos los mensajes privados entre el usuario logueado y el usuario destino
     public List<MessageChannelDto> privados(@PathVariable Long id_destino){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         List<Message> aux = repoMsg.findByUser(repoUsr.findById(u.getId()).get());
