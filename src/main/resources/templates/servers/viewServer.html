@@ -10,6 +10,7 @@
                             <img th:src="@{/profile/avatar(url=${ser.avatar})}" class="avatar-server" height="150px" width="250px">
                             <span th:text="${ser.name}"></span>
                         </span>
+                        <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="text-white"><i class="far fa-edit"></i></a>
                         <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="text-white"><i class="fas fa-plus"></i></a>
                     </div>
                     <div class="mr-5 pr-4  overflow-off-x" id="contentServer">
