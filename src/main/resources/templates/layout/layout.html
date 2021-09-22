@@ -198,7 +198,7 @@
                         $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                             "<a onclick=enviarMsgCanal(" + idCanal + ") ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
                             + "   <a onclick=enviarMsgFileCanal(" + idCanal + ") ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
-                        var salida = $("<tr>").html("<div class='h2 mx-2 my-2 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
+                        var salida = $("<tr>").html("<div class='h2 mx-5 my-5 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
                         $("#contentChat").html("");
                         for (x of pJson) {
                             $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
