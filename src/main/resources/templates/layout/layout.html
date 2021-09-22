@@ -15,8 +15,8 @@
         <div>
             <div class="row">
                 <div class="col-md-12">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid">
-                        <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid border-bottom">
+                        <div class="container-fluid d-flex">
                             <ul class="navbar-nav">
                                 <a class="nav-link" href="/home">
                                     <li>
@@ -41,19 +41,19 @@
                             <!-- Lista servidores -->
                             <div class="row ">
                                 <div class="col-4 ">
-                                    <div id="userServers" class="overflow-auto ">
+                                    <div id="userServers" class="overflow-auto scrollbar">
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Perfil usuario -->
-                            <div class="navbar-nav dropdown row">
+                            <div class="navbar-nav dropdown show ml-auto">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" id="user-profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">   
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="/profile/view">Ver Perfil</a>
-                                    <a class="dropdown-item" onclick="editProfile()">Editar Perfil</a>
-                                    <a th:href="@{/logout}" class="btn btn-success align-items-center dropdown-item">Desconectar</a>
+                                    <a class="dropdown-item btn-primary" href="/profile/view">Ver Perfil</a>
+                                    <a class="dropdown-item btn-primary" onclick="editProfile()">Editar Perfil</a>
+                                    <a th:href="@{/logout}" class="btn btn-primary align-items-center dropdown-item">Desconectar</a>
                                 </div>
 
                                 <div id="2-dropdonw">
