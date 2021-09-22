@@ -12,7 +12,7 @@
                         </span>
                         <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="text-white"><i class="fas fa-plus"></i></a>
                     </div>
-                    <div class="mx-5 pr-4">
+                    <div class="mx-5 pr-4 overflow-off-x">
                         
                         <ul class="mb-4" th:each="category:${categories}">
                             <li >
