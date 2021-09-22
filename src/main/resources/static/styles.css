@@ -1,10 +1,30 @@
+css
+
+
 body {
-    background-color: #222629;
+    background-color: #232528;
+    overflow:hidden;
 }
 
-::-webkit-scrollbar {
-    display: none;
+/* Inicio formulario - login register */
+.form-login{
+    background-color: #222629;
+    border-radius: 25px;
+    padding: 30px;
+    margin:20px 0;
+    box-shadow: 0px 0px 20px black;
+    
 }
+.umeet {
+    color: #86C232;
+    padding-bottom: 30px;
+    padding-top:30px;
+    font-size: 24px;
+}
+.umeet-logo-login{
+    height: 80px;
+}
+/* Fin formulario */
 
 .btn-primary {
     background-color: #61892F;
@@ -37,8 +57,7 @@ hr {
     color: #EDFED5;
 }
 
-.navbar-nav,
-.umeet {
+.navbar-nav{
     color: #86C232;
     padding-right: 10px;
     font-size: 24px;
@@ -71,6 +90,18 @@ h3 {
     height: 50px;
     border-radius: 50%;
 }
+.avatar-msg {
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+.avatar-server {
+    vertical-align: middle;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
 .info-perfil {
     margin-bottom: 1.5rem;
     margin-left: .5rem;
@@ -80,6 +111,8 @@ h3 {
     margin-left: .5rem;
     width: 480px;
 }
+
+
 .text-color-primary{
     color:#61892F;
 }
@@ -95,7 +128,7 @@ h3 {
     border-radius: 60rem !important;
     position: absolute !important;
     margin-top: 37px !important;
-    left: 70px !important;  
+    right: 38px !important;  
 }
 .badge-conectado{
     border: 3px solid green;
@@ -118,4 +151,171 @@ h3 {
 }
 .modal-title{
     color: white;
+}
+
+/*Avatares horizontal*/
+.overflow-auto{
+    display: flex;
+    flex-direction: row;
+}
+.overflow-off-x{
+    overflow-x: hidden !important;
+}
+.overflow-off-y{
+    overflow-x: hidden !important;
+}
+
+/*Scrollbar*/
+::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+}
+::-webkit-scrollbar-thumb{
+    background: linear-gradient(150deg, #86C232 18%,#61892F 77%);
+    border-radius: 30px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: #86C232;
+}
+::-webkit-scrollbar-track{
+    background: #F0F0F0;
+    border-radius: 30px;
+    box-shadow: inset 0px 0px 0px 0px #F0F0F0;
+}
+
+.server-text{
+    margin-bottom: 1.5rem;
+    /*margin-left: .5rem;*/
+    /*background-color: #2f3136;*/
+    margin-left: 20px;
+    
+}
+.msg-text{
+    margin-bottom: 1.5rem;
+    /*margin-left: .5rem;*/
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    height:82%
+}
+#contentChat{
+    background-color: #343a40;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    height:100%
+}
+.row-sin-m{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+#contentBody .col-sm-7 ,#contentBody .col-sm-3, #contentBody .col-sm-2{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+#contentBody .col-sm-3{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #2f3136;
+    text-align: left !important;
+}
+#contentBody .col-sm-7{
+    background-color: #2f3136;
+}
+#contentBody .col-sm-2{
+    background-color: #2f3136;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+ul li{
+    list-style: none;
+    border: 0;
+}
+ul li :hover{
+    background-color: #343a40;
+    border-radius: 15px;
+}
+.list-group-item {
+    border: 0;
+    position: relative;
+    display: flex;
+}
+#accordation{
+    flex: 1 0 auto;
+}
+#accordation-2{
+    flex: 1 0 auto;
+}
+.children-cat{
+    flex: 0 0 auto;
+    justify-content: right;
+}
+.send-msg-field {
+    margin-top: 5px;
+    background-color: #3b3f45;
+    width: 100%;
+    position: static;
+    border-radius: 10px;
+}
+.send-msg-field input, input:focus{
+    outline-width: 0;
+    background-color: #3b3f45;
+    width: 93%;
+    border-radius: 10px;
+    color: white;
+    height: 45px;
+    border: 0;
+}
+::placeholder{
+    color: white;
+}
+.list-group-item{
+    background-color: transparent;
+}
+.list-group-item a{
+    color: white;
+    text-decoration: none;
+}
+#contentChat{
+    position: relative;
+    flex: 0 0 auto;
+    text-align: left;
+}
+#sendit{
+    position: relative;
+    text-align: left;
+}
+.fnt-aws-size{
+    font-size: 22px !important;
+}
+.prueba{
+    height: 400px;
+}
+.mensaje{
+    padding-left: 20px; 
+    color:#86C232;
+}
+.mensaje-2{
+    padding-left: 60px; 
+    color: white;
+    word-break: break-all;
+}
+label{
+    color:#86C232;
+}
+.a_login{
+    color:#86C232;
+    opacity: 0.5;
+}
+.a_login:hover{
+    color:#61892F;
+    opacity: 0.5;
+}
+@media (max-width: 800px) { 
+    body{
+        overflow: auto;
+    }
 }
