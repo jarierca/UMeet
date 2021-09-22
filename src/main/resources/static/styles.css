@@ -283,8 +283,9 @@ ul li :hover{
 p{
     color: #6B6E70;
 }*/
-@media (max-width: 800px) { 
+@media (max-width: 1800px) { 
     body{
         overflow: auto;
     }
+   
 }
