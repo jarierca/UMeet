@@ -288,3 +288,7 @@ p{
         overflow: auto;
     }
 }
+
+label {
+    color:white;
+}
