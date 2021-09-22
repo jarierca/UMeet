@@ -177,7 +177,10 @@ public class ServerController {
                         .collect(Collectors.toList());
         UserServerRole usr = userServerRoleRepository.findByUserAndServer(user, server).get();
         
+        List<UserServerRole> userServer = userServerRoleRepository.findByServer(serverRepository.findById(idServer).get());
+        
         model.addAttribute("server", server);
+        model.addAttribute("userServer", userServer);
         model.addAttribute("usr", usr);
         model.addAttribute("categories", categories);
         model.addAttribute("idServer", idServer);

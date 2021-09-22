@@ -4,6 +4,9 @@
     },
     "attributes": {
         "th:if": {},
+        "th:text": {
+            "context": "span"
+        },
         "th:object": {
             "context": "form"
         },
