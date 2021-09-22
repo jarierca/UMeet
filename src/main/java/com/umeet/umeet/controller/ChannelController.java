@@ -53,6 +53,9 @@ public class ChannelController {
     @PostMapping("/addChannel")
     public String addChannel(Channel channel, Long idCategory){
         channel.setCategory(categoryRepository.findById(idCategory).get());
+        if(channel.getName()==null || ("").equals(channel.getName())){
+            return "redirect:/server/one?idServer="+channel.getCategory().getServer().getId();
+        }
         channelRepository.save(channel);
         return "redirect:/server/one?idServer="+channel.getCategory().getServer().getId();
     }
