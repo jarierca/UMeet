@@ -31,13 +31,6 @@ public class CategoryController {
     @Autowired
     MessageFileRepository messageFileRepository;
 
-    @GetMapping("/pruebaCategory")
-    public String pruebaCategory(Model model, Long idServer){
-        model.addAttribute("categories", categoryRepository.findByServer(serverRepository.findById(idServer).get()));
-        model.addAttribute("idServer", idServer);
-        return "pruebaCategory";
-    }
-
     @GetMapping("/form")
     public String viewCategoryCreation(Model model, Long idCategory, Long idServer){
         Category category = new Category();
@@ -53,6 +46,9 @@ public class CategoryController {
     @PostMapping("/addCategory")
     public String addCategory(Category category, Long idServer){
         category.setServer(serverRepository.findById(idServer).get());
+        if(category.getName()==null || ("").equals(category.getName())){
+            return "redirect:/server/one?idServer="+category.getServer().getId();
+        }
         categoryRepository.save(category);
         return "redirect:/server/one?idServer="+category.getServer().getId();
     }
