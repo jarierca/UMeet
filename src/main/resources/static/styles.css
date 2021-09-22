@@ -239,7 +239,7 @@ ul li :hover{
 .send-msg-field input, input:focus{
     outline-width: 0;
     background-color: #3b3f45;
-    width: 93%;
+    width: 90%;
     border-radius: 10px;
     color: white;
     height: 45px;
@@ -291,4 +291,8 @@ p{
 
 label {
     color:white;
+}
+
+#sendit{
+    padding-left:4px;
 }
