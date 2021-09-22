@@ -32,10 +32,17 @@ public class FriendController {
     @GetMapping("/friendsList") //Va la vista poniendo detras ?idUser=1 (http://localhost:8090/friends/friendsList?idUser=3)
     public String listFriends(Model m) {
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        
-        m.addAttribute("friendsAccepted", friendRepo.findByAmigos(u.getId(), "Aceptado"));
-        m.addAttribute("friendsPending", friendRepo.findByAmigos(u.getId(), "Invitado"));
+
+        List<User> aceptados = friendRepo.findByAmigos(u.getId(), "Aceptado").stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        List<User> invitados = friendRepo.findByAmigos(u.getId(), "Invitado").stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        m.addAttribute("friendsAccepted", aceptados);
+        m.addAttribute("friendsPending", invitados);
 
         return "friends/view";
     }
@@ -45,14 +52,8 @@ public class FriendController {
     public String filterFriend(Model m, String username) {
 
         List<User> aux = userRepo.findByUsernameContaining(username);
-        if (!aux.isEmpty()) {
-
-        }
 
         List<User> aux1 = userRepo.findByNickNameContaining(username);
-        if (!aux1.isEmpty()) {
-
-        }
 
         List<User> aux2 = Stream.concat(aux.stream(), aux1.stream())
                 .distinct()
