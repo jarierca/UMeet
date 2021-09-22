@@ -3,8 +3,10 @@ package com.umeet.umeet.controller;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.Friend;
+import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
+import com.umeet.umeet.services.FriendService;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -12,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,16 +29,18 @@ public class FriendController {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+
+    private FriendService friendService;
 //List friends
+
     @GetMapping("/friendsList") //Va la vista poniendo detras ?idUser=1 (http://localhost:8090/friends/friendsList?idUser=3)
     public String listFriends(Model m) {
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
-        List<User> aceptados = friendRepo.findByAmigos(u.getId(), "Aceptado").stream()
-                .distinct()
-                .collect(Collectors.toList());
+        List<User> aceptados = friendService.sendFriendList(u.getId());
 
-        List<User> invitados = friendRepo.findByAmigos(u.getId(), "Invitado").stream()
+        List< User> invitados = friendRepo.findByAmigos(u.getId(), "Invitado").stream()
                 .distinct()
                 .collect(Collectors.toList());
 
@@ -50,14 +53,21 @@ public class FriendController {
 //Filter friends    
     @PostMapping("/friendsFilter")
     public String filterFriend(Model m, String username) {
+        UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        List<User> aux2 = null;
+        if (username == null || ("").equals(username)) {
+            aux2 = friendService.sendFriendList(u.getId());
 
-        List<User> aux = userRepo.findByUsernameContaining(username);
+        } else {
+            List<User> aux = userRepo.findByUsernameContaining(username);
 
-        List<User> aux1 = userRepo.findByNickNameContaining(username);
+            List<User> aux1 = userRepo.findByNickNameContaining(username);
 
-        List<User> aux2 = Stream.concat(aux.stream(), aux1.stream())
-                .distinct()
-                .collect(Collectors.toList());
+            aux2 = Stream.concat(aux.stream(), aux1.stream())
+                    .distinct()
+                    .collect(Collectors.toList());
+
+        }
 
         m.addAttribute("name", aux2);
 

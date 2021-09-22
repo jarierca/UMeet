@@ -8,19 +8,18 @@ import com.umeet.umeet.repositories.ProfileRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FriendService implements IFriendService {
 
-
     @Autowired
     FriendRepository friendRepository;
-    
+
     @Autowired
     ProfileRepository profileRepository;
-    
 
     private List<String> nombres = new ArrayList<>();
 
@@ -42,15 +41,27 @@ public class FriendService implements IFriendService {
         nombres.remove(nombre);
     }
 
-*/
+     */
     @Override
     public List<String> getFriendList() {
         //Devuelve una lista inmutable.
         return Collections.unmodifiableList(nombres);
     }
-    
+
     //El metodo se llama a si mismo y peta la memoria (Entity User)
     public void deleteFriendCascade(Long id) {
         profileRepository.deleteById(id);
     }
+
+    @Override
+    public List<User> sendFriendList(Long idUser) {
+
+        List<User> aceptados = friendRepository.findByAmigos(idUser, "Aceptado").stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        return aceptados;
+
+    }
+
 }
