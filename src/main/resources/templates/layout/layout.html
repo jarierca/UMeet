@@ -206,7 +206,7 @@
                         var salida = $("<tr>").html("<div class='h2 mx-2 my-2 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
                         $("#contentChat").html("");
                         for (x of pJson) {
-                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src='/profile/avatar?url="+x.user.avatar +"'>&nbsp;&nbsp;"+x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
+                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src='/profile/avatar?url="+x.user.avatar +"'>  "+x.user.nickName + ":<br></span><span style='word-break: break-all' class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
                         }
                         /*$("<tr>").html("<td><form action='/msg/channel/sendmsg' method='post'>" +
                                 "<input type='hidden' name='idChannel' value='" + idCanal + "' />" +
