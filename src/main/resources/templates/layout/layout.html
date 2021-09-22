@@ -317,6 +317,42 @@
                     }
                 });
             }
+
+            function editCategory(idServer, idCategory){
+                $.ajax({
+                    url: "/category/form",
+                    data: {
+                        idServer: idServer,
+                        idCategory: idCategory},
+                    success: function (html){
+                        bootbox.dialog({
+                            title: 'Categoría',
+                            message: html
+                        })
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                })
+            }
+
+            function editChannel(idCategory, idChannel){
+                $.ajax({
+                    url: "/channel/form",
+                    data: {
+                        idCategory: idCategory,
+                        idChannel: idChannel},
+                    success: function (html){
+                        bootbox.dialog({
+                            title: 'Canal',
+                            message: html
+                        })
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                })
+            }
         </script>
     </myscripts>
 </body>
