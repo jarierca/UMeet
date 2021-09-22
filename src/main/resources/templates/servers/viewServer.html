@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="layout/layout::layout( ~{::body})">>
     <body>
 
-        <div class="row text-white ml-4">
-            <div class="col-sm-3 mt-4 ml-4">
+        <div class="row text-white mx-4">
+            <div class="col-sm-3 mt-4 ">
                 <div class="server-text">
                     <div class="mt-4 mb-3 ml-4">
                         <span class="h1" th:each="ser:${server}">
@@ -61,10 +61,10 @@
                 </div>
             </div>
             
-            <!<!-- Listar Users en el server -->
-            <div class="col-sm-1 mt-4">
-                <div class="ml-5 overflow-off-x" id="contentServer">
-                    <div class="mt-4 text-white" th:each="us:${userServer}">
+            <!-- Listar Users en el server -->
+            <div class="col-sm-2 mt-4">
+                <div class="ml-2 overflow-off-x" id="contentServer">
+                    <div class="mt-4 text-white" th:each="us:${userServer}" style="word-break: break-all;">
                         <span th:text="${us.user.nickName}"></span>
                         <img th:src="@{/profile/avatar(url=${us.user.avatar})}" class="avatar-msg">
                         <span th:if="${us.user.status} == 'conectado'"><a class="badge badge-counter badge-conectado" style="margin-top: 15px !important;">&nbsp;</a></span>

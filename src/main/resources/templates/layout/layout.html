@@ -94,9 +94,10 @@
             function msgSize(){
                 var height = $(window).height();
 
-                $('#contentChat').height(height-200);
-                $('#contentServer').height(height-300);
-                //console.log(height);
+                $('#contentServer').height(height*0.7);
+//                $('.msg-text').attr("style","height:90%");
+//                $('#contentChat').attr("style","height:100%");
+//                console.log(height);
             }
             function loadProfile() {
                 $.ajax({
