@@ -271,6 +271,7 @@ ul li :hover{
 .mensaje-2{
     padding-left: 60px; 
     color: white;
+    word-break: break-all;
 }
 /*
 p{
