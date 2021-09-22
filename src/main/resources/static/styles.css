@@ -233,7 +233,7 @@ ul li :hover{
 .send-msg-field input, input:focus{
     outline-width: 0;
     background-color: #3b3f45;
-    width: 94%;
+    width: 93%;
     border-radius: 10px;
     color: white;
     height: 45px;
