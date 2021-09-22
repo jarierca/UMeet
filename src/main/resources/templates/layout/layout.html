@@ -38,6 +38,9 @@
                                     <a class="nav-link" href="#" id="inventado" onclick="servidor()"><i class="fas fa-server"></i> Servidores</a>
                                 </li>
                             </ul>
+                            <div>
+                                <a class="avatar" th:onclick="|editServer()|"><i class="fas fa-plus"></i></a>
+                            </div>
                             <!-- Lista servidores -->
                             <div class="row ">
                                 <div class="col-4 ">
@@ -344,6 +347,22 @@
                     success: function (html){
                         bootbox.dialog({
                             title: 'Canal',
+                            message: html
+                        })
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                })
+            }
+            function editServer(idServer){
+                $.ajax({
+                    url: "/server/form",
+                    data: {
+                        idServer: idServer},
+                    success: function (html){
+                        bootbox.dialog({
+                            title: 'Servidor',
                             message: html
                         })
                     },

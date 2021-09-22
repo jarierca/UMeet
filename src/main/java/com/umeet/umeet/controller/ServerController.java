@@ -149,7 +149,7 @@ public class ServerController {
             }
             server.setAvatar(ruta);
         }
-        serverRepository.save(server);
+        server = serverRepository.save(server);
         List<UserServerRole> userServerRoles = userServerRoleRepository.findByServer(server);
         if(userServerRoles.isEmpty()){
             UserServerRole userServerRole = new UserServerRole();
@@ -158,7 +158,7 @@ public class ServerController {
             userServerRole.setServer(server);
             userServerRoleRepository.save(userServerRole);
         }
-        return "redirect:/server/byUser";
+        return "redirect:/server/one?idServer="+server.getId();
     }
 
     @GetMapping("/deleteServer")
