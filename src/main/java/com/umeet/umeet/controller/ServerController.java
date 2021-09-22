@@ -136,8 +136,12 @@ public class ServerController {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         if(server.getId()==null){
             server.setAvatar(rutaRecursos+"/avatar/server-stock.png");
+        } else {
+            server = serverRepository.findById(server.getId()).get();
         }
-        if(!file.isEmpty()){
+        if(file.isEmpty()){
+            server.setAvatar(server.getAvatar());
+        } else {
             String ruta = rutaRecursos + "/avatar/servers/" + server.getName() + ".png";
             ruta = ruta.replace(" ", "-");
             File f = new File(ruta);
