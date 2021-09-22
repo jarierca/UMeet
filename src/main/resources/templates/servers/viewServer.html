@@ -67,10 +67,10 @@
                     <div class="mt-4 text-white" th:each="us:${userServer}" style="word-break: break-all;">
                         <span th:text="${us.user.nickName}"></span>
                         <img th:src="@{/profile/avatar(url=${us.user.avatar})}" class="avatar-msg">
-                        <span th:if="${us.user.status} == 'conectado'"><a class="badge badge-counter badge-conectado" style="margin-top: 15px !important;">&nbsp;</a></span>
-                        <span th:if="${us.user.status} == 'desconectado'"><a class="badge badge-counter badge-desconectado" style="margin-top: 15px !important;">&nbsp;</a></span>
-                        <span th:if="${us.user.status} == 'ocupado'"><a class="badge badge-counter badge-ocupado" style="margin-top: 15px !important;">&nbsp;</a></span>
-                        <span th:if="${us.user.status} == 'ausente'"><a class="badge badge-counter badge-ausente" style="margin-top: 15px !important;">&nbsp;</a></span>
+                        <a th:if="${us.user.status} == 'conectado'" class="badge badge-counter badge-conectado" style="margin-top: 15px !important;right: auto !important;">&nbsp;</a>
+                        <a th:if="${us.user.status} == 'desconectado'" class="badge badge-counter badge-desconectado" style="margin-top: 15px !important;right: auto !important;">&nbsp;</a>
+                        <a th:if="${us.user.status} == 'ocupado'" class="badge badge-counter badge-ocupado" style="margin-top: 15px !important;right: auto !important;">&nbsp;</a>
+                        <a th:if="${us.user.status} == 'ausente'" class="badge badge-counter badge-ausente" style="margin-top: 15px !important;right: auto !important;">&nbsp;</a>
                     </div>
                 </div>    
             </div>

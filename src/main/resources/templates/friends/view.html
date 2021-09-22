@@ -60,7 +60,7 @@
                                         <th>Nickname</th>
                                     </tr>
                                     <tr th:each="f2:${friendsPending}">
-                                        <td>  <img class='avatar' th:src="|/profile/avatar?url=${f2.avatar}|"></td>
+                                        <td>  <img class='avatar-msg' th:src="|/profile/avatar?url=${f2.avatar}|"></td>
                                         <td th:text="${f2.nickName}"></td>
 
                                     </tr> 
