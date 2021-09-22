@@ -1,37 +1,82 @@
 <html xmlns:th="https://www.thymeleaf.org"
- th:replace="layout/layout::layout( ~{::body})">
-    <head>
-    </head>
-   <body>
-    <div class="container">
-        <div>
-            <h3>Amigos</h3>
-            <form action="/friends/friendsFilter" method="post">
-                <input type="text" name="username" placeholder="Encuentra tu amigo">
-                <input type="submit">
-            </form>
+      th:replace="layout/layout::layout( ~{::body})">
+</head>
+<body>
+    <div class="row">
+
+        <div class="col-3">
+            <div>
+                <h3>Buscar amigos</h3>
+
+                <div class="input-group">
+                    <input type="text" name="username"  id="buscaAmigo" placeholder="Encuentra a tu amigo" class="form-control">
+                    <button onclick="amigos()" class="btn btn-outline-success"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <a th:href="@{/friends/inviteUser}" class="btn btn-success "> <i class="fas fa-user-plus"></i>&nbsp;Añadir amigo</a>
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Amigos</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Invitados</a>
+                </li>
+
+            </ul>
+            <div class="tab-content" >
+                <div class="tab-pane fade show active" id="home" role="tabpanel">
+                    <div class="overflow-auto prueba ">
+                        <div id="obtenAmigo">
+                            <table class="table text-white">
+                                <tr>
+                                    <th>Avatar</th>
+                                    <th>Nickname</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                <tr th:each="f1:${friendsAccepted}">
+
+                                    <td>  <img class='avatar' th:src="|/profile/avatar?url=${f1.avatar}|"></td>
+                                    <td th:text="${f1.nickName}"></td>
+                                    <td th:text="${f1.status}"></td>
+                                    <td>
+                                        <button th:attr="onclick=|chatPrivado(${f1.id})|" >Meet</button>
+                                    </td>
+                                </tr> 
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="profile" role="tabpanel">
+
+                    <div class="overflow-auto prueba ">
+                        <table class="table text-white">
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Nickname</th>
+                            </tr>
+                            <tr th:each="f2:${friendsPending}">
+                                <td>  <img class='avatar' th:src="|/profile/avatar?url=${f2.avatar}|"></td>
+                                <td th:text="${f2.nickName}"></td>
+
+                            </tr> 
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
+        <div id="panelChat" class="col-9">
+            
+           
+        </div>
+        <div id="sendit" class="col-6">
 
-        <h3>Aceptados</h3>
-        <table>
-            <tr th:each="f1:${friendsAccepted}">
-                <td th:text="${f1.avatar}"></td>
-                <td th:text="${f1.nickName}"></td>
-                <td th:text="${f1.username}"></td>
-                <td th:text="${f1.status}"></td>
-            </tr> 
-        </table>
-
-        <h3>Invitados</h3>
-        <table>
-            <tr th:each="f2:${friendsPending}">
-                <td th:text="${f2.avatar}"></td>
-                <td th:text="${f2.nickName}"></td>
-                <td th:text="${f2.username}"></td>
-            </tr> 
-        </table>
+        </div>
     </div>
-    <a th:href="@{/friends/inviteUser}" class="btn btn-success"> <i class="fas fa-user-plus"></i>&nbsp;Añadir amigos</a>
     </body>
 </html>
