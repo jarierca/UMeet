@@ -104,7 +104,7 @@ h3 {
     border-radius: 60rem !important;
     position: absolute !important;
     margin-top: 37px !important;
-    right: 38px !important;  
+    right: 73px !important;  
 }
 .badge-conectado{
     border: 3px solid green;
@@ -188,7 +188,7 @@ h3 {
     margin-right: 0 !important;
     margin-left: 0 !important;
 }
-#contentBody .col-sm-7 ,#contentBody .col-sm-3, #contentBody .col-sm-2{
+#contentBody .col-sm-7 ,#contentBody .col-sm-3, #contentBody .col-sm-2 ,#contentBody .col-sm-1{
     padding-right: 0px !important;
     padding-left: 0px !important;
 }
@@ -202,6 +202,11 @@ h3 {
     background-color: #2f3136;
 }
 #contentBody .col-sm-2{
+    background-color: #2f3136;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+#contentBody .col-sm-1{
     background-color: #2f3136;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
@@ -239,7 +244,7 @@ ul li :hover{
 .send-msg-field input, input:focus{
     outline-width: 0;
     background-color: #3b3f45;
-    width: 93%;
+    width: 90%;
     border-radius: 10px;
     color: white;
     height: 45px;
@@ -287,4 +292,15 @@ p{
     body{
         overflow: auto;
     }
+}
+
+label {
+    color:white;
+}
+
+#sendit{
+    padding-left:4px;
+}
+i {
+    cursor:pointer;
 }

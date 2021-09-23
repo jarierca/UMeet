@@ -2,82 +2,91 @@
       th:replace="layout/layout::layout( ~{::body})">
 </head>
 <body>
-    <div class="row">
+    <div class="row text-white ml-4 pl-5 mt-4">
 
-        <div class="col-3">
-            <div>
-                <h3>Buscar amigos</h3>
+        <div class="col-sm-3">
+            <div class="server-text">
+                <div class="my-3">
+                    <h3 class="mb-4 text-white">Buscar amigos</h3>
 
-                <div class="input-group">
-                    <input type="text" name="username"  id="buscaAmigo" placeholder="Encuentra a tu amigo" class="form-control mb-2">
-                    <button onclick="amigos()" class="btn btn-outline-success mb-2"><i class="fas fa-search"></i></button>
+                    <div class="input-group pr-4 pl-2">
+                        <input type="text" name="username"  id="buscaAmigo" placeholder="Encuentra a tu amigo" class="form-control mb-2">
+                        <button onclick="amigos()" class="btn btn-outline-success mb-2"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
-            </div>
-            <a th:href="@{/friends/inviteUser}" class="btn btn-success mb-2"> <i class="fas fa-user-plus"></i>&nbsp;Añadir amigo</a>
+                <a th:href="@{/friends/inviteUser}" class="btn btn-success my-3 ml-2"> <i class="fas fa-user-plus"></i>&nbsp;Añadir amigo</a>
 
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Amigos</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Invitados</a>
-                </li>
+                <div class="pr-4 pl-2 mt-3">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Amigos</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Invitados</a>
+                        </li>
 
-            </ul>
-            <div class="tab-content" >
-                <div class="tab-pane fade show active" id="home" role="tabpanel">
-                    <div class="overflow-auto prueba ">
-                        <div id="obtenAmigo">
-                            <table class="table text-white">
-                                <tr>
-                                    <th>Avatar</th>
-                                    <th>Nickname</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                                <tr th:each="f1:${friendsAccepted}">
+                    </ul>
+                    <div class="tab-content" >
+                        <div class="tab-pane fade show active" id="home" role="tabpanel">
+                            <div class="overflow-auto prueba ">
+                                <div id="obtenAmigo">
+                                    <table class="table text-white">
+                                        <tr>
+                                            <th>Avatar</th>
+                                            <th>Nickname</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr th:each="f1:${friendsAccepted}">
 
-                                    <td>  <img class='avatar' th:src="|/profile/avatar?url=${f1.avatar}|"></td>
-                                    <td th:text="${f1.nickName}"></td>
-                                    <td th:text="${f1.status}"></td>
-                                    <td>
-                                        <button th:attr="onclick=|chatPrivado(${f1.id})|" >Meet</button>
-                                    </td>
-                                </tr> 
-                            </table>
+                                            <td>  <img class='avatar' th:src="|/profile/avatar?url=${f1.avatar}|"></td>
+                                            <td th:text="${f1.nickName}"></td>
+                                            <td th:text="${f1.status}"></td>
+                                            <td>
+                                                <a th:attr="onclick=|chatPrivado(${f1.id})|" ><i class="far fa-comment-dots"></i></a>
+                                            </td>
+                                        </tr> 
+                                    </table>
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="tab-pane fade" id="profile" role="tabpanel">
+
+                            <div class="overflow-auto prueba ">
+                                <table class="table text-white">
+                                    <tr>
+                                        <th>Avatar</th>
+                                        <th>Nickname</th>
+                                    </tr>
+                                    <tr th:each="f2:${friendsPending}">
+                                        <td>  <img class='avatar-msg' th:src="|/profile/avatar?url=${f2.avatar}|"></td>
+                                        <td th:text="${f2.nickName}"></td>
+
+                                    </tr> 
+                                </table>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
-
-                <div class="tab-pane fade" id="profile" role="tabpanel">
-
-                    <div class="overflow-auto prueba ">
-                        <table class="table text-white">
-                            <tr>
-                                <th>Avatar</th>
-                                <th>Nickname</th>
-                            </tr>
-                            <tr th:each="f2:${friendsPending}">
-                                <td>  <img class='avatar' th:src="|/profile/avatar?url=${f2.avatar}|"></td>
-                                <td th:text="${f2.nickName}"></td>
-
-                            </tr> 
-                        </table>
-                    </div>
-
-                </div>
-
             </div>
-
         </div>
+
         <!--Zona chat-->
-        <div id="panelChat" class="col-9">
-
-        <!--Enviar mensaje-->
+        <div class="col-sm-7">
+            <div class="msg-text">
+                <div class="overflow-auto overflow-off-x mb-3" id="contentChat">
+                    <div style="text-align: left" class="ml-5 mt-5" id="panelChat"></div>
+                </div>
+                <div class="row-sin-m">
+                    <div id="sendit" class="send-msg-field"></div>
+                </div>
+            </div>
         </div>
-        <div id="sendit" class="col-6">
 
-        </div>
+        <div class="col-sm-1"></div>  
     </div>
 
 </body>
