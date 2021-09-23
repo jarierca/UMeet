@@ -13,8 +13,8 @@
                         <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="text-white"><i class="far fa-edit"></i></a>
                         <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="text-white"><i class="fas fa-plus"></i></a>
                     </div>
+                    <a class="btn btn-primary" th:href="@{/usr/leaveServer(idServer=${idServer})}">Salir del servidor</a>
                     <div class="mr-5 pr-4  overflow-off-x" id="contentServer">
-                        
                         <ul class="mb-4" th:each="category:${categories}">
                             <li >
                                 <div class="list-group-item mb-2">
