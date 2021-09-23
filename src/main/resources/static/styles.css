@@ -1,6 +1,11 @@
 body {
     background-color: #222629;
-    overflow:hidden;
+    overflow-y:auto;
+    overflow-x: hidden;
+}
+
+a:hover{
+    cursor:pointer;
 }
 
 .btn-primary {
@@ -59,6 +64,7 @@ h3 {
 
 .btn-success {
     background-color: #61892F;
+    border-color: #61892F ;
     float: center;
 }
 
@@ -164,7 +170,7 @@ h3 {
     /*margin-left: .5rem;*/
     /*background-color: #2f3136;*/
     margin-left: 20px;
-    
+
 }
 .msg-text{
     margin-bottom: 1.5rem;
@@ -211,13 +217,25 @@ h3 {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
 }
+a#home-tab.nav-link{
+    color: #EDFED5;
+}
+a#profile-tab.nav-link{
+    color: #EDFED5; 
+}
+a#home-tab.nav-link.active{
+    color: #61892F;
+}
+a#profile-tab.nav-link.active{
+    color: #61892F;
+}
 ul li{
     list-style: none;
     border: 0;
 }
 ul li :hover{
-    background-color: #343a40;
-    border-radius: 15px;
+    background-color: #61892F;
+    /*    border-radius: 15px;*/
 }
 .list-group-item {
     border: 0;
@@ -304,4 +322,32 @@ label {
 i {
     cursor:pointer;
 }
+.padre{
+    display:flex;
+
+}
+.hijo{ 
+    align-items: center;
+
+}
+p{
+    color: #EDFED5;
+
+}
+.banner{
+    height: 250px;
+    width: 1500px;
+    background-image: url("https://i.imgur.com/4UfOWkz.jpg");
+    background-position: center;
+     background-size: cover;
+    border-radius: 15px;
+    
+
+}
+.centrado{
+    position: absolute;
+    top: 40%;
+    width: 97%;
+}
+
 

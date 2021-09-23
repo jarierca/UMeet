@@ -15,18 +15,18 @@
         <div class="row"> 
             <div class="col-md-12">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid"> 
-                    <div class="container-fluid">
-                        <div class="col-4 row">
+                    <div class="container-fluid padre">
+                        <div class="col-4 row hijo">
                             <div class="col-2">
                                 <a class="nav-link" href="/home" style="margin-left: -50px;">
-                                    <img src="/una.png" class="avatar">
+                                    <img src="/una.png" class="avatar ml-4">
                                 </a>
                             </div>
                             <!-- Amigos -->
                             <ul class="navbar-nav col-5">
                                 <li class="nav-item active">
                                     <a class="nav-link" href="/friends/friendsList">
-                                        <i class="fas fa-user-friends"></i>Amigos
+                                        <i class="fas fa-user-friends ml-3"></i>Amigos
                                     </a>
                                 </li>
                             </ul>
@@ -39,18 +39,18 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-8 row">                            
+                        <div class="col-8 row hijo">                            
                             <!-- Lista servidores y anyadir -->
                             <div>
-                                <a class="avatar" th:onclick="|editServer()|"><i class="fas fa-plus"></i></a>
+                                <a class="avatar" th:onclick="|editServer()|"><img class="avatar" src="/plus.svg"/></a>
                             </div>
-                            <div class="col-10 ">
+                            <div class="col-9 ">
                                 <div id="userServers" class="overflow-auto ">
                                 </div>
                             </div>
 
                             <!-- Perfil usuario -->
-                            <div class="navbar-nav dropdown row col-2">
+                            <div class="navbar-nav dropdown row col-2 ml-4">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" id="user-profile"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 </a>
@@ -80,11 +80,17 @@
 
                 <div class="" style="text-align: center; align-content:center;">
                     <div id="contentBody" class="">
-                        <th:block th:include="${htmlcuerpo}" />
+                        <th:block th:include="${htmlcuerpo}"/>
                     </div>
                 </div>
                 <footer>
-                    <p>HIBERUS</p>
+                    <div class="row">
+                        <div class="offset-5 col-6">
+                              <p> © Copyright 2021 U meet. Todos los Derechos Reservados <p>
+                            
+                        </div>
+                      
+                    </div>
                 </footer>
             </div>
         </div>
