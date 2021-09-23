@@ -133,10 +133,10 @@
                             '</span>&nbsp;&nbsp;<span><img alt="Avatar" class="avatar" src="/profile/avatar?url=' +
                             pHtml.avatar + '">&nbsp;<span id="user-status"></span></span>'; //<span class="badge badge-'+pHtml.status+' badge-counter">&nbsp;</span>
                         
-                        document.getElementById("user-status").innerHTML = '<span role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="badge badge-' + pHtml.status + ' badge-counter">&nbsp;</span><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a onClick="editStatus('+"'conectado'"+')" class="dropdown-item">Conectado</a><a onClick="editStatus('+"'desconectado'"+')" class="dropdown-item">Desconectado</a><a onClick="editStatus('+"'ocupado'"+')" class="dropdown-item">Ocupado</a><a onClick="editStatus('+"'ausente'"+')" class="dropdown-item">Ausente</a></div>';
+//                        document.getElementById("user-status").innerHTML = '<span role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="badge badge-' + pHtml.status + ' badge-counter">&nbsp;</span><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a onClick="editStatus('+"'conectado'"+')" class="dropdown-item">Conectado</a><a onClick="editStatus('+"'desconectado'"+')" class="dropdown-item">Desconectado</a><a onClick="editStatus('+"'ocupado'"+')" class="dropdown-item">Ocupado</a><a onClick="editStatus('+"'ausente'"+')" class="dropdown-item">Ausente</a></div>';
                         
-//                        $("#user-status").removeAttr('class');
-//                        $("#user-status").addClass("badge badge-counter badge-" + pHtml.status);
+                        $("#user-status").removeAttr('class');
+                        $("#user-status").addClass("badge badge-counter badge-" + pHtml.status);
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
