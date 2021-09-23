@@ -6,18 +6,18 @@
 
         <div class="col-sm-3">
             <div class="server-text">
+                <div style="text-align: center;">
+                    <a th:href="@{/friends/inviteUser}" class="btn btn-success my-3 ml-2 btn-sm"> <i class="fas fa-user-plus"></i>&nbsp;Añadir amigo</a>
+                </div>
                 <div class="my-3">
-                    <h3 class="mb-4 text-white">Buscar amigos</h3>
+                    <h3 class="mb-4">Buscar amigos</h3>
 
                     <div class="input-group pr-4 pl-2">
                         <input type="text" name="username"  id="buscaAmigo" placeholder="Encuentra a tu amigo" class="form-control mb-2">
                         <button onclick="amigos()" class="btn btn-outline-success mb-2"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
-                <div style="text-align: center;">
-                    <h5>Añade nuevos amigos</h5>
-                    <a th:href="@{/friends/inviteUser}" class="btn btn-success my-3 ml-2 btn-sm"> <i class="fas fa-user-plus"></i>&nbsp;Añadir amigo</a>
-                </div>
+
                 <div class="pr-4 pl-2 mt-3">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item" role="presentation">
