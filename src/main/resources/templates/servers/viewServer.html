@@ -20,12 +20,13 @@
                             <li >
                                 <div class="list-group-item mb-2">
 
-                                    <i class='fas fa-chevron-down mt-1'></i>&nbsp;&nbsp;<a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
+                                    <i class='fas fa-chevron-down mt-1'></i>&nbsp;&nbsp;
+                                    <a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
                                     
                                     <div class="children-cat">
-                                        <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(null,${category.id})|"><i class="far fa-edit"></i></a>
+                                        <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(null,${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="far fa-edit"></i></a>
                                         <a th:if="${usr.rol.id==1}" th:href="@{/category/deleteCategory(idCategory=${category.id})}"><i class="far fa-trash-alt"></i></a>
-                                        <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|"><i class="fas fa-plus"></i></a>
+                                        <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
                                 
@@ -37,7 +38,7 @@
                                             <a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}')|" th:text="${channel.name}" id="accordation"></a>
                                             
                                             <div class="children-cat">
-                                                <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(null,${channel.id})|"><i class="far fa-edit"></i></a>
+                                                <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(null,${channel.id})|" style=":hover{color: #86C232}" class="text-white"><i class="far fa-edit"></i></a>
                                                 <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}"><i class="far fa-trash-alt"></i></a>
                                             </div>    
                                         </div>

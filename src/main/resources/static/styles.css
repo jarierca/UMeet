@@ -234,7 +234,8 @@ ul li{
     border: 0;
 }
 ul li :hover{
-    background-color: #61892F;
+    background-color: #343a40;
+    color: #61892F;
     border-radius: 15px;
 /*    border-radius: 15px;*/
 }
