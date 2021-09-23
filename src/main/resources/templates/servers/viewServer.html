@@ -6,14 +6,15 @@
             <div class="col-sm-3 mt-4 ">
                 <div class="server-text">
                     <div class="mt-4 mb-3 ml-4">
-                        <span class="h1" th:each="ser:${server}">
+                        <span class="h2" th:each="ser:${server}">
                             <img th:src="@{/profile/avatar(url=${ser.avatar})}" class="avatar-server" height="150px" width="250px">
                             <span th:text="${ser.name}"></span>
                         </span>
                         <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="text-white"><i class="far fa-edit"></i></a>
                         <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="text-white"><i class="fas fa-plus"></i></a>
+                        <a class="text-white" th:href="@{/usr/leaveServer(idServer=${idServer})}"><i class="fas fa-sign-out-alt"></i></a>
                     </div>
-                    <a class="btn btn-primary" th:href="@{/usr/leaveServer(idServer=${idServer})}">Salir del servidor</a>
+                    
                     <div class="mr-5 pr-4  overflow-off-x" id="contentServer">
                         <ul class="mb-4" th:each="category:${categories}">
                             <li >
