@@ -401,6 +401,39 @@
                 })
             }
         </script>
+        <script>
+            var contadorAfk = 0;
+
+            $(document).ready(function() {
+              setup();
+              contadorAfk = setInterval(ctrlTiempo, 2000);
+            });
+
+            function ctrlTiempo() {
+
+                contadorAfk++;
+                //console.log(contadorAfk);
+
+                if (contadorAfk > 5) {
+                  contadorAfk = 0;
+                  $("#pot").toggleClass("invis");
+                }
+            }
+            
+            function resetearTimer(){
+                contadorAfk = 0;
+            }
+            
+            function setup() {
+                this.addEventListener("mousemove", resetearTimer, false);
+                this.addEventListener("mousedown", resetearTimer, false);
+                this.addEventListener("keypress", resetearTimer, false);
+                this.addEventListener("DOMMouseScroll", resetearTimer, false);
+                this.addEventListener("mousewheel", resetearTimer, false);
+                this.addEventListener("touchmove", resetearTimer, false);
+                this.addEventListener("MSPointerMove", resetearTimer, false);
+            }
+        </script>
     </myscripts>
 </body>
 

@@ -33,14 +33,12 @@ hr {
     background-color: #3B4247;
 }
 
-.dropdown-menu,
-.dropdown-item {
+.dropdown-menu, .dropdown-item {
     background-color: #3B4247;
     color: #EDFED5;
 }
 
-.navbar-nav,
-.umeet {
+.navbar-nav,.umeet {
     color: #86C232;
     padding-right: 10px;
     font-size: 24px;
