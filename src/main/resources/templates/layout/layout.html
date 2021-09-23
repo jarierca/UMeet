@@ -375,13 +375,13 @@
                     }
                 })
             }
-            function confirmDelete(idServer){
+            function confirmServer(idServer, title, url){
                 bootbox.confirm({
-                    message: "¿Desea abandonar el servidor?",
+                    message: title,
                     callback: function(result){
                         if(result){
                             $.ajax({
-                                url: "/usr/leaveServer",
+                                url: url, //"/usr/leaveServer",
                                 data: {
                                     idServer: idServer
                                 },
