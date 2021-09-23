@@ -3,6 +3,10 @@ body {
     overflow:hidden;
 }
 
+a:hover{
+    cursor:pointer;
+}
+
 .btn-primary {
     background-color: #61892F;
     border-color: #61892F;
@@ -59,6 +63,7 @@ h3 {
 
 .btn-success {
     background-color: #61892F;
+    border-color: #61892F ;
     float: center;
 }
 
@@ -211,13 +216,25 @@ h3 {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
 }
+a#home-tab.nav-link{
+    color: #EDFED5;
+}
+a#profile-tab.nav-link{
+    color: #EDFED5; 
+}
+a#home-tab.nav-link.active{
+    color: #61892F;
+}
+a#profile-tab.nav-link.active{
+    color: #61892F;
+}
 ul li{
     list-style: none;
     border: 0;
 }
 ul li :hover{
-    background-color: #343a40;
-    border-radius: 15px;
+    background-color: #61892F;
+/*    border-radius: 15px;*/
 }
 .list-group-item {
     border: 0;

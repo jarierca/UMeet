@@ -14,8 +14,10 @@
                         <button onclick="amigos()" class="btn btn-outline-success mb-2"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
-                <a th:href="@{/friends/inviteUser}" class="btn btn-success my-3 ml-2"> <i class="fas fa-user-plus"></i>&nbsp;Añadir amigo</a>
-
+                <div style="text-align: center;">
+                    <h5>Añade nuevos amigos</h5>
+                    <a th:href="@{/friends/inviteUser}" class="btn btn-success my-3 ml-2 btn-sm"> <i class="fas fa-user-plus"></i>&nbsp;Añadir amigo</a>
+                </div>
                 <div class="pr-4 pl-2 mt-3">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -24,7 +26,6 @@
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Invitados</a>
                         </li>
-
                     </ul>
                     <div class="tab-content" >
                         <div class="tab-pane fade show active" id="home" role="tabpanel">
@@ -38,7 +39,6 @@
                                             <th></th>
                                         </tr>
                                         <tr th:each="f1:${friendsAccepted}">
-
                                             <td>  <img class='avatar' th:src="|/profile/avatar?url=${f1.avatar}|"></td>
                                             <td th:text="${f1.nickName}"></td>
                                             <td th:text="${f1.status}"></td>
@@ -77,14 +77,11 @@
                                     </tr> 
                                 </table>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
         <!--Zona chat-->
         <div class="col-sm-7">
             <div class="msg-text">
