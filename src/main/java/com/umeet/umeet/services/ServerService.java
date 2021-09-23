@@ -36,27 +36,6 @@ public class ServerService implements IServerService {
 
     @Autowired
     UserRepository userRepository;
-    
-    @Override
-    public void deleteServerCascade(Long idServer) {
-        List<Category> categories = categoryRepository.findByServer(serverRepository.findById(idServer).get());
-        categories.stream()
-                .forEach(x->{
-                    x.getChannels().stream()
-                            .forEach(y->y.getMessages()
-                                    .stream().forEach(z->{
-                                        messageFieldRepository.deleteById(z.getMessageFile().getId());
-                                        messageRepository.deleteById(z.getId());
-                                    }));
-                    x.getChannels().stream()
-                            .forEach(w->channelRepository.deleteById(w.getId()));
-                });
-        categories.stream().forEach(c->categoryRepository.deleteById(c.getId()));
-        serverRepository.findById(idServer).get().getUserServerRole()
-                .stream()
-                .forEach(u->userServerRoleRepository.deleteById(u.getId()));
-        serverRepository.deleteById(idServer);
-    }
 
     @Override
     public List<Server> filterServers(List<Server> serversList) {

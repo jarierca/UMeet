@@ -55,14 +55,6 @@ public class CategoryController {
 
     @GetMapping("/deleteCategory")
     public String deleteCategory(Long idCategory){
-        List<Channel> channels = channelRepository.findByCategory(categoryRepository.findById(idCategory).get());
-        channels.stream().forEach(c->{
-            c.getMessages().stream().forEach(m->{
-                messageFileRepository.deleteById(m.getMessageFile().getId());
-                messageRepository.deleteById(m.getId());
-            });
-            channelRepository.deleteById(c.getId());
-        });
         long idServer = categoryRepository.findById(idCategory).get().getServer().getId();
         categoryRepository.deleteById(idCategory);
         return "redirect:/server/one?idServer="+idServer;
