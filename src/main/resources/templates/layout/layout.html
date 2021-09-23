@@ -379,6 +379,27 @@
                     }
                 })
             }
+            function confirmServer(idServer, title, url){
+                bootbox.confirm({
+                    message: title,
+                    callback: function(result){
+                        if(result){
+                            $.ajax({
+                                url: url, //"/usr/leaveServer",
+                                data: {
+                                    idServer: idServer
+                                },
+                                success: function (html) {
+                                    window.location="/home";
+                                },
+                                error: function (xhr, status, error) {
+                                    console.log(xhr.responseText);
+                                }
+                            })
+                        }
+                    }
+                })
+            }
         </script>
     </myscripts>
 </body>
