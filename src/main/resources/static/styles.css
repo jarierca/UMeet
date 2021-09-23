@@ -372,3 +372,7 @@ input:focus {
 mystyle:hover{
     color:#86C232;
 }
+
+.bootbox-body{
+    color: white;
+}

@@ -375,6 +375,27 @@
                     }
                 })
             }
+            function confirmDelete(idServer){
+                bootbox.confirm({
+                    message: "¿Desea abandonar el servidor?",
+                    callback: function(result){
+                        if(result){
+                            $.ajax({
+                                url: "/usr/leaveServer",
+                                data: {
+                                    idServer: idServer
+                                },
+                                success: function (html) {
+                                    window.location="/home";
+                                },
+                                error: function (xhr, status, error) {
+                                    console.log(xhr.responseText);
+                                }
+                            })
+                        }
+                    }
+                })
+            }
         </script>
     </myscripts>
 </body>
