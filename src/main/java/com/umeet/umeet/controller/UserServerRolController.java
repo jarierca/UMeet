@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/usr")
 public class UserServerRolController {
@@ -40,6 +42,16 @@ public class UserServerRolController {
         User user = userRepository.findById(u.getId()).get();
         UserServerRole relation = new UserServerRole(null, user, rol, server);
         userServerRoleRepository.save(relation);
+        return "redirect:/server/one?idServer=" + server.getId();
+    }
+
+    @GetMapping("/leaveServer")
+    public String leaveServer(Long idServer){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        User user = userRepository.findById(u.getId()).get();
+        Server server = serverRepository.findById(idServer).get();
+        UserServerRole relation = userServerRoleRepository.findByUserAndServer(user, server).get();
+        userServerRoleRepository.deleteById(relation.getId());
         return "redirect:/home";
     }
 }
