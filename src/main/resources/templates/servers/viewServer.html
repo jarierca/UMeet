@@ -5,15 +5,17 @@
         <div class="row text-white mx-4">
             <div class="col-sm-3 mt-4 ">
                 <div class="server-text">
-                    <div class="mt-4 mb-3 ml-4">
-                        <span class="h2" th:each="ser:${server}">
+                    <div class="mt-4 mb-3 ml-4 mr-5 d-flex flex-row">
+                        <span class="h2 col-9" th:each="ser:${server}">
                             <img th:src="@{/profile/avatar(url=${ser.avatar})}" class="avatar-server" height="150px" width="250px">
                             <span th:text="${ser.name}"></span>
                         </span>
-                        <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="text-white"><i class="far fa-edit" style=":hover{color: #86C232}"></i></a>
-                        <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="text-white"><i class="fas fa-plus" style=":hover{color: #86C232}"></i></a>
-                        <a th:if="${usr.rol.id==1}"  th:onclick="|confirmServer(${idServer}, '¿Desea eliminar el servidor?', '/usr/leaveServer')|" class="text-white"><i class="far fa-trash-alt" style=":hover{color: #86C232}"></i></a>
-                        <a class="text-white" th:onclick="|confirmServer(${idServer}, '¿Desea salir del servidor?', '/usr/leaveServer')|"><i class="fas fa-sign-out-alt" style=":hover{color: #86C232}"></i></a>
+                        <span class="col-3 mt-4">
+                            <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="text-white"><i class="far fa-edit" style=":hover{color: #86C232}"></i></a>
+                            <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="text-white"><i class="fas fa-plus" style=":hover{color: #86C232}"></i></a>
+                            <a th:if="${usr.rol.id==1}"  th:onclick="|confirmServer(${idServer}, '¿Desea eliminar el servidor?', '/usr/leaveServer')|" class="text-white"><i class="far fa-trash-alt" style=":hover{color: #86C232}"></i></a>
+                            <a class="text-white" th:onclick="|confirmServer(${idServer}, '¿Desea salir del servidor?', '/usr/leaveServer')|"><i class="fas fa-sign-out-alt" style=":hover{color: #86C232}"></i></a>
+                        </span>
                     </div>
                     
                     <div class="mr-5 pr-4  overflow-off-x" id="contentServer">
@@ -69,11 +71,13 @@
                 <div class="ml-2 overflow-off-x" id="contentServer">
                     <div class="mt-4 text-white" th:each="us:${userServer}" style="word-break: break-all;">
                         <span th:text="${us.user.nickName}"></span>
-                        <img th:src="@{/profile/avatar(url=${us.user.avatar})}" class="avatar-msg">
-                        <a th:if="${us.user.status} == 'conectado'" class="badge badge-counter badge-conectado" style="margin-top: 15px !important;right: auto !important;">&nbsp;</a>
-                        <a th:if="${us.user.status} == 'desconectado'" class="badge badge-counter badge-desconectado" style="margin-top: 15px !important;right: auto !important;">&nbsp;</a>
-                        <a th:if="${us.user.status} == 'ocupado'" class="badge badge-counter badge-ocupado" style="margin-top: 15px !important;right: auto !important;">&nbsp;</a>
-                        <a th:if="${us.user.status} == 'ausente'" class="badge badge-counter badge-ausente" style="margin-top: 15px !important;right: auto !important;">&nbsp;</a>
+                        <span>
+                            <img th:src="@{/profile/avatar(url=${us.user.avatar})}" class="avatar-msg">
+                            <a th:if="${us.user.status} == 'conectado'" class="badge badge-counter badge-conectado" style="margin-top: 13px !important;right: auto !important;">&nbsp;</a>
+                            <a th:if="${us.user.status} == 'desconectado'" class="badge badge-counter badge-desconectado" style="margin-top: 13px !important;right: auto !important;">&nbsp;</a>
+                            <a th:if="${us.user.status} == 'ocupado'" class="badge badge-counter badge-ocupado" style="margin-top: 13px !important;right: auto !important;">&nbsp;</a>
+                            <a th:if="${us.user.status} == 'ausente'" class="badge badge-counter badge-ausente" style="margin-top: 13px !important;right: auto !important;">&nbsp;</a>
+                        </span>
                     </div>
                 </div>    
             </div>
