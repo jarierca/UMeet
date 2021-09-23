@@ -123,7 +123,13 @@ public class FriendController {
 
         m.addAttribute("friendsPending", amigos);
 
-        return "friends/view";
+        return "redirect:friendsList";
     }
+    
+    
+   
+    
+    
+    
 
 }
