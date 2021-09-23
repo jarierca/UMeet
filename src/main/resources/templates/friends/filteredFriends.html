@@ -5,10 +5,13 @@
 
     <table class="table table-striped">
 
-        
+
         <tr th:if="${name!=null}" th:each="nam:${name}">
             <td>  <img class='avatar' th:src="|/profile/avatar?url=${nam.avatar}|"></td>
             <td th:text="${nam.nickName}"></td>
+            <td>
+                <a th:attr="onclick=|chatPrivado(${nam.id})|" ><i class="far fa-comment-dots"></i></a>
+            </td>
         </tr> 
     </table>
 

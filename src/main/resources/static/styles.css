@@ -229,6 +229,7 @@ a#home-tab.nav-link.active{
 a#profile-tab.nav-link.active{
     color: #61892F;
 }
+
 ul li{
     list-style: none;
     border: 0;
