@@ -59,10 +59,21 @@
                                         <th>Avatar</th>
                                         <th>Nickname</th>
                                     </tr>
-                                    <tr th:each="f2:${friendsPending}">
-                                        <td>  <img class='avatar-msg' th:src="|/profile/avatar?url=${f2.avatar}|"></td>
-                                        <td th:text="${f2.nickName}"></td>
-
+                                    <tr th:each="f1:${friendsPendingEnviado}">
+                                        <td>  <img class='avatar-msg' th:src="|/profile/avatar?url=${f1.avatar}|"></td>
+                                        <td th:text="${f1.nickName}"></td>
+                                    </tr> 
+                                    <tr th:each="f1:${friendsPendingRecibido}">
+                                        <td>  <img class='avatar-msg' th:src="|/profile/avatar?url=${f1.avatar}|"></td>
+                                        <td th:text="${f1.nickName}"></td>
+                                        <td> 
+                                            <form th:action="@{/friends/accept}" method="post">
+                                                <div class="input-group">
+                                                    <input type="hidden" th:value="${f1.id}" name="idUserFriend">
+                                                    <button type="submit" class="btn btn-outline-success"><i class="fas fa-user-plus"></i></button>
+                                                </div>
+                                            </form>
+                                        </td>
                                     </tr> 
                                 </table>
                             </div>

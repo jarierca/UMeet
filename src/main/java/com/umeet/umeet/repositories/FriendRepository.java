@@ -32,7 +32,14 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     public List<User> findByAmigos(Long idUsuario, String estado);
     //public List <Friend> findByUser2(Long idUser2);
      
-      @Query("select f.user2 from Friend f where f.user1.id = :idUsuario  and f.status = :estado union all select f.user1 from Friend f where f.user2.id = :idUsuario  and f.status = :estado")
-    public List<User> findByAmigosTodos(Long idUsuario, String estado);  
+     // @Query("select case when f.user1.id = :idUsuario then f.user2 else f.user1 end from Friend f where (f.user1.id = :idUsuario or f.user2.id = :idUsuario) and f.status = :estado ")
+     @Query("select f from Friend f where (f.user1.id = :idUsuario or f.user2.id = :idUsuario) and f.status = :estado ")
+    public List<Friend> findByAmigosTodos(Long idUsuario, String estado);  
+    
+    public List<Friend> findByUser1 (User user);
+    
+    public List<Friend> findByUser2 (User user);
+
+    public Friend findByUser1AndUser2(User user, User user2);
     
 }
