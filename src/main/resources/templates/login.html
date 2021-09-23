@@ -45,7 +45,7 @@
 
             <form class="container-fluid" th:action="@{/login}" method="post">
             <div class="umeet">
-                <img th:src="@{/una.png}" style="width: 150px;"/></br>
+                <img src="/una.png" style="width: 150px;" class="mb-3"/></br>
                 <label>UMeet</label>
                 </br>
                 <label class="inicio">Iniciar Sesión</label>
@@ -82,9 +82,9 @@
                     <label class="form-check-label" for="exampleCheck1">Recordarme</label>
                 </div>
             </div>
-            <div class="mb-2 flex">
+<!--            <div class="mb-2 flex">
                 <a class="primary" href="/passreset">Contraseña olvidada</a>
-            </div>
+            </div>-->
             <div class="mb-5 flex">
                 <a class="primary" href="/register">Registrarse</a>
             </div>

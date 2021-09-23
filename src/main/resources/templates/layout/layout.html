@@ -104,14 +104,8 @@
             function msgSize() {
                 var height = $(window).height();
 
-                //$('#contentServer').height(height*0.7);
-
                 $('#contentChat').height(height * 0.7);
                 $('#contentServer').height(height * 0.7);
-
-                //                $('.msg-text').attr("style","height:90%");
-                //                $('#contentChat').attr("style","height:100%");
-                //                console.log(height);
             }
             function loadProfile() {
                 $.ajax({
@@ -123,13 +117,6 @@
 
                         $("#user-status").removeAttr('class');
                         $("#user-status").addClass("badge badge-counter badge-" + pHtml.status);
-                        //document.getElementById("set-status").class = 
-                        //                '<span role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="badge badge-' + pHtml.status + ' badge-counter">&nbsp;</span>\n\
-                        //                                div class="dropdown-menu" aria-labelledby="dropdownMenuLink">\n\
-                        //                                <a onClick="editStatus('+"'conectado'"+')" class="dropdown-item">Conectado</a>\n\
-                        //                                <a onClick="editStatus('+"'desconectado'"+')" class="dropdown-item">Desconectado</a>\n\
-                        //                                <a onClick="editStatus('+"'ocupado'"+')" class="dropdown-item">Ocupado</a>\n\
-                        //                                <a onClick="editStatus('+"'ausente'"+')" class="dropdown-item">Ausente</a></div>';
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -153,11 +140,7 @@
             }
             function editProfile() {
                 $.ajax({
-                    url: "/profile/edit", //<--Ejecutamos del contra esta url
-                    //data: {
-                    //    id: $.cookie("idUser"), //Obtener id con las cookies del usuario
-                    //$.cookie("idUser")
-                    //},
+                    url: "/profile/edit",
                     success: function (pHtml) {
                         bootbox.dialog({
                             title: 'Editar perfil',
@@ -194,7 +177,6 @@
                 });
             }
             function servidor() {
-                //$("#inventado").attr("href","/server/byUser?idUser=" + $.cookie("idUser"));
                 $.ajax({
                     type: "POST",
                     url: "/server/allServers",
@@ -216,7 +198,7 @@
                         $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                             "<a onclick=enviarMsgCanal(" + idCanal + ") ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
                             + "   <a onclick=enviarMsgFileCanal(" + idCanal + ") ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
-                        var salida = $("<tr>").html("<div class='h2 mx-2 my-2 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
+                        var salida = $("<tr>").html("<div class='h2 mx-5 my-5 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
                         $("#contentChat").html("");
                         for (x of pJson) {
                             $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
@@ -268,20 +250,17 @@
                     url: "/msg/private/" + idDestino,
                     success: function (pJson) {
                         //console.log(pJson);
-                        $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Cuentanos tu vida'/>" +
-                            "<button onclick=enviarMsgPrivado(" + idDestino + ") >Enviar</button>");
-                        var salida = $("<tr>").html("");
-                        $("#panelChat").html("");
+                        $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
+                            "<a onclick=enviarMsgCanal(" + idDestino + ") ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
+                            + "   <a onclick=enviarMsgFileCanal(" + idDestino + ") ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                        var salida = $("<tr>").html("<div class='h2 mx-2 my-2 pt-4 pl-3 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
+                        $("#contentChat").html("");
                         for (x of pJson) {
-                            $("<tr>").html("<td><span class='mensaje'>" + x.user.nickName + "</span>: " + x.text + "</td>").appendTo(salida);
+                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
                         }
-                        /*$("<tr>").html("<td><form action='/msg/channel/sendmsg' method='post'>" +
-                                "<input type='hidden' name='idChannel' value='" + idCanal + "' />" +
-                                "<input type='hidden' name='idUser' value='" + $.cookie("idUser") + "' />" +
-                                "<input type='text' name='text' />" +
-                                "<button type='submit'> Enviar </button></td>").appendTo(salida);*/
-                        //console.log(salida);
+                        salida.appendTo("#contentChat");
                         salida.appendTo("#panelChat");
+                        $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -300,6 +279,8 @@
                     success: function (pJson) {
                         //console.log("Mensaje enviado");
                         chatPrivado(idDestino);
+                        
+                        $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
