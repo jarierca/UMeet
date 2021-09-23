@@ -9,8 +9,6 @@
         <tr th:if="${name!=null}" th:each="nam:${name}">
             <td>  <img class='avatar' th:src="|/profile/avatar?url=${nam.avatar}|"></td>
             <td th:text="${nam.nickName}"></td>
-
-
         </tr> 
     </table>
 
