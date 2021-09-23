@@ -206,7 +206,7 @@
                         salida.appendTo("#contentChat");
 
                         $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
-                        setTimeout(function(){chat(idCanal)}, 5000);
+                        setTimeout(function(){chat(idCanal)}, 20000);
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -262,7 +262,7 @@
                         salida.appendTo("#contentChat");
                         salida.appendTo("#panelChat");
                         $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
-                        setTimeout(function(){chatPrivado(idDestino)}, 5000);
+                        setTimeout(function(){chatPrivado(idDestino)}, 20000);
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
