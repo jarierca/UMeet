@@ -119,11 +119,23 @@ public class FriendController {
 
         friendRepo.save(friend);
 
-        List<User> amigos = friendRepo.findByAmigos((idUserFriend), "invitado");
+        List<User> amigos = friendRepo.findByAmigosTodos((idUserFriend), "invitado");
 
         m.addAttribute("friendsPending", amigos);
 
-        return "friends/view";
+        return "redirect:friendsList";
     }
+     
+    
+   
+    /*
+     @PostMapping ("aceptFriend")
+    public String aceptFriend (Model m, Friend friend1, Friend friend2){
+       
+        
+
+        
+    }*/
+    
 
 }
