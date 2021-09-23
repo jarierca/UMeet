@@ -260,7 +260,7 @@ ul li :hover{
     position: static;
     border-radius: 10px;
 }
-.send-msg-field input, input:focus{
+.send-msg-field input {
     outline-width: 0;
     background-color: #3b3f45;
     width: 90%;
@@ -324,3 +324,7 @@ i {
     cursor:pointer;
 }
 
+input:focus {
+    outline-width: 0;
+    border-radius: 10px;
+}
