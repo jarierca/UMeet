@@ -6,29 +6,31 @@
             <div class="col-sm-3 mt-4 ">
                 <div class="server-text">
                     <div class="mt-4 mb-3 ml-4">
-                        <span class="h1" th:each="ser:${server}">
+                        <span class="h2" th:each="ser:${server}">
                             <img th:src="@{/profile/avatar(url=${ser.avatar})}" class="avatar-server" height="150px" width="250px">
                             <span th:text="${ser.name}"></span>
                         </span>
-                        <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="text-white"><i class="far fa-edit"></i></a>
-                        <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="text-white"><i class="fas fa-plus"></i></a>
+                        <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="text-white"><i class="far fa-edit" style=":hover{color: #86C232}"></i></a>
+                        <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="text-white"><i class="fas fa-plus" style=":hover{color: #86C232}"></i></a>
+                        <a class="text-white" th:href="@{/usr/leaveServer(idServer=${idServer})}"><i class="fas fa-sign-out-alt" style=":hover{color: #86C232}"></i></a>
                     </div>
-                    <a class="btn btn-primary" th:href="@{/usr/leaveServer(idServer=${idServer})}">Salir del servidor</a>
+                    
                     <div class="mr-5 pr-4  overflow-off-x" id="contentServer">
                         <ul class="mb-4" th:each="category:${categories}">
                             <li >
                                 <div class="list-group-item mb-2">
 
-                                    <i class='fas fa-chevron-down mt-1'></i>&nbsp;&nbsp;<a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
+                                    <i id="flechitas" class='fas fa-chevron-down mt-1'></i>&nbsp;&nbsp;
+                                    <a class="pulsador" data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
                                     
                                     <div class="children-cat">
-                                        <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(null,${category.id})|"><i class="far fa-edit"></i></a>
+                                        <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(null,${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="far fa-edit"></i></a>
                                         <a th:if="${usr.rol.id==1}" th:href="@{/category/deleteCategory(idCategory=${category.id})}"><i class="far fa-trash-alt"></i></a>
-                                        <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|"><i class="fas fa-plus"></i></a>
+                                        <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="fas fa-plus"></i></a>
                                     </div>
                                 </div>
                                 
-                                <a class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation" th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" href="#"></a>
+                                <a class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation" th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|"></a>
                                 
                                 <ul class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation" th:each="channel:${category.channels}">
                                     <li>
@@ -36,7 +38,7 @@
                                             <a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}')|" th:text="${channel.name}" id="accordation"></a>
                                             
                                             <div class="children-cat">
-                                                <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(null,${channel.id})|" href="#"><i class="far fa-edit"></i></a>
+                                                <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(null,${channel.id})|" style=":hover{color: #86C232}" class="text-white"><i class="far fa-edit"></i></a>
                                                 <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}"><i class="far fa-trash-alt"></i></a>
                                             </div>    
                                         </div>

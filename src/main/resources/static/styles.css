@@ -82,8 +82,8 @@ h3 {
 }
 .avatar-server {
     vertical-align: middle;
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
 }
 .info-perfil {
@@ -234,8 +234,10 @@ ul li{
     border: 0;
 }
 ul li :hover{
-    background-color: #61892F;
-    /*    border-radius: 15px;*/
+    background-color: #343a40;
+    color: #61892F;
+    border-radius: 15px;
+/*    border-radius: 15px;*/
 }
 .list-group-item {
     border: 0;
@@ -259,7 +261,7 @@ ul li :hover{
     position: static;
     border-radius: 10px;
 }
-.send-msg-field input, input:focus{
+.send-msg-field input {
     outline-width: 0;
     background-color: #3b3f45;
     width: 90%;
@@ -351,3 +353,21 @@ p{
 }
 
 
+input:focus {
+    outline-width: 0;
+    border-radius: 10px;
+}
+
+#flechitas {
+    -moz-transition: transform 1s;
+    -webkit-transition: transform 1s;
+    transition: transform 1s;
+}
+
+.flip {
+    transform: rotate(-180deg);
+}
+
+mystyle:hover{
+    color:#86C232;
+}

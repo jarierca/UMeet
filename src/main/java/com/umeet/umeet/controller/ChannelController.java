@@ -62,11 +62,6 @@ public class ChannelController {
 
     @GetMapping("/deleteChannel")
     public String deleteChannel(Long idChannel){
-        List<Message> messages = messageRepository.findByChannel(channelRepository.findById(idChannel).get());
-        messages.stream().forEach(m->{
-            messageFileRepository.deleteById(m.getMessageFile().getId());
-            messageRepository.deleteById(m.getId());
-        });
         long idServer = channelRepository.findById(idChannel).get().getCategory().getServer().getId();
         channelRepository.deleteById(idChannel);
         return "redirect:/server/one?idServer="+idServer;
