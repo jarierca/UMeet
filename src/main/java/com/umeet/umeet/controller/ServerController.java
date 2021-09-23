@@ -167,7 +167,7 @@ public class ServerController {
 
     @GetMapping("/deleteServer")
     public String deleteServer(Long idServer) {
-        serverService.deleteServerCascade(idServer);
+        serverRepository.deleteById(idServer);
         return "redirect:/server/byUser";
     }
 
