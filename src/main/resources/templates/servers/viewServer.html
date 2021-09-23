@@ -20,8 +20,8 @@
                             <li >
                                 <div class="list-group-item mb-2">
 
-                                    <i class='fas fa-chevron-down mt-1'></i>&nbsp;&nbsp;
-                                    <a data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
+                                    <i id="flechitas" class='fas fa-chevron-down mt-1'></i>&nbsp;&nbsp;
+                                    <a class="pulsador" data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
                                     
                                     <div class="children-cat">
                                         <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(null,${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="far fa-edit"></i></a>
