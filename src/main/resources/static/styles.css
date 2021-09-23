@@ -378,3 +378,42 @@ mystyle:hover{
 .bootbox-body{
     color: white;
 }
+#pot{
+    left:-15px;
+    bottom:5%;
+    position:absolute;
+    -webkit-animation:spin 12s linear infinite;
+    -moz-animation:spin 12s linear infinite;
+    animation:spin 12s linear infinite;
+}    
+
+/*
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg) translate3d(0, 50px, 0); left: 120%;} }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg) translate3d(0, 50px, 0); left: 120%;} }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg) translate3d(0, 50px, 0); transform:rotate(360deg) translate3d(0, 50px, 0); left: 120%;} }
+*/
+@-moz-keyframes spin {
+    0% { -webkit-transform: rotate(0deg) translate3d(0, 0px, 0); transform:rotate(0deg)  translate3d(0, 0px, 0); left:0%;}
+    25% { -webkit-transform: rotate(90deg) translate3d(0, 70px, 0); transform:rotate(90deg)  translate3d(0, 70px, 0); left:25%;}
+    50% { -webkit-transform: rotate(180deg) translate3d(0, 0px, 0); transform:rotate(180deg)  translate3d(0, 0px, 0); left:50%;}
+    75% { -webkit-transform: rotate(360deg) translate3d(0, 70px, 0); transform:rotate(360deg)  translate3d(0, 70px, 0); left:75%;}
+    100% { -webkit-transform: rotate(4900deg) translate3d(0, 0px, 0); transform:rotate(4900deg)  translate3d(0, 0px, 0); left:110%;}
+}
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg) translate3d(0, 0px, 0); transform:rotate(0deg)  translate3d(0, 0px, 0); left:0%;}
+    25% { -webkit-transform: rotate(90deg) translate3d(0, 70px, 0); transform:rotate(90deg)  translate3d(0, 70px, 0); left:25%;}
+    50% { -webkit-transform: rotate(180deg) translate3d(0, 0px, 0); transform:rotate(180deg)  translate3d(0, 0px, 0); left:50%;}
+    75% { -webkit-transform: rotate(360deg) translate3d(0, 70px, 0); transform:rotate(360deg)  translate3d(0, 70px, 0); left:75%;}
+    100% { -webkit-transform: rotate(4900deg) translate3d(0, 0px, 0); transform:rotate(4900deg)  translate3d(0, 0px, 0); left:110%;}
+}
+@keyframes spin { 
+    0% { -webkit-transform: rotate(0deg) translate3d(0, 0px, 0); transform:rotate(0deg)  translate3d(0, 0px, 0); left:0%;}
+    25% { -webkit-transform: rotate(90deg) translate3d(0, 70px, 0); transform:rotate(90deg)  translate3d(0, 70px, 0); left:25%;}
+    50% { -webkit-transform: rotate(180deg) translate3d(0, 0px, 0); transform:rotate(180deg)  translate3d(0, 0px, 0); left:50%;}
+    75% { -webkit-transform: rotate(360deg) translate3d(0, 70px, 0); transform:rotate(360deg)  translate3d(0, 70px, 0); left:75%;}
+    100% { -webkit-transform: rotate(4900deg) translate3d(0, 0px, 0); transform:rotate(4900deg)  translate3d(0, 0px, 0); left:110%;}
+}
+
+.invis{
+    display:none;
+}
