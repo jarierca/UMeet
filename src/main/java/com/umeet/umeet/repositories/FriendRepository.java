@@ -39,5 +39,9 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     public List<Friend> findByUser2 (User user);
 
     public Friend findByUser1AndUser2(User user, User user2);
+
+    public List<Friend> findByUser2AndStatus(User byId, String statu);
+
+    public List<Friend> findByUser1AndStatus(User byId, String status);
     
 }

@@ -359,7 +359,7 @@ input:focus {
     border-radius: 10px;
 }
 
-#flechitas {
+.flechitas {
     -moz-transition: transform 1s;
     -webkit-transition: transform 1s;
     transition: transform 1s;
@@ -415,6 +415,14 @@ mystyle:hover{
 .invis{
     display:none;
 }
+
+.iconServer{
+    color: white;
+}
+
+.iconServer:hover{
+    color: #86C232;
+}
 .serverImg{
 
     border-radius:5px;
@@ -422,13 +430,11 @@ mystyle:hover{
     height:200px;
     margin-top: 10px;
     -webkit-box-shadow: 0px 5px 35px -10px rgba(0,0,0,0.83); 
-box-shadow: 0px 5px 35px -10px rgba(0,0,0,0.83);
-
+    box-shadow: 0px 5px 35px -10px rgba(0,0,0,0.83);
 }
 .hola{
     display: flex;
-    align-items: center;
-    
+    align-items: center;  
 }
 th{
     color: #6B6E70;

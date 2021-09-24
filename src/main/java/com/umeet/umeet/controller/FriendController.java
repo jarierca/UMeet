@@ -92,14 +92,25 @@ public class FriendController {
             aux2 = friendService.sendFriendList(u.getId());
 
         } else {
-            List<User> aux = userRepo.findByUsernameContaining(username);
-
-            List<User> aux1 = userRepo.findByNickNameContaining(username);
-
-            aux2 = Stream.concat(aux.stream(), aux1.stream())
-                    .distinct()
+            
+            List<Friend> friend1 = friendRepo.findByUser1AndStatus(userRepo.getById(u.getId()),"aceptado");
+            List<Friend> friend2 = friendRepo.findByUser2AndStatus(userRepo.getById(u.getId()),"aceptado");
+            
+//            friend1.addAll(friend2);
+            List<User> yo = friend1.stream()
+                    .map(x->x.getUser2())
                     .collect(Collectors.toList());
-
+            
+            List<User> yo2 = friend2.stream()
+                    .map(x->x.getUser1())
+                    .collect(Collectors.toList());
+            
+            
+            yo.addAll(yo2);
+            
+            aux2 = yo.stream()
+                    .filter(x->x.getUsername().toLowerCase().indexOf(username.toLowerCase())!= -1 || x.getNickName().toLowerCase().indexOf(username.toLowerCase()) != -1)
+                    .collect(Collectors.toList());
         }
 
         m.addAttribute("name", aux2);
