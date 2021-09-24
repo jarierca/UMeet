@@ -14,10 +14,10 @@
                     </div>
                     <hr style="height: 2px;">
 
-                    <div class="mr-5 pr-4  overflow-off-x" id="contentServer">
-                        <ul class="mb-3" th:each="category:${categories}">
+                    <div class="ml-1 overflow-off-x" id="contentServer">
+                        <ul class="mb-3" style="padding-inline-start: 0;" th:each="category:${categories}">
                             <li>
-                                <div class="list-group-item">
+                                <div class="list-group-item hover-server">
 
                                     <i class='fas fa-chevron-down mt-1 flechitas'></i>&nbsp;&nbsp;
                                     <a class="pulsador" data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
@@ -33,7 +33,7 @@
 
                                 <ul class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation" th:each="channel:${category.channels}">
                                     <li>
-                                        <div class="list-group-item">
+                                        <div class="list-group-item hover-server">
                                             <a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}','${channel.name}')|" th:text="${channel.name}" id="accordation"></a>
 
                                             <div class="children-cat">
@@ -51,33 +51,34 @@
             </div>
             <div class="col-sm-8 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
                 <div class="col-inside-lg ">
-                    <div class="chat-body">
-                        <div class="mx-1 d-flex flex-row">
-                            <span class="h4 col-9" style="text-align: left;">
-                                <span id='channel-name'>&nbsp;</span>
-                            </span>
-                            <span class="h4 col-3" style="text-align: right;">
-                                <div class="dropleft">
-                                    <a type="button" class=" iconServer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
-                                        <i class="fas fa-cog"></i>
-                                    </a>
-                                    <a th:onclick="|confirmServer(${idServer}, '¿Desea salir del servidor?', '/usr/leaveServer')|" class="iconServer"><i class="fas fa-sign-out-alt"></i></a>
-                                    <div class="dropdown-menu">
-                                        <span class="">
-                                            <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="iconServer dropdown-item">Editar <i class="far fa-edit"></i></a>
-                                            <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="iconServer dropdown-item">Añadir <i class="fas fa-plus"></i></a>
-                                            <a th:if="${usr.rol.id==1}"  th:onclick="|confirmServer(${idServer}, '¿Desea eliminar el servidor?', '/usr/leaveServer')|" class="iconServer dropdown-item">Eliminar <i class="far fa-trash-alt"></i></a>
-                                        </span>
-                                    </div>
+
+                    <div class="mx-1 d-flex flex-row">
+                        <span class="h4 col-9" style="text-align: left;">
+                            <span id='channel-name'>&nbsp;</span>
+                        </span>
+                        <span class="h4 col-3" style="text-align: right;">
+                            <div class="dropleft">
+                                <a type="button" class=" iconServer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
+                                    <i class="fas fa-cog"></i>
+                                </a>
+                                <a th:onclick="|confirmServer(${idServer}, '¿Desea salir del servidor?', '/usr/leaveServer')|" class="iconServer"><i class="fas fa-sign-out-alt"></i></a>
+                                <div class="dropdown-menu">
+                                    <span class="">
+                                        <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="iconServer dropdown-item">Editar <i class="far fa-edit"></i></a>
+                                        <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="iconServer dropdown-item">Añadir <i class="fas fa-plus"></i></a>
+                                        <a th:if="${usr.rol.id==1}"  th:onclick="|confirmServer(${idServer}, '¿Desea eliminar el servidor?', '/usr/leaveServer')|" class="iconServer dropdown-item">Eliminar <i class="far fa-trash-alt"></i></a>
+                                    </span>
                                 </div>
-                            </span>
-                        </div>
-                        <hr style="height: 2px;">
-                        <div class="overflow-auto overflow-off-x mb-3" id="contentChat">
-                            <div style="text-align: left" class="h1 ml-5  mt-5" th:each="ser:${server}">
+                            </div>
+                        </span>
+                    </div>
+                    <hr style="height: 2px;">
+                    <div class="chat-body">
+                        <div class="overflow-auto overflow-off-x mb-3" id="content-chat-show">
+<!--                            <div style="text-align: left" class="h1 ml-5  mt-5" th:each="ser:${server}">
                                 <div th:text="${ser.name}"></div>
                                 <div th:text="${ser.description}"></div>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="row-sin-m">
                             <div id="sendit" class="send-msg-field"></div>
@@ -96,7 +97,7 @@
                         <hr style="height: 2px;">
                         <div class="user" th:each="us:${userServer}">
                             <div class="avatar">
-                                <img th:src="@{/profile/avatar(url=${us.user.avatar})}">
+                                <img th:src="@{/profile/avatar(url=${us.user.avatar})}" width="40px" height="40px">
                                 <div  th:if="${us.user.status} == 'conectado'" class="status conectado"></div>
                                 <div  th:if="${us.user.status} == 'desconectado'" class="status desconectado"></div>
                                 <div  th:if="${us.user.status} == 'ocupado'" class="status ocupado"></div>

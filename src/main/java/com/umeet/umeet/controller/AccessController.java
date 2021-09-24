@@ -111,7 +111,10 @@ public class AccessController {
     public String logout(HttpServletResponse response){
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         if (auth!=null){
-            String username = auth.getName();
+//            String username = auth.getName();
+//            User user = userRepository.findByUsername(username).get();
+//            user.setStatus("desconectado");
+//            userRepository.save(user);
         } 
         
         return "index";

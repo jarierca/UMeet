@@ -281,9 +281,9 @@ ul li :hover{
     text-decoration: none;
 }
 #contentChat{
-    position: relative;
+/*    position: relative;
     flex: 0 0 auto;
-    text-align: left;
+    text-align: left;*/
 }
 #sendit{
     position: relative;
@@ -445,6 +445,10 @@ th{
 #userServers a:hover{
     border-top: 2px solid #86C232;
 }
+.hover-server:hover{
+    background-color: #343a40!important;
+    border-radius: 15px;
+}
 
 /*/*/
 .row.row-broken {
@@ -498,7 +502,7 @@ th{
 }
 .avatar .status.ausente {
     border: 1px solid #5a5a5a;
-    background: #5a5a5a;
+    background: orange;
 }
 .chat-users .user .status {
     bottom: 0;
