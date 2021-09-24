@@ -6,53 +6,45 @@
 <body>
 
     <h3 class="m-5">¡Hemos encontrado al usuario que buscas!</h3>
-    
-        
-        <div class="container">
-            <table class="table table-dark ">
-                <tr th:if="${name!=null}" th:each="nam:${name}">
-                     <td>  <img class="avatar ml-5" th:src="|/profile/avatar?url=${nam.avatar}|"></td>
-                    <td>
-                        <form th:action="@{/friends/addFriend}" method="post">
-                            <div class="input-group">
-                                <input type="hidden" th:value="${nam.id}" name="idUserFriend">
-                                <label th:text="${nam.nickName}" class="form-control mr-5"> </label>
-                                <button type="submit" class="btn btn-outline-success"><i class="fas fa-user-plus"></i></button>
-                            </div>
-                        </form>
-                    </td> 
-                   
-                </tr>  
-            </table> 
-        </div>
-    
-    
-        <!-- 
+   
+      
+      <div class="container">
+          <table class="table table-dark ">
+              <tr th:if="${name!=null}" th:each="nam:${name}">
+                   <td>  <img class="avatar ml-5" th:src="|/profile/avatar?url=${nam.avatar}|"></td>
+                  <td>
+                      <form th:action="@{/friends/addFriend}" method="post">
+                          <div class="input-group">
+                              <input type="hidden" th:value="${nam.id}" name="idUserFriend">
+                              <label th:text="${nam.nickName}" class="form-control mr-5"> </label>
+                              <button type="submit" class="btn btn-outline-success"><i class="fas fa-user-plus"></i></button>
+                          </div>
+                      </form>
+                  </td> 
+                 
+              </tr>  
+          </table> 
+      </div>
+  
+  <!-- 
     <div class="container">
         <div class="card-deck">
-
             <div  class="card text-white bg-dark mb-4 centrado" th:if="${name!=null}" th:each="nam:${name}"   style="min-width:20rem; max-width:20rem;">
                 <img th:src="|/profile/avatar?url=${nam.avatar}|" width="100" class="avatar mt-4" >
                 <form th:action="@{/friends/addFriend}" method="post">
                     <div class="card-body">
-
                         <input type="hidden" th:value="${nam.id}" name="idUserFriend">
                         <h5 th:text="${nam.nickName}"></h5>
-
                     </div>
-
                     <div class="card-footer">
                         <button type="submit" class="btn btn-outline-success"><i class="fas fa-user-plus"></i></button>
-
                     </div>
                 </form>
-
-
             </div>
-            </form>
         </div>
     </div>
-    
-      -->
+
+   -->
+
 </body>
 </html>
