@@ -218,25 +218,26 @@ h3 {
 a#home-tab.nav-link{
     color: #EDFED5;
 }
-a#profile-tab.nav-link{
+a#profile-tab.nav-link{  
     color: #EDFED5; 
 }
 a#home-tab.nav-link.active{
-    color: #61892F;
+    background-color: #3B4247;
+    color: #EDFED5;
+    border-color: 
 }
 a#profile-tab.nav-link.active{
-    color: #61892F;
+    background-color: #3B4247;
+    color: #EDFED5;
+    border-color: 
 }
-
 ul li{
     list-style: none;
     border: 0;
 }
 ul li :hover{
-    background-color: #343a40;
+    background-color: #3B4247;
     color: #61892F;
-    border-radius: 15px;
-    /*    border-radius: 15px;*/
 }
 .list-group-item {
     border: 0;
