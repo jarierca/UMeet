@@ -115,7 +115,7 @@
                 loadServers();
                 msgSize();
                 $( ".pulsador" ).click( function() {
-                    $("#flechitas").toggleClass('flip');
+                    $(this).prev().toggleClass("flip");
                 });
                 setTimeout(function(){$("#pot").toggleClass("invis")}, 66000);
                 //$("#pot").toggleClass("invis");

@@ -11,10 +11,10 @@
                             <span th:text="${ser.name}"></span>
                         </span>
                         <span class="col-3 mt-4">
-                            <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="text-white"><i class="far fa-edit" style=":hover{color: #86C232}"></i></a>
-                            <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="text-white"><i class="fas fa-plus" style=":hover{color: #86C232}"></i></a>
-                            <a th:if="${usr.rol.id==1}"  th:onclick="|confirmServer(${idServer}, '¿Desea eliminar el servidor?', '/usr/leaveServer')|" class="text-white"><i class="far fa-trash-alt" style=":hover{color: #86C232}"></i></a>
-                            <a class="text-white" th:onclick="|confirmServer(${idServer}, '¿Desea salir del servidor?', '/usr/leaveServer')|"><i class="fas fa-sign-out-alt" style=":hover{color: #86C232}"></i></a>
+                            <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="iconServer"><i class="far fa-edit"></i></a>
+                            <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="iconServer"><i class="fas fa-plus"></i></a>
+                            <a th:if="${usr.rol.id==1}"  th:onclick="|confirmServer(${idServer}, '¿Desea eliminar el servidor?', '/usr/leaveServer')|" class="iconServer"><i class="far fa-trash-alt"></i></a>
+                            <a th:onclick="|confirmServer(${idServer}, '¿Desea salir del servidor?', '/usr/leaveServer')|" class="iconServer"><i class="fas fa-sign-out-alt"></i></a>
                         </span>
                     </div>
                     
@@ -23,7 +23,7 @@
                             <li >
                                 <div class="list-group-item mb-2">
 
-                                    <i id="flechitas" class='fas fa-chevron-down mt-1'></i>&nbsp;&nbsp;
+                                    <i class='fas fa-chevron-down mt-1 flechitas'></i>&nbsp;&nbsp;
                                     <a class="pulsador" data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
                                     
                                     <div class="children-cat">
