@@ -55,23 +55,23 @@
                             </div>
 
                             <!-- Perfil usuario -->
-                            <div class="navbar-nav dropdown row col-2 ml-4">
-                                <a class="nav-link dropdown-toggle" role="button" id="user-profile"
+                            <div class="navbar-nav  row col-2 ml-4">
+                                <div class="dropdown">
+                                    <a class="nav-link" role="button" id="user-profile"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="/profile/view">Ver Perfil</a>
-                                    <a class="dropdown-item" onclick="editProfile()">Editar Perfil</a>
-                                    <a th:href="@{/logout}"
-                                        class="btn btn-success align-items-center dropdown-item">Desconectar</a>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="/profile/view">Ver Perfil</a>
+                                        <a class="dropdown-item" onclick="editProfile()">Editar Perfil</a>
+                                        <a th:href="@{/logout}"class="btn btn-success align-items-center dropdown-item">Desconectar</a>
+                                    </div>
                                 </div>
-
-                                <div id="2-dropdonw">
+                                <div class="dropdown">
                                     <a role="button" data-toggle="dropdown" aria-haspopup="true" id="user-status"
                                         aria-expanded="false">
                                         &nbsp;
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-menu" aria-labelledby="user-profile">
                                         <a onClick="editStatus('conectado')" class="dropdown-item">Conectado</a>
                                         <a onClick="editStatus('desconectado')" class="dropdown-item">Desconectado</a>
                                         <a onClick="editStatus('ocupado')" class="dropdown-item">Ocupado</a>
@@ -106,6 +106,7 @@
 
     <myscripts th:fragment="scripts">
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
@@ -130,9 +131,13 @@
                 $.ajax({
                     url: "/profile/getUser",
                     success: function (pHtml) {
-                        document.getElementById("user-profile").innerHTML = '<span>' + pHtml.username +
-                            '</span>&nbsp;&nbsp;<span><img alt="Avatar" class="avatar" src="/profile/avatar?url=' +
-                            pHtml.avatar + '">&nbsp;<span id="user-status"></span></span>'; //<span class="badge badge-'+pHtml.status+' badge-counter">&nbsp;</span>
+//                        document.getElementById("user-profile").innerHTML = '<span>' + pHtml.username +
+//                            '</span>&nbsp;&nbsp;<div class="avatar"> <img alt="Avatar" class="avatar" src="/profile/avatar?url=' +pHtml.avatar + '"><div class="status '+ pHtml.status + '"></div></div>'; //<span class="badge badge-'+pHtml.status+' badge-counter">&nbsp;</span>
+                    
+//                        $("#user-profile").html('<span class="user"><span class="avatar"><img alt="Avatar" class="avatar" src="/profile/avatar?url=' +pHtml.avatar + '"><span class="status '+ pHtml.status + '"></span></span><span class="name">'+pHtml.username +'</span></span>');
+                        $("#user-profile").html('<span class="name">'+pHtml.username +'</span>');
+                        $("#user-status").html('<span class="avatar" style="position:absolute"><img alt="Avatar" class="avatar" src="/profile/avatar?url=' +pHtml.avatar + '"><span class="status-2 '+ pHtml.status + '">'+
+                                '</span></span>');
                         
                         //document.getElementById("user-status").innerHTML = '<span role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="badge badge-' + pHtml.status + ' badge-counter">&nbsp;</span><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a onClick="editStatus('+"'conectado'"+')" class="dropdown-item">Conectado</a><a onClick="editStatus('+"'desconectado'"+')" class="dropdown-item">Desconectado</a><a onClick="editStatus('+"'ocupado'"+')" class="dropdown-item">Ocupado</a><a onClick="editStatus('+"'ausente'"+')" class="dropdown-item">Ausente</a></div>';
                         
@@ -222,6 +227,7 @@
                         var salida = $("<tr>").html("<div class='h2 mx-5 my-5 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
                         $("#contentChat").html("");
                         for (x of pJson) {
+                            console.log(x);
                             $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
                         }
                         salida.appendTo("#contentChat");
@@ -278,7 +284,8 @@
                         var salida = $("<tr>").html("<div class='h2 mx-2 my-2 pt-4 pl-3 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
                         $("#contentChat").html("");
                         for (x of pJson) {
-                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
+                           // $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
+                            $("<tr>").html('<div class="answer left<div class="avatar"><img alt="Avatar"  src=/profile/avatar?url=' + x.user.avatar + ' /><div class="status offline"></div></div><div class="name">'+ x.user.nickName +'</div><div class="text">'+ x.text + '</div><div class="time">5 min ago</div></div>');
                         }
                         salida.appendTo("#contentChat");
                         salida.appendTo("#panelChat");

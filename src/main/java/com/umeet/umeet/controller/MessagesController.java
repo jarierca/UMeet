@@ -5,6 +5,7 @@ import com.umeet.umeet.dtos.MessageChannelDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
+import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.ChannelRepository;
 import com.umeet.umeet.repositories.MessageRepository;
 import com.umeet.umeet.repositories.UserRepository;
@@ -114,6 +115,7 @@ public class MessagesController {
     public void mensajeCanal(Message msg,Long idChannel){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         msg.setChannel(repoChn.findById(idChannel).get());
+        Optional<User> a = repoUsr.findById(u.getId());
         msg.setUser(repoUsr.findById(u.getId()).get());
         msg.setName(msg.getUser().getNickName());
         repoMsg.save(msg);
