@@ -33,14 +33,12 @@ hr {
     background-color: #3B4247;
 }
 
-.dropdown-menu,
-.dropdown-item {
+.dropdown-menu, .dropdown-item {
     background-color: #3B4247;
     color: #EDFED5;
 }
 
-.navbar-nav,
-.umeet {
+.navbar-nav,.umeet {
     color: #86C232;
     padding-right: 10px;
     font-size: 24px;
@@ -109,8 +107,8 @@ h3 {
     font-size: 12px !important;
     border-radius: 60rem !important;
     position: absolute !important;
-    margin-top: 37px !important;
-    right: 73px !important;  
+/*    margin-top: 37px !important;
+    right: 73px !important;  */
 }
 .badge-conectado{
     border: 3px solid green;
@@ -379,12 +377,12 @@ mystyle:hover{
     color: white;
 }
 #pot{
-    left:-15px;
+    left:-35px;
     bottom:5%;
     position:absolute;
-    -webkit-animation:spin 12s linear infinite;
-    -moz-animation:spin 12s linear infinite;
-    animation:spin 12s linear infinite;
+    -webkit-animation:spin 12s linear ;
+    -moz-animation:spin 12s linear ;
+    animation:spin 12s linear ;
 }    
 
 /*

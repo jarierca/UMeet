@@ -117,24 +117,27 @@
                 $( ".pulsador" ).click( function() {
                     $("#flechitas").toggleClass('flip');
                 });
-                setTimeout(function(){$("#pot").toggleClass("invis")}, 60000);
+                setTimeout(function(){$("#pot").toggleClass("invis")}, 66000);
+                //$("#pot").toggleClass("invis");
             });
             function msgSize() {
                 var height = $(window).height();
 
                 $('#contentChat').height(height * 0.7);
-                $('#contentServer').height(height * 0.7);
+                $('#contentServer').height(height * 0.55);
             }
             function loadProfile() {
                 $.ajax({
                     url: "/profile/getUser",
                     success: function (pHtml) {
                         document.getElementById("user-profile").innerHTML = '<span>' + pHtml.username +
-                            '</span>&nbsp;&nbsp;<img alt="Avatar" class="avatar" src="/profile/avatar?url=' +
-                            pHtml.avatar + '">&nbsp;'; //<span class="badge badge-'+pHtml.status+' badge-counter">&nbsp;</span>
-
-                        $("#user-status").removeAttr('class');
-                        $("#user-status").addClass("badge badge-counter badge-" + pHtml.status);
+                            '</span>&nbsp;&nbsp;<span><img alt="Avatar" class="avatar" src="/profile/avatar?url=' +
+                            pHtml.avatar + '">&nbsp;<span id="user-status"></span></span>'; //<span class="badge badge-'+pHtml.status+' badge-counter">&nbsp;</span>
+                        
+                        //document.getElementById("user-status").innerHTML = '<span role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="badge badge-' + pHtml.status + ' badge-counter">&nbsp;</span><div class="dropdown-menu" aria-labelledby="dropdownMenuLink"><a onClick="editStatus('+"'conectado'"+')" class="dropdown-item">Conectado</a><a onClick="editStatus('+"'desconectado'"+')" class="dropdown-item">Desconectado</a><a onClick="editStatus('+"'ocupado'"+')" class="dropdown-item">Ocupado</a><a onClick="editStatus('+"'ausente'"+')" class="dropdown-item">Ausente</a></div>';
+                        
+                        //$("#user-status").removeAttr('class');
+                        //$("#user-status").addClass("badge badge-counter badge-" + pHtml.status);
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -401,6 +404,39 @@
                 })
             }
         </script>
+<!--        <script>
+            var contadorAfk = 0;
+
+            $(document).ready(function() {
+              setup();
+              contadorAfk = setInterval(ctrlTiempo, 2000);
+            });
+
+            function ctrlTiempo() {
+
+                contadorAfk++;
+                //console.log(contadorAfk);
+
+                if (contadorAfk > 5) {
+                  contadorAfk = 0;
+                  $("#pot").toggleClass("invis");
+                }
+            }
+            
+            function resetearTimer(){
+                contadorAfk = 0;
+            }
+            
+            function setup() {
+                this.addEventListener("mousemove", resetearTimer, false);
+                this.addEventListener("mousedown", resetearTimer, false);
+                this.addEventListener("keypress", resetearTimer, false);
+                this.addEventListener("DOMMouseScroll", resetearTimer, false);
+                this.addEventListener("mousewheel", resetearTimer, false);
+                this.addEventListener("touchmove", resetearTimer, false);
+                this.addEventListener("MSPointerMove", resetearTimer, false);
+            }
+        </script>-->
     </myscripts>
 </body>
 
