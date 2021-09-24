@@ -415,3 +415,11 @@ mystyle:hover{
 .invis{
     display:none;
 }
+
+.iconServer{
+    color: white;
+}
+
+.iconServer:hover{
+    color: #86C232;
+}
