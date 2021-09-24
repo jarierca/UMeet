@@ -224,12 +224,10 @@ a#profile-tab.nav-link{
 a#home-tab.nav-link.active{
     background-color: #3B4247;
     color: #EDFED5;
-    border-color: 
 }
 a#profile-tab.nav-link.active{
     background-color: #3B4247;
     color: #EDFED5;
-    border-color: 
 }
 ul li{
     list-style: none;
