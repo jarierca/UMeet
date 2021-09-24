@@ -359,7 +359,7 @@ input:focus {
     border-radius: 10px;
 }
 
-#flechitas {
+.flechitas {
     -moz-transition: transform 1s;
     -webkit-transition: transform 1s;
     transition: transform 1s;
