@@ -207,7 +207,7 @@ h3 {
 }
 #contentBody .col-sm-2{
     background-color: #2f3136;
-    /*border-top-right-radius: 15px;*/
+    border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     text-align: left !important;
 }
@@ -486,20 +486,20 @@ th{
     height: 100%;
 }
 .avatar .status.desconectado {
-    border: 1px solid #5a5a5a;
-    background: #ffffff;
+    border: 1px solid #ffffff;
+    background: #343a40;
 }
 .avatar .status.conectado {
-    border: 1px solid #5a5a5a;
+    border: 1px solid #4caf50;
     background: #4caf50;
 }
 .avatar .status.ocupado {
-    border: 1px solid #5a5a5a;
-    background: #ffc107;
+    border: 1px solid #dc3545;
+    background: #dc3545;
 }
 .avatar .status.ausente {
     border: 1px solid #5a5a5a;
-    background: orange;
+    background: #5a5a5a;
 }
 .chat-users .user .status {
     bottom: 0;
@@ -512,16 +512,16 @@ th{
     position: absolute;
 }
 .avatar .status-2.desconectado {
-    border: 1px solid #5a5a5a;
-    background: #ffffff;
+    border: 1px solid #ffffff;
+    background: #343a40;
 }
 .avatar .status-2.conectado {
-    border: 1px solid #5a5a5a;
+    border: 1px solid #4caf50;
     background: #4caf50;
 }
 .avatar .status-2.ocupado {
-    border: 1px solid #5a5a5a;
-    background: #ffc107;
+    border: 1px solid #dc3545;
+    background: #dc3545;
 }
 .avatar .status-2.ausente {
     border: 1px solid #5a5a5a;
