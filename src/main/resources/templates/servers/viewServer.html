@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="layout/layout::layout( ~{::body})">>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="layout/layout::layout( ~{::body})">
     <body>
-
         <div class="row text-white ml-5 pl-5 mt-3">
-            <div class="col-sm-2 col-xs-12">
+            <div class="col-sm-2 col-xs-12" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px">
                 <div class="col-inside-lg chat overflow-off-x" style="overflow-y: auto; outline: none;" tabindex="5000">
 
                     <div class="mx-1 d-flex flex-row">
@@ -49,7 +48,7 @@
 
                 </div>
             </div>
-            <div class="col-sm-8 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
+            <div class="col-sm-7 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
                 <div class="col-inside-lg ">
 
                     <div class="mx-1 d-flex flex-row">
@@ -74,11 +73,12 @@
                     </div>
                     <hr style="height: 2px;">
                     <div class="chat-body">
-                        <div class="overflow-auto overflow-off-x mb-3" id="content-chat-show">
-<!--                            <div style="text-align: left" class="h1 ml-5  mt-5" th:each="ser:${server}">
-                                <div th:text="${ser.name}"></div>
-                                <div th:text="${ser.description}"></div>
-                            </div>-->
+                        <div class="overflow-auto overflow-off-x mb-3" id="contentChat">
+                            <div style="text-align: left" class="h1 ml-5  mt-5" th:each="ser:${server}">
+<!--                                <div th:text="${ser.name}"></div>
+                                <div th:text="${ser.description}"></div>-->
+                                Bienvenido al servidor  "<span th:text="${ser.name}"></span>"
+                            </div>
                         </div>
                         <div class="row-sin-m">
                             <div id="sendit" class="send-msg-field"></div>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-1 col-xs-12">
+            <div class="col-sm-2 col-xs-12" style="border-top-right-radius: 15px; border-bottom-right-radius: 15px">
                 <div class="col-inside-lg chat" style="overflow-y: auto; outline: none;" tabindex="5000">
                     <div class="chat-users">
                         <div class="mx-1 d-flex flex-row">

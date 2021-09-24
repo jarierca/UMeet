@@ -90,7 +90,7 @@
                 <footer>
                     <div class="row">
                         <div class="offset-5 mt-4 mb-2">
-                              <p> © Copyright 2021 U meet. Todos los Derechos Reservados <p>
+                              <p> © Copyright 2021 U-Meet. Todos los Derechos Reservados <p>
                             
                         </div>
                       
@@ -229,24 +229,25 @@
                         $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                             "<a onclick=enviarMsgCanal(" + idCanal + ") ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
                             + "   <a onclick=enviarMsgFileCanal(" + idCanal + ") ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
-                        var salida = ("<div class='h3 mx-4 my-4 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
+                        var salida = $("<tr>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
                         $("#contentChat").html("");
                         for (x of pJson) {
                             console.log(x);
-                            salida += '<div class="answer left">'+
-                                        '<div class="avatar">'+
-                                          '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name">'+
-                                          '<div class="status offline"></div>'+
-                                        '</div>'+
-                                        '<div class="name">'+ x.user.nickName +'</div>'+
-                                        '<div class="text">'+
-                                         + x.text +
-                                        '</div>'+
-                                        '<div class="time">5 min ago</div>'+
-                                      '</div>';
-//                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
+//                            $("<tr>").html('<span class="answer left">'+
+//                                        '<span class="avatar">'+
+//                                          '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name">'+
+//                                          '<span class="status offline"></span>'+
+//                                        '</div>'+
+//                                        '<span class="name">'+ x.user.nickName +'</span>'+
+//                                        '<span class="text">'+
+//                                         + x.text +
+//                                        '</span>'+
+//                                        '<span class="time">5 min ago</span>'+
+//                                      '</span>');
+                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
                         }
-                        $("#content-chat-show").append(salida);
+//                        salida.appendTo("#contentChat");
+                        $("#contentChat").append(salida);
 
                         $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
                         setTimeout(function(){chat(idCanal)}, 20000);

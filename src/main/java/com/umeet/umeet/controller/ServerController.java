@@ -136,9 +136,9 @@ public class ServerController {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         if(server.getId()==null){
             server.setAvatar(rutaRecursos+"/avatar/server-stock.png");
-        } else {
+        } /*else {
             server = serverRepository.findById(server.getId()).get();
-        }
+        }*/
         if(file.isEmpty()){
             server.setAvatar(server.getAvatar());
         } else {

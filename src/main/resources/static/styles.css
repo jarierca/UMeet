@@ -192,7 +192,7 @@ h3 {
     margin-right: 0 !important;
     margin-left: 0 !important;
 }
-#contentBody .col-sm-8 ,#contentBody .col-sm-3, #contentBody .col-sm-2 ,#contentBody .col-sm-1{
+#contentBody .col-sm-8 , #contentBody .col-sm-7,#contentBody .col-sm-3, #contentBody .col-sm-2 ,#contentBody .col-sm-1{
     padding-right: 0px !important;
     padding-left: 0px !important;
 }
@@ -202,13 +202,13 @@ h3 {
     background-color: #2f3136;
     text-align: left !important;
 }
-#contentBody .col-sm-8{
+#contentBody .col-sm-8, #contentBody .col-sm-7{
     background-color: #2f3136;
 }
 #contentBody .col-sm-2{
     background-color: #2f3136;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
+/*    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;*/
     text-align: left !important;
 }
 #contentBody .col-sm-1{
