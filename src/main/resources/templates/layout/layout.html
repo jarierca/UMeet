@@ -184,9 +184,19 @@
                         $("#userServers").html("");
                         var salida = " ";
                         for (x of pJson) {
-                            salida += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"'>" +
+                            var URLactual = location.href;
+                            console.log(location.href)
+                            var id = URLactual.split("=");
+                            
+                            if(id[1] == x.id){
+                                salida += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"' style='border-top: 2px solid white'>" +
                                 "<img class='avatar' src=/profile/avatar?url=" + x.avatar + " style='margin: 6px;'>" +
                                 "</a>";
+                            }else{
+                                salida += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"'>" +
+                                "<img class='avatar' src=/profile/avatar?url=" + x.avatar + " style='margin: 6px;'>" +
+                                "</a>";
+                            }                      
                         }
                         //console.log(salida);
                         $("#userServers").append(salida);

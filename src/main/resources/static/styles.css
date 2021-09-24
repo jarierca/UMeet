@@ -236,7 +236,7 @@ ul li{
     border: 0;
 }
 ul li :hover{
-    background-color: #3B4247;
+    /*background-color: #3B4247;*/
     color: #61892F;
 }
 .list-group-item {
@@ -443,7 +443,7 @@ th{
     border-top: 2px solid transparent
 }
 #userServers a:hover{
-    border-top: 2px solid white
+    border-top: 2px solid #86C232;
 }
 
 /*/*/
