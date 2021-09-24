@@ -107,8 +107,8 @@ h3 {
     font-size: 12px !important;
     border-radius: 60rem !important;
     position: absolute !important;
-/*    margin-top: 37px !important;
-    right: 73px !important;  */
+    /*    margin-top: 37px !important;
+        right: 73px !important;  */
 }
 .badge-conectado{
     border: 3px solid green;
@@ -414,4 +414,22 @@ mystyle:hover{
 
 .invis{
     display:none;
+}
+.serverImg{
+
+    border-radius:5px;
+    width:300px;
+    height:200px;
+    margin-top: 10px;
+    -webkit-box-shadow: 0px 5px 35px -10px rgba(0,0,0,0.83); 
+box-shadow: 0px 5px 35px -10px rgba(0,0,0,0.83);
+
+}
+.hola{
+    display: flex;
+    align-items: center;
+    
+}
+th{
+    color: #6B6E70;
 }
