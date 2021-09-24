@@ -111,26 +111,6 @@ public class FriendController {
             aux2 = yo.stream()
                     .filter(x->x.getUsername().toLowerCase().indexOf(username.toLowerCase())!= -1 || x.getNickName().toLowerCase().indexOf(username.toLowerCase()) != -1)
                     .collect(Collectors.toList());
-                    
-            
-            
-//            User tu = userRepo.getById(u.getId());
-            
-//            friend1.stream().filter(x->x.getUser2().getUsername().equals())
-            
-            
-//            List<User> aux = userRepo.findByUsernameContaining(username);
-//
-//            List<User> aux1 = userRepo.findByNickNameContaining(username);
-//
-//            aux2 = Stream.concat(aux.stream(), aux1.stream())
-//                    .distinct()
-//                    .collect(Collectors.toList());
-//            
-//            List<User> amig = aux2.stream()
-//                    .filter(x-> friendRepo.findByUser1AndStatus(tu,"aceptado").stream().)
-//                    .
-
         }
 
         m.addAttribute("name", aux2);
