@@ -50,8 +50,7 @@
                                 <a class="avatar" th:onclick="|editServer()|"><img class="avatar" src="/plus.svg"/></a>
                             </div>
                             <div class="col-9 ">
-                                <div id="userServers" class="overflow-auto ">
-                                </div>
+                                <div id="userServers" class="overflow-auto "></div>
                             </div>
 
                             <!-- Perfil usuario -->
@@ -185,8 +184,8 @@
                         $("#userServers").html("");
                         var salida = " ";
                         for (x of pJson) {
-                            salida += "<a href=/server/one?idServer=" + x.id + ">" +
-                                "<img class='avatar' src=/profile/avatar?url=" + x.avatar + " >" +
+                            salida += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"'>" +
+                                "<img class='avatar' src=/profile/avatar?url=" + x.avatar + " style='margin: 6px;'>" +
                                 "</a>";
                         }
                         //console.log(salida);

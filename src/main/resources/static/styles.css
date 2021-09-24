@@ -425,7 +425,6 @@ mystyle:hover{
     color: #86C232;
 }
 .serverImg{
-
     border-radius:5px;
     width:300px;
     height:200px;
@@ -440,14 +439,14 @@ mystyle:hover{
 th{
     color: #6B6E70;
 }
+#userServers a{
+    border-top: 2px solid transparent
+}
+#userServers a:hover{
+    border-top: 2px solid white
+}
 
-
-
-/*******/
-/*body{
-    margin-top:20px;
-    background:#eee;
-}*/
+/*/*/
 .row.row-broken {
     padding-bottom: 0;
 }
@@ -654,61 +653,3 @@ th{
     color: #333333;
 }
 
-/**************ADD FORM ***************/
-.chat-body .answer-add {
-    clear: both;
-    position: relative;
-    margin: 20px -20px -20px;
-    padding: 20px;
-    background: #46be8a;
-}
-.chat-body .answer-add input {
-    border: none;
-    background: none;
-    display: block;
-    width: 100%;
-    font-size: 16px;
-    line-height: 20px;
-    padding: 0;
-    color: #ffffff;
-}
-.chat input {
-    -webkit-appearance: none;
-    border-radius: 0;
-}
-.chat-body .answer-add .answer-btn-1 {
-    background: url("http://91.234.35.26/iwiki-admin/v1.0.0/admin/img/icon-40.png") 50% 50% no-repeat;
-    right: 56px;
-}
-.chat-body .answer-add .answer-btn {
-    display: block;
-    cursor: pointer;
-    width: 36px;
-    height: 36px;
-    position: absolute;
-    top: 50%;
-    margin-top: -18px;
-}
-.chat-body .answer-add .answer-btn-2 {
-    background: url("http://91.234.35.26/iwiki-admin/v1.0.0/admin/img/icon-41.png") 50% 50% no-repeat;
-    right: 20px;
-}
-.chat input::-webkit-input-placeholder {
-   color: #fff;
-}
-
-.chat input:-moz-placeholder { /* Firefox 18- */
-   color: #fff;  
-}
-
-.chat input::-moz-placeholder {  /* Firefox 19+ */
-   color: #fff;  
-}
-
-.chat input:-ms-input-placeholder {  
-   color: #fff;  
-}
-.chat input {
-    -webkit-appearance: none;
-    border-radius: 0;
-}
