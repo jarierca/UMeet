@@ -1,28 +1,18 @@
 <html xmlns:th="https://www.thymeleaf.org"
       th:replace="layout/layout::layout( ~{::body})">
-
-    <head>
-
-    </head>
+    
     <body >
 
-
-
         <div class="container">
-
             <div class="col-11 banner mt-4 mb-4">
-                
-               
-                    <form action="/server/filtered" method="post" class="centrado">
-                        <div class="input-group">
-                            <input type="text" name="name" placeholder="Encuentra un servidor" class="form-control mb-2 ">
-                            <button class="btn btn-outline-success mb-2"><i class="fas fa-search"></i></button>
-                        </div>
 
-                    </form>
-                
+                <form action="/server/filtered" method="post" class="centrado">
+                    <div class="input-group">
+                        <input type="text" name="name" placeholder="Encuentra un servidor" class="form-control mb-2 ">
+                        <button class="btn btn-outline-success mb-2"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>     
             </div>
-
 
             <div class="card-deck">
                 <div th:each="sv:${nam}"class="card text-white bg-dark mb-5 hola" style="min-width:20rem; max-width:20rem;">
@@ -31,7 +21,6 @@
                     <div class="card-body">
                         <h5 th:text="${sv.name}"></h5>
                         <p  th:text="${sv.description}"class="card-text"></p>
-
                     </div>
                     <div class="card-footer">
                         <a th:href="@{/usr/joinServer(idServer=${sv.id})}" class="btn btn-primary m-2">Unirse</a>
