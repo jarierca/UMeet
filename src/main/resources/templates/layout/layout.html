@@ -397,18 +397,18 @@
                         //console.log(pJson);
                         $("#user-chat-name").html(nameDestino);
                         $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
-                            "<a onclick=enviarMsgCanal(" + idDestino + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
-                            + "   <a onclick=enviarMsgFileCanal(" + idDestino + ")class='tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                            "<a onclick=enviarMsgPrivado(" + idDestino + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
+                            + "   <a onclick=enviarMsgFilePrivado(" + idDestino + ")class='tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
                         var salida = $("<tr>").html("<div class='h2 mx-2 my-2 pt-4 pl-3 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
-                        $("#contentChat").html("");
+                        $("#panelChat").html("");
                         for (x of pJson) {
-                           // $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
-                            $("<tr>").html('<div class="answer left<div class="avatar"><img alt="Avatar"  src=/profile/avatar?url=' + x.user.avatar + ' /><div class="status offline"></div></div><div class="name">'+ x.user.nickName +'</div><div class="text">'+ x.text + '</div><div class="time">5 min ago</div></div>');
+                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);
+//                            $("<tr>").html('<div class="answer left<div class="avatar"><img alt="Avatar"  src=/profile/avatar?url=' + x.user.avatar + ' /><div class="status offline"></div></div><div class="name">'+ x.user.nickName +'</div><div class="text">'+ x.text + '</div><div class="time">5 min ago</div></div>');
                         }
-                        salida.appendTo("#contentChat");
+//                        salida.appendTo("#contentChat");
                         salida.appendTo("#panelChat");
                         $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
-                        setTimeout(function(){chatPrivado(idDestino)}, 20000);
+//                        setTimeout(function(){chatPrivado(idDestino)}, 20000);
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
