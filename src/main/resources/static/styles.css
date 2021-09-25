@@ -422,6 +422,9 @@ mystyle:hover{
     75% { -webkit-transform: rotate(360deg) translate3d(0, 70px, 0); transform:rotate(360deg)  translate3d(0, 70px, 0); left:75%;}
     100% { -webkit-transform: rotate(4900deg) translate3d(0, 0px, 0); transform:rotate(4900deg)  translate3d(0, 0px, 0); left:110%;}
 }
+.delete-trash:hover{
+    color: red !important;
+}
 .show-gear{
     display: none
 }

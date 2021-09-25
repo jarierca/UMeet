@@ -21,14 +21,20 @@
                                     <i class='fas fa-chevron-down mt-1 flechitas'></i>&nbsp;&nbsp;
                                     <a class="pulsador" data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
 
-                                    <div class="dropdown show-gear gear">
+                                    <div class="dropdown show-gear gear"> <!<!-- show-gear gear -->
                                         <a class=" iconServer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
                                             <i class="fas fa-cog"></i>
                                         </a>
-                                        <div class="dropdown-menu">
-                                            <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(null,${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="far fa-edit"></i></a>
-                                            <a th:if="${usr.rol.id==1}" th:href="@{/category/deleteCategory(idCategory=${category.id})}"><i class="far fa-trash-alt"></i></a>
-                                            <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="fas fa-plus"></i></a>
+                                        <div class="dropdown-menu text-center">
+                                            <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(null,${category.id})|" class="col-1 text-white">
+                                                &nbsp;<i class="far fa-edit tips" title="Añadir Categoria"></i>
+                                            </a>
+                                            <a th:if="${usr.rol.id==1}" th:href="@{/category/deleteCategory(idCategory=${category.id})}" class="col-1 delete-trash">
+                                                &nbsp;<i class="far fa-trash-alt tips delete-trash" title="Borrar Categoria"></i>
+                                            </a>
+                                            <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" class="col-1 text-white"
+                                               >&nbsp;<i class="fas fa-plus tips" title="Editar Categoria"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -43,7 +49,7 @@
 
                                             <div class="children-cat">
                                                 <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(null,${channel.id})|" style=":hover{color: #86C232}" class="text-white"><i class="far fa-edit"></i></a>
-                                                <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}"><i class="far fa-trash-alt"></i></a>
+                                                <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}" class="delete-trash"><i class="far fa-trash-alt delete-trash"></i></a>
                                             </div>    
                                         </div>
                                     </li>
@@ -68,9 +74,15 @@
                                 </a>
                                 <a th:onclick="|confirmServer(${idServer}, '¿Desea salir del servidor?', '/usr/leaveServer')|" class="iconServer tips" title="Salir del servidor"><i class="fas fa-sign-out-alt"></i></a>
                                 <div class="dropdown-menu">
-                                    <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="iconServer dropdown-item">Editar <i class="offset-5 col-6 far fa-edit"></i></a>
-                                    <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="iconServer dropdown-item">Añadir<i class="offset-5 col-6 fas fa-plus"></i></a>
-                                    <a th:if="${usr.rol.id==1}"  th:onclick="|confirmServer(${idServer}, '¿Desea eliminar el servidor?', '/usr/leaveServer')|" class="iconServer dropdown-item">Eliminar<i class="offset-4 col-6 far fa-trash-alt"></i></a>
+                                    <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="iconServer dropdown-item">
+                                        Editar <i class="offset-5 col-6 far fa-edit"></i>
+                                    </a>
+                                    <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="iconServer dropdown-item">
+                                        Añadir<i class="offset-5 col-6 fas fa-plus"></i>
+                                    </a>
+                                    <a th:if="${usr.rol.id==1}"  th:onclick="|confirmServer(${idServer}, '¿Desea eliminar el servidor?', '/usr/leaveServer')|" class="iconServer dropdown-item delete-trash">
+                                        Eliminar<i class="offset-4 col-6 far fa-trash-alt delete-trash"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
