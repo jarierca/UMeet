@@ -16,29 +16,21 @@
                     <div class="ml-1 overflow-off-x" id="contentServer">
                         <ul class="mb-3" style="padding-inline-start: 0;" th:each="category:${categories}">
                             <li>
-                                <div class="list-group-item hover-server">
+                                <div class="list-group-item hover-server option-gear">
 
                                     <i class='fas fa-chevron-down mt-1 flechitas'></i>&nbsp;&nbsp;
                                     <a class="pulsador" data-toggle="collapse" th:href="'#collapse'+${category.id}" th:text="${category.name}" id="accordation-2"></a>
 
                                     <div class="dropdown show-gear gear">
-                                            <a class=" iconServer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
-                                                <i class="fas fa-cog"></i>
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(null,${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="far fa-edit"></i></a>
-                                                <a th:if="${usr.rol.id==1}" th:href="@{/category/deleteCategory(idCategory=${category.id})}"><i class="far fa-trash-alt"></i></a>
-                                                <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="fas fa-plus"></i></a>
-                                            </div>
+                                        <a class=" iconServer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
+                                            <i class="fas fa-cog"></i>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(null,${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="far fa-edit"></i></a>
+                                            <a th:if="${usr.rol.id==1}" th:href="@{/category/deleteCategory(idCategory=${category.id})}"><i class="far fa-trash-alt"></i></a>
+                                            <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="fas fa-plus"></i></a>
                                         </div>
-<!--                                    <div class="h4 col-3" style="text-align: right;">
-                                        
-                                    </div>-->
-<!--                                    <div class="children-cat">
-                                        <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(null,${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="far fa-edit"></i></a>
-                                        <a th:if="${usr.rol.id==1}" th:href="@{/category/deleteCategory(idCategory=${category.id})}"><i class="far fa-trash-alt"></i></a>
-                                        <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|" style=":hover{color: #86C232}" class="text-white"><i class="fas fa-plus"></i></a>
-                                    </div>-->
+                                    </div>
                                 </div>
 
                                 <a class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation" th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id})|"></a>
@@ -46,6 +38,7 @@
                                 <ul class="collapse show" th:id="'collapse'+${category.id}" data-parent="#accordation" th:each="channel:${category.channels}">
                                     <li>
                                         <div class="list-group-item hover-server">
+                                            <i class="fas fa-hashtag" style="margin-top:4px">&nbsp;</i>
                                             <a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}','${channel.name}')|" th:text="${channel.name}" id="accordation"></a>
 
                                             <div class="children-cat">
@@ -71,9 +64,9 @@
                         <div class="h4 col-3" style="text-align: right;">
                             <div class="dropleft">
                                 <a  class=" iconServer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
-                                    <i class="fas fa-cog"></i>
+                                    <i class="fas fa-cog tips" title="Opciones del servidor"> </i>
                                 </a>
-                                <a th:onclick="|confirmServer(${idServer}, '¿Desea salir del servidor?', '/usr/leaveServer')|" class="iconServer"><i class="fas fa-sign-out-alt"></i></a>
+                                <a th:onclick="|confirmServer(${idServer}, '¿Desea salir del servidor?', '/usr/leaveServer')|" class="iconServer tips" title="Salir del servidor"><i class="fas fa-sign-out-alt"></i></a>
                                 <div class="dropdown-menu">
                                     <a th:if="${usr.rol.id==1}"  th:onclick="|editServer(${idServer})|" class="iconServer dropdown-item">Editar <i class="offset-5 col-6 far fa-edit"></i></a>
                                     <a th:if="${usr.rol.id==1}"  th:onclick="|editCategory(${idServer})|" class="iconServer dropdown-item">Añadir<i class="offset-5 col-6 fas fa-plus"></i></a>

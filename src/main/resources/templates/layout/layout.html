@@ -19,14 +19,14 @@
                     <div class="container-fluid padre">
                         <div class="col-4 row hijo">
                             <div class="col-2">
-                                <a class="nav-link" href="/home" style="margin-left: -50px;">
+                                <a class="nav-link tips" title="Incio" href="/home" style="margin-left: -50px;">
                                     <img src="/una.png" class="avatar ml-4">
                                 </a>
                             </div>
                             <!-- Amigos -->
                             <ul class="navbar-nav col-5">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/friends/friendsList">
+                                    <a class="nav-link tips" title="Lista de Amigos" href="/friends/friendsList">
                                         <mystyle>
                                             <i class="fas fa-user-friends"></i>Amigos
                                         </mystyle>
@@ -36,7 +36,7 @@
                             <!-- Mostrar servidores -->
                             <ul class="navbar-nav col-5">
                                 <li class="nav-item active">
-                                    <a class="nav-link" id="inventado" onclick="servidor()">
+                                    <a class="nav-link tips" title="Lista de Servidores" id="inventado" onclick="servidor()">
                                         <mystyle>
                                             <i class="fas fa-server"></i> Servidores
                                         </mystyle>
@@ -47,7 +47,9 @@
                         <div class="col-8 row hijo">                            
                             <!-- Lista servidores y anyadir -->
                             <div>
-                                <a class="avatar" th:onclick="|editServer()|"><img class="avatar" src="/plus.svg"/></a>
+                                <a class="avatar tips" title="Crear Servidor" th:onclick="|editServer()|">
+                                    <img class="avatar" src="/plus.svg"/>
+                                </a>
                             </div>
                             <div class="col-9 ">
                                 <div id="userServers" class="overflow-auto "></div>
@@ -131,8 +133,8 @@
                     url: "/profile/getUser",
                     success: function (pHtml) {
 
-                        $("#user-profile").html('<span class="name">'+pHtml.username +'</span>');
-                        $("#user-status").html('<span class="avatar" style="position:absolute">'+
+                        $("#user-profile").html('<span class="name tips" title="Mas información">'+pHtml.username +'</span>');
+                        $("#user-status").html('<span class="avatar tips" style="position:absolute" title="Modifica tu estado">'+
                                                     '<img alt="Avatar" class="avatar" src="/profile/avatar?url=' +pHtml.avatar + '">'+
                                                     '<span class="status-2 '+ pHtml.status + '"></span>'+
                                                 '</span>');
@@ -185,15 +187,15 @@
                         var salida = " ";
                         for (x of pJson) {
                             var URLactual = location.href;
-                            console.log(location.href)
+//                            console.log(location.href)
                             var id = URLactual.split("=");
                             
                             if(id[1] == x.id){
-                                salida += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"' style='border-top: 2px solid white'>" +
+                                salida += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"' style='border-top: 2px solid white' class='tips' title='"+x.name+"'>" +
                                 "<img class='avatar' src=/profile/avatar?url=" + x.avatar + " style='margin: 6px;'>" +
                                 "</a>";
                             }else{
-                                salida += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"'>" +
+                                salida += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"' class='tips' title='"+x.name+"'>" +
                                 "<img class='avatar' src=/profile/avatar?url=" + x.avatar + " style='margin: 6px;'>" +
                                 "</a>";
                             }                      
@@ -227,12 +229,12 @@
                         console.log(pJson);
                         $("#channel-name").html(channelName);
                         $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
-                            "<a onclick=enviarMsgCanal(" + idCanal + ") ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
-                            + "   <a onclick=enviarMsgFileCanal(" + idCanal + ") ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                            "<a onclick=enviarMsgCanal(" + idCanal + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
+                            + "<a onclick=enviarMsgFileCanal(" + idCanal + ") clas='tips text-white' title='Enviar Archivo'><i class='fnt-aws-size fas fa-paperclip'></i></a>");
                         var salida = $("<tr>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
                         $("#contentChat").html("");
                         for (x of pJson) {
-                            console.log(x);
+//                            console.log(x);
 //                            $("<tr>").html('<span class="answer left">'+
 //                                        '<span class="avatar">'+
 //                                          '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name">'+
@@ -270,7 +272,7 @@
                             text: $("#sendMsg").val()
                         },
                         success: function (pJson) {
-                            console.log("Mensaje enviado");
+//                            console.log("Mensaje enviado");
                             chat(idCanal);
 
                             $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
@@ -296,8 +298,8 @@
                     success: function (pJson) {
                         //console.log(pJson);
                         $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
-                            "<a onclick=enviarMsgCanal(" + idDestino + ") ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
-                            + "   <a onclick=enviarMsgFileCanal(" + idDestino + ") ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                            "<a onclick=enviarMsgCanal(" + idDestino + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
+                            + "   <a onclick=enviarMsgFileCanal(" + idDestino + ")class='tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
                         var salida = $("<tr>").html("<div class='h2 mx-2 my-2 pt-4 pl-3 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
                         $("#contentChat").html("");
                         for (x of pJson) {
@@ -427,7 +429,7 @@
                     }
                 })
             }
-            $('li .hover-server').hover(function(){
+            $('.option-gear').hover(function(){
                 $('.gear').css({
                     "display":"block"
                 });
@@ -435,6 +437,12 @@
                 $('.gear').css({
                     "display":"none"
                 });
+            });
+        </script>
+        <script>
+            /*ToolTips*/
+            $( function() {
+                $(".tips").tooltip();
             });
         </script>
 <!--        <script>
