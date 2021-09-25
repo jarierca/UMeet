@@ -205,7 +205,8 @@
                 var height = $(window).height();
 
 //                $("#size").height(height);
-                $("#nabar-v").height(height-20);
+                $("#nabar-v").height(height-10);
+                $("#chat").height(height*0.7);
 //                $("#cuerpo").height(height);
                 $("#userServers-v").height(height*0.4);
                 $('#contentChat').height(height * 0.6);
@@ -388,12 +389,13 @@
                 else
                     item.scrollLeft -= 100;
             });
-            function chatPrivado(idDestino) {
+            function chatPrivado(idDestino, nameDestino) {
                 $.ajax({
                     type: "POST",
                     url: "/msg/private/" + idDestino,
                     success: function (pJson) {
                         //console.log(pJson);
+                        $("#user-chat-name").html(nameDestino);
                         $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                             "<a onclick=enviarMsgCanal(" + idDestino + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
                             + "   <a onclick=enviarMsgFileCanal(" + idDestino + ")class='tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
