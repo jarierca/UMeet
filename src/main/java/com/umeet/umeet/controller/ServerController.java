@@ -57,7 +57,8 @@ public class ServerController {
     @Autowired
     private ModelMapper mapper;
 
-    @PostMapping("/allServers")
+//    @PostMapping("/allServers")
+    @GetMapping("/allServers")
     public String allServers(Model m) {
         List<Server> allServers = serverRepository.findAll();
         allServers = serverService.filterServers(allServers);

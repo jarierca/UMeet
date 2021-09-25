@@ -23,7 +23,7 @@
 
                                     <div class="dropdown show-gear gear"> <!<!-- show-gear gear -->
                                         <a class=" iconServer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="text-decoration: none">
-                                            <i class="fas fa-cog"></i>
+                                            <i class="fas fa-cog tips" title="Opciones de la categoria"></i>
                                         </a>
                                         <div class="dropdown-menu text-center">
                                             <a th:if="${usr.rol.id==1}" th:onclick="|editCategory(null,${category.id})|" class="col-1 text-white">
@@ -48,8 +48,12 @@
                                             <a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}','${channel.name}')|" th:text="${channel.name}" id="accordation"></a>
 
                                             <div class="children-cat">
-                                                <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(null,${channel.id})|" style=":hover{color: #86C232}" class="text-white"><i class="far fa-edit"></i></a>
-                                                <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}" class="delete-trash"><i class="far fa-trash-alt delete-trash"></i></a>
+                                                <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(null,${channel.id})|" style=":hover{color: #86C232}" class="text-white">
+                                                    <i class="far fa-edit tips" title="Editar Canal"></i>
+                                                </a>
+                                                <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}" class="delete-trash">
+                                                    <i class="far fa-trash-alt delete-trash tips" title="Eliminar Canal"></i>
+                                                </a>
                                             </div>    
                                         </div>
                                     </li>
