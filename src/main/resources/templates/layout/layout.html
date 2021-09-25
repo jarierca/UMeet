@@ -20,17 +20,22 @@
             </div>
         </div>
         <div class="row" id="screen"> 
-            <div class="col-md-12">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid"> 
+            <div class="col-md-12" id="size">
+                
+                <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid" id="nabar-h"> 
+<!--                    <div class="text-white col-1">
+                        <a onclick="vBarOn()"><i class="fas fa-chevron-left"></i></a>
+                    </div>-->
                     <div class="container-fluid padre">
                         <div class="col-4 row hijo">
-                            <div class="col-2">
-                                <a class="nav-link tips" title="Incio" href="/home" style="margin-left: -50px;">
-                                    <img src="/una.png" class="avatar ml-4">
-                                </a>
+                            <div class="text-white col-1">
+                                <a onclick="vBarOn()"><i class="fas fa-chevron-left"></i></a>
                             </div>
+                            <a class="nav-link tips" title="Incio" href="/home" style="margin-left: -50px;">
+                                <img src="/una.png" class="avatar ml-4">
+                            </a>
                             <!-- Amigos -->
-                            <ul class="navbar-nav col-5">
+                            <ul class="navbar-nav col-4">
                                 <li class="nav-item active">
                                     <a class="nav-link tips" title="Lista de Amigos" href="/friends/friendsList">
                                         <mystyle>
@@ -40,7 +45,7 @@
                                 </li>
                             </ul>
                             <!-- Mostrar servidores -->
-                            <ul class="navbar-nav col-5">
+                            <ul class="navbar-nav col-4">
                                 <li class="nav-item active">
                                     <a class="nav-link tips" title="Lista de Servidores" id="inventado" href="/server/allServers"><!-- onclick="servidor()" -->
                                         <mystyle>
@@ -58,7 +63,7 @@
                                 </a>
                             </div>
                             <div class="col-9 ">
-                                <div id="userServers" class="overflow-auto "></div>
+                                <div id="userServers" class="overflow-auto"></div>
                             </div>
 
                             <!-- Perfil usuario -->
@@ -89,21 +94,87 @@
                         </div>
                     </div>
                 </nav>
-
-                <div class="" style="text-align: center; align-content:center;">
-                    <div id="contentBody" class="">
-                        <th:block th:include="${htmlcuerpo}"/>
-                    </div>
-                </div>
-                <footer>
-                    <div class="row">
-                        <div class="offset-5 mt-4 mb-2">
-                              <p> © Copyright 2021 U-Meet. Todos los Derechos Reservados <p>
+                <div class="row h-100">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark col-1" id="nabar-v" style="display: none">
+                        <div class="text-center">
+                            <div class="text-white mb-2">
+                                <a onclick="hBarOn()"><i class="fas fa-chevron-up"></i></a>
+                            </div>
+                            <a class="nav-link tips" title="Incio" href="/home">
+                                <img src="/una.png" class="avatar">
+                            </a>
+                            <ul class="nav flex-column">
+                                <li>
+                                    <hr class="mx-5" style="height: 2px;background-color: #2f3136">
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tips" title="Lista de Amigos" href="/friends/friendsList">
+                                        <mystyle class="text-white" style="font-size:30px">
+                                            <i class="fas fa-user-friends"></i>
+                                        </mystyle>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tips" title="Lista de Servidores" id="inventado" href="/server/allServers"><!-- onclick="servidor()" -->
+                                        <mystyle class="text-white" style="font-size:30px">
+                                            <i class="fas fa-server"></i>
+                                        </mystyle>
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="mx-5" style="height: 2px;background-color: #2f3136">
+                                </li>
+                            </ul>
+                            <div class="text-center mt-2">                            
+                                <div class="tips mx-3 mb-3" title="Crear Servidor">
+                                    <a class="avatar" th:onclick="|editServer()|">
+                                        <img class="avatar" src="/plus.svg"/>
+                                    </a>
+                                </div>
+                                <div class="mx-2">
+                                    <div id="userServers-v" class="overflow-col-auto"></div>
+                                </div>
+                            </div>
+                            <li class="d-block mt-5">
+                                <hr class="mx-5" style="height: 2px;background-color: #2f3136">
+                            </li>
+                            <!-- Perfil usuario -->
+                            <div class="text-center mt-4 h-100">
+                                <div class="dropright">
+                                    <a class="nav-link text-white" role="button" id="user-profile-v" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="/profile/view">Ver Perfil</a>
+                                        <a class="dropdown-item" onclick="editProfile()">Editar Perfil</a>
+                                        <a th:href="@{/log-out}"class="btn btn-success align-items-center dropdown-item">Desconectar</a>
+                                    </div>
+                                </div>
+                                <div class="dropup">
+                                    <a role="button" data-toggle="dropdown" aria-haspopup="true" id="user-status-v" aria-expanded="false">&nbsp;</a>
+                                    <div class="dropdown-menu" aria-labelledby="user-profile">
+                                        <a onClick="editStatus('conectado')" class="dropdown-item">Conectado</a>
+                                        <a onClick="editStatus('desconectado')" class="dropdown-item">Desconectado</a>
+                                        <a onClick="editStatus('ocupado')" class="dropdown-item">Ocupado</a>
+                                        <a onClick="editStatus('ausente')" class="dropdown-item">Ausente</a>
+                                    </div>
+                                </div>
+                            </div>
                             
                         </div>
-                      
+                    </nav>
+
+                    <div class="col-11" style="text-align: center; align-content:center;">
+                        <div id="contentBody" class="">
+                            <th:block th:include="${htmlcuerpo}"/>
+                        </div>
                     </div>
-                </footer>
+<!--                    <footer>
+                        <div class="row">
+                            <div class="offset-5 mt-4 mb-2">
+                                <p> © Copyright 2021 U-Meet. Todos los Derechos Reservados <p>
+                            </div>
+                        </div>
+                    </footer>-->
+                </div>
                 <div id = "pot" class="invis">
                     <img src = "/estepi.png" width = "50px" height ="50px">
                 </div>
@@ -133,6 +204,8 @@
             function msgSize() {
                 var height = $(window).height();
 
+                $("#size").height(height);
+                $("#userServers-v").height(height*0.4);
                 $('#contentChat').height(height * 0.6);
                 $('#contentServer').height(height * 0.55);
             }
@@ -147,6 +220,11 @@
                                                     '<span class="status-2 '+ pHtml.status + '"></span>'+
                                                 '</span>');
                         
+                        $("#user-profile-v").html('<span class="name tips" title="Mas información">'+pHtml.username +'</span>');
+                        $("#user-status-v").html('<span class="avatar tips" style="position:absolute;left: 30%;" title="Modifica tu estado">'+
+                                                    '<img alt="Avatar" class="avatar" src="/profile/avatar?url=' +pHtml.avatar + '">'+
+                                                    '<span class="status-2 '+ pHtml.status + '"></span>'+
+                                                '</span>');                
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -192,7 +270,9 @@
                         //loadProfile();
                         //console.log(pJson);
                         $("#userServers").html("");
+                        $("#userServers-v").html("");
                         var salida = " ";
+                        var salida2 = " ";
                         for (x of pJson) {
                             var URLactual = location.href;
 //                            console.log(location.href)
@@ -202,14 +282,21 @@
                                 salida += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"' style='border-top: 2px solid white' class='tips' title='"+x.name+"'>" +
                                 "<img class='avatar' src=/profile/avatar?url=" + x.avatar + " style='margin: 6px;'>" +
                                 "</a>";
+                                salida2 += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"' style='border-left: 2px solid white' class='tips' title='"+x.name+"'>" +
+                                "<img class='avatar' src=/profile/avatar?url=" + x.avatar + " style='margin: 6px;'>" +
+                                "</a>";
                             }else{
                                 salida += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"' class='tips' title='"+x.name+"'>" +
+                                "<img class='avatar' src=/profile/avatar?url=" + x.avatar + " style='margin: 6px;'>" +
+                                "</a>";
+                                salida2 += "<a href=/server/one?idServer=" + x.id + " id='"+x.id+"' class='tips' title='"+x.name+"'>" +
                                 "<img class='avatar' src=/profile/avatar?url=" + x.avatar + " style='margin: 6px;'>" +
                                 "</a>";
                             }                      
                         }
                         //console.log(salida);
                         $("#userServers").append(salida);
+                        $("#userServers-v").append(salida2);
                     },
                     error: function (xhr, status, error) {
                         alert(xhr.responseText);
@@ -446,6 +533,14 @@
                     "display":"none"
                 });
             });
+            function hBarOn(){
+                $("#nabar-v").css("display","none");
+                $("#nabar-h").css("display","block");
+            }
+            function vBarOn(){
+                $("#nabar-h").css("display","none");
+                $("#nabar-v").css("display","block");
+            }
         </script>
         <script>
             /*ToolTips*/
