@@ -412,6 +412,12 @@ mystyle:hover{
     75% { -webkit-transform: rotate(360deg) translate3d(0, 70px, 0); transform:rotate(360deg)  translate3d(0, 70px, 0); left:75%;}
     100% { -webkit-transform: rotate(4900deg) translate3d(0, 0px, 0); transform:rotate(4900deg)  translate3d(0, 0px, 0); left:110%;}
 }
+.show-gear{
+    display: none
+}
+/*.show-gear:hover{
+    display: block
+}*/
 
 .invis{
     display:none;
@@ -423,6 +429,7 @@ mystyle:hover{
 
 .iconServer:hover{
     color: #86C232;
+    background-color: #2f3136;
 }
 .serverImg{
     border-radius:5px;
