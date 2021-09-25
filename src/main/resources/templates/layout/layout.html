@@ -13,7 +13,13 @@
 
 <body>
     <div>
-        <div class="row"> 
+        <div id="loading-screen">
+            <div class="container text-center" style="margin-top: 12.5%">
+                <div class="text-white h1 mb-5">Loading</div>
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </div>
+        <div class="row" id="screen"> 
             <div class="col-md-12">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid"> 
                     <div class="container-fluid padre">
@@ -46,8 +52,8 @@
                         </div>
                         <div class="col-8 row hijo">                            
                             <!-- Lista servidores y anyadir -->
-                            <div>
-                                <a class="avatar tips" title="Crear Servidor" th:onclick="|editServer()|">
+                            <div class="tips" title="Crear Servidor">
+                                <a class="avatar" th:onclick="|editServer()|">
                                     <img class="avatar" src="/plus.svg"/>
                                 </a>
                             </div>
@@ -113,6 +119,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
         <script>
             $(document).ready(function () {
+                $("#loading-screen").css("display","none");
+                $("#screen").css("display","block");
                 loadProfile();
                 loadServers();
                 msgSize();
@@ -443,6 +451,7 @@
             /*ToolTips*/
             $( function() {
                 $(".tips").tooltip();
+//                $(".tips").tooltip();
             });
         </script>
 <!--        <script>

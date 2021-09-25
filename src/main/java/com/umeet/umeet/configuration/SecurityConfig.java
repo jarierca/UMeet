@@ -41,9 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .defaultSuccessUrl("/home", true)
                 .and()
             .logout()
+                .logoutUrl("/logout")  
                 .logoutSuccessUrl("/login")
-                .deleteCookies("idUser")
-                .deleteCookies("idServer")
                 .deleteCookies("remember-me")
                 .and()
             .rememberMe().key("uniqueAndSecret");

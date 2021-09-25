@@ -18,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,13 +39,23 @@ public class AccessController {
     
     @GetMapping("/login")
     public String login(){ 
-        return "/login";
+        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() != "anonymousUser") {
+            return "redirect:home";
+        }else{
+            return "/login";
+        }
     }
     
     @GetMapping("/register")
     public String register(Model m){
-        m.addAttribute("user", new User());
-        return "register";
+        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() != "anonymousUser") {
+            return "redirect:home";
+        }else{
+            m.addAttribute("user", new User());
+            return "register";
+        }
     }
     
     @GetMapping("/info")
@@ -90,7 +99,7 @@ public class AccessController {
     @GetMapping("/home")
     public String index(HttpServletResponse response , Model m){
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
-        if (auth!=null){
+        if (auth.getPrincipal() != "anonymousUser"){
             
             String username = auth.getName(); 
             UserValidacionDto u = (UserValidacionDto) auth.getPrincipal();
@@ -107,16 +116,21 @@ public class AccessController {
         return "index";
     }
     
-    @GetMapping("/logout")
-    public String logout(HttpServletResponse response){
+    @GetMapping("/logout-2")
+    public String logoOut(HttpServletResponse response){
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
-        if (auth!=null){
-//            String username = auth.getName();
-//            User user = userRepository.findByUsername(username).get();
-//            user.setStatus("desconectado");
-//            userRepository.save(user);
+        if (auth.getPrincipal() != "anonymousUser"){
+            String username = auth.getName();
+            User user = userRepository.findByUsername(username).get();
+            user.setStatus("desconectado");
+            userRepository.save(user);
         } 
+        System.out.println("\n\nEBNTRAZQA\n\n");
         
-        return "index";
+        return "/logout";
+    }
+    @GetMapping("/logout")
+    public String logout(){
+        return "/login";
     }
 }
