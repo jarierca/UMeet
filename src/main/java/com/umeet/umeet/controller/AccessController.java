@@ -116,7 +116,7 @@ public class AccessController {
         return "index";
     }
     
-    @GetMapping("/logout-2")
+    @GetMapping("/log-out")
     public String logoOut(HttpServletResponse response){
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         if (auth.getPrincipal() != "anonymousUser"){
@@ -127,7 +127,8 @@ public class AccessController {
         } 
         System.out.println("\n\nEBNTRAZQA\n\n");
         
-        return "/logout";
+        logout();
+        return "redirect:/logout";
     }
     @GetMapping("/logout")
     public String logout(){
