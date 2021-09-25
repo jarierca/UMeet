@@ -10,6 +10,7 @@
         "th:object": {
             "context": "form"
         },
+        "th:onclick": {},
         "th:src": {},
         "th:action": {},
         "th:replace": {},

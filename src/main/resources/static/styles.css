@@ -396,7 +396,7 @@ mystyle:hover{
 }
 #pot{
     left:-35px;
-    bottom:8%;
+    bottom:15%;
     position:absolute;
     -webkit-animation:spin 12s linear ;
     -moz-animation:spin 12s linear ;
@@ -581,6 +581,13 @@ th{
 }
 .chat-users .user .mood {
     font: 200 14px/20px "Raleway", sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.long-name{
+    font-weight: bold;
+    line-height: 20px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
