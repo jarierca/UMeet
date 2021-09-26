@@ -613,7 +613,8 @@ th{
     left: 0;
 }
 .chat-body .answer .avatar {
-    bottom: 36px;
+    bottom: 0px;
+    /*bottom: 36px;*/
 }
 .chat .avatar {
     width: 40px;
@@ -683,13 +684,15 @@ th{
     left: 4px;
 }
 .chat-body .answer.right .text {
-    background: #7266ba;
+/*    background: #7266ba;*/
+    background: #86C232;
     color: #ffffff;
     border-radius: 8px 8px 0 8px;
 }
 .chat-body .answer.right .text:before {
     right: -30px;
-    border-left-color: #7266ba;
+    /*border-left-color: #7266ba;*/
+    border-left-color: #86C232;
     border-left-width: 12px;
 }
 .chat-body .answer.right .time {
