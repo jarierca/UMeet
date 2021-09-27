@@ -5,14 +5,21 @@ import com.umeet.umeet.dtos.MessageChannelDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
+import com.umeet.umeet.entities.MessageFile;
 import com.umeet.umeet.repositories.ChannelRepository;
+import com.umeet.umeet.repositories.MessageFileRepository;
 import com.umeet.umeet.repositories.MessageRepository;
 import com.umeet.umeet.repositories.UserRepository;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/msg")
@@ -29,6 +37,9 @@ public class MessagesController {
     
     @Autowired
     private MessageRepository repoMsg;
+   
+    @Autowired
+    private MessageFileRepository repoMsgFile;
     
     @Autowired
     private ModelMapper mapper;
@@ -38,6 +49,9 @@ public class MessagesController {
     
     @Autowired
     private UserRepository repoUsr;
+    
+    @Value("${carpetas.recursos.umeet}")
+    private String rutaRecursos; 
     
     //localhost:8090/msg/channel/1 obtiene todos los mensajes del canal indicado
     @ResponseBody
@@ -131,6 +145,27 @@ public class MessagesController {
     }
     
     @ResponseBody
+    @PostMapping("/channel/sendFile")
+    public void mensajeFileCanal(MessageFile msgFile, MultipartFile archivo,Long id){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        msgFile.setName(u.getUsername());
+        
+        
+        String ruta = rutaRecursos + "/file/" + archivo.getOriginalFilename();
+        File f = new File(ruta);
+        f.getParentFile().mkdirs();
+        try {
+            Files.copy(archivo.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        msgFile.setUrl(ruta);
+        
+        repoMsgFile.save(msgFile); 
+    }
+    
+    @ResponseBody
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
     public void mensajePrivado(Message msg,Long idUserDestiny){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -138,5 +173,26 @@ public class MessagesController {
         msg.setUser(repoUsr.findById(u.getId()).get());
         msg.setUserDestiny(repoUsr.findById(idUserDestiny).get());
         repoMsg.save(msg); 
+    }
+    
+       
+    @ResponseBody
+    @PostMapping("/private/sendFile")
+    public void mensajeFilePrivado(MessageFile msgFile, MultipartFile archivo,Long id){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        msgFile.setName(u.getUsername());
+        
+        String ruta = rutaRecursos + "/file/" + archivo.getOriginalFilename();
+        File f = new File(ruta);
+        f.getParentFile().mkdirs();
+        try {
+            Files.copy(archivo.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        msgFile.setUrl(ruta);
+        
+        repoMsgFile.save(msgFile); 
     }
 }
