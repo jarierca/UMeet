@@ -267,7 +267,7 @@ function chatPrivado(idDestino, nameDestino) {
                             '</div>').appendTo(salida);
                 } else {
                     $("<div>").html('<div class="answer left mx-4 pb-4">' +
-                            '<div class="avatar pb-4">' +
+                            '<div class="avatar mb-4">' +
                             '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
                             '<span class="status offline"></span>' +
                             '</div>' +
