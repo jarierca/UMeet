@@ -442,6 +442,25 @@ function sendMsgWithEnter() {
         }
     });
 }
+function removeFriend(idFriend){
+    bootbox.confirm({
+        message: "¿Estas seguro que deseas eliminar a este amigo?",
+        callback: function (result) {
+            if (result) {
+                $.ajax({
+                    type: "GET",
+                    url: "/friends/removeFriend?idFriend=" + idFriend,
+                    success: function (pJson) {
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+        }
+    })
+}
 
 /*ToolTips*/
 $(function () {

@@ -53,8 +53,8 @@ public class FriendService implements IFriendService {
         profileRepository.deleteById(id);
     }
     
-    public void removeFriend(Long id) {
-        friendRepository.deleteById(id);
+    public void removeFriend(Friend friend) {
+        friendRepository.deleteById(friend.getId());
     }
 
     @Override
