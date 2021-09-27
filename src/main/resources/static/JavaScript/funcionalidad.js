@@ -442,6 +442,9 @@ function sendMsgWithEnter() {
         }
     });
 }
+function removeFriend(){
+    
+}
 
 /*ToolTips*/
 $(function () {
@@ -451,8 +454,6 @@ $(function () {
 
 /*Timer*/
 var contadorAfk = 0;
-
-
 
 function ctrlTiempo() {
 
@@ -480,4 +481,6 @@ function setup() {
     this.addEventListener("touchmove", resetearTimer, false);
     this.addEventListener("MSPointerMove", resetearTimer, false);
 }
+
+
 
