@@ -35,6 +35,7 @@
                                             <th>Nickname</th>
                                             <th>Status</th>
                                             <th></th>
+                                            <th></th>
                                         </tr>
                                         <tr th:each="f1:${friendsAccepted}">
                                             <td><img class='avatar' th:src="|/profile/avatar?url=${f1.avatar}|"></td>
@@ -42,6 +43,9 @@
                                             <td th:text="${f1.status}"></td>
                                             <td>
                                                 <a th:attr="onclick=|chatPrivado(${f1.id},'${f1.nickName}')|" ><i class="far fa-comment-dots"></i></a>
+                                            </td>
+                                            <td>
+                                                <a th:attr="onclick=|removeFriend(${f1.id},'${f1.nickName}')|" ><i class="far fa-comment-dots"></i></a>
                                             </td>
                                         </tr> 
                                     </table>

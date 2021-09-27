@@ -193,9 +193,12 @@ public class FriendController {
     }
      
     
-   
-    
-    
-    
+    @GetMapping
+    public String remove(){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        friendService.removeFriend(u.getId());
+        return "redirect:friendsList";
+    }  
 
 }
