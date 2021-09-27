@@ -115,13 +115,6 @@ public class ServerController {
         return "/servers/filteredServers";
     }
 
-
-    /* @GetMapping("/pruebaServer")
-    public String prueba(Model model) {
-        model.addAttribute("servers", serverRepository.findAll());
-        return "prueba";
-    }
-     */
     @GetMapping("/form")
     public String viewServerCreation(Model model, Long idServer) {
         if (idServer == null) {
@@ -135,13 +128,14 @@ public class ServerController {
     @PostMapping("/addServer")
     public String addServer(Server server, MultipartFile file) {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        String avatarServer = "";
         if(server.getId()==null){
-            server.setAvatar(rutaRecursos+"/avatar/server-stock.png");
-        } /*else {
-            server = serverRepository.findById(server.getId()).get();
-        }*/
+            avatarServer = rutaRecursos+"/avatar/server-stock.png";
+        } else {
+            avatarServer = serverRepository.findById(server.getId()).get().getAvatar();
+        }
         if(file.isEmpty()){
-            server.setAvatar(server.getAvatar());
+            server.setAvatar(avatarServer);
         } else {
             String ruta = rutaRecursos + "/avatar/servers/" + server.getName() + ".png";
             ruta = ruta.replace(" ", "-");
