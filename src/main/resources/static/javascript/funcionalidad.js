@@ -442,18 +442,6 @@ function sendMsgWithEnter() {
         }
     });
 }
-function removeFriend(idFriend){
-    $.ajax({
-        type: "POST",
-        url: "/friends/removeFriend/" + idFriend,
-        success: function (pJson) {
-            
-        },
-        error: function (xhr, status, error) {
-            console.log(xhr.responseText);
-        }
-    });
-}
 
 /*ToolTips*/
 $(function () {
@@ -463,6 +451,8 @@ $(function () {
 
 /*Timer*/
 var contadorAfk = 0;
+
+
 
 function ctrlTiempo() {
 
@@ -490,6 +480,4 @@ function setup() {
     this.addEventListener("touchmove", resetearTimer, false);
     this.addEventListener("MSPointerMove", resetearTimer, false);
 }
-
-
 

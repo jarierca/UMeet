@@ -45,9 +45,20 @@ public class MessagesController {
     public List<MessageChannelDto> canales(@PathVariable Long id_channel){
         Optional<Channel> aux = repoChn.findById(id_channel);
         if (aux.isPresent()){
+            /*aux.get().getMessages().stream().forEach(
+                    x->System.out.println("User:"+(x!=null?x.getUser():"Nada"))
+            );*/
+            
             List<MessageChannelDto> res = aux.get().getMessages()
                                         .stream()
-                                        .map(x->mapper.map(x, MessageChannelDto.class))
+                                        .map(x->{
+                                            if (x.getUser()==null){
+                                                System.out.println("Usuarios nulos");
+                                            }else{
+                                                System.out.print(".");
+                                            }
+                                            return mapper.map(x, MessageChannelDto.class);
+                                        })
                                         .collect(Collectors.toList());
            
             return res;
@@ -66,7 +77,7 @@ public class MessagesController {
                                    .filter(x->x.getUserDestiny()!=null && x.getUserDestiny().getId()==id_destino)
                                    .collect(Collectors.toList());
             if(!repoMsg.findByUserDestiny(repoUsr.findById(id_destino).get()).isEmpty()){
-                List<Message> aux2 = repoMsg.findByUserDestiny(repoUsr.findById(id_destino).get());
+                List<Message> aux2 = repoMsg.findByUser(repoUsr.findById(id_destino).get());
                 
                 List<Message> destino = aux2.stream()
                           .filter(x-> x.getUserDestiny()!=null && x.getUserDestiny()==repoUsr.findById(u.getId()).get()) //Obtiene mensajes que el ha recibido

@@ -193,7 +193,7 @@ public class FriendController {
     }
      
     
-    @GetMapping
+    @GetMapping("/removeFriend")
     public String remove(){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
