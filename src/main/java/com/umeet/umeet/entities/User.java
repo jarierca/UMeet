@@ -40,4 +40,15 @@ public class User {
 
     @OneToMany(mappedBy = "userDestiny", cascade = CascadeType.REMOVE)
     private List<Message> message;
+
+    @Override
+    public int hashCode() {
+        return 424242424; 
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+        User u=(User)obj;
+        return id.equals(u.id);
+    }
 }

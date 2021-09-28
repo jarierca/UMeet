@@ -8,6 +8,7 @@ import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
 import com.umeet.umeet.services.FriendService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -137,23 +138,33 @@ public class FriendController {
         if (!aux1.isEmpty()) {
         }
         
-        List<User> aux2 = Stream.concat(aux.stream(), aux1.stream())
-                .filter(x-> !x.getId().equals(u.getId()) || (!u.getId().equals(friendRepo.findByUser1(x)) || !u.getId().equals(friendRepo.findByUser2(x))))
+        List<User> aux3 = Stream.concat(aux.stream(), aux1.stream())
+                .filter(x-> !x.getId().equals(u.getId()))
                 .distinct()
                 .collect(Collectors.toList());
+        
+        
 
-//        aux2.stream()
-//                .filter(x->friendRepo.findByUser2(x))
-//                .collect
-                
+        List<Friend> friend1 = friendRepo.findByUser1(userRepo.getById(u.getId()));
+        List<Friend> friend2 = friendRepo.findByUser2(userRepo.getById(u.getId()));
+        
+        List<User> yo = friend1.stream()
+                    .map(x->x.getUser2())
+                    .collect(Collectors.toList());
+            
+            List<User> yo2 = friend2.stream()
+                    .map(x->x.getUser1())
+                    .collect(Collectors.toList());
+        
+        yo.addAll(yo2);
+            
+        List<User>  aux2 = aux3.stream()
+                    .filter(x->yo.contains(x)==false )
+                    .collect(Collectors.toList());
+              
         
         m.addAttribute("name", aux2);
 
-        /*Optional<User> aux2 = userRepo.findByUsername(username);//repositorio no pilla el id??
-        if (!aux1.isEmpty()) {
-            m.addAttribute("idFriend", aux2);
-        }
-         */
         return "friends/searchResultFriends";
     }
 
