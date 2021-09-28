@@ -28,7 +28,7 @@ public class Message {
     @JoinColumn(name = "id_user")
     private User user;
 
-    @OneToOne(mappedBy = "message")
+    @OneToOne(mappedBy = "message", cascade = CascadeType.REMOVE)
     private MessageFile messageFile;
 
     @ManyToOne
