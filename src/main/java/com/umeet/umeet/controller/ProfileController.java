@@ -57,7 +57,7 @@ public class ProfileController {
         }else{
             m.addAttribute("error", "Error, el usuario no existe");
         }
-        return "/profile/view";
+        return "profile/view";
     }
     
     //Cargar vista con datos del user de la BBDD

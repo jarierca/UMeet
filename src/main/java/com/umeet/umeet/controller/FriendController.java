@@ -123,7 +123,7 @@ public class FriendController {
     @GetMapping("/inviteUser")
     public String searchAllUsers(Model m) {
 
-        return "/friends/inviteNewUser";
+        return "friends/inviteNewUser";
     }
 
     @PostMapping("/foundUser")

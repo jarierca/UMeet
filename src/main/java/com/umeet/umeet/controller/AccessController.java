@@ -43,7 +43,7 @@ public class AccessController {
         if (auth.getPrincipal() != "anonymousUser") {
             return "redirect:home";
         }else{
-            return "/login";
+            return "login";
         }
     }
     
@@ -132,6 +132,6 @@ public class AccessController {
     }
     @GetMapping("/logout")
     public String logout(){
-        return "/login";
+        return "login";
     }
 }

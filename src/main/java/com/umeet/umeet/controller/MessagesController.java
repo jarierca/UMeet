@@ -122,7 +122,7 @@ public class MessagesController {
         //m.addAttribute("message",new Message());
         //return "/messages/vista";
         m.addAttribute("message",new Message());
-        return "/messages/vista";
+        return "messages/vista";
     }
     @ResponseBody
     @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario
