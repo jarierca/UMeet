@@ -155,7 +155,7 @@ function chat(idCanal, channelName) {
             $("#channel-name").html(channelName);
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                     "<a id='clickmsg' onclick=enviarMsgCanal(" + idCanal + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
-                    + "<a id='clickmsgfile' onclick=enviarMsgFileCanal(" + idCanal + ") clas='tips text-white' title='Enviar Archivo'><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                    + "<a id='clickmsgfile' onclick=enviarMsgFile('channel'," + idCanal + ") clas='tips text-white' title='Enviar Archivo'><i class='fnt-aws-size fas fa-paperclip'></i></a>");
 
             var salida = $("<div class='w-100'>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
 //                        $("<tr>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>")
@@ -249,7 +249,7 @@ function chatPrivado(idDestino, nameDestino) {
             $("#user-chat-name").html(nameDestino);
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                     "<a id='clickmsg' onclick=enviarMsgPrivado(" + idDestino + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
-                    + "   <a id='clickmsgfile' onclick=enviarMsgFilePrivado(" + idDestino + ")class='tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                    + "   <a id='clickmsgfile' onclick=enviarMsgFile('private'," + idDestino + ")class='tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
             var salida = $("<div class='w-100'>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Este es el comienzo de tus mensajes privados con @" + nameDestino + "!<br><br></div>")
 //                                $("<tr>").html("<div class='h2 mx-2 my-2 pt-4 pl-3 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
             $("#panelChat").html("");
@@ -267,7 +267,7 @@ function chatPrivado(idDestino, nameDestino) {
                             '</div>').appendTo(salida);
                 } else {
                     $("<div>").html('<div class="answer left mx-4 pb-4">' +
-                            '<div class="avatar pb-4">' +
+                            '<div class="avatar mb-4">' +
                             '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
                             '<span class="status offline"></span>' +
                             '</div>' +
@@ -442,6 +442,54 @@ function sendMsgWithEnter() {
         }
     });
 }
+function removeFriend(idFriend){
+    bootbox.confirm({
+        message: "¿Estas seguro que deseas eliminar a este amigo?",
+        callback: function (result) {
+            if (result) {
+                $.ajax({
+                    type: "GET",
+                    url: "/friends/removeFriend?idFriend=" + idFriend,
+                    success: function (pJson) {
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+        }
+    })
+}
+function enviarMsgFile(type,id){
+    var msg = '<form enctype="multipart/form-data" action="/msg/'+type+'/sendFile/" method="post">'+ 
+       ' <input  type="file" id="archivo" name="archivo"/>'+
+       ' <input  type="hidden" id="id" name="id"/>'+
+       ' <input  type="submit" value="Enviar"/>'+
+   ' </form>';
+    
+    bootbox.confirm({
+        message: msg,
+        callback: function (result) {
+            if (result) {
+//                $.ajax({
+//                    type: "POST",
+//                    url: "/msg/"+type+"/sendFile/",
+//                    data: {
+//                        archivo: $("#archivo").val(),
+//                        id: id
+//                    },
+//                    success: function (html) {
+////                        window.location = "/home";
+//                    },
+//                    error: function (xhr, status, error) {
+//                        console.log(xhr.responseText);
+//                    }
+//                })
+            }
+        }
+    })
+}
 
 /*ToolTips*/
 $(function () {
@@ -480,4 +528,3 @@ function setup() {
     this.addEventListener("touchmove", resetearTimer, false);
     this.addEventListener("MSPointerMove", resetearTimer, false);
 }
-

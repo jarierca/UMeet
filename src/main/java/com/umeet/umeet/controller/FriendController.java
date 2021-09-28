@@ -193,9 +193,18 @@ public class FriendController {
     }
      
     
-   
-    
-    
-    
+    @GetMapping("/removeFriend")
+    public String remove(Long idFriend){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        List<Friend> relacionAmigo = friendRepo.findAll();
+        
+        Optional<Friend> amigo = relacionAmigo.stream()
+                .filter(x->x.getUser1().getId().equals(u.getId()) && x.getUser2().getId().equals(idFriend) || x.getUser1().getId().equals(idFriend) && x.getUser2().getId().equals(u.getId()) )
+                .findFirst();
+        
+        friendService.removeFriend(amigo.get());
+        return "redirect:friendsList";
+    }  
 
 }
