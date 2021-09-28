@@ -34,7 +34,7 @@ public class FriendController {
 
     @Autowired
     private FriendService friendService;
-    
+
     @Autowired
     private ModelMapper mapper;
 //List friends
@@ -44,18 +44,16 @@ public class FriendController {
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
 //        List<User> aceptados = friendService.sendFriendList(u.getId());
-        
         List<UserDto> acepta1 = friendRepo.findAll().stream()
-                .filter(x->x.getStatus().equalsIgnoreCase("aceptado") && x.getUser1().getUsername().equalsIgnoreCase(u.getUsername()))
-                .map(x->mapper.map(x.getUser2(),UserDto.class ))
+                .filter(x -> x.getStatus().equalsIgnoreCase("aceptado") && x.getUser1().getUsername().equalsIgnoreCase(u.getUsername()))
+                .map(x -> mapper.map(x.getUser2(), UserDto.class))
                 .collect(Collectors.toList());
-        
+
         List<UserDto> acepta2 = friendRepo.findAll().stream()
-                .filter(x->x.getStatus().equalsIgnoreCase("aceptado") && x.getUser2().getUsername().equalsIgnoreCase(u.getUsername()))
-                .map(x->mapper.map(x.getUser1(),UserDto.class ))
+                .filter(x -> x.getStatus().equalsIgnoreCase("aceptado") && x.getUser2().getUsername().equalsIgnoreCase(u.getUsername()))
+                .map(x -> mapper.map(x.getUser1(), UserDto.class))
                 .collect(Collectors.toList());
-        
-        
+
         acepta1.addAll(acepta2);
 
 //        List< User> invitados = friendRepo.findByAmigos(u.getId(), "Invitado").stream()
@@ -63,20 +61,19 @@ public class FriendController {
 //                .collect(Collectors.toList());
         List<Friend> aux = friendRepo.findByUser1(userRepo.findById(u.getId()).get());
         List<Friend> aux2 = friendRepo.findByUser2(userRepo.findById(u.getId()).get());
-        
+
         List<UserDto> aceptadosUser1 = aux.stream()
-                .filter(x->x.getUser1().getUsername().equalsIgnoreCase(u.getUsername()) && !x.getStatus().equalsIgnoreCase("aceptado"))
-                .map(x->mapper.map(x.getUser2(), UserDto.class))
-                .collect(Collectors.toList());
-        
-        List<UserDto> aceptadosUser2 = aux2.stream()
-                .filter(x->x.getUser2().getUsername().equalsIgnoreCase(u.getUsername()) && !x.getStatus().equalsIgnoreCase("aceptado"))
-                .map(x->mapper.map(x.getUser1(), UserDto.class))
+                .filter(x -> x.getUser1().getUsername().equalsIgnoreCase(u.getUsername()) && !x.getStatus().equalsIgnoreCase("aceptado"))
+                .map(x -> mapper.map(x.getUser2(), UserDto.class))
                 .collect(Collectors.toList());
 
-        
+        List<UserDto> aceptadosUser2 = aux2.stream()
+                .filter(x -> x.getUser2().getUsername().equalsIgnoreCase(u.getUsername()) && !x.getStatus().equalsIgnoreCase("aceptado"))
+                .map(x -> mapper.map(x.getUser1(), UserDto.class))
+                .collect(Collectors.toList());
+
         m.addAttribute("friendsAccepted", acepta1);
-        
+
         m.addAttribute("friendsPendingEnviado", aceptadosUser1);
         m.addAttribute("friendsPendingRecibido", aceptadosUser2);
 
@@ -92,24 +89,23 @@ public class FriendController {
             aux2 = friendService.sendFriendList(u.getId());
 
         } else {
-            
-            List<Friend> friend1 = friendRepo.findByUser1AndStatus(userRepo.getById(u.getId()),"aceptado");
-            List<Friend> friend2 = friendRepo.findByUser2AndStatus(userRepo.getById(u.getId()),"aceptado");
-            
+
+            List<Friend> friend1 = friendRepo.findByUser1AndStatus(userRepo.getById(u.getId()), "aceptado");
+            List<Friend> friend2 = friendRepo.findByUser2AndStatus(userRepo.getById(u.getId()), "aceptado");
+
 //            friend1.addAll(friend2);
             List<User> yo = friend1.stream()
-                    .map(x->x.getUser2())
+                    .map(x -> x.getUser2())
                     .collect(Collectors.toList());
-            
+
             List<User> yo2 = friend2.stream()
-                    .map(x->x.getUser1())
+                    .map(x -> x.getUser1())
                     .collect(Collectors.toList());
-            
-            
+
             yo.addAll(yo2);
-            
+
             aux2 = yo.stream()
-                    .filter(x->x.getUsername().toLowerCase().indexOf(username.toLowerCase())!= -1 || x.getNickName().toLowerCase().indexOf(username.toLowerCase()) != -1)
+                    .filter(x -> x.getUsername().toLowerCase().indexOf(username.toLowerCase()) != -1 || x.getNickName().toLowerCase().indexOf(username.toLowerCase()) != -1)
                     .collect(Collectors.toList());
         }
 
@@ -128,6 +124,7 @@ public class FriendController {
     @PostMapping("/foundUser")
     public String userInvite(Model m, String username) {
 
+        UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         List<User> aux = userRepo.findByUsernameContaining(username);
         if (!aux.isEmpty()) {
         }
@@ -135,7 +132,11 @@ public class FriendController {
         List<User> aux1 = userRepo.findByNickNameContaining(username);
         if (!aux1.isEmpty()) {
         }
+
         List<User> aux2 = Stream.concat(aux.stream(), aux1.stream())
+                .filter(x -> !x.getId().equals(u.getId()))
+                .filter(x -> !x.getStatus().equals("aceptado"))
+                .filter(x -> !x.getStatus().equals("invitado"))
                 .distinct()
                 .collect(Collectors.toList());
 
@@ -145,6 +146,7 @@ public class FriendController {
         if (!aux1.isEmpty()) {
             m.addAttribute("idFriend", aux2);
         }
+        
          */
         return "friends/searchResultFriends";
     }
@@ -170,32 +172,24 @@ public class FriendController {
 
         return "redirect:friendsList";
     }
-    
+
     @PostMapping("/accept")
     public String accept(Model m, Long idUserFriend) {
-        
-       
-        
+
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 //        friend.setUser1(userRepo.findById(u.getId()).get());
 //        friend.setUser2(userRepo.findById(idUserFriend).get());
-        
+
         User user = userRepo.findById(idUserFriend).get();
         User user2 = userRepo.findById(u.getId()).get();
-        
+
         Friend f1 = friendRepo.findByUser1AndUser2(user, user2);
-        
+
         f1.setStatus("aceptado");
 
         friendRepo.save(f1);
 
         return "redirect:/home";
     }
-     
-    
-   
-    
-    
-    
 
 }
