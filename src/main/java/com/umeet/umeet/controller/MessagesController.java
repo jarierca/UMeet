@@ -146,10 +146,18 @@ public class MessagesController {
     
     @ResponseBody
     @PostMapping("/channel/sendFile")
-    public void mensajeFileCanal(MessageFile msgFile, MultipartFile archivo,Long id){
+    public void mensajeFileCanal(Message msg, MessageFile msgFile, MultipartFile archivo,Long id){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        msgFile.setName(u.getUsername());
         
+        msg.setChannel(repoChn.findById(id).get());
+        msg.setUser(repoUsr.findById(u.getId()).get());
+        msg.setName(msg.getUser().getNickName());
+        msg.setText("Fichero Subido");
+        
+        repoMsg.save(msg);
+        
+        
+        msgFile.setName(u.getUsername());
         
         String ruta = rutaRecursos + "/file/" + archivo.getOriginalFilename();
         File f = new File(ruta);
@@ -161,6 +169,7 @@ public class MessagesController {
         }
         
         msgFile.setUrl(ruta);
+        msgFile.setMessage(msg);
         
         repoMsgFile.save(msgFile); 
     }
