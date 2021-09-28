@@ -127,7 +127,8 @@ public class FriendController {
 
     @PostMapping("/foundUser")
     public String userInvite(Model m, String username) {
-
+        UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+ 
         List<User> aux = userRepo.findByUsernameContaining(username);
         if (!aux.isEmpty()) {
         }
@@ -135,10 +136,17 @@ public class FriendController {
         List<User> aux1 = userRepo.findByNickNameContaining(username);
         if (!aux1.isEmpty()) {
         }
+        
         List<User> aux2 = Stream.concat(aux.stream(), aux1.stream())
+                .filter(x-> !x.getId().equals(u.getId()) || (!u.getId().equals(friendRepo.findByUser1(x)) || !u.getId().equals(friendRepo.findByUser2(x))))
                 .distinct()
                 .collect(Collectors.toList());
 
+//        aux2.stream()
+//                .filter(x->friendRepo.findByUser2(x))
+//                .collect
+                
+        
         m.addAttribute("name", aux2);
 
         /*Optional<User> aux2 = userRepo.findByUsername(username);//repositorio no pilla el id??
