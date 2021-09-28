@@ -464,7 +464,7 @@ function removeFriend(idFriend){
 function enviarMsgFile(type,id){
     var msg = '<form enctype="multipart/form-data" action="/msg/'+type+'/sendFile/" method="post">'+ 
        ' <input  type="file" id="archivo" name="archivo"/>'+
-       ' <input  type="hidden" id="id" name="id"/>'+
+       ' <input value="' +id+ '" type="hidden" id="id" name="id"/>'+
        ' <input  type="submit" value="Enviar"/>'+
    ' </form>';
     

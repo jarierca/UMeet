@@ -122,7 +122,7 @@ public class MessagesController {
         //m.addAttribute("message",new Message());
         //return "/messages/vista";
         m.addAttribute("message",new Message());
-        return "/messages/vista";
+        return "messages/vista";
     }
     @ResponseBody
     @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario
@@ -136,10 +136,18 @@ public class MessagesController {
     
     @ResponseBody
     @PostMapping("/channel/sendFile")
-    public void mensajeFileCanal(MessageFile msgFile, MultipartFile archivo,Long id){
+    public void mensajeFileCanal(Message msg, MessageFile msgFile, MultipartFile archivo,Long id){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        msgFile.setName(u.getUsername());
         
+        msg.setChannel(repoChn.findById(id).get());
+        msg.setUser(repoUsr.findById(u.getId()).get());
+        msg.setName(msg.getUser().getNickName());
+        msg.setText("Fichero Subido");
+        
+        repoMsg.save(msg);
+        
+        
+        msgFile.setName(u.getUsername());
         
         String ruta = rutaRecursos + "/file/" + archivo.getOriginalFilename();
         File f = new File(ruta);
@@ -149,8 +157,8 @@ public class MessagesController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
         msgFile.setUrl(ruta);
+        msgFile.setMessage(repoMsg.findById(msg.getId()).get());
         
         repoMsgFile.save(msgFile); 
     }
