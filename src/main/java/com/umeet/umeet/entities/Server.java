@@ -23,9 +23,9 @@ public class Server {
     private String avatar;
     private String status;
 
-    @OneToMany(mappedBy = "server")
+    @OneToMany(mappedBy = "server", cascade = CascadeType.REMOVE)
     private List<UserServerRole> userServerRole;
 
-    @OneToMany(mappedBy = "server")
+    @OneToMany(mappedBy = "server", cascade = CascadeType.REMOVE)
     private List<Category> categories;
 }

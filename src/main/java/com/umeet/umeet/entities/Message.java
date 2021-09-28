@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -23,14 +24,16 @@ public class Message {
     @JoinColumn(name = "id_channel")
     private Channel channel;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private User user;
 
-    @OneToOne(mappedBy = "message")
+    @OneToOne(mappedBy = "message", cascade = CascadeType.REMOVE)
     private MessageFile messageFile;
 
     @ManyToOne
     @JoinColumn(name = "id_user_destiny")
     private User userDestiny;
+    
+
 }

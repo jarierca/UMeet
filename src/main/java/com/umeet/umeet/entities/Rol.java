@@ -20,6 +20,6 @@ public class Rol {
     private String rol;
     private String privileges;
 
-    @OneToMany(mappedBy = "rol")
+    @OneToMany(mappedBy = "rol", cascade = CascadeType.REMOVE)
     private List<UserServerRole> userServerRoles;
 }

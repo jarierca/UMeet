@@ -52,6 +52,10 @@ public class FriendService implements IFriendService {
     public void deleteFriendCascade(Long id) {
         profileRepository.deleteById(id);
     }
+    
+    public void removeFriend(Friend friend) {
+        friendRepository.deleteById(friend.getId());
+    }
 
     @Override
     public List<User> sendFriendList(Long idUser) {

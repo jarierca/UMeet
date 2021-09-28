@@ -23,6 +23,6 @@ public class Category {
     @JoinColumn(name = "id_server")
     private Server server;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<Channel> channels;
 }

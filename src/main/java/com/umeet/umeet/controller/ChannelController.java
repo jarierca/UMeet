@@ -31,13 +31,6 @@ public class ChannelController {
     @Autowired
     MessageFileRepository messageFileRepository;
 
-    @GetMapping("/pruebaChannel")
-    public String pruebaChannel(Model model, Long idCategory){
-        model.addAttribute("channels", channelRepository.findByCategory(categoryRepository.findById(idCategory).get()));
-        model.addAttribute("idCategory", idCategory);
-        return "pruebaChannel";
-    }
-
     @GetMapping("/form")
     public String viewChannelCreation(Model model, Long idChannel, Long idCategory){
         Channel channel = new Channel();
