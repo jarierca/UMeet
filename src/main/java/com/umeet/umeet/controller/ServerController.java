@@ -64,7 +64,7 @@ public class ServerController {
         allServers = serverService.filterServers(allServers);
         m.addAttribute("nam", allServers);
 
-        return "/servers/allServers";
+        return "servers/allServers";
     }
 
     @GetMapping("/byUser")
@@ -79,7 +79,7 @@ public class ServerController {
         }else{
             m.addAttribute("server", new Server());
         }
-        return "/servers/byUser";
+        return "servers/byUser";
         
     }
     
@@ -112,7 +112,7 @@ public class ServerController {
         aux2 = serverService.filterServers(aux2);
         m.addAttribute("nam", aux2);
 
-        return "/servers/filteredServers";
+        return "servers/filteredServers";
     }
 
     @GetMapping("/form")
@@ -122,7 +122,7 @@ public class ServerController {
         } else {
             model.addAttribute("server", serverRepository.findById(idServer));
         }
-        return "/servers/formServer";
+        return "servers/formServer";
     }
 
     @PostMapping("/addServer")
@@ -157,13 +157,13 @@ public class ServerController {
             userServerRole.setServer(server);
             userServerRoleRepository.save(userServerRole);
         }
-        return "redirect:/server/one?idServer="+server.getId();
+        return "redirect:server/one?idServer="+server.getId();
     }
 
     @GetMapping("/deleteServer")
     public String deleteServer(Long idServer) {
         serverRepository.deleteById(idServer);
-        return "redirect:/server/byUser";
+        return "redirect:server/byUser";
     }
 
     @GetMapping("/one")
@@ -183,6 +183,6 @@ public class ServerController {
         model.addAttribute("usr", usr);
         model.addAttribute("categories", categories);
         model.addAttribute("idServer", idServer);
-        return "/servers/viewServer";
+        return "servers/viewServer";
     }
 }

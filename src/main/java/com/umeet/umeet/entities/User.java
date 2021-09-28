@@ -26,18 +26,29 @@ public class User {
     private String avatar;
     private String status;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<UserServerRole> userServerRole;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Message> messages;
 
-    @OneToMany(mappedBy = "user1")
+    @OneToMany(mappedBy = "user1", cascade = CascadeType.REMOVE)
     private List<Friend> friends1;
 
-    @OneToMany(mappedBy = "user2")
+    @OneToMany(mappedBy = "user2", cascade = CascadeType.REMOVE)
     private List<Friend> friends2;
 
-    @OneToMany(mappedBy = "userDestiny")
+    @OneToMany(mappedBy = "userDestiny", cascade = CascadeType.REMOVE)
     private List<Message> message;
+
+    @Override
+    public int hashCode() {
+        return 424242424; 
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+        User u=(User)obj;
+        return id.equals(u.id);
+    }
 }

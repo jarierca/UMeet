@@ -2,6 +2,7 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.MessageChannelDto;
+import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -71,7 +73,9 @@ public class MessagesController {
                                             }else{
                                                 System.out.print(".");
                                             }
-                                            return mapper.map(x, MessageChannelDto.class);
+                                            MessageChannelDto msd=mapper.map(x, MessageChannelDto.class);
+                                            msd.setUser(mapper.map(x.getUser(), UserDto.class ));
+                                            return msd;
                                         })
                                         .collect(Collectors.toList());
            
@@ -103,22 +107,8 @@ public class MessagesController {
                 res.addAll(destino.stream()
                                 .map(x->mapper.map(x, MessageChannelDto.class))
                                 .collect(Collectors.toList()));
-                return res;
-                
-                //Lo comentado abajo devolvia todos los mensajes que habia enviado y recibido, lo de arriba es para mostrar los directos entre usuarios
-                
-                /*List<Message> origen = aux.stream()
-                          .filter(x->x.getUser().getId()==id_user && x.getUserDestiny()!=null) //Obtiene mensajes que el ha mandado
-                          .collect(Collectors.toList());
-                List<Message> destino = aux.stream()
-                          .filter(x->x.getUserDestiny()!=null && x.getUserDestiny().getId()==id_user)                      //Obtiene mensajes que ha recibido
-                          .collect(Collectors.toList());
-                List<MessageChannelDto> res = origen.stream()
-                                            .map(x->mapper.map(x, MessageChannelDto.class))
-                                            .collect(Collectors.toList());
-                res.addAll(destino.stream()
-                                .map(x->mapper.map(x, MessageChannelDto.class))
-                                .collect(Collectors.toList()));*/
+                res.sort(Comparator.comparing(MessageChannelDto::getId));
+                return res;          
             }
         }
         return null;
@@ -132,7 +122,7 @@ public class MessagesController {
         //m.addAttribute("message",new Message());
         //return "/messages/vista";
         m.addAttribute("message",new Message());
-        return "/messages/vista";
+        return "messages/vista";
     }
     @ResponseBody
     @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario
@@ -146,10 +136,18 @@ public class MessagesController {
     
     @ResponseBody
     @PostMapping("/channel/sendFile")
-    public void mensajeFileCanal(MessageFile msgFile, MultipartFile archivo,Long id){
+    public void mensajeFileCanal(Message msg, MessageFile msgFile, MultipartFile archivo,Long id){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        msgFile.setName(u.getUsername());
         
+        msg.setChannel(repoChn.findById(id).get());
+        msg.setUser(repoUsr.findById(u.getId()).get());
+        msg.setName(msg.getUser().getNickName());
+        msg.setText("Fichero Subido");
+        
+        repoMsg.save(msg);
+        
+        
+        msgFile.setName(u.getUsername());
         
         String ruta = rutaRecursos + "/file/" + archivo.getOriginalFilename();
         File f = new File(ruta);
@@ -159,8 +157,8 @@ public class MessagesController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
         msgFile.setUrl(ruta);
+        msgFile.setMessage(repoMsg.findById(msg.getId()).get());
         
         repoMsgFile.save(msgFile); 
     }

@@ -47,17 +47,17 @@ public class CategoryController {
     public String addCategory(Category category, Long idServer){
         category.setServer(serverRepository.findById(idServer).get());
         if(category.getName()==null || ("").equals(category.getName())){
-            return "redirect:/server/one?idServer="+category.getServer().getId();
+            return "redirect:server/one?idServer="+category.getServer().getId();
         }
         categoryRepository.save(category);
-        return "redirect:/server/one?idServer="+category.getServer().getId();
+        return "redirect:server/one?idServer="+category.getServer().getId();
     }
 
     @GetMapping("/deleteCategory")
     public String deleteCategory(Long idCategory){
         long idServer = categoryRepository.findById(idCategory).get().getServer().getId();
         categoryRepository.deleteById(idCategory);
-        return "redirect:/server/one?idServer="+idServer;
+        return "redirect:server/one?idServer="+idServer;
     }
 
 }

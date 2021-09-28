@@ -24,11 +24,11 @@ public class Message {
     @JoinColumn(name = "id_channel")
     private Channel channel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
 
-    @OneToOne(mappedBy = "message")
+    @OneToOne(mappedBy = "message", cascade = CascadeType.REMOVE)
     private MessageFile messageFile;
 
     @ManyToOne

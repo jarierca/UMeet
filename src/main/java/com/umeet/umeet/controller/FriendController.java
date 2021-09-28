@@ -8,6 +8,7 @@ import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
 import com.umeet.umeet.services.FriendService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -122,12 +123,13 @@ public class FriendController {
     @GetMapping("/inviteUser")
     public String searchAllUsers(Model m) {
 
-        return "/friends/inviteNewUser";
+        return "friends/inviteNewUser";
     }
 
     @PostMapping("/foundUser")
     public String userInvite(Model m, String username) {
-
+        UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+ 
         List<User> aux = userRepo.findByUsernameContaining(username);
         if (!aux.isEmpty()) {
         }
@@ -135,24 +137,41 @@ public class FriendController {
         List<User> aux1 = userRepo.findByNickNameContaining(username);
         if (!aux1.isEmpty()) {
         }
-        List<User> aux2 = Stream.concat(aux.stream(), aux1.stream())
+        
+        List<User> aux3 = Stream.concat(aux.stream(), aux1.stream())
+                .filter(x-> !x.getId().equals(u.getId()))
                 .distinct()
                 .collect(Collectors.toList());
+        
+        
 
+        List<Friend> friend1 = friendRepo.findByUser1(userRepo.getById(u.getId()));
+        List<Friend> friend2 = friendRepo.findByUser2(userRepo.getById(u.getId()));
+        
+        List<User> yo = friend1.stream()
+                    .map(x->x.getUser2())
+                    .collect(Collectors.toList());
+            
+            List<User> yo2 = friend2.stream()
+                    .map(x->x.getUser1())
+                    .collect(Collectors.toList());
+        
+        yo.addAll(yo2);
+            
+        List<User>  aux2 = aux3.stream()
+                    .filter(x->yo.contains(x)==false )
+                    .collect(Collectors.toList());
+              
+        
         m.addAttribute("name", aux2);
 
-        /*Optional<User> aux2 = userRepo.findByUsername(username);//repositorio no pilla el id??
-        if (!aux1.isEmpty()) {
-            m.addAttribute("idFriend", aux2);
-        }
-         */
         return "friends/searchResultFriends";
     }
 
     @PostMapping("/addFriend")
     public String addUser(Model m, Friend friend, Long idUserFriend) {
         /*if (idUser == null) {
-            return "redirect:/profile/logout";
+            return "redirect:profile/logout";
         }*/
 
         friend.setStatus("invitado");
@@ -189,7 +208,7 @@ public class FriendController {
 
         friendRepo.save(f1);
 
-        return "redirect:/home";
+        return "redirect:home";
     }
      
     

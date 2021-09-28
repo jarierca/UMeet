@@ -245,7 +245,7 @@ function chatPrivado(idDestino, nameDestino) {
         type: "POST",
         url: "/msg/private/" + idDestino,
         success: function (pJson) {
-            //console.log(pJson);
+            console.log(pJson);
             $("#user-chat-name").html(nameDestino);
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                     "<a id='clickmsg' onclick=enviarMsgPrivado(" + idDestino + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
@@ -254,13 +254,13 @@ function chatPrivado(idDestino, nameDestino) {
 //                                $("<tr>").html("<div class='h2 mx-2 my-2 pt-4 pl-3 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
             $("#panelChat").html("");
             for (x of pJson) {
-                if (x.user.username == userId.username) {
+                if (x.user.username != userId.username) {
                     $("<div>").html('<div class="answer right mx-4 pb-4">' +
                             '<div class="avatar mb-4">' +
                             '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
                             '<span class="status offline"></span>' +
                             '</div>' +
-                            '<div class="name">' + x.user.nickName + '</div>' +
+                            '<div class="name">' + x.name + '</div>' +
                             '<div class="text">' +
                             x.text +
                             '</div>' +
@@ -271,7 +271,7 @@ function chatPrivado(idDestino, nameDestino) {
                             '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
                             '<span class="status offline"></span>' +
                             '</div>' +
-                            '<div class="name">' + x.user.nickName + '</div>' +
+                            '<div class="name">' + x.name + '</div>' +
                             '<div class="text">' +
                             x.text +
                             '</div>' +
@@ -464,7 +464,7 @@ function removeFriend(idFriend){
 function enviarMsgFile(type,id){
     var msg = '<form enctype="multipart/form-data" action="/msg/'+type+'/sendFile/" method="post">'+ 
        ' <input  type="file" id="archivo" name="archivo"/>'+
-       ' <input  type="hidden" id="id" name="id"/>'+
+       ' <input value="' +id+ '" type="hidden" id="id" name="id"/>'+
        ' <input  type="submit" value="Enviar"/>'+
    ' </form>';
     
