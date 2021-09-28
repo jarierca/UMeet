@@ -157,9 +157,8 @@ public class MessagesController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
         msgFile.setUrl(ruta);
-        msgFile.setMessage(msg);
+        msgFile.setMessage(repoMsg.findById(msg.getId()).get());
         
         repoMsgFile.save(msgFile); 
     }
