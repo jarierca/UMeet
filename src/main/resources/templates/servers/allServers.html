@@ -18,7 +18,7 @@
                 <div th:each="sv:${nam}"class="card text-white bg-dark mb-5 hola" style="min-width:20rem; max-width:20rem;">
 <!--                    <img src="/hola.jpg">-->
                 <div class="serverImg">
-                    <img th:src="@{/profile/avatar(url=${sv.avatar})}" class="bgImg">
+                    <img th:src="@{/profile/avatar(url=${sv.avatar})}" class="bgImg img-fluid mt-3" >
                 </div>
                     <div class="card-body">
                         <h5 th:text="${sv.name}"></h5>
