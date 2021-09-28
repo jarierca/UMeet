@@ -23,6 +23,6 @@ public class Channel {
     @JoinColumn(name = "id_category")
     private Category category;
 
-    @OneToMany(mappedBy = "channel")
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.REMOVE)
     private List<Message> messages;
 }
