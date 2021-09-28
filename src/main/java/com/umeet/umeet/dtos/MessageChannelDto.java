@@ -18,4 +18,5 @@ public class MessageChannelDto {
     private UserDto user; 
     private MessageFileDto messageFile;
     private UserDto userDestiny;
+    
 }

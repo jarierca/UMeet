@@ -21,12 +21,12 @@ public class Message {
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "id_channel")
-    private Channel channel;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_channel")
+    private Channel channel;
 
     @OneToOne(mappedBy = "message")
     private MessageFile messageFile;
@@ -35,5 +35,5 @@ public class Message {
     @JoinColumn(name = "id_user_destiny")
     private User userDestiny;
     
-
+    
 }
