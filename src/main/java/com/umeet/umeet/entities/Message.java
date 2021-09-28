@@ -21,19 +21,19 @@ public class Message {
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
-    private User user;
-
-    @ManyToOne
     @JoinColumn(name = "id_channel")
     private Channel channel;
 
-    @OneToOne(mappedBy = "message")
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+
+    @OneToOne(mappedBy = "message", cascade = CascadeType.REMOVE)
     private MessageFile messageFile;
 
     @ManyToOne
     @JoinColumn(name = "id_user_destiny")
     private User userDestiny;
     
-    
+
 }
