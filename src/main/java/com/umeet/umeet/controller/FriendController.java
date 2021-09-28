@@ -171,7 +171,7 @@ public class FriendController {
     @PostMapping("/addFriend")
     public String addUser(Model m, Friend friend, Long idUserFriend) {
         /*if (idUser == null) {
-            return "redirect:/profile/logout";
+            return "redirect:profile/logout";
         }*/
 
         friend.setStatus("invitado");
@@ -208,7 +208,7 @@ public class FriendController {
 
         friendRepo.save(f1);
 
-        return "redirect:/home";
+        return "redirect:home";
     }
      
     

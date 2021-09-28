@@ -157,13 +157,13 @@ public class ServerController {
             userServerRole.setServer(server);
             userServerRoleRepository.save(userServerRole);
         }
-        return "redirect:/server/one?idServer="+server.getId();
+        return "redirect:server/one?idServer="+server.getId();
     }
 
     @GetMapping("/deleteServer")
     public String deleteServer(Long idServer) {
         serverRepository.deleteById(idServer);
-        return "redirect:/server/byUser";
+        return "redirect:server/byUser";
     }
 
     @GetMapping("/one")
