@@ -25,11 +25,11 @@ function msgSize() {
 
 //                $("#size").height(height);
     $("#nabar-v").height(height - 10);
-    $("#chat").height(height * 0.7);
+    $("#chat").height(height * 0.6);
 //                $("#cuerpo").height(height);
     $("#userServers-v").height(height * 0.4);
     $('#contentChat').height(height * 0.6);
-    $('#contentServer').height(height * 0.55);
+    $('#contentServer').height(height * 0.6);
 }
 function loadProfile() {
     $.ajax({
