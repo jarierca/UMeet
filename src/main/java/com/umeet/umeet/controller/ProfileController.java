@@ -64,13 +64,7 @@ public class ProfileController {
     @GetMapping("/edit")
     public String edit(Model m){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        Optional<User> profile = profileRepository.findById(u.getId());
-        if(profile.isPresent()){
-            m.addAttribute("profile", profile.get());
-        }else{
-            m.addAttribute("error", "Error, el usuario no existe");
-        }
+
         return "editProfile";
     }
     
