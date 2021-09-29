@@ -6,7 +6,6 @@ import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
 import com.umeet.umeet.entities.MessageFile;
-import com.umeet.umeet.feign.MessagesFeign;
 import com.umeet.umeet.repositories.ChannelRepository;
 import com.umeet.umeet.repositories.MessageFileRepository;
 import com.umeet.umeet.repositories.MessageRepository;
@@ -29,6 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import com.umeet.umeet.feign.MessagesFeign;
 
 @Controller
 @RequestMapping("/msg")
