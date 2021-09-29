@@ -11,18 +11,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(/*name = "UMeetBack"*/name = "canales", url = "http://localhost:8082")
+@FeignClient(contextId = "feignChannel", name = "UMeetBack", url= "http://localhost:8082")
 @RequestMapping("/b/category")
 public interface ChannelFeign {
 
     @GetMapping("/form")
-    public Channel viewChannelCreation(Long idChannel, Long idCategory);
+    public Channel viewChannelCreation(@RequestParam Long idChannel, @RequestParam  Long idCategory);
    
     @PostMapping("/addChannel")
-    public Channel addChannel(Channel channel, Long idCategory);
+    public Channel addChannel(@RequestParam Long id, @RequestParam String name, @RequestParam Long idCategory);
     
     @GetMapping("/deleteChannel")
-    public Long deleteChannel(Long idChannel);
+    public Long deleteChannel(@RequestParam Long idChannel);
 
 }

@@ -47,7 +47,7 @@ public class CategoryController {
     @PostMapping("/addCategory")
     public String addCategory(Category category, Long idServer) {
 
-        Category cat = catFeign.addCategory(category, idServer);
+        Category cat = catFeign.addCategory(category.getId(), category.getName(),idServer);
 
         return "redirect:server/one?idServer=" + cat.getServer().getId();
     }

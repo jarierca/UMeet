@@ -44,7 +44,7 @@ public class ChannelController {
 
     @PostMapping("/addChannel")
     public String addChannel(Channel channel, Long idCategory) {
-        Channel cha = chaFeign.addChannel(channel, idCategory);
+        Channel cha = chaFeign.addChannel(channel.getId(), channel.getName(), idCategory);
 
         return "redirect:server/one?idServer=" + channel.getCategory().getServer().getId();
     }

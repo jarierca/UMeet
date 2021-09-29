@@ -11,19 +11,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(/*name = "UMeetBack"*/name = "categorias", url= "http://localhost:8082")
+
+@FeignClient(contextId = "feignCategorias", name = "UMeetBack", url= "http://localhost:8082")
 @RequestMapping("/b/category")
 public interface CategoryFeign {
     
-     @GetMapping("/form")
-    public Category viewCategoryCreation(Long idCategory, Long idServer);
+     @PostMapping("/form")
+    public Category viewCategoryCreation(@RequestParam Long idCategory, @RequestParam Long idServer);
     
     @PostMapping("/addCategory")
-    public Category addCategory(Category category, Long idServer);
+    public Category addCategory(@RequestParam Long id, @RequestParam String name, @RequestParam Long idServer);
     
     @GetMapping("/deleteCategory")
-    public Long deleteCategory(Long idCategory);
+    public Long deleteCategory(@RequestParam Long idCategory);
     
     
 }
