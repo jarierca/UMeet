@@ -163,7 +163,7 @@ public class ServerController {
     @GetMapping("/deleteServer")
     public String deleteServer(Long idServer) {
         serverRepository.deleteById(idServer);
-        return "redirect:server/byUser";
+        return "redirect:/server/byUser";
     }
 
     @GetMapping("/one")
