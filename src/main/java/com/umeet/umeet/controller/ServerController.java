@@ -157,7 +157,7 @@ public class ServerController {
             userServerRole.setServer(server);
             userServerRoleRepository.save(userServerRole);
         }
-        return "redirect:server/one?idServer="+server.getId();
+        return "redirect:/server/one?idServer="+server.getId();
     }
 
     @GetMapping("/deleteServer")
