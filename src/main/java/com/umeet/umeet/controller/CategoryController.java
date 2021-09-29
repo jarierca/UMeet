@@ -42,7 +42,7 @@ public class CategoryController {
         return "formCategory";
     }*/
     
-    @GetMapping("/form")
+    @PostMapping("/form")
     public Category viewCategoryCreation(Long idCategory, Long idServer) {
         Category category = new Category();
         if (idCategory == null) {
