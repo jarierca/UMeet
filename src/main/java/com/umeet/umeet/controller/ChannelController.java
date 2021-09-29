@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/channel")
+@RequestMapping("/b/channel")
 public class ChannelController {
 
     @Autowired
@@ -33,31 +32,35 @@ public class ChannelController {
     MessageFileRepository messageFileRepository;
 
     @GetMapping("/form")
-    public String viewChannelCreation(Model model, Long idChannel, Long idCategory){
+    public Channel viewChannelCreation( Long idChannel, Long idCategory){
         Channel channel = new Channel();
         if(idChannel==null){
             channel.setCategory(categoryRepository.findById(idCategory).get());
         } else {
             channel = channelRepository.findById(idChannel).get();
         }
-        model.addAttribute("channel", channel);
-        return "formChannel";
+       
+        //return "formChannel";
+        return channel;
     }
 
     @PostMapping("/addChannel")
-    public String addChannel(Channel channel, Long idCategory){
+    public Channel addChannel(Channel channel, Long idCategory){
         channel.setCategory(categoryRepository.findById(idCategory).get());
         if(channel.getName()==null || ("").equals(channel.getName())){
-            return "redirect:server/one?idServer="+channel.getCategory().getServer().getId();
+            //return "redirect:server/one?idServer="+channel.getCategory().getServer().getId();
         }
         channelRepository.save(channel);
-        return "redirect:server/one?idServer="+channel.getCategory().getServer().getId();
+        //return "redirect:server/one?idServer="+channel.getCategory().getServer().getId();
+        return channel;
     }
+    
 
     @GetMapping("/deleteChannel")
-    public String deleteChannel(Long idChannel){
+    public Long deleteChannel(Long idChannel){
         long idServer = channelRepository.findById(idChannel).get().getCategory().getServer().getId();
         channelRepository.deleteById(idChannel);
-        return "redirect:server/one?idServer="+idServer;
+       // return "redirect:server/one?idServer="+idServer;
+       return idChannel;
     }
 }

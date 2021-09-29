@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -44,14 +43,14 @@ public class CategoryController {
     }*/
     
     @GetMapping("/form")
-    public Category viewCategoryCreation(Model model, Long idCategory, Long idServer) {
+    public Category viewCategoryCreation(Long idCategory, Long idServer) {
         Category category = new Category();
         if (idCategory == null) {
             category.setServer(serverRepository.findById(idServer).get());
         } else {
             category = categoryRepository.findById(idCategory).get();
         }
-        //model.addAttribute("category", category);
+       
         return category;
     }
 
@@ -83,10 +82,11 @@ public class CategoryController {
         return "redirect:server/one?idServer=" + idServer;
     }*/
     @GetMapping("/deleteCategory")
-    public void deleteCategory(Long idCategory) {
+    public Long deleteCategory(Long idCategory) {
         long idServer = categoryRepository.findById(idCategory).get().getServer().getId();
         categoryRepository.deleteById(idCategory);
         //return "redirect:server/one?idServer=" + idServer;
+        return idServer;
     }
 
 }
