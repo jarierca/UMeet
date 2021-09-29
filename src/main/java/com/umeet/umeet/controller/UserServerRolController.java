@@ -42,7 +42,7 @@ public class UserServerRolController {
         User user = userRepository.findById(u.getId()).get();
         UserServerRole relation = new UserServerRole(null, user, rol, server);
         userServerRoleRepository.save(relation);
-        return "redirect:server/one?idServer=" + server.getId();
+        return "redirect:/server/one?idServer=" + server.getId();
     }
 
     @GetMapping("/leaveServer")
@@ -52,6 +52,6 @@ public class UserServerRolController {
         Server server = serverRepository.findById(idServer).get();
         UserServerRole relation = userServerRoleRepository.findByUserAndServer(user, server).get();
         userServerRoleRepository.deleteById(relation.getId());
-        return "redirect:home";
+        return "redirect:/home";
     }
 }
