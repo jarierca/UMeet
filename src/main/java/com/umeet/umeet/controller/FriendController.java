@@ -1,13 +1,12 @@
 package com.umeet.umeet.controller;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
-import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.Friend;
 import com.umeet.umeet.entities.User;
+import com.umeet.umeet.feign.FriendFeign;
 import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
 import com.umeet.umeet.services.FriendService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/friends")
 
 public class FriendController {
+    @Autowired
+    private FriendFeign friendFeign;
 
     @Autowired
     private FriendRepository friendRepo;
