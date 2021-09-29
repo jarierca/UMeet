@@ -49,27 +49,18 @@ public class ProfileController {
     
     //Visualizar los datos del user
     @GetMapping("/view")
-    public User view(Model m, Long idUser){
+    public User view(Long idUser){
         
         Optional<User> profile = profileRepository.findById(idUser);
-        if(profile.isPresent()){
-            m.addAttribute("profile", profile.get());
-        }else{
-            m.addAttribute("error", "Error, el usuario no existe");
-        }
+        
         return profile.get();
     }
     
     //Cargar vista con datos del user de la BBDD
     @GetMapping("/edit")
-    public User edit(Model m,Long idUser){
+    public User edit(Long idUser){
         
         Optional<User> profile = profileRepository.findById(idUser);
-        if(profile.isPresent()){
-            m.addAttribute("profile", profile.get());
-        }else{
-            m.addAttribute("error", "Error, el usuario no existe");
-        }
         return profile.get();
     }
     
@@ -147,7 +138,6 @@ public class ProfileController {
     
     //Obtiene los datos del user
     @GetMapping("/getUser")
-    @ResponseBody
     public UserDto getUser(Model m, Long idUser){
         Optional<User> user = profileRepository.findById(idUser);
         UserDto userDto = mapper.map(user.get(), UserDto.class);
