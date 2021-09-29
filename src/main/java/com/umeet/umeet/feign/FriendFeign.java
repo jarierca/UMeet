@@ -1,5 +1,6 @@
 package com.umeet.umeet.feign;
 
+import com.umeet.umeet.dtos.ListasFriendDto;
 import com.umeet.umeet.entities.User;
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface FriendFeign {
 
+    @PostMapping("/friendsList") 
+    public ListasFriendDto listFriends(@RequestParam Long idUser);
+    
     @PostMapping("/friendsFilter")
     public List<User> filterFriend(@RequestParam String username, @RequestParam Long idUser);
 
