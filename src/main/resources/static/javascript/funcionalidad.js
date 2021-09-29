@@ -397,7 +397,7 @@ function confirmServer(idServer, title, url) {
                         idServer: idServer
                     },
                     success: function (html) {
-                        window.location = "/home";
+                        window.location="/friends/friendsList";
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -451,7 +451,7 @@ function removeFriend(idFriend){
                     type: "GET",
                     url: "/friends/removeFriend?idFriend=" + idFriend,
                     success: function (pJson) {
-
+                        window.location="/friends/friendsList";
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
