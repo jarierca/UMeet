@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/f/category")
 public class CategoryController {
 
     @Autowired
@@ -31,6 +31,18 @@ public class CategoryController {
     @Autowired
     MessageFileRepository messageFileRepository;
 
+   /* @GetMapping("/form")
+    public String viewCategoryCreation(Model model, Long idCategory, Long idServer){
+        Category category = new Category();
+        if(idCategory==null){
+            category.setServer(serverRepository.findById(idServer).get());
+        } else {
+            category = categoryRepository.findById(idCategory).get();
+        }
+        model.addAttribute("category", category);
+        return "formCategory";
+    }*/
+    
     @GetMapping("/form")
     public String viewCategoryCreation(Model model, Long idCategory, Long idServer){
         Category category = new Category();
