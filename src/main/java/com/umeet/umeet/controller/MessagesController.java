@@ -123,7 +123,7 @@ public class MessagesController {
         repoMsg.save(msg);
     }
     
-    @ResponseBody
+    /*@ResponseBody
     @PostMapping("/channel/sendFile")
     public void mensajeFileCanal(Message msg, MessageFile msgFile, MultipartFile archivo,Long id,Long idUser){
         User u = repoUsr.findById(idUser).get();
@@ -149,7 +149,7 @@ public class MessagesController {
         msgFile.setMessage(repoMsg.findById(msg.getId()).get());
         
         repoMsgFile.save(msgFile); 
-    }
+    }*/
     
     @ResponseBody
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios

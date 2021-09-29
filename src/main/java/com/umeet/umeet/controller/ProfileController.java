@@ -28,10 +28,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@Controller
-@RequestMapping("/profile")
+@RestController
+@RequestMapping("/b/profile")
 public class ProfileController {
     
     @Value("${carpetas.recursos.umeet}")
@@ -48,38 +49,26 @@ public class ProfileController {
     
     //Visualizar los datos del user
     @GetMapping("/view")
-    public String view(Model m){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public User view(Long idUser){
         
-        Optional<User> profile = profileRepository.findById(u.getId());
-        if(profile.isPresent()){
-            m.addAttribute("profile", profile.get());
-        }else{
-            m.addAttribute("error", "Error, el usuario no existe");
-        }
-        return "profile/view";
+        Optional<User> profile = profileRepository.findById(idUser);
+        
+        return profile.get();
     }
     
     //Cargar vista con datos del user de la BBDD
     @GetMapping("/edit")
-    public String edit(Model m){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public User edit(Long idUser){
         
-        Optional<User> profile = profileRepository.findById(u.getId());
-        if(profile.isPresent()){
-            m.addAttribute("profile", profile.get());
-        }else{
-            m.addAttribute("error", "Error, el usuario no existe");
-        }
-        return "editProfile";
+        Optional<User> profile = profileRepository.findById(idUser);
+        return profile.get();
     }
     
     //Modifica en la BBDD los datos editados
     @PostMapping("/modify")
-    public String modify(Model m, String nickName,String status, String email, MultipartFile avatar){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public void modify(Model m, String nickName,String status, String email, MultipartFile avatar, Long idUser){
         
-        Optional<User> user = profileRepository.findById(u.getId());
+        Optional<User> user = profileRepository.findById(idUser);
         user.get().setNickName(nickName);
         user.get().setEmail(email);
         user.get().setStatus(status);
@@ -94,64 +83,31 @@ public class ProfileController {
                 Files.copy(avatar.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
                 e.printStackTrace();
-                m.addAttribute("error", "Error inesperado");
             }
 
             user.get().setAvatar(ruta);
         }
         
         profileRepository.save(user.get());
-        return "redirect:view";
-    }
-    
-    //Obtiene la imagen del avatar del user
-    @GetMapping("/avatar")
-    public ResponseEntity<Resource> avatar(String url){
-        
-        HttpHeaders cabeceras=new HttpHeaders();
-        cabeceras.add("Content-Disposition", "attachment;");
-        cabeceras.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        cabeceras.add("Pragma", "no-cache");
-        cabeceras.add("Expires", "0");
-        
-        try{
-            return ResponseEntity.ok()
-                                 .headers(cabeceras)
-                                 .contentLength((new File(url)).length())
-                                 .contentType(MediaType.parseMediaType( "application/octet-stream" ))
-                                 .body(new InputStreamResource(new FileInputStream( url )) );
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-            return null;
-        }
-    }    
+    } 
     
     //Borra los datos mediante el id del user
     @GetMapping("/remove")
-    public String remove(Model m){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        friendService.deleteFriendCascade(u.getId());
-        return "redirect:logout";
+    public void remove(Model m, Long idUser){
+        friendService.deleteFriendCascade(idUser);
     }
     
     //Modificar estado del user
     @PostMapping("/status")
-    public String status(String status){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        Optional<User> user = profileRepository.findById(u.getId());
+    public void status(String status, Long idUser){
+        Optional<User> user = profileRepository.findById(idUser);
         user.get().setStatus(status);
         profileRepository.save(user.get());
-        return "redirect:view";
     }
     
-    @ResponseBody
     @GetMapping("/statusDrop")
-    public void statusDrop(String status){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        Optional<User> user = profileRepository.findById(u.getId());
+    public void statusDrop(String status, Long idUser){
+        Optional<User> user = profileRepository.findById(idUser);
         user.get().setStatus(status);
         profileRepository.save(user.get());
     }
@@ -159,11 +115,8 @@ public class ProfileController {
     
     //Obtiene los datos del user
     @GetMapping("/getUser")
-    @ResponseBody
-    public UserDto getUser(Model m){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-         
-        Optional<User> user = profileRepository.findById(u.getId());
+    public UserDto getUser(Model m, Long idUser){
+        Optional<User> user = profileRepository.findById(idUser);
         UserDto userDto = mapper.map(user.get(), UserDto.class);
         
         //m.addAttribute("user",user.get());
