@@ -84,7 +84,7 @@ public class MessagesController {
     @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario
     public void mensajeCanal(Message msg,Long idChannel){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        msgFeign.mensajeCanal(msg, idChannel, u.getId());
+        msgFeign.mensajeCanal(msg.getId(),msg.getName(),msg.getText(), idChannel, u.getId());
     }
     
     /*@ResponseBody
@@ -120,7 +120,7 @@ public class MessagesController {
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
     public void mensajePrivado(Message msg,Long idUserDestiny){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        msgFeign.mensajePrivado(msg, idUserDestiny, u.getId());
+        msgFeign.mensajePrivado(msg.getId(),msg.getName(),msg.getText(), idUserDestiny, u.getId());
     }
     
        

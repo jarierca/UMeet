@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 
+@FeignClient(contextId = "feign2", name = "UMeetBack", url= "http://localhost:8082")
 @RequestMapping("/b/servers")
 public interface ServerFeign {
 
