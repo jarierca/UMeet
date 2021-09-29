@@ -83,36 +83,13 @@ public class ProfileController {
                 Files.copy(avatar.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
                 e.printStackTrace();
-                m.addAttribute("error", "Error inesperado");
             }
 
             user.get().setAvatar(ruta);
         }
         
         profileRepository.save(user.get());
-    }
-    
-    //Obtiene la imagen del avatar del user
-    @GetMapping("/avatar")
-    public ResponseEntity<Resource> avatar(String url){
-        
-        HttpHeaders cabeceras=new HttpHeaders();
-        cabeceras.add("Content-Disposition", "attachment;");
-        cabeceras.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        cabeceras.add("Pragma", "no-cache");
-        cabeceras.add("Expires", "0");
-        
-        try{
-            return ResponseEntity.ok()
-                                 .headers(cabeceras)
-                                 .contentLength((new File(url)).length())
-                                 .contentType(MediaType.parseMediaType( "application/octet-stream" ))
-                                 .body(new InputStreamResource(new FileInputStream( url )) );
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-            return null;
-        }
-    }    
+    } 
     
     //Borra los datos mediante el id del user
     @GetMapping("/remove")
