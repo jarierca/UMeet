@@ -50,13 +50,13 @@ public class ChannelController {
             return "redirect:server/one?idServer="+channel.getCategory().getServer().getId();
         }
         channelRepository.save(channel);
-        return "redirect:server/one?idServer="+channel.getCategory().getServer().getId();
+        return "redirect:/server/one?idServer="+channel.getCategory().getServer().getId();
     }
 
     @GetMapping("/deleteChannel")
     public String deleteChannel(Long idChannel){
         long idServer = channelRepository.findById(idChannel).get().getCategory().getServer().getId();
         channelRepository.deleteById(idChannel);
-        return "redirect:server/one?idServer="+idServer;
+        return "redirect:/server/one?idServer="+idServer;
     }
 }
