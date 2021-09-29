@@ -208,7 +208,7 @@ public class FriendController {
 
         friendRepo.save(f1);
 
-        return "redirect:home";
+        return "redirect:/home";
     }
      
     
