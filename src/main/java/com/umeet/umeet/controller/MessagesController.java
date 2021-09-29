@@ -72,7 +72,7 @@ public class MessagesController {
     @PostMapping("/private/{id_destino}") //Devuelve un Json con todos los mensajes privados entre el usuario logueado y el usuario destino
     public List<MessageChannelDto> privados(@PathVariable Long id_destino){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        List<MessageChannelDto> aux = msgFeign.privados(id_destino,u.getId());
+        List<MessageChannelDto> aux = msgFeign.privados(id_destino,1l);
         if (!aux.isEmpty()){
             return aux;          
         }
@@ -84,13 +84,10 @@ public class MessagesController {
     @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario
     public void mensajeCanal(Message msg,Long idChannel){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        msg.setChannel(repoChn.findById(idChannel).get());
-        msg.setUser(repoUsr.findById(u.getId()).get());
-        msg.setName(msg.getUser().getNickName());
-        repoMsg.save(msg);
+        msgFeign.mensajeCanal(msg.getId(),msg.getName(),msg.getText(), idChannel, u.getId());
     }
     
-    @ResponseBody
+    /*@ResponseBody
     @PostMapping("/channel/sendFile")
     public void mensajeFileCanal(Message msg, MessageFile msgFile, MultipartFile archivo,Long id){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -117,20 +114,17 @@ public class MessagesController {
         msgFile.setMessage(repoMsg.findById(msg.getId()).get());
         
         repoMsgFile.save(msgFile); 
-    }
+    }*/
     
     @ResponseBody
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
     public void mensajePrivado(Message msg,Long idUserDestiny){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        msg.setName(repoUsr.findById(u.getId()).get().getNickName());
-        msg.setUser(repoUsr.findById(u.getId()).get());
-        msg.setUserDestiny(repoUsr.findById(idUserDestiny).get());
-        repoMsg.save(msg); 
+        msgFeign.mensajePrivado(msg.getId(),msg.getName(),msg.getText(), idUserDestiny, u.getId());
     }
     
        
-    @ResponseBody
+    /*@ResponseBody
     @PostMapping("/private/sendFile")
     public void mensajeFilePrivado(MessageFile msgFile, MultipartFile archivo,Long id){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -148,5 +142,5 @@ public class MessagesController {
         msgFile.setUrl(ruta);
         
         repoMsgFile.save(msgFile); 
-    }
+    }*/
 }
