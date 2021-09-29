@@ -72,7 +72,7 @@ public class MessagesController {
     @PostMapping("/private/{id_destino}") //Devuelve un Json con todos los mensajes privados entre el usuario logueado y el usuario destino
     public List<MessageChannelDto> privados(@PathVariable Long id_destino){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        List<MessageChannelDto> aux = msgFeign.privados(id_destino,1l);
+        List<MessageChannelDto> aux = msgFeign.privados(id_destino,u.getId());
         if (!aux.isEmpty()){
             return aux;          
         }
