@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(/*name = "UMeetBack"*/name = "invent", url= "http://localhost:8082")
 @RequestMapping("/b/msg")
 public interface MessagesFeign {
 

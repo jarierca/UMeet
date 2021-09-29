@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(name = "UMeetBack", configuration = FeignConfig.class)
-@RequestMapping("/servers")
+
+@RequestMapping("/b/servers")
 public interface ServerFeign {
 
     @GetMapping("/allServers")
