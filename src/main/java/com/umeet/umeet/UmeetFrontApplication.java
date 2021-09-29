@@ -6,10 +6,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
-public class UmeetApplication {
+public class UmeetFrontApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UmeetApplication.class, args);
+		SpringApplication.run(UmeetFrontApplication.class, args);
 	}
 
 }
