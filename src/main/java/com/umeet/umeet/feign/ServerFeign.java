@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(name = "UMeetBack", configuration = FeignConfig.class)
-@RequestMapping("/servers")
+
+@RequestMapping("/b/servers")
 public interface ServerFeign {
 
     @GetMapping("/allServers")
@@ -26,7 +26,7 @@ public interface ServerFeign {
     public ServerDto viewServer(@PathVariable Long idServer);
 
     @PostMapping(value="/addServer", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void addServer(@SpringQueryMap Map<String, Object> data, @RequestPart(value = "file") MultipartFile file);
+    public ServerDto addServer(@RequestParam Long idUser, @SpringQueryMap ServerDto serverDto, @RequestPart(value = "file") MultipartFile file);
 
     @PostMapping(value = "/upload-file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     String fileUpload(@RequestPart(value = "file") MultipartFile file);

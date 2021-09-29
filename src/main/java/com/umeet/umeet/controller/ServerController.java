@@ -126,11 +126,7 @@ public class ServerController {
     @PostMapping("/addServer")
     public String addServer(ServerDto serverDto, MultipartFile file) {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        Map<String, Object> data = new HashMap<>();
-        data.put("serverDto", serverDto);
-        data.put("file", file);
-        data.put("idUser", u.getId());
-        //serverFeign.addServer(data);
+        serverDto = serverFeign.addServer(u.getId(), serverDto, file);
         return "redirect:/server/one?idServer="+serverDto.getId();
     }
 
