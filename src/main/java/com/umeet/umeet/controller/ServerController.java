@@ -14,19 +14,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -37,34 +36,48 @@ public class ServerController {
     private String rutaRecursos;
 
     @Autowired
-    ServerRepository serverRepository;
+    private ServerRepository serverRepository;
 
     @Autowired
-    IServerService serverService;
+    private IServerService serverService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    RolRepository rolRepository;
+    private RolRepository rolRepository;
 
     @Autowired
-    UserServerRoleRepository userServerRoleRepository;
+    private UserServerRoleRepository userServerRoleRepository;
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private ModelMapper mapper;
 
 //    @PostMapping("/allServers")
-    @GetMapping("/allServers")
-    public String allServers(Model m) {
+    @GetMapping("/allServers2")
+    public Map<String, Object> allServers2( Long idUsuario) {
+        Map<String,Object> m=new HashMap<>();
         List<Server> allServers = serverRepository.findAll();
-        allServers = serverService.filterServers(allServers);
-        m.addAttribute("nam", allServers);
+        allServers = serverService.filterServers(allServers, idUsuario);
+        List<ServerDto> servers = allServers.stream()
+                .map(x->mapper.map(x, ServerDto.class))
+                .collect(Collectors.toList());
+        m.put("dato1", servers);
+        m.put("dato2", 3);
+        return m;
+    }
 
-        return "servers/allServers";
+    @GetMapping("/allServers")
+    public List<ServerDto> allServers(Long idUser) {
+        List<Server> allServers = serverRepository.findAll();
+        allServers = serverService.filterServers(allServers, idUser);
+        List<ServerDto> servers = allServers.stream()
+                .map(x->mapper.map(x, ServerDto.class))
+                .collect(Collectors.toList());
+        return servers;
     }
 
     @GetMapping("/byUser")
@@ -100,7 +113,7 @@ public class ServerController {
     }
 
     @PostMapping("/filtered")
-    public String searchServer(Model m, String name) {
+    public List<ServerDto> searchServer(String name, Long idUser) {
 
         List<Server> aux = serverRepository.findByNameContaining(name);
        
@@ -109,10 +122,12 @@ public class ServerController {
         List<Server> aux2 = Stream.concat(aux.stream(), aux1.stream())
                 .distinct()
                 .collect(Collectors.toList());
-        aux2 = serverService.filterServers(aux2);
-        m.addAttribute("nam", aux2);
+        aux2 = serverService.filterServers(aux2, idUser);
+        List<ServerDto> servers = aux2.stream()
+                .map(x->mapper.map(x, ServerDto.class))
+                .collect(Collectors.toList());
 
-        return "servers/filteredServers";
+        return servers;
     }
 
     @GetMapping("/form")
@@ -125,9 +140,18 @@ public class ServerController {
         return "servers/formServer";
     }
 
+    @GetMapping("/{idServer}")
+    public ServerDto viewServer(@PathVariable Long idServer){
+        Server server = serverRepository.findById(idServer).get();
+        ServerDto serverDto = mapper.map(server, ServerDto.class);
+        return serverDto;
+    }
+
     @PostMapping("/addServer")
-    public String addServer(Server server, MultipartFile file) {
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public String addServer(Map<String, Object> data) {
+        Server server = mapper.map(data.get("serverDto"), Server.class);
+        Long idUser = (Long) data.get("idUser");
+        MultipartFile file = (MultipartFile) data.get("file");
         String avatarServer = "";
         if(server.getId()==null){
             avatarServer = rutaRecursos+"/avatar/server-stock.png";
@@ -152,12 +176,12 @@ public class ServerController {
         List<UserServerRole> userServerRoles = userServerRoleRepository.findByServer(server);
         if(userServerRoles.isEmpty()){
             UserServerRole userServerRole = new UserServerRole();
-            userServerRole.setUser(userRepository.findById(u.getId()).get());
+            userServerRole.setUser(userRepository.findById(idUser).get());
             userServerRole.setRol(rolRepository.findById(1l).get());
             userServerRole.setServer(server);
             userServerRoleRepository.save(userServerRole);
         }
-        return "redirect:server/one?idServer="+server.getId();
+        return "redirect:/server/one?idServer="+server.getId();
     }
 
     @GetMapping("/deleteServer")
