@@ -11,15 +11,14 @@ import com.umeet.umeet.repositories.UserRepository;
 import com.umeet.umeet.repositories.UserServerRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("/usr")
+@RestController
+@RequestMapping("/b/usr")
 public class UserServerRolController {
 
     @Autowired
@@ -34,24 +33,22 @@ public class UserServerRolController {
     @Autowired
     UserServerRoleRepository userServerRoleRepository;
 
-    @GetMapping("/joinServer")
-    public String joinServer(Long idServer){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    @PostMapping("/joinServer")
+    public Server joinServer(Long idServer, Long idUser){
+        User u = userRepository.getById(idUser);
         Rol rol = rolRepository.findById(2l).get();
         Server server = serverRepository.findById(idServer).get();
         User user = userRepository.findById(u.getId()).get();
         UserServerRole relation = new UserServerRole(null, user, rol, server);
         userServerRoleRepository.save(relation);
-        return "redirect:server/one?idServer=" + server.getId();
+        return server;
     }
 
-    @GetMapping("/leaveServer")
-    public String leaveServer(Long idServer){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        User user = userRepository.findById(u.getId()).get();
+    @PostMapping("/leaveServer")
+    public void leaveServer(Long idServer,Long idUser){
+        User user = userRepository.getById(idUser);
         Server server = serverRepository.findById(idServer).get();
         UserServerRole relation = userServerRoleRepository.findByUserAndServer(user, server).get();
         userServerRoleRepository.deleteById(relation.getId());
-        return "redirect:home";
     }
 }
