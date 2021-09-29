@@ -7,6 +7,7 @@ import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
 import com.umeet.umeet.entities.MessageFile;
+import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.ChannelRepository;
 import com.umeet.umeet.repositories.MessageFileRepository;
 import com.umeet.umeet.repositories.MessageRepository;
@@ -23,18 +24,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@Controller
-@RequestMapping("/msg")
-//@ResponseBody
+@RestController
+@RequestMapping("/b/msg")
 public class MessagesController {
     
     @Autowired
@@ -87,9 +85,9 @@ public class MessagesController {
     //localhost:8090/msg/private/5 (5 seria el usuario que esta obteniendo sus mensajes privados)
     @ResponseBody
     @PostMapping("/private/{id_destino}") //Devuelve un Json con todos los mensajes privados entre el usuario logueado y el usuario destino
-    public List<MessageChannelDto> privados(@PathVariable Long id_destino){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        List<Message> aux = repoMsg.findByUser(repoUsr.findById(u.getId()).get());
+    public List<MessageChannelDto> privados(@PathVariable Long id_destino,Long idUser){
+        
+        List<Message> aux = repoMsg.findByUser(repoUsr.findById(idUser).get());
         if (!aux.isEmpty()){
             List <Message> origen = aux.stream()
                                    .filter(x->x.getUserDestiny()!=null && x.getUserDestiny().getId()==id_destino)
@@ -98,7 +96,7 @@ public class MessagesController {
                 List<Message> aux2 = repoMsg.findByUser(repoUsr.findById(id_destino).get());
                 
                 List<Message> destino = aux2.stream()
-                          .filter(x-> x.getUserDestiny()!=null && x.getUserDestiny()==repoUsr.findById(u.getId()).get()) //Obtiene mensajes que el ha recibido
+                          .filter(x-> x.getUserDestiny()!=null && x.getUserDestiny()==repoUsr.findById(idUser).get()) //Obtiene mensajes que el ha recibido
                           .collect(Collectors.toList());
                 
                 List<MessageChannelDto> res = origen.stream()
@@ -115,32 +113,22 @@ public class MessagesController {
     }
     
     
-    
-    //De aqui para abajo no son json, se podria sacar a otro controller y dejar solo los Json en este
-    @GetMapping
-    public String inicio(Model m){
-        //m.addAttribute("message",new Message());
-        //return "/messages/vista";
-        m.addAttribute("message",new Message());
-        return "messages/vista";
-    }
     @ResponseBody
     @PostMapping("/channel/sendmsg") //Guarda mensajes en un canal por un usuario
-    public void mensajeCanal(Message msg,Long idChannel){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public void mensajeCanal(Message msg,Long idChannel,Long idUser){
+        
         msg.setChannel(repoChn.findById(idChannel).get());
-        msg.setUser(repoUsr.findById(u.getId()).get());
+        msg.setUser(repoUsr.findById(idUser).get());
         msg.setName(msg.getUser().getNickName());
         repoMsg.save(msg);
     }
     
     @ResponseBody
     @PostMapping("/channel/sendFile")
-    public void mensajeFileCanal(Message msg, MessageFile msgFile, MultipartFile archivo,Long id){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
+    public void mensajeFileCanal(Message msg, MessageFile msgFile, MultipartFile archivo,Long id,Long idUser){
+        User u = repoUsr.findById(idUser).get();
         msg.setChannel(repoChn.findById(id).get());
-        msg.setUser(repoUsr.findById(u.getId()).get());
+        msg.setUser(u);
         msg.setName(msg.getUser().getNickName());
         msg.setText("Fichero Subido");
         
@@ -165,15 +153,15 @@ public class MessagesController {
     
     @ResponseBody
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
-    public void mensajePrivado(Message msg,Long idUserDestiny){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        msg.setName(repoUsr.findById(u.getId()).get().getNickName());
-        msg.setUser(repoUsr.findById(u.getId()).get());
+    public void mensajePrivado(Message msg,Long idUserDestiny, Long idUser){
+        User u=repoUsr.findById(idUser).get();
+        msg.setName(u.getNickName());
+        msg.setUser(u);
         msg.setUserDestiny(repoUsr.findById(idUserDestiny).get());
         repoMsg.save(msg); 
     }
     
-       
+    /*   
     @ResponseBody
     @PostMapping("/private/sendFile")
     public void mensajeFilePrivado(MessageFile msgFile, MultipartFile archivo,Long id){
@@ -192,5 +180,5 @@ public class MessagesController {
         msgFile.setUrl(ruta);
         
         repoMsgFile.save(msgFile); 
-    }
+    }*/
 }
