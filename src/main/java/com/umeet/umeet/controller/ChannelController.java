@@ -31,13 +31,6 @@ public class ChannelController {
     @Autowired
     MessageFileRepository messageFileRepository;
 
-    @GetMapping("/pruebaChannel")
-    public String pruebaChannel(Model model, Long idCategory){
-        model.addAttribute("channels", channelRepository.findByCategory(categoryRepository.findById(idCategory).get()));
-        model.addAttribute("idCategory", idCategory);
-        return "pruebaChannel";
-    }
-
     @GetMapping("/form")
     public String viewChannelCreation(Model model, Long idChannel, Long idCategory){
         Channel channel = new Channel();
@@ -54,16 +47,16 @@ public class ChannelController {
     public String addChannel(Channel channel, Long idCategory){
         channel.setCategory(categoryRepository.findById(idCategory).get());
         if(channel.getName()==null || ("").equals(channel.getName())){
-            return "redirect:/server/one?idServer="+channel.getCategory().getServer().getId();
+            return "redirect:server/one?idServer="+channel.getCategory().getServer().getId();
         }
         channelRepository.save(channel);
-        return "redirect:/server/one?idServer="+channel.getCategory().getServer().getId();
+        return "redirect:server/one?idServer="+channel.getCategory().getServer().getId();
     }
 
     @GetMapping("/deleteChannel")
     public String deleteChannel(Long idChannel){
         long idServer = channelRepository.findById(idChannel).get().getCategory().getServer().getId();
         channelRepository.deleteById(idChannel);
-        return "redirect:/server/one?idServer="+idServer;
+        return "redirect:server/one?idServer="+idServer;
     }
 }

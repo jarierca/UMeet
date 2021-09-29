@@ -57,7 +57,7 @@ public class ProfileController {
         }else{
             m.addAttribute("error", "Error, el usuario no existe");
         }
-        return "/profile/view";
+        return "profile/view";
     }
     
     //Cargar vista con datos del user de la BBDD
@@ -132,7 +132,7 @@ public class ProfileController {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         friendService.deleteFriendCascade(u.getId());
-        return "redirect:/logout";
+        return "redirect:logout";
     }
     
     //Modificar estado del user

@@ -2,121 +2,19 @@
       th:replace="layout/layout::layout( ~{::body})">
 </head>
 <body>
-    <div class="row text-white ml-4 pl-5 mt-4">
+    <div class=" fondo">
+        <div class= "probando mt-4">
 
-        <div class="col-sm-3 col-xs-12" style="border-top-left-radius: 15px; border-bottom-left-radius: 15px">
-            <div class="server-text mt-4 ml-5">
-                <div class="my-3">
-                    <h3 class="mb-4 text-white">Buscar amigos</h3>
+            <div class="index"> </div>
+            <div class="posicion">
 
-                    <div class="input-group pr-4 pl-2">
-                        <input type="text" name="username"  id="buscaAmigo" placeholder="Encuentra a tu amigo" class="form-control mb-2">
-                        <button onclick="amigos()" class="btn btn-outline-success mx-1 mb-2"><i class="fas fa-search"></i></button>
-                        <a th:href="@{/friends/inviteUser}" class="btn btn-outline-success mr-1 mb-2"> <i class="fas fa-user-plus"></i></a>
-                    </div>
-                </div>
 
-                <div class="pr-4 pl-2 mt-3">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Amigos</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Invitados</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" >
-                        <div class="tab-pane fade show active" id="home" role="tabpanel">
-                            <div class=""><!<!-- overflow-auto  -->
-                                <div id="obtenAmigo">
-                                    <table class="table text-white">
-                                        <tr>
-                                            <th>Avatar</th>
-                                            <th>Nickname</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                        </tr>
-                                        <tr th:each="f1:${friendsAccepted}">
-                                            <td><img class='avatar' th:src="|/profile/avatar?url=${f1.avatar}|"></td>
-                                            <td th:text="${f1.nickName}"></td>
-                                            <td th:text="${f1.status}"></td>
-                                            <td>
-                                                <a th:attr="onclick=|chatPrivado(${f1.id},'${f1.nickName}')|" ><i class="far fa-comment-dots"></i></a>
-                                            </td>
-                                        </tr> 
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                <p>La mejor plataforma social para encontrarte con tus amigos y explorar distintas comunidades </p>
+                <h3>¡Empieza a explorar!</h3>
 
-                        <div class="tab-pane fade" id="profile" role="tabpanel">
-                            <div class=""><!<!-- overflow-auto  -->
-                                <table class="table text-white">
-                                    <tr>
-                                        <th>Avatar</th>
-                                        <th>Nickname</th>
-                                    </tr>
-                                    <tr th:each="f1:${friendsPendingEnviado}">
-                                        <td>  <img class='avatar-msg' th:src="|/profile/avatar?url=${f1.avatar}|"></td>
-                                        <td th:text="${f1.nickName}"></td>
-                                    </tr> 
-                                    <tr th:each="f1:${friendsPendingRecibido}">
-                                        <td>  <img class='avatar-msg' th:src="|/profile/avatar?url=${f1.avatar}|"></td>
-                                        <td th:text="${f1.nickName}"></td>
-                                        <td> 
-                                            <form th:action="@{/friends/accept}" method="post">
-                                                <div class="input-group">
-                                                    <input type="hidden" th:value="${f1.id}" name="idUserFriend">
-                                                    <button type="submit" class="btn btn-outline-success"><i class="fas fa-user-plus"></i></button>
-                                                </div>
-                                            </form>
-                                        </td>
-                                    </tr> 
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <a th:href="@{server/allServers}" class="btn btn-primary mt-4"> ¡Vamos!</a>
             </div>
         </div>
-        <!--Zona chat-->
-        <div class="col-sm-7 col-xs-12 chat" style="overflow: hidden; outline: none;" tabindex="5001">
-            <div class="col-inside-lg ">
-                <div class="mx-1 d-flex flex-row">
-                    <span class="h4 col-9" style="text-align: left;">
-                        <span id='user-chat-name'>&nbsp;</span>
-                    </span>
-<!--                    <div class="h4 col-3" style="text-align: right;">
-                        <div class="dropleft">
-                            <a class="iconServer delete-trash" style="text-decoration: none" id="borrar-chat">
-                                <i class="far fa-trash-alt delete-trash" title="Eliminar chat"> </i>
-                            </a>
-                            <a class="iconServer tips delete-trash" title="Eliminar Amigo" id="borrar-amigo"><i class="fas fa-user-times delete-trash"></i></a>
-                        </div>
-                    </div>-->
-                </div>
-                <hr style="height: 2px;">
-                <div class="chat-body text-left">
-                    <div class="overflow-auto overflow-off-x mb-3" id="contentChat">
-                        <div style="text-align: left" class="ml-3 w-100" id="panelChat"></div>
-                    </div>
-                    <div class="row-sin-m">
-                        <div id="sendit" class="send-msg-field"></div>
-                    </div>
-                </div>
-
-<!--                                <div class="msg-text">
-                                    <div class="overflow-auto overflow-off-x mb-3" id="contentChat">
-                                        <div style="text-align: left" class="ml-5 mt-5" id="panelChat"></div>
-                                    </div>
-                                    <div class="row-sin-m">
-                                        <div id="sendit" class="send-msg-field"></div>
-                                    </div>
-                                </div>-->
-            </div>
-        </div>
-
-        <div class="col-sm-1"></div>  
     </div>
 
 </body>
