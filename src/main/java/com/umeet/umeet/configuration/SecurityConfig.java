@@ -25,7 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         //Solo permite el acceso a la url login y register, 
         //para acceder a cualquier otra se necesita estar autentificado
-        
+
+        http.authorizeRequests().anyRequest().permitAll();
+        http.csrf().disable();
+
+        /*
         http
             .csrf().disable()
             .authorizeRequests()
@@ -33,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/register").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/*.png").permitAll()
+                .antMatchers("/*").permitAll()
                 .antMatchers("/*").hasAnyRole("Usuario")
                 .anyRequest().authenticated()
                 .and()
@@ -46,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .deleteCookies("remember-me")
                 .and()
             .rememberMe().key("uniqueAndSecret");
-
++/
          /*   
          .csrf().disable()
          .authorizeRequests()
