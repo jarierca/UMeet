@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-public class UmeetApplication {
+public class UmeetBackApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UmeetApplication.class, args);
+		SpringApplication.run(UmeetBackApplication.class, args);
 	}
 
 }
