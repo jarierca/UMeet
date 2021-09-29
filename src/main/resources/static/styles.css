@@ -27,7 +27,7 @@ body {
     height: 300px;
     background: black;
     opacity: .3;
-   
+
 
 }
 #loading-screen{
@@ -479,20 +479,33 @@ mystyle:hover{
     background-color: #2f3136;
 }
 .serverImg{
-    position:relative;
-    overflow:hidden;
-    border-radius:5px;
-    width:300px;
-    height:200px;
-    margin-top: 10px;
+    /*    position:relative;
+        overflow:hidden;
+        border-radius:5px;
+        width:300px;
+        height:200px;
+        margin-top: 10px;
+        
+        text-align: center;*/
+    display: flex;
+    height: 200px;
+    width: 300px;
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
     -webkit-box-shadow: 0px 5px 35px -10px rgba(0,0,0,0.83); 
-    box-shadow: 0px 5px 35px -10px rgba(0,0,0,0.83);
-    text-align: center;
+        box-shadow: 0px 5px 35px -10px rgba(0,0,0,0.83);
 }
 .bgImg{
-    min-width:100%;
-    max-width:none;
-    margin:0 -100%;
+    /*        min-width:100%;
+            max-width:none;
+            margin:0 -100%;*/
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
 }
 .hola{
     display: flex;
