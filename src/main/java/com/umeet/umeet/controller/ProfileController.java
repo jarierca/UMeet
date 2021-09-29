@@ -28,10 +28,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@Controller
-@RequestMapping("/profile")
+@RestController
+@RequestMapping("/b/profile")
 public class ProfileController {
     
     @Value("${carpetas.recursos.umeet}")
@@ -48,38 +49,35 @@ public class ProfileController {
     
     //Visualizar los datos del user
     @GetMapping("/view")
-    public String view(Model m){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public User view(Model m, Long idUser){
         
-        Optional<User> profile = profileRepository.findById(u.getId());
+        Optional<User> profile = profileRepository.findById(idUser);
         if(profile.isPresent()){
             m.addAttribute("profile", profile.get());
         }else{
             m.addAttribute("error", "Error, el usuario no existe");
         }
-        return "profile/view";
+        return profile.get();
     }
     
     //Cargar vista con datos del user de la BBDD
     @GetMapping("/edit")
-    public String edit(Model m){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public User edit(Model m,Long idUser){
         
-        Optional<User> profile = profileRepository.findById(u.getId());
+        Optional<User> profile = profileRepository.findById(idUser);
         if(profile.isPresent()){
             m.addAttribute("profile", profile.get());
         }else{
             m.addAttribute("error", "Error, el usuario no existe");
         }
-        return "editProfile";
+        return profile.get();
     }
     
     //Modifica en la BBDD los datos editados
     @PostMapping("/modify")
-    public String modify(Model m, String nickName,String status, String email, MultipartFile avatar){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public void modify(Model m, String nickName,String status, String email, MultipartFile avatar, Long idUser){
         
-        Optional<User> user = profileRepository.findById(u.getId());
+        Optional<User> user = profileRepository.findById(idUser);
         user.get().setNickName(nickName);
         user.get().setEmail(email);
         user.get().setStatus(status);
@@ -101,7 +99,6 @@ public class ProfileController {
         }
         
         profileRepository.save(user.get());
-        return "redirect:view";
     }
     
     //Obtiene la imagen del avatar del user
@@ -128,30 +125,21 @@ public class ProfileController {
     
     //Borra los datos mediante el id del user
     @GetMapping("/remove")
-    public String remove(Model m){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        friendService.deleteFriendCascade(u.getId());
-        return "redirect:logout";
+    public void remove(Model m, Long idUser){
+        friendService.deleteFriendCascade(idUser);
     }
     
     //Modificar estado del user
     @PostMapping("/status")
-    public String status(String status){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        Optional<User> user = profileRepository.findById(u.getId());
+    public void status(String status, Long idUser){
+        Optional<User> user = profileRepository.findById(idUser);
         user.get().setStatus(status);
         profileRepository.save(user.get());
-        return "redirect:view";
     }
     
-    @ResponseBody
     @GetMapping("/statusDrop")
-    public void statusDrop(String status){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        Optional<User> user = profileRepository.findById(u.getId());
+    public void statusDrop(String status, Long idUser){
+        Optional<User> user = profileRepository.findById(idUser);
         user.get().setStatus(status);
         profileRepository.save(user.get());
     }
@@ -160,10 +148,8 @@ public class ProfileController {
     //Obtiene los datos del user
     @GetMapping("/getUser")
     @ResponseBody
-    public UserDto getUser(Model m){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-         
-        Optional<User> user = profileRepository.findById(u.getId());
+    public UserDto getUser(Model m, Long idUser){
+        Optional<User> user = profileRepository.findById(idUser);
         UserDto userDto = mapper.map(user.get(), UserDto.class);
         
         //m.addAttribute("user",user.get());
