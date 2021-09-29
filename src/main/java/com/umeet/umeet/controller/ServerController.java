@@ -130,7 +130,7 @@ public class ServerController {
         data.put("serverDto", serverDto);
         data.put("file", file);
         data.put("idUser", u.getId());
-        serverFeign.addServer(data);
+        //serverFeign.addServer(data);
         return "redirect:/server/one?idServer="+serverDto.getId();
     }
 
