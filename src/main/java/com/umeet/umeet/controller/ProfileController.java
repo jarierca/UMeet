@@ -77,28 +77,8 @@ public class ProfileController {
     public String modify(Model m, String nickName,String status, String email, MultipartFile avatar){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Optional<User> user = profileRepository.findById(u.getId());
-        user.get().setNickName(nickName);
-        user.get().setEmail(email);
-        user.get().setStatus(status);
+        profileFeign.modify(nickName, status, email, avatar, u.getId());
         
-
-        if (!avatar.isEmpty()) {
-
-            String ruta = rutaRecursos + "/avatar/users/" + user.get().getUsername() + ".png";
-            File f = new File(ruta);
-            f.getParentFile().mkdirs();
-            try {
-                Files.copy(avatar.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
-                m.addAttribute("error", "Error inesperado");
-            }
-
-            user.get().setAvatar(ruta);
-        }
-        
-        profileRepository.save(user.get());
         return "redirect:view";
     }
     
