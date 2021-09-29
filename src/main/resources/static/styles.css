@@ -642,6 +642,14 @@ th{
 }
 
 /*****************CHAT BODY *******************/
+
+/*Tamaño panel chat*/
+#div contentChat{
+    display: flex;
+    flex-flow: column;
+    height: 80%;
+}
+
 .chat-body h6 {
     font-size: 20px;
     margin: 0 0 20px;
