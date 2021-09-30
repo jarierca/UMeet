@@ -1,8 +1,7 @@
 package com.umeet.umeet.feign;
 
-import com.umeet.umeet.configuration.FeignConfig;
 import com.umeet.umeet.dtos.ServerDto;
-import com.umeet.umeet.entities.Server;
+import com.umeet.umeet.dtos.ViewServerDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.http.MediaType;
@@ -10,11 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 
 
 @FeignClient(contextId = "feign2", name = "UMeetBack", url= "http://localhost:8082")
-@RequestMapping("/b/servers")
+@RequestMapping("/b/server")
 public interface ServerFeign {
 
     @GetMapping("/allServers")
@@ -29,7 +27,12 @@ public interface ServerFeign {
     @PostMapping(value="/addServer", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ServerDto addServer(@RequestParam Long idUser, @SpringQueryMap ServerDto serverDto, @RequestPart(value = "file") MultipartFile file);
 
-    @PostMapping(value = "/upload-file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    String fileUpload(@RequestPart(value = "file") MultipartFile file);
+    @PostMapping("/byUser")
+    public List<ServerDto> getServersByUser(@RequestParam Long idUser);
 
+    @DeleteMapping("/{idServer}")
+    public void deleteServer(@PathVariable Long idServer);
+
+    @GetMapping("/one")
+    public ViewServerDto getViewServerDto(@RequestParam Long idUser, @RequestParam Long idServer);
 }
