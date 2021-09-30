@@ -34,14 +34,14 @@ public class UserServerRolController {
     UserServerRoleRepository userServerRoleRepository;
 
     @PostMapping("/joinServer")
-    public Server joinServer(Long idServer, Long idUser){
+    public Long joinServer(Long idServer, Long idUser){
         User u = userRepository.getById(idUser);
         Rol rol = rolRepository.findById(2l).get();
         Server server = serverRepository.findById(idServer).get();
         User user = userRepository.findById(u.getId()).get();
         UserServerRole relation = new UserServerRole(null, user, rol, server);
         userServerRoleRepository.save(relation);
-        return server;
+        return server.getId(); 
     }
 
     @PostMapping("/leaveServer")
