@@ -5,18 +5,7 @@ import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.feign.ProfileFeign;
-import com.umeet.umeet.repositories.ProfileRepository;
-import com.umeet.umeet.services.FriendService;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.util.Optional;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -31,31 +20,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
-    
-    @Value("${carpetas.recursos.umeet}")
-    private String rutaRecursos; 
-    
-    @Autowired
-    private ModelMapper mapper;
-    
+
     @Autowired
     private ProfileFeign profileFeign;
-    
-    @Autowired
-    ProfileRepository profileRepository;
-    
-    @Autowired
-    FriendService friendService;
     
     //Visualizar los datos del user
     @GetMapping("/view")
     public String view(Model m){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        User profile = profileFeign.view(u.getId());
+        UserDto profile = profileFeign.edit(u.getId());
         
         m.addAttribute("profile", profile);
         
@@ -67,7 +48,8 @@ public class ProfileController {
     public String edit(Model m){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
-        User profile = profileFeign.edit(u.getId());
+        UserDto profile = profileFeign.edit(u.getId());
+        m.addAttribute("profile", profile);
         
         return "editProfile";
     }
@@ -118,7 +100,7 @@ public class ProfileController {
     public String status(String status){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        profileFeign.status(u.getId());
+        profileFeign.status(status, u.getId());
         return "redirect:view";
     }
     
@@ -127,7 +109,7 @@ public class ProfileController {
     public void statusDrop(String status){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        profileFeign.statusDrop(u.getId());
+        profileFeign.statusDrop(status, u.getId());
     }
     
     //Obtiene los datos del user

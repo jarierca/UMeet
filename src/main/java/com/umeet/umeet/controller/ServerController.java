@@ -77,7 +77,7 @@ public class ServerController {
     @GetMapping("/deleteServer")
     public String deleteServer(Long idServer) {
         serverFeign.deleteServer(idServer);
-        return "redirect:home";
+        return "redirect:/home";
     }
 
     @GetMapping("/one")

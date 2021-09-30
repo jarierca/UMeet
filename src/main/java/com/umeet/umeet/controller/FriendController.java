@@ -1,18 +1,12 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.ListasFriendDto;
-import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Friend;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.feign.FriendFeign;
 import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
-import com.umeet.umeet.services.FriendService;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/friends")
@@ -35,9 +31,6 @@ public class FriendController {
 
     @Autowired
     private UserRepository userRepo;
-
-    @Autowired
-    private FriendService friendService;
 
     @Autowired
     private ModelMapper mapper;
