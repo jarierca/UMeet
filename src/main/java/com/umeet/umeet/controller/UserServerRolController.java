@@ -20,8 +20,8 @@ public class UserServerRolController {
     @GetMapping("/joinServer")
     public String joinServer(Long idServer){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        Server server = usrFeign.joinServer(idServer, u.getId());
-        return "redirect:/server/one?idServer=" + server.getId();
+        Long server = usrFeign.joinServer(idServer, u.getId());
+        return "redirect:/server/one?idServer=" + server;
     }
 
     @GetMapping("/leaveServer")

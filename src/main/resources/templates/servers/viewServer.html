@@ -27,13 +27,13 @@
                                         </a>
                                         <div class="dropdown-menu text-center">
                                             <a th:onclick="|editCategory(null,${category.id})|" class="col-1 text-white">
-                                                &nbsp;<i class="far fa-edit tips" title="Añadir Categoria"></i>
+                                                &nbsp;<i class="far fa-edit tips" title="Editar Categoria"></i>
                                             </a>
                                             <a th:href="@{/category/deleteCategory(idCategory=${category.id})}" class="col-1 delete-trash">
                                                 &nbsp;<i class="far fa-trash-alt tips delete-trash" title="Borrar Categoria"></i>
                                             </a>
                                             <a th:onclick="|editChannel(${category.id})|" class="col-1 text-white"
-                                               >&nbsp;<i class="fas fa-plus tips" title="Editar Categoria"></i>
+                                               >&nbsp;<i class="fas fa-plus tips" title="Añadir Categoria"></i>
                                             </a>
                                         </div>
                                     </div>

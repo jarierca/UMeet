@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserServerRoleFeign {
     
     @PostMapping("/joinServer")
-    public Server joinServer(@RequestParam Long idServer, @RequestParam Long idUser);
+    public Long joinServer(@RequestParam Long idServer, @RequestParam Long idUser);
     
     @PostMapping("/leaveServer")
     public void leaveServer(@RequestParam Long idServer, @RequestParam Long idUser);
