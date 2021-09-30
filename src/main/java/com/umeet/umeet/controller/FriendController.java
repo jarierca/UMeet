@@ -147,7 +147,7 @@ public class FriendController {
     }
 
     @PostMapping("/addFriend")
-    public List<User> addUser(Long idUser, Friend friend, Long idUserFriend) {
+    public List<UserDto> addUser(Long idUser, Friend friend, Long idUserFriend) {
         User u = userRepo.findById(idUser).get();
 
         friend.setStatus("invitado");
@@ -158,8 +158,8 @@ public class FriendController {
         friendRepo.save(friend);
 
         List<User> amigos = friendRepo.findByAmigos((idUserFriend), "invitado");
-
-        return amigos;
+        
+        return amigos.stream().map(x->mapper.map(x, UserDto.class)).collect(toList());
 
     }
 

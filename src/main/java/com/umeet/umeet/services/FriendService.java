@@ -1,5 +1,6 @@
 package com.umeet.umeet.services;
 
+import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.entities.Friend;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.interfaces.IFriendService;
