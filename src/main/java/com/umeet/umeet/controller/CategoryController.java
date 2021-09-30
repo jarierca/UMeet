@@ -1,7 +1,9 @@
 package com.umeet.umeet.controller;
 
+import com.umeet.umeet.dtos.CategoryDto;
 import com.umeet.umeet.entities.Category;
 import com.umeet.umeet.repositories.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,9 @@ public class CategoryController {
 
     @Autowired
     MessageFileRepository messageFileRepository;
+
+    @Autowired
+    private ModelMapper mapper;
 
     /* @GetMapping("/form")
     public String viewCategoryCreation(Model model, Long idCategory, Long idServer) {
@@ -65,14 +70,11 @@ public class CategoryController {
         return "redirect:server/one?idServer="+category.getServer().getId();
     }*/
     @PostMapping("/addCategory")
-    public Category addCategory(Category category, Long idServer) {
+    public CategoryDto addCategory(Category category, Long idServer) {
         category.setServer(serverRepository.findById(idServer).get());
-        if (category.getName() == null || ("").equals(category.getName())) {
-
-        }
-        categoryRepository.save(category);
-        return category;
-
+        category = categoryRepository.save(category);
+        CategoryDto categoryDto = mapper.map(category, CategoryDto.class);
+        return categoryDto;
     }
 
     /* @GetMapping("/deleteCategory")
