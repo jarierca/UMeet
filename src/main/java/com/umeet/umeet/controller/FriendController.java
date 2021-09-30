@@ -2,7 +2,6 @@ package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.ListasFriendDto;
 import com.umeet.umeet.dtos.UserDto;
-import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Friend;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.FriendRepository;
@@ -11,19 +10,18 @@ import com.umeet.umeet.services.FriendService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 import java.util.stream.Stream;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Controller
-@RequestMapping("/friends")
+@RequestMapping("/b/friends")
 @RestController
 
 public class FriendController {
@@ -77,10 +75,10 @@ public class FriendController {
 
 //Filter friends    
     @PostMapping("/friendsFilter")
-    public List<User> filterFriend(String username, Long idUser) {
+    public List<UserDto> filterFriend(String username, Long idUser) {
 
         User u = userRepo.findById(idUser).get();
-
+        List<UserDto> nueva = null;
         List<User> aux2 = null;
         if (username == null || ("").equals(username)) {
             aux2 = friendService.sendFriendList(u.getId());
@@ -103,13 +101,14 @@ public class FriendController {
             aux2 = yo.stream()
                     .filter(x -> x.getUsername().toLowerCase().indexOf(username.toLowerCase()) != -1 || x.getNickName().toLowerCase().indexOf(username.toLowerCase()) != -1)
                     .collect(Collectors.toList());
-        }
 
-        return aux2;
+        }
+        nueva = aux2.stream().map(x -> mapper.map(x, UserDto.class)).collect(toList());
+        return nueva;
     }
 
     @PostMapping("/foundUser")
-    public List<User> userInvite(String username, Long idUser) {
+    public List<UserDto> userInvite(String username, Long idUser) {
 
         User u = userRepo.findById(idUser).get();
 
@@ -139,8 +138,9 @@ public class FriendController {
 
         yo.addAll(yo2);
 
-        List<User> aux2 = aux3.stream()
+        List<UserDto> aux2 = aux3.stream()
                 .filter(x -> yo.contains(x) == false)
+                .map(x -> mapper.map(x, UserDto.class))
                 .collect(Collectors.toList());
 
         return aux2;
@@ -166,7 +166,7 @@ public class FriendController {
     @PostMapping("/accept")
     public User accept(Long idUser, Long idUserFriend) {
         User u = userRepo.findById(idUser).get();
-        
+
         User user = userRepo.findById(idUserFriend).get();
         User user2 = userRepo.findById(u.getId()).get();
         Friend f1 = friendRepo.findByUser1AndUser2(user, user2);
@@ -181,9 +181,8 @@ public class FriendController {
     }
 
     @GetMapping("/removeFriend")
-    public void remove(Long idUser,Long idFriend) {
+    public void remove(Long idUser, Long idFriend) {
         User u = userRepo.findById(idUser).get();
-      
 
         List<Friend> relacionAmigo = friendRepo.findAll();
 
@@ -192,7 +191,7 @@ public class FriendController {
                 .findFirst();
 
         friendService.removeFriend(amigo.get());
-       
+
     }
 
 }

@@ -1,8 +1,6 @@
 package com.umeet.umeet.controller;
 
-import com.umeet.umeet.dtos.CategoryViewDto;
-import com.umeet.umeet.dtos.ServerDto;
-import com.umeet.umeet.dtos.UserValidacionDto;
+import com.umeet.umeet.dtos.*;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.UserServerRole;
@@ -27,8 +25,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Controller
-@RequestMapping("/server")
+@RestController
+@RequestMapping("/b/server")
 public class ServerController {
 
     @Value("${carpetas.recursos.umeet}")
@@ -55,7 +53,6 @@ public class ServerController {
     @Autowired
     private ModelMapper mapper;
 
-//    @PostMapping("/allServers")
     @GetMapping("/allServers2")
     public Map<String, Object> allServers2(Long idUsuario) {
         Map<String, Object> m = new HashMap<>();
@@ -79,28 +76,9 @@ public class ServerController {
         return servers;
     }
 
-    /*@GetMapping("/byUser")
-    public String serverByUser(Model m) {
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        //m.addAttribute("user", userRepository.findById(userId).get());
-        User user = userRepository.findById(u.getId()).get();
-        List<UserServerRole> aux = userServerRoleRepository.findByUser(user);
-        if (!aux.isEmpty()){
-            List<Server> usr = userServerRoleRepository.findByUser(user).stream().map(x->x.getServer()).collect(Collectors.toList());
-            m.addAttribute("server", usr);
-        }else{
-            m.addAttribute("server", new Server());
-        }
-       return "servers/byUser";
-        
-    }
-     */
-    @ResponseBody
     @PostMapping("/byUser")
-    public List<ServerDto> serverByUserJson(Model m) {
-        UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        //m.addAttribute("user", userRepository.findById(userId).get());
-        User user = userRepository.findById(u.getId()).get();
+    public List<ServerDto> serverByUserJson(Long idUser) {
+        User user = userRepository.findById(idUser).get();
         List<UserServerRole> aux = userServerRoleRepository.findByUser(user);
         if (!aux.isEmpty()) {
             List<ServerDto> usr = userServerRoleRepository.findByUser(user).stream().map(x -> mapper.map(x.getServer(), ServerDto.class)).collect(Collectors.toList());
@@ -183,29 +161,35 @@ public class ServerController {
         return "redirect:/server/one?idServer=" + server.getId();
     }
 
-    @GetMapping("/deleteServer")
-    public String deleteServer(Long idServer) {
+    @DeleteMapping("/{idServer}")
+    public void deleteServer(@PathVariable Long idServer) {
         serverRepository.deleteById(idServer);
-        return "redirect:server/byUser";
     }
 
     @GetMapping("/one")
-    public String viewServer(Model model, Long idServer) {
-        UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public ViewServerDto viewServer(Long idUser, Long idServer) {
         Server server = serverRepository.findById(idServer).get();
-        User user = userRepository.findById(u.getId()).get();
+        ServerDto serverDto = mapper.map(server, ServerDto.class);
+
+        User user = userRepository.findById(idUser).get();
+
         List<CategoryViewDto> categories = categoryRepository.findByServer(server).stream()
                 .map(x -> mapper.map(x, CategoryViewDto.class))
                 .collect(Collectors.toList());
-        UserServerRole usr = userServerRoleRepository.findByUserAndServer(user, server).get();
 
-        List<UserServerRole> userServer = userServerRoleRepository.findByServer(serverRepository.findById(idServer).get());
+        UserServerRolDto usr = mapper.map(userServerRoleRepository.findByUserAndServer(user, server).get(), UserServerRolDto.class) ;
 
-        model.addAttribute("server", server);
-        model.addAttribute("userServer", userServer);
-        model.addAttribute("usr", usr);
-        model.addAttribute("categories", categories);
-        model.addAttribute("idServer", idServer);
-        return "servers/viewServer";
+        List<UserServerRolDto> userServerRoles = userServerRoleRepository.findByServer(server)
+                .stream()
+                .map(x->mapper.map(x, UserServerRolDto.class))
+                .collect(Collectors.toList());
+
+        ViewServerDto viewServerDto = new ViewServerDto();
+        viewServerDto.setServer(serverDto);
+        viewServerDto.setCategories(categories);
+        viewServerDto.setUsr(usr);
+        viewServerDto.setUserServerRoles(userServerRoles);
+
+        return viewServerDto;
     }
 }
