@@ -22,4 +22,5 @@ public class ServerDto {
     private String name;
     private String description;
     private String avatar;
+
 }
