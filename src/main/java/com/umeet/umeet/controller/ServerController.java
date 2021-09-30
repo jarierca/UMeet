@@ -9,6 +9,7 @@ import com.umeet.umeet.repositories.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -125,10 +126,8 @@ public class ServerController {
     }
 
     @PostMapping("/addServer")
-    public String addServer(Map<String, Object> data) {
-        Server server = mapper.map(data.get("serverDto"), Server.class);
-        Long idUser = (Long) data.get("idUser");
-        MultipartFile file = (MultipartFile) data.get("file");
+    public ServerDto addServer(Long idUser, ServerDto serverDto, MultipartFile file) {
+        Server server = mapper.map(serverDto, Server.class);
         String avatarServer = "";
         if (server.getId() == null) {
             avatarServer = rutaRecursos + "/avatar/server-stock.png";
@@ -158,7 +157,8 @@ public class ServerController {
             userServerRole.setServer(server);
             userServerRoleRepository.save(userServerRole);
         }
-        return "redirect:/server/one?idServer=" + server.getId();
+        serverDto = mapper.map(server, ServerDto.class);
+        return serverDto;
     }
 
     @DeleteMapping("/{idServer}")
