@@ -1,5 +1,6 @@
 package com.umeet.umeet.controller;
 
+import com.umeet.umeet.dtos.CategoryDto;
 import com.umeet.umeet.entities.Category;
 import com.umeet.umeet.feign.CategoryFeign;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,11 @@ public class CategoryController {
 
     @PostMapping("/addCategory")
     public String addCategory(Category category, Long idServer) {
+        if(category.getName()==null || ("").equals(category.getName())){
+            return "redirect:/server/one?idServer=" + idServer;
+        }
 
-        Category cat = catFeign.addCategory(category.getId(), category.getName(),idServer);
+        CategoryDto cat = catFeign.addCategory(category.getId(), category.getName(),idServer);
 
         return "redirect:/server/one?idServer=" + cat.getServer().getId();
     }

@@ -5,6 +5,7 @@
  */
 package com.umeet.umeet.feign;
 
+import com.umeet.umeet.dtos.CategoryDto;
 import com.umeet.umeet.entities.Category;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.ui.Model;
@@ -22,7 +23,7 @@ public interface CategoryFeign {
     public Category viewCategoryCreation(@RequestParam Long idCategory, @RequestParam Long idServer);
     
     @PostMapping("/addCategory")
-    public Category addCategory(@RequestParam Long id, @RequestParam String name, @RequestParam Long idServer);
+    public CategoryDto addCategory(@RequestParam Long id, @RequestParam String name, @RequestParam Long idServer);
     
     @GetMapping("/deleteCategory")
     public Long deleteCategory(@RequestParam Long idCategory);
