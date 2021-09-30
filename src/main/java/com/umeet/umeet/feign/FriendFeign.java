@@ -25,7 +25,7 @@ public interface FriendFeign {
     public List<User> userInvite(@RequestParam String username, @RequestParam Long idUser);
 
     @PostMapping("/addFriend")
-    public List<User> addUser(@RequestParam Long idUser, @RequestParam Long id, @RequestParam String status, @RequestParam Long idUserFriend);
+    public List<User> addUser(@RequestParam Long idUser, @RequestParam Long id, @RequestParam Long idUserFriend);
 
     @PostMapping("/accept")
     public User accept(@RequestParam Long idUser, @RequestParam Long idUserFriend);

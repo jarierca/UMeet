@@ -1,4 +1,5 @@
 package com.umeet.umeet.controller;
+
 import com.umeet.umeet.dtos.ListasFriendDto;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/friends")
 
 public class FriendController {
+
     @Autowired
     private FriendFeign friendFeign;
 
@@ -36,7 +38,7 @@ public class FriendController {
 
     @Autowired
     private FriendService friendService;
-    
+
     @Autowired
     private ModelMapper mapper;
 //List friends
@@ -44,8 +46,8 @@ public class FriendController {
     @GetMapping("/friendsList") //Va la vista poniendo detras ?idUser=1 (http://localhost:8090/friends/friendsList?idUser=3)
     public String listFriends(Model m) {
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        ListasFriendDto listita = friendFeign.listFriends(u.getId());  
-        
+        ListasFriendDto listita = friendFeign.listFriends(u.getId());
+
         m.addAttribute("friendsAccepted", listita.getFriendsAccepted());
         m.addAttribute("friendsPendingEnviado", listita.getFriendsPendingEnviado());
         m.addAttribute("friendsPendingRecibido", listita.getFriendsPendingRecibido());
@@ -57,33 +59,10 @@ public class FriendController {
     @PostMapping("/friendsFilter")
     public String filterFriend(Model m, String username) {
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        List<User> aux2 = null;
-        if (username == null || ("").equals(username)) {
-            aux2 = friendService.sendFriendList(u.getId());
 
-        } else {
-            
-            List<Friend> friend1 = friendRepo.findByUser1AndStatus(userRepo.getById(u.getId()),"aceptado");
-            List<Friend> friend2 = friendRepo.findByUser2AndStatus(userRepo.getById(u.getId()),"aceptado");
-            
-//            friend1.addAll(friend2);
-            List<User> yo = friend1.stream()
-                    .map(x->x.getUser2())
-                    .collect(Collectors.toList());
-            
-            List<User> yo2 = friend2.stream()
-                    .map(x->x.getUser1())
-                    .collect(Collectors.toList());
-            
-            
-            yo.addAll(yo2);
-            
-            aux2 = yo.stream()
-                    .filter(x->x.getUsername().toLowerCase().indexOf(username.toLowerCase())!= -1 || x.getNickName().toLowerCase().indexOf(username.toLowerCase()) != -1)
-                    .collect(Collectors.toList());
-        }
+        List<User> filtrados = friendFeign.filterFriend(username, u.getId());
 
-        m.addAttribute("name", aux2);
+        m.addAttribute("name", filtrados);
 
         return "friends/filteredFriends";
     }
@@ -98,41 +77,10 @@ public class FriendController {
     @PostMapping("/foundUser")
     public String userInvite(Model m, String username) {
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
- 
-        List<User> aux = userRepo.findByUsernameContaining(username);
-        if (!aux.isEmpty()) {
-        }
 
-        List<User> aux1 = userRepo.findByNickNameContaining(username);
-        if (!aux1.isEmpty()) {
-        }
-        
-        List<User> aux3 = Stream.concat(aux.stream(), aux1.stream())
-                .filter(x-> !x.getId().equals(u.getId()))
-                .distinct()
-                .collect(Collectors.toList());
-        
-        
+       List <User> encontrados = friendFeign.userInvite(username, u.getId());
 
-        List<Friend> friend1 = friendRepo.findByUser1(userRepo.getById(u.getId()));
-        List<Friend> friend2 = friendRepo.findByUser2(userRepo.getById(u.getId()));
-        
-        List<User> yo = friend1.stream()
-                    .map(x->x.getUser2())
-                    .collect(Collectors.toList());
-            
-            List<User> yo2 = friend2.stream()
-                    .map(x->x.getUser1())
-                    .collect(Collectors.toList());
-        
-        yo.addAll(yo2);
-            
-        List<User>  aux2 = aux3.stream()
-                    .filter(x->yo.contains(x)==false )
-                    .collect(Collectors.toList());
-              
-        
-        m.addAttribute("name", aux2);
+        m.addAttribute("name", encontrados);
 
         return "friends/searchResultFriends";
     }
@@ -142,57 +90,42 @@ public class FriendController {
         /*if (idUser == null) {
             return "redirect:profile/logout";
         }*/
-
-        friend.setStatus("invitado");
-
+        
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        friend.setUser1(userRepo.findById(u.getId()).get());
-        friend.setUser2(userRepo.findById(idUserFriend).get());
 
-        friendRepo.save(friend);
+       List<User> addUser = friendFeign.addUser(u.getId(), friend.getId(), idUserFriend);
 
-//        List<Friend> aux = friendRepo.findByUser1OrUser2(userRepo.findById(u.getId()).get());
-        List<User> amigos = friendRepo.findByAmigos((idUserFriend), "invitado");
-
-        m.addAttribute("friendsPending", amigos);
+        m.addAttribute("friendsPending", addUser);
 
         return "redirect:friendsList";
     }
-    
+
     @PostMapping("/accept")
     public String accept(Model m, Long idUserFriend) {
-        
-       
-        
+
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 //        friend.setUser1(userRepo.findById(u.getId()).get());
 //        friend.setUser2(userRepo.findById(idUserFriend).get());
-        
+
         User user = userRepo.findById(idUserFriend).get();
         User user2 = userRepo.findById(u.getId()).get();
-        
+
         Friend f1 = friendRepo.findByUser1AndUser2(user, user2);
-        
+
         f1.setStatus("aceptado");
 
         friendRepo.save(f1);
 
         return "redirect:home";
     }
-     
-    
+
     @GetMapping("/removeFriend")
-    public String remove(Long idFriend){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        List<Friend> relacionAmigo = friendRepo.findAll();
-        
-        Optional<Friend> amigo = relacionAmigo.stream()
-                .filter(x->x.getUser1().getId().equals(u.getId()) && x.getUser2().getId().equals(idFriend) || x.getUser1().getId().equals(idFriend) && x.getUser2().getId().equals(u.getId()) )
-                .findFirst();
-        
-        friendService.removeFriend(amigo.get());
+    public String remove(Long idFriend) {
+        UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+       friendFeign.remove(u.getId(), idFriend);
+       
         return "redirect:friendsList";
-    }  
+    }
 
 }
