@@ -254,7 +254,7 @@ function chatPrivado(idDestino, nameDestino) {
 //                                $("<tr>").html("<div class='h2 mx-2 my-2 pt-4 pl-3 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
             $("#panelChat").html("");
             for (x of pJson) {
-                if (x.user.username != userId.username) {
+                if (x.user.username == userId.username) {
                     $("<div>").html('<div class="answer right mx-4 pb-4">' +
                             '<div class="avatar mb-4">' +
                             '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
@@ -397,7 +397,7 @@ function confirmServer(idServer, title, url) {
                         idServer: idServer
                     },
                     success: function (html) {
-                        window.location = "/home";
+                        window.location="/friends/friendsList";
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -451,7 +451,7 @@ function removeFriend(idFriend){
                     type: "GET",
                     url: "/friends/removeFriend?idFriend=" + idFriend,
                     success: function (pJson) {
-
+                        location.reload();
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);

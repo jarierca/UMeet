@@ -4,6 +4,7 @@ package com.umeet.umeet.controller;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.User;
+import com.umeet.umeet.feign.ProfileFeign;
 import com.umeet.umeet.repositories.ProfileRepository;
 import com.umeet.umeet.services.FriendService;
 import java.io.File;
@@ -41,6 +42,9 @@ public class ProfileController {
     private ModelMapper mapper;
     
     @Autowired
+    private ProfileFeign profileFeign;
+    
+    @Autowired
     ProfileRepository profileRepository;
     
     @Autowired
@@ -51,12 +55,10 @@ public class ProfileController {
     public String view(Model m){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Optional<User> profile = profileRepository.findById(u.getId());
-        if(profile.isPresent()){
-            m.addAttribute("profile", profile.get());
-        }else{
-            m.addAttribute("error", "Error, el usuario no existe");
-        }
+        User profile = profileFeign.view(u.getId());
+        
+        m.addAttribute("profile", profile);
+        
         return "profile/view";
     }
     
@@ -64,13 +66,9 @@ public class ProfileController {
     @GetMapping("/edit")
     public String edit(Model m){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        User profile = profileFeign.edit(u.getId());
         
-        Optional<User> profile = profileRepository.findById(u.getId());
-        if(profile.isPresent()){
-            m.addAttribute("profile", profile.get());
-        }else{
-            m.addAttribute("error", "Error, el usuario no existe");
-        }
         return "editProfile";
     }
     
@@ -79,28 +77,8 @@ public class ProfileController {
     public String modify(Model m, String nickName,String status, String email, MultipartFile avatar){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Optional<User> user = profileRepository.findById(u.getId());
-        user.get().setNickName(nickName);
-        user.get().setEmail(email);
-        user.get().setStatus(status);
+        profileFeign.modify(nickName, status, email, avatar, u.getId());
         
-
-        if (!avatar.isEmpty()) {
-
-            String ruta = rutaRecursos + "/avatar/users/" + user.get().getUsername() + ".png";
-            File f = new File(ruta);
-            f.getParentFile().mkdirs();
-            try {
-                Files.copy(avatar.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
-                m.addAttribute("error", "Error inesperado");
-            }
-
-            user.get().setAvatar(ruta);
-        }
-        
-        profileRepository.save(user.get());
         return "redirect:view";
     }
     
@@ -131,7 +109,7 @@ public class ProfileController {
     public String remove(Model m){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        friendService.deleteFriendCascade(u.getId());
+        profileFeign.remove(u.getId());
         return "redirect:logout";
     }
     
@@ -140,9 +118,7 @@ public class ProfileController {
     public String status(String status){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Optional<User> user = profileRepository.findById(u.getId());
-        user.get().setStatus(status);
-        profileRepository.save(user.get());
+        profileFeign.status(u.getId());
         return "redirect:view";
     }
     
@@ -151,11 +127,8 @@ public class ProfileController {
     public void statusDrop(String status){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Optional<User> user = profileRepository.findById(u.getId());
-        user.get().setStatus(status);
-        profileRepository.save(user.get());
+        profileFeign.statusDrop(u.getId());
     }
-    
     
     //Obtiene los datos del user
     @GetMapping("/getUser")
@@ -163,10 +136,8 @@ public class ProfileController {
     public UserDto getUser(Model m){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
          
-        Optional<User> user = profileRepository.findById(u.getId());
-        UserDto userDto = mapper.map(user.get(), UserDto.class);
+        UserDto userDto = profileFeign.getUser(u.getId());
         
-        //m.addAttribute("user",user.get());
         return userDto;
     }           
 }

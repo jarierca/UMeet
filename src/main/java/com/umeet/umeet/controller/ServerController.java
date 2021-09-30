@@ -6,6 +6,7 @@ import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.UserServerRole;
+import com.umeet.umeet.feign.ServerFeign;
 import com.umeet.umeet.interfaces.IServerService;
 import com.umeet.umeet.repositories.*;
 import org.modelmapper.ModelMapper;
@@ -23,7 +24,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,34 +40,37 @@ public class ServerController {
     private String rutaRecursos;
 
     @Autowired
-    ServerRepository serverRepository;
+    private ServerRepository serverRepository;
 
     @Autowired
-    IServerService serverService;
+    private IServerService serverService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    RolRepository rolRepository;
+    private RolRepository rolRepository;
 
     @Autowired
-    UserServerRoleRepository userServerRoleRepository;
+    private UserServerRoleRepository userServerRoleRepository;
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private ModelMapper mapper;
 
+    @Autowired
+    private ServerFeign serverFeign;
+
 //    @PostMapping("/allServers")
     @GetMapping("/allServers")
     public String allServers(Model m) {
-        List<Server> allServers = serverRepository.findAll();
-        allServers = serverService.filterServers(allServers);
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        List<ServerDto> allServers = serverFeign.allServers(u.getId());
         m.addAttribute("nam", allServers);
 
-        return "servers/allServers";
+        return "/servers/allServers";
     }
 
     @GetMapping("/byUser")
@@ -100,64 +106,28 @@ public class ServerController {
     }
 
     @PostMapping("/filtered")
-    public String searchServer(Model m, String name) {
+    public String searchServer(Model m, String name, Long idUser) {
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        m.addAttribute("nam", serverFeign.filteredServers(name, u.getId()));
 
-        List<Server> aux = serverRepository.findByNameContaining(name);
-       
-        List<Server> aux1 = serverRepository.findByDescriptionContaining(name);
-        
-        List<Server> aux2 = Stream.concat(aux.stream(), aux1.stream())
-                .distinct()
-                .collect(Collectors.toList());
-        aux2 = serverService.filterServers(aux2);
-        m.addAttribute("nam", aux2);
-
-        return "servers/filteredServers";
+        return "/servers/filteredServers";
     }
 
     @GetMapping("/form")
     public String viewServerCreation(Model model, Long idServer) {
         if (idServer == null) {
-            model.addAttribute("server", new Server());
+            model.addAttribute("server", new ServerDto());
         } else {
-            model.addAttribute("server", serverRepository.findById(idServer));
+            model.addAttribute("server", serverFeign.viewServer(idServer));
         }
-        return "servers/formServer";
+        return "/servers/formServer";
     }
 
     @PostMapping("/addServer")
-    public String addServer(Server server, MultipartFile file) {
+    public String addServer(ServerDto serverDto, MultipartFile file) {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        String avatarServer = "";
-        if(server.getId()==null){
-            avatarServer = rutaRecursos+"/avatar/server-stock.png";
-        } else {
-            avatarServer = serverRepository.findById(server.getId()).get().getAvatar();
-        }
-        if(file.isEmpty()){
-            server.setAvatar(avatarServer);
-        } else {
-            String ruta = rutaRecursos + "/avatar/servers/" + server.getName() + ".png";
-            ruta = ruta.replace(" ", "-");
-            File f = new File(ruta);
-            f.getParentFile().mkdirs();
-            try{
-                Files.copy(file.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-            server.setAvatar(ruta);
-        }
-        server = serverRepository.save(server);
-        List<UserServerRole> userServerRoles = userServerRoleRepository.findByServer(server);
-        if(userServerRoles.isEmpty()){
-            UserServerRole userServerRole = new UserServerRole();
-            userServerRole.setUser(userRepository.findById(u.getId()).get());
-            userServerRole.setRol(rolRepository.findById(1l).get());
-            userServerRole.setServer(server);
-            userServerRoleRepository.save(userServerRole);
-        }
-        return "redirect:server/one?idServer="+server.getId();
+        serverDto = serverFeign.addServer(u.getId(), serverDto, file);
+        return "redirect:/server/one?idServer="+serverDto.getId();
     }
 
     @GetMapping("/deleteServer")

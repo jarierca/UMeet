@@ -26,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         //Solo permite el acceso a la url login y register, 
         //para acceder a cualquier otra se necesita estar autentificado
         
+        /*http.authorizeRequests().anyRequest().permitAll();
+        http.csrf().disable();*/
+        
         http
             .csrf().disable()
             .authorizeRequests()

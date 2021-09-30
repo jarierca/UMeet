@@ -1,14 +1,13 @@
 package com.umeet.umeet.controller;
-
+import com.umeet.umeet.dtos.ListasFriendDto;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
-import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.Friend;
 import com.umeet.umeet.entities.User;
+import com.umeet.umeet.feign.FriendFeign;
 import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
 import com.umeet.umeet.services.FriendService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/friends")
 
 public class FriendController {
+    @Autowired
+    private FriendFeign friendFeign;
 
     @Autowired
     private FriendRepository friendRepo;
@@ -43,43 +44,11 @@ public class FriendController {
     @GetMapping("/friendsList") //Va la vista poniendo detras ?idUser=1 (http://localhost:8090/friends/friendsList?idUser=3)
     public String listFriends(Model m) {
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-
-//        List<User> aceptados = friendService.sendFriendList(u.getId());
+        ListasFriendDto listita = friendFeign.listFriends(u.getId());  
         
-        List<UserDto> acepta1 = friendRepo.findAll().stream()
-                .filter(x->x.getStatus().equalsIgnoreCase("aceptado") && x.getUser1().getUsername().equalsIgnoreCase(u.getUsername()))
-                .map(x->mapper.map(x.getUser2(),UserDto.class ))
-                .collect(Collectors.toList());
-        
-        List<UserDto> acepta2 = friendRepo.findAll().stream()
-                .filter(x->x.getStatus().equalsIgnoreCase("aceptado") && x.getUser2().getUsername().equalsIgnoreCase(u.getUsername()))
-                .map(x->mapper.map(x.getUser1(),UserDto.class ))
-                .collect(Collectors.toList());
-        
-        
-        acepta1.addAll(acepta2);
-
-//        List< User> invitados = friendRepo.findByAmigos(u.getId(), "Invitado").stream()
-//                .distinct()
-//                .collect(Collectors.toList());
-        List<Friend> aux = friendRepo.findByUser1(userRepo.findById(u.getId()).get());
-        List<Friend> aux2 = friendRepo.findByUser2(userRepo.findById(u.getId()).get());
-        
-        List<UserDto> aceptadosUser1 = aux.stream()
-                .filter(x->x.getUser1().getUsername().equalsIgnoreCase(u.getUsername()) && !x.getStatus().equalsIgnoreCase("aceptado"))
-                .map(x->mapper.map(x.getUser2(), UserDto.class))
-                .collect(Collectors.toList());
-        
-        List<UserDto> aceptadosUser2 = aux2.stream()
-                .filter(x->x.getUser2().getUsername().equalsIgnoreCase(u.getUsername()) && !x.getStatus().equalsIgnoreCase("aceptado"))
-                .map(x->mapper.map(x.getUser1(), UserDto.class))
-                .collect(Collectors.toList());
-
-        
-        m.addAttribute("friendsAccepted", acepta1);
-        
-        m.addAttribute("friendsPendingEnviado", aceptadosUser1);
-        m.addAttribute("friendsPendingRecibido", aceptadosUser2);
+        m.addAttribute("friendsAccepted", listita.getFriendsAccepted());
+        m.addAttribute("friendsPendingEnviado", listita.getFriendsPendingEnviado());
+        m.addAttribute("friendsPendingRecibido", listita.getFriendsPendingRecibido());
 
         return "friends/view";
     }
