@@ -49,24 +49,26 @@ public class ProfileController {
     
     //Visualizar los datos del user
     @GetMapping("/view")
-    public User view(Long idUser){
+    public UserDto view(Long idUser){
         
         Optional<User> profile = profileRepository.findById(idUser);
+        UserDto dto = mapper.map(profile.get(), UserDto.class);
         
-        return profile.get();
+        return dto;
     }
     
     //Cargar vista con datos del user de la BBDD
     @GetMapping("/edit")
-    public User edit(Long idUser){
+    public UserDto edit(Long idUser){
         
         Optional<User> profile = profileRepository.findById(idUser);
-        return profile.get();
+        UserDto dto = mapper.map(profile.get(), UserDto.class);
+        return dto;
     }
     
     //Modifica en la BBDD los datos editados
     @PostMapping("/modify")
-    public void modify(Model m, String nickName,String status, String email, MultipartFile avatar, Long idUser){
+    public void modify(String nickName,String status, String email, MultipartFile file , Long idUser){
         
         Optional<User> user = profileRepository.findById(idUser);
         user.get().setNickName(nickName);
@@ -74,13 +76,13 @@ public class ProfileController {
         user.get().setStatus(status);
         
 
-        if (!avatar.isEmpty()) {
+        if (!file.isEmpty()) {
 
             String ruta = rutaRecursos + "/avatar/users/" + user.get().getUsername() + ".png";
             File f = new File(ruta);
             f.getParentFile().mkdirs();
             try {
-                Files.copy(avatar.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(file.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
                 e.printStackTrace();
             }
