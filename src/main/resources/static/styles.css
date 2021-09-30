@@ -794,3 +794,9 @@ th{
     }
 
 }
+
+@media(max-width:1550px){
+    .nav-hidden-h{
+        display: none;
+    }
+}

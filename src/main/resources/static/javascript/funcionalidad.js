@@ -203,6 +203,7 @@ function chat(idCanal, channelName) {
 
             $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
 //                        setTimeout(function(){chat(idCanal)}, 20000);
+            $("#sendMsg").focus();
         },
         error: function (xhr, status, error) {
             console.log(xhr.responseText);
@@ -294,6 +295,7 @@ function chatPrivado(idDestino, nameDestino) {
             salida.appendTo("#panelChat");
             $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
 //                        setTimeout(function(){chatPrivado(idDestino)}, 20000);
+            $("#sendMsg").focus();
         },
         error: function (xhr, status, error) {
             console.log(xhr.responseText);
