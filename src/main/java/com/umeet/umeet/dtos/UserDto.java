@@ -13,6 +13,7 @@ public class UserDto {
     private Long id;
     private String nickName;
     private String username;
+    private String email;
     private String avatar;
     private String status;
 }
