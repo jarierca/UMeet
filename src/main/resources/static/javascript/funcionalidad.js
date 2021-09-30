@@ -19,6 +19,15 @@ $(document).ready(function () {
         $("#pot").toggleClass("invis")
     }, 66000);
     //$("#pot").toggleClass("invis");
+    
+    
+    var config = $.cookie("config");
+    
+    if(config == "h"){
+        hBarOn();  
+    }else{
+        vBarOn();
+    }
 });
 function msgSize() {
     var height = $(window).height();
@@ -422,6 +431,8 @@ function hBarOn() {//12 H
 
     $("#cuerpo").removeClass("col-11");
     $("#cuerpo").addClass("col-12");
+    
+    $.cookie("config", "h", { path: '/' }, 20*365)
 
     msgSize();
 }
@@ -431,6 +442,8 @@ function vBarOn() {//11 V
 
     $("#cuerpo").removeClass("col-12");
     $("#cuerpo").addClass("col-11");
+    
+    $.cookie("config", "v", { path: '/' }, 20*365)
 
     msgSize();
 }
