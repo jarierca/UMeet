@@ -23,10 +23,10 @@ $(document).ready(function () {
     
     var config = $.cookie("config");
     
-    if(config == "h"){
-        hBarOn();  
+    if(config == "v"){
+        vBarOn();  
     }else{
-        vBarOn();
+        hBarOn();
     }
 });
 function msgSize() {
