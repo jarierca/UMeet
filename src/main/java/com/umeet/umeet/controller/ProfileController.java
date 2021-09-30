@@ -55,7 +55,7 @@ public class ProfileController {
     public String view(Model m){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        User profile = profileFeign.view(u.getId());
+        UserDto profile = profileFeign.edit(u.getId());
         
         m.addAttribute("profile", profile);
         
@@ -67,7 +67,8 @@ public class ProfileController {
     public String edit(Model m){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
-        User profile = profileFeign.edit(u.getId());
+        UserDto profile = profileFeign.edit(u.getId());
+        m.addAttribute("profile", profile);
         
         return "editProfile";
     }
@@ -118,7 +119,7 @@ public class ProfileController {
     public String status(String status){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        profileFeign.status(u.getId());
+        profileFeign.status(status, u.getId());
         return "redirect:view";
     }
     
@@ -127,7 +128,7 @@ public class ProfileController {
     public void statusDrop(String status){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        profileFeign.statusDrop(u.getId());
+        profileFeign.statusDrop(status, u.getId());
     }
     
     //Obtiene los datos del user

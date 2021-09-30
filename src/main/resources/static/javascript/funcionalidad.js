@@ -35,7 +35,7 @@ function loadProfile() {
     $.ajax({
         url: "/profile/getUser",
         success: function (pHtml) {
-
+                console.log(pHtml);
             $("#user-profile").html('<span class="name tips" title="Mas información">' + pHtml.username + '</span>');
             $("#user-status").html('<span class="avatar tips" style="position:absolute" title="Modifica tu estado">' +
                     '<img alt="Avatar" class="avatar" src="/profile/avatar?url=' + pHtml.avatar + '">' +

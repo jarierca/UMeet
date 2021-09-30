@@ -19,26 +19,24 @@ public interface ProfileFeign {
     
     
     @GetMapping("/view")
-    public User view(@RequestParam Long idUser);
+    public UserDto view(@RequestParam Long idUser);
     
     @GetMapping("/edit")
-    public User edit(@RequestParam Long idUser);
+    public UserDto edit(@RequestParam Long idUser);
     
     @PostMapping(value = "/modify", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void modify(@RequestParam String nickName, @RequestParam String status, @RequestParam String email,  @RequestPart(value = "file")  MultipartFile avatar, @RequestParam Long idUser);
+    public void modify(@RequestParam String nickName, @RequestParam String status, @RequestParam String email,  @RequestPart(value = "file")  MultipartFile file, @RequestParam Long idUser);
     
     @GetMapping("/remove")
     public void remove(@RequestParam Long idUser);
     
     @PostMapping("/status")
-    public void status(@RequestParam Long idUser);
+    public void status(@RequestParam String status, @RequestParam Long idUser);
     
     @GetMapping("/statusDrop")
-    public void statusDrop(@RequestParam Long idUser);
+    public void statusDrop(@RequestParam String status, @RequestParam Long idUser);
     
     @GetMapping("/getUser")
-    public UserDto getUser(@RequestParam  Long idUser);
+    public UserDto getUser(@RequestParam  Long idUser);    
     
-    @PostMapping(value = "/upload-file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    String fileUpload(@RequestPart(value = "file") MultipartFile file);
 }
