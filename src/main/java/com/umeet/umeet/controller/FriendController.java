@@ -1,5 +1,6 @@
 package com.umeet.umeet.controller;
 
+import com.umeet.umeet.dtos.ListasFriendDto;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Friend;
@@ -40,9 +41,9 @@ public class FriendController {
     private ModelMapper mapper;
 //List friends
 
-    @GetMapping("/friendsList") //Va la vista poniendo detras ?idUser=1 (http://localhost:8090/friends/friendsList?idUser=3)
-    public String listFriends(Model m) {
-        UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    @PostMapping("/friendsList") //Va la vista poniendo detras ?idUser=1 (http://localhost:8090/friends/friendsList?idUser=3)
+    public ListasFriendDto listFriends(Long idUser) {
+        User u = userRepo.findById(idUser).get();
 
         List<UserDto> acepta1 = friendRepo.findAll().stream()
                 .filter(x -> x.getStatus().equalsIgnoreCase("aceptado") && x.getUser1().getUsername().equalsIgnoreCase(u.getUsername()))
@@ -69,12 +70,9 @@ public class FriendController {
                 .map(x -> mapper.map(x.getUser1(), UserDto.class))
                 .collect(Collectors.toList());
 
-        m.addAttribute("friendsAccepted", acepta1);
+        ListasFriendDto listas = new ListasFriendDto(acepta1, aceptadosUser1, aceptadosUser2);
 
-        m.addAttribute("friendsPendingEnviado", aceptadosUser1);
-        m.addAttribute("friendsPendingRecibido", aceptadosUser2);
-
-        return "friends/view";
+        return listas;
     }
 
 //Filter friends    
