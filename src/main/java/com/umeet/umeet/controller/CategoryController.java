@@ -29,7 +29,7 @@ public class CategoryController {
 
         Category cat = catFeign.addCategory(category.getId(), category.getName(),idServer);
 
-        return "redirect:server/one?idServer=" + cat.getServer().getId();
+        return "redirect:/server/one?idServer=" + cat.getServer().getId();
     }
 
     @GetMapping("/deleteCategory")
@@ -37,7 +37,7 @@ public class CategoryController {
 
         Long idServer = catFeign.deleteCategory(idCategory);
 
-        return "redirect:server/one?idServer=" + idServer;
+        return "redirect:/server/one?idServer=" + idServer;
     }
 
 }
