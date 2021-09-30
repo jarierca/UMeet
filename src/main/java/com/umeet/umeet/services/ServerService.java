@@ -39,8 +39,7 @@ public class ServerService implements IServerService {
 
     @Override
     public List<Server> filterServers(List<Server> serversList, Long idUser) {
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        User user = userRepository.findById(u.getId()).get();
+        User user = userRepository.findById(idUser).get();
         List<Server> servers = userServerRoleRepository.findByUser(user).stream()
                 .map(x->x.getServer())
                 .collect(Collectors.toList());
