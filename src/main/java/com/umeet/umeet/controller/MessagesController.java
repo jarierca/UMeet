@@ -3,55 +3,22 @@ package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.MessageChannelDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
-import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
-import com.umeet.umeet.entities.MessageFile;
-import com.umeet.umeet.repositories.ChannelRepository;
-import com.umeet.umeet.repositories.MessageFileRepository;
-import com.umeet.umeet.repositories.MessageRepository;
-import com.umeet.umeet.repositories.UserRepository;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import org.modelmapper.ModelMapper;
+import com.umeet.umeet.feign.MessagesFeign;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import com.umeet.umeet.feign.MessagesFeign;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/msg")
 //@ResponseBody
 public class MessagesController {
-    
-    @Autowired
-    private MessageRepository repoMsg;
-   
-    @Autowired
-    private MessageFileRepository repoMsgFile;
-    
-    @Autowired
-    private ModelMapper mapper;
-    
-    @Autowired
-    private ChannelRepository repoChn;
-    
-    @Autowired
-    private UserRepository repoUsr;
-    
-    @Value("${carpetas.recursos.umeet}")
-    private String rutaRecursos; 
     
     @Autowired
     private MessagesFeign msgFeign;
