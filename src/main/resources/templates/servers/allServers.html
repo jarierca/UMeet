@@ -4,7 +4,7 @@
     <body >
 
         <div class="container">
-            <div class="col-11 banner mt-4 mb-4">
+            <div class="col-11 banner mt-4 mb-4" data-aos="fade-up">
 
                 <form action="/server/filtered" method="post" class="centrado">
                     <div class="input-group">
@@ -14,8 +14,8 @@
                 </form>     
             </div>
 
-            <div class="card-deck">
-                <div th:each="sv:${nam}"class="card text-white bg-dark mb-5 hola" style="min-width:20rem; max-width:20rem;">
+            <div class="card-deck" >
+                <div th:each="sv:${nam}"class="card text-white bg-dark mb-5 hola" data-aos="fade-up" style="min-width:20rem; max-width:20rem;">
 <!--                    <img src="/hola.jpg">-->
                 <div class="serverImg">
                     <img th:src="@{/profile/avatar(url=${sv.avatar})}" class="bgImg img-fluid mt-3" >

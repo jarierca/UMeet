@@ -5,25 +5,28 @@
  */
 package com.umeet.umeet.feign;
 
+import com.umeet.umeet.dtos.ChannelDto;
+import com.umeet.umeet.dtos.ChannelParamDto;
 import com.umeet.umeet.entities.Channel;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(contextId = "feignChannel", name = "UMeetBack", url= "http://localhost:8082")
-@RequestMapping("/b/category")
+@RequestMapping("/b/channel")
 public interface ChannelFeign {
 
     @GetMapping("/form")
-    public Channel viewChannelCreation(@RequestParam Long idChannel, @RequestParam  Long idCategory);
+    public ChannelDto viewChannelCreation(@RequestParam Long idChannel, @RequestParam  Long idCategory);
    
     @PostMapping("/addChannel")
-    public Channel addChannel(@RequestParam Long id, @RequestParam String name, @RequestParam Long idCategory);
+    public ChannelDto addChannel(@SpringQueryMap ChannelParamDto channelDto);
     
     @GetMapping("/deleteChannel")
     public Long deleteChannel(@RequestParam Long idChannel);
+
+    @GetMapping("/{idChannel}")
+    public ChannelDto getChannel(@PathVariable Long idChannel);
 
 }

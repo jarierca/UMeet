@@ -26,14 +26,14 @@
                                             <i class="fas fa-cog tips" title="Opciones de la categoria"></i>
                                         </a>
                                         <div class="dropdown-menu text-center">
-                                            <a th:onclick="|editCategory(null,${category.id})|" class="col-1 text-white">
-                                                &nbsp;<i class="far fa-edit tips" title="Añadir Categoria"></i>
+                                            <a th:onclick="|editCategory(${idServer},${category.id})|" class="col-1 text-white">
+                                                &nbsp;<i class="far fa-edit tips" title="Editar Categoria"></i>
                                             </a>
                                             <a th:href="@{/category/deleteCategory(idCategory=${category.id})}" class="col-1 delete-trash">
                                                 &nbsp;<i class="far fa-trash-alt tips delete-trash" title="Borrar Categoria"></i>
                                             </a>
-                                            <a th:onclick="|editChannel(${category.id})|" class="col-1 text-white"
-                                               >&nbsp;<i class="fas fa-plus tips" title="Editar Categoria"></i>
+                                            <a th:onclick="|editChannel(${category.id})|" class="col-1 text-white">
+                                                &nbsp;<i class="fas fa-plus tips" title="Añadir Canal"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -48,7 +48,7 @@
                                             <a th:if="${channel!=null}" th:attr="onclick=|chat('${channel.id}','${channel.name}')|" th:text="${channel.name}" id="accordation"></a>
 
                                             <div class="children-cat">
-                                                <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(null,${channel.id})|" style=":hover{color: #86C232}" class="text-white">
+                                                <a th:if="${usr.rol.id==1}" th:onclick="|editChannel(${category.id},${channel.id})|" style=":hover{color: #86C232}" class="text-white">
                                                     <i class="far fa-edit tips" title="Editar Canal"></i>
                                                 </a>
                                                 <a th:if="${usr.rol.id==1}" th:href="@{/channel/deleteChannel(idChannel=${channel.id})}" class="delete-trash">

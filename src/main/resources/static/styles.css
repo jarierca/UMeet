@@ -801,5 +801,21 @@ th{
     background-image: url("https://i.imgur.com/BdoBfP5.gif");
     background-repeat: no-repeat;
     background-size: 100%;
+}
 
+
+@media(max-width:1550px){
+    .nav-hidden-h{
+        display: none;
+    }
+}
+
+.magictime.slideRightReturn {
+    -webkit-animation-duration: 0.25s;
+    animation-duration: 0.25s;
+}
+
+.magictime.swashIn {
+    -webkit-animation-duration: 0.8s;
+    animation-duration: 0.8s;
 }
