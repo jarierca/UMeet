@@ -2,9 +2,7 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.MessageChannelDto;
-import com.umeet.umeet.dtos.MessageFileDto;
 import com.umeet.umeet.dtos.UserDto;
-import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
 import com.umeet.umeet.entities.MessageFile;
@@ -20,12 +18,11 @@ import java.nio.file.StandardCopyOption;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -134,8 +131,8 @@ public class MessagesController {
         
         msg.setChannel(repoChn.findById(id).get());
         msg.setUser(u);
-        msg.setName(msg.getUser().getNickName());
-        msg.setText("Fichero Subido");
+        msg.setName("Fichero");
+        msg.setText("Fichero");
         
         mensajeCanal(msg, id, idUser);
         
@@ -144,7 +141,7 @@ public class MessagesController {
         
         msgFile.setName(u.getUsername());
         
-        String ruta = rutaRecursos + "/file/" + file.getOriginalFilename();
+        String ruta = rutaRecursos + "/file/channel/"+id+"/"+ UUID.randomUUID().toString()+"_"+file.getOriginalFilename();
         File f = new File(ruta);
         f.getParentFile().mkdirs();
         try {
@@ -178,7 +175,7 @@ public class MessagesController {
         
         msg.setUserDestiny(repoUsr.findById(id).get());
         msg.setUser(u);
-        msg.setName(msg.getUser().getNickName());
+        msg.setName("Fichero");
         msg.setText("Fichero Subido");
         
         mensajePrivado(msg, id, idUser);
@@ -188,7 +185,7 @@ public class MessagesController {
         
         msgFile.setName(u.getUsername());
         
-        String ruta = rutaRecursos + "/file/" + file.getOriginalFilename();
+        String ruta = rutaRecursos + "/file/user/"+idUser+"/"+ UUID.randomUUID().toString()+"_"+file.getOriginalFilename();
         File f = new File(ruta);
         f.getParentFile().mkdirs();
         try {
