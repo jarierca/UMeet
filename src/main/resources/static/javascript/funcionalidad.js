@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $("#loading-screen").css("display", "none");
     $("#screen").css("display", "block");
-
+    AOS.init();
     loadProfile();
     loadServers();
     msgSize();
@@ -24,7 +24,7 @@ $(document).ready(function () {
     var config = $.cookie("config");
     
     if(config == "v"){
-        vBarOn();  
+        vBarOn(); 
     }else{
         hBarOn();
     }
@@ -140,6 +140,7 @@ function servidor() {
         url: "/server/allServers",
         success: function (pHtml) {
             $("body").html(pHtml);
+            //$("#contentBody").addClass('magictime puffIn');
         },
         error: function (xhr, status, error) {
             console.log(xhr.responseText);
@@ -213,7 +214,7 @@ function chat(idCanal, channelName) {
 //                        setTimeout(function(){chat(idCanal)}, 20000);
             $("#sendMsg").focus();
             $("#contentChat").addClass("magictime slideUpReturn");
-            $("#sendit").addClass('magictime puffIn');
+            $("#sendit").addClass('magictime slideDownReturn');
             $(".animame.right").addClass('magictime slideRightReturn');
             $(".animame.left").addClass('magictime slideLeftReturn');
             
@@ -315,7 +316,7 @@ function chatPrivado(idDestino, nameDestino) {
             $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
             $("#sendMsg").focus();
             $("#contentChat").addClass("magictime slideUpReturn");
-            $("#sendit").addClass('magictime puffIn');
+            $("#sendit").addClass('magictime slideDownReturn');
             $(".animame.right").addClass('magictime slideRightReturn');
             $(".animame.left").addClass('magictime slideLeftReturn');
         },
@@ -469,8 +470,20 @@ function vBarOn() {//11 V
     
     $.cookie("config", "v", { path: '/' }, 20*365)
 
-    msgSize();
+    msgSize(); 
+    
 }
+
+function animarBarra(lado){
+    if (lado=="v"){
+        vBarOn();
+        $("#nabar-v").addClass('magictime slideLeftReturn');
+    }else{
+        hBarOn();
+        $("#nabar-h").addClass('magictime slideUpReturn');
+    }
+}
+
 function sendMsgWithEnter() {
     $("#sendit").keyup(function (event) {
         if (event.keyCode === 13) {

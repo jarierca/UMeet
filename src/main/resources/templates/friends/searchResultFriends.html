@@ -9,8 +9,8 @@
    
       
       <div class="container">
-          <table class="table table-dark ">
-              <tr th:if="${name!=null}" th:each="nam:${name}">
+          <table class="table table-dark " data-aos="fade-up"  >
+              <tr th:if="${name!=null}" th:each="nam:${name}" >
                    <td>  <img class="avatar" th:src="|/profile/avatar?url=${nam.avatar}|"></td>
                   <td>
                       <form th:action="@{/friends/addFriend}" method="post">

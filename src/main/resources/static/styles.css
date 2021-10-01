@@ -802,6 +802,11 @@ th{
 }
 
 .magictime.slideRightReturn {
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
+    -webkit-animation-duration: 0.25s;
+    animation-duration: 0.25s;
+}
+
+.magictime.swashIn {
+    -webkit-animation-duration: 0.8s;
+    animation-duration: 0.8s;
 }
