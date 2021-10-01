@@ -4,19 +4,14 @@ package com.umeet.umeet.controller;
 import com.umeet.umeet.dtos.MessageChannelDto;
 import com.umeet.umeet.dtos.MessageFileDto;
 import com.umeet.umeet.dtos.UserDto;
-import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
-import com.umeet.umeet.entities.MessageFile;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.ChannelRepository;
 import com.umeet.umeet.repositories.MessageFileRepository;
 import com.umeet.umeet.repositories.MessageRepository;
 import com.umeet.umeet.repositories.UserRepository;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -24,14 +19,11 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/b/msg")
@@ -88,13 +80,15 @@ public class MessagesController {
     @ResponseBody
     @PostMapping("/private/{id_destino}") //Devuelve un Json con todos los mensajes privados entre el usuario logueado y el usuario destino
     public List<MessageChannelDto> privados(@PathVariable Long id_destino,Long idUser){
-        
-        List<Message> aux = repoMsg.findByUser(repoUsr.findById(idUser).get());
-        if (!aux.isEmpty()){
+        User u = repoUsr.findById(idUser).get();
+        User uD = repoUsr.findById(id_destino).get();
+        List<Message> aux = repoMsg.findByUser(u);
+        List<Message> rec = repoMsg.findByUserDestiny(u);
+        if (!aux.isEmpty() || !rec.isEmpty()){
             List <Message> origen = aux.stream()
                                    .filter(x->x.getUserDestiny()!=null && x.getUserDestiny().getId()==id_destino)
                                    .collect(Collectors.toList());
-            if(!repoMsg.findByUserDestiny(repoUsr.findById(id_destino).get()).isEmpty()){
+            //if(!repoMsg.findByUserDestiny(uD).isEmpty()){
                 List<Message> aux2 = repoMsg.findByUser(repoUsr.findById(id_destino).get());
                 
                 List<Message> destino = aux2.stream()
@@ -109,9 +103,11 @@ public class MessagesController {
                                 .collect(Collectors.toList()));
                 res.sort(Comparator.comparing(MessageChannelDto::getId));
                 return res;          
-            }
+         //   }
         }
-        return null;
+        List<MessageChannelDto> vacio = List.of(new MessageChannelDto(null,u.getNickName(),"",null,mapper.map(u,UserDto.class),null,mapper.map(uD,UserDto.class))); 
+        return vacio;
+        //return null;
     }
     
     
