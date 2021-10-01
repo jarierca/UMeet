@@ -806,6 +806,21 @@ th{
 
 @media(max-width:1550px){
     .nav-hidden-h{
+    }
+}
+
+.magictime.slideRightReturn {
+    -webkit-animation-duration: 0.25s;
+    animation-duration: 0.25s;
+}
+
+.magictime.swashIn {
+    -webkit-animation-duration: 0.8s;
+    animation-duration: 0.8s;
+}
+
+@media(max-width:1550px){
+    .nav-hidden-h{
         display: none;
     }
 }
