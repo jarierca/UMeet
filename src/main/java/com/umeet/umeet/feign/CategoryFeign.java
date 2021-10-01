@@ -6,13 +6,12 @@
 package com.umeet.umeet.feign;
 
 import com.umeet.umeet.dtos.CategoryDto;
+import com.umeet.umeet.dtos.CategoryParamDto;
 import com.umeet.umeet.entities.Category;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @FeignClient(contextId = "feignCategorias", name = "UMeetBack", url= "http://localhost:8082")
@@ -20,11 +19,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface CategoryFeign {
     
      @PostMapping("/form")
-    public Category viewCategoryCreation(@RequestParam Long idCategory, @RequestParam Long idServer);
+    public CategoryDto viewCategoryCreation(@RequestParam Long idCategory, @RequestParam Long idServer);
     
+//    @PostMapping("/addCategory")
+//    public CategoryDto addCategory(@RequestParam Long id, @RequestParam String name, @RequestParam Long idServer);
+
     @PostMapping("/addCategory")
-    public CategoryDto addCategory(@RequestParam Long id, @RequestParam String name, @RequestParam Long idServer);
-    
+    public CategoryDto addCategory(@SpringQueryMap CategoryParamDto categoryDto);
+
+    @GetMapping("{idCategory}")
+    public CategoryDto getCategory(@PathVariable Long idCategory);
+
     @GetMapping("/deleteCategory")
     public Long deleteCategory(@RequestParam Long idCategory);
     
