@@ -162,7 +162,7 @@ function chat(idCanal, channelName) {
         url: "/msg/channel/" + idCanal,
         success: function (pJson) {
             console.log(pJson);
-            $("#channel-name").html(channelName); 
+            $("#channel-name").html('<i class="fas fa-hashtag" style="margin-top:4px">&nbsp;</i>'+channelName); 
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                     "<a id='clickmsg' onclick=enviarMsgCanal(" + idCanal + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
                     + "<a id='clickmsgfile' onclick=enviarMsgFile('channel'," + idCanal + ") clas='tips text-white' title='Enviar Archivo'><i class='fnt-aws-size fas fa-paperclip'></i></a>");
