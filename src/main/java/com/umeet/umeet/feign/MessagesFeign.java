@@ -32,7 +32,7 @@ public interface MessagesFeign {
     @PostMapping("/private/sendmsg") 
     public void mensajePrivado(@RequestParam Long id, @RequestParam String name, @RequestParam String text, @RequestParam Long idUserDestiny, @RequestParam  Long idUser);
     
-    @PostMapping("/private/sendmsgfile") 
-    public void mensajeFilePrivado(@RequestParam Long id, @RequestParam String name, @RequestParam String text, @RequestParam Long idUserDestiny, @RequestParam  Long idUser);
+    @PostMapping(value="/private/sendmsgfile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void mensajeFilePrivado(@RequestParam String name, @RequestParam String text,  @RequestPart(value = "file")  MultipartFile file, @RequestParam Long id, @RequestParam  Long idUser);
     
 }

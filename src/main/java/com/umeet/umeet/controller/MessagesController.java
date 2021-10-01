@@ -62,11 +62,17 @@ public class MessagesController {
     }
     
     @GetMapping("/addFile")
-    public String addFile(Model m, Long id){
+    public String addFile(Model m, String type , Long id){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         m.addAttribute("idUser", u.getId());
         m.addAttribute("idChannel", id);
+        if(type.equals("private")){
+            type = "/msg/private/sendmsgfile";
+        }else if(type.equals("channel")){
+            type = "/msg/channel/sendmsgfile";
+        }
+        m.addAttribute("action", type);
         
         return "addFile";
     }
@@ -87,23 +93,11 @@ public class MessagesController {
     }
     
        
-//    @ResponseBody
-//    @PostMapping("/private/sendFile")
-//    public void mensajeFilePrivado(MessageFile msgFile, MultipartFile archivo,Long id){
-//        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-//        msgFile.setName(u.getUsername());
-//        
-//        String ruta = rutaRecursos + "/file/" + archivo.getOriginalFilename();
-//        File f = new File(ruta);
-//        f.getParentFile().mkdirs();
-//        try {
-//            Files.copy(archivo.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        
-//        msgFile.setUrl(ruta);
-//        
-//        repoMsgFile.save(msgFile); 
-//    }
+    @ResponseBody
+    @PostMapping("/private/sendmsgfile")
+    public void mensajeFilePrivado(MessageFile msgFile, MultipartFile archivo,Long id, Long idUser){
+       UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        msgFeign.mensajeFilePrivado(u.getUsername(), "archivo", archivo, id, u.getId());
+    }
 }

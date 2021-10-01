@@ -273,7 +273,7 @@ function chatPrivado(idDestino, nameDestino) {
             $("#user-chat-name").html(nameDestino);
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                     "<a id='clickmsg' onclick=enviarMsgPrivado(" + idDestino + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
-                    + "   <a id='clickmsgfile' onclick=enviarMsgFile('private'," + idDestino + ")class='tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                    + "   <a id='clickmsgfile' onclick=enviarMsgFile('private'," + idDestino + ") class='tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
             var salida = $("<div class='w-100'>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
 //                                $("<tr>").html("<div class='h2 mx-2 my-2 pt-4 pl-3 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
             $("#panelChat").html("");
@@ -513,7 +513,12 @@ function removeFriend(idFriend){
 }
 function enviarMsgFile(type,id){
     $.ajax({
-        url: "/msg/addFile?id="+id,
+        type: "GET",
+        url: "/msg/addFile",
+        data: {
+            type:type,
+            id: id     
+        },
         success: function (html) {
             bootbox.dialog({
                 title: 'Enviar Archivo',

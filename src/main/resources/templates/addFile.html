@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class="container">
-            <form enctype="multipart/form-data" class="col-12" action="/msg/channel/sendmsgfile" id="formulario"  method="POST">
+            <form enctype="multipart/form-data" class="col-12" th:action="${action}" id="formulario"  method="POST">
                 <div class="form-group row">
                     <div>
                         <input name="idUser" th:value="${idUser}" class="form-control">
