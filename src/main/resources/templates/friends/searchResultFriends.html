@@ -4,27 +4,49 @@
 
 </head>
 <body>
+    <div class="m-5" th:if="${!name.isEmpty()}" >
+        <h3>¡Hemos encontrado al usuario que buscas!</h3>
 
-    <h3 class="m-5">¡Hemos encontrado al usuario que buscas!</h3>
-   
-      
-      <div class="container">
-          <table class="table table-dark ">
-              <tr th:if="${name!=null}" th:each="nam:${name}">
-                   <td>  <img class="avatar" th:src="|/profile/avatar?url=${nam.avatar}|"></td>
-                  <td>
-                      <form th:action="@{/friends/addFriend}" method="post">
-                          <div class="input-group">
-                              <input type="hidden" th:value="${nam.id}" name="idUserFriend">
-                              <label th:text="${nam.nickName}" class="form-control"> </label>
-                              <button type="submit" class="btn btn-outline-success"><i class="fas fa-user-plus"></i></button>
-                          </div>
-                      </form>
-                  </td> 
-                 
-              </tr>  
-          </table> 
-      </div>
-  
+        <div class="container">
+            <table class="table table-dark ">
+
+                <tr th:if="${name!=null}" th:each="nam:${name}">
+
+                    <td>  <img class="avatar" th:src="|/profile/avatar?url=${nam.avatar}|"></td>
+                    <td>
+                        <form th:action="@{/friends/addFriend}" method="post">
+                            <div class="input-group">
+                                <input type="hidden" th:value="${nam.id}" name="idUserFriend">
+                                <label th:text="${nam.nickName}" class="form-control"> </label>
+                                <button type="submit" class="btn btn-outline-success"><i class="fas fa-user-plus"></i></button>
+                            </div>
+                        </form>
+                    </td> 
+
+                </tr>  
+            </table> 
+        </div>
+
+    </div>
+
+
+    <div class="m-5" th:if="${name.isEmpty()}"> 
+
+        <h3 >Lo sentimos no hemos encontrado a ningún amigo</h3>
+
+
+        <div class=" container fondo2">
+
+        </div>
+
+        <p>Pero tranquilo, no estás solo en la vida,  puedes seguir explorarando y conocer a tus primeros amigos</p>
+
+
+
+
+
+
+
+
 </body>
 </html>
