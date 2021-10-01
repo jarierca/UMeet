@@ -164,8 +164,8 @@ function chat(idCanal, channelName) {
             console.log(pJson);
             $("#channel-name").html(channelName); 
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
-                    "<a id='clickmsg' onclick=enviarMsgCanal(" + idCanal + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>");
-                    //+ "<a id='clickmsgfile' onclick=enviarMsgFile('channel'," + idCanal + ") clas='tips text-white' title='Enviar Archivo'><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                    "<a id='clickmsg' onclick=enviarMsgCanal(" + idCanal + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
+                    + "<a id='clickmsgfile' onclick=enviarMsgFile('channel'," + idCanal + ") clas='tips text-white' title='Enviar Archivo'><i class='fnt-aws-size fas fa-paperclip'></i></a>");
 
             var salida = $("<div class='w-100'>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
 //                        $("<tr>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>")
@@ -272,8 +272,8 @@ function chatPrivado(idDestino, nameDestino) {
             console.log(pJson);
             $("#user-chat-name").html(nameDestino);
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
-                    "<a id='clickmsg' onclick=enviarMsgPrivado(" + idDestino + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>");
-                    //+ "   <a id='clickmsgfile' onclick=enviarMsgFile('private'," + idDestino + ")class='tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                    "<a id='clickmsg' onclick=enviarMsgPrivado(" + idDestino + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
+                    + "   <a id='clickmsgfile' onclick=enviarMsgFile('private'," + idDestino + ")class='tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
             var salida = $("<div class='w-100'>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
 //                                $("<tr>").html("<div class='h2 mx-2 my-2 pt-4 pl-3 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
             $("#panelChat").html("");
@@ -512,31 +512,16 @@ function removeFriend(idFriend){
     })
 }
 function enviarMsgFile(type,id){
-    var msg = '<form enctype="multipart/form-data" action="/msg/'+type+'/sendFile/" method="post">'+ 
-       ' <input  type="file" id="archivo" name="archivo"/>'+
-       ' <input value="' +id+ '" type="hidden" id="id" name="id"/>'+
-       ' <input  type="submit" value="Enviar"/>'+
-   ' </form>';
-    
-    bootbox.confirm({
-        message: msg,
-        callback: function (result) {
-            if (result) {
-//                $.ajax({
-//                    type: "POST",
-//                    url: "/msg/"+type+"/sendFile/",
-//                    data: {
-//                        archivo: $("#archivo").val(),
-//                        id: id
-//                    },
-//                    success: function (html) {
-////                        window.location = "/home";
-//                    },
-//                    error: function (xhr, status, error) {
-//                        console.log(xhr.responseText);
-//                    }
-//                })
-            }
+    $.ajax({
+        url: "/msg/addFile?id="+id,
+        success: function (html) {
+            bootbox.dialog({
+                title: 'Enviar Archivo',
+                message: html
+            })
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
         }
     })
 }

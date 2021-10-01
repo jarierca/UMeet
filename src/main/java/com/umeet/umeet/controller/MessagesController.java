@@ -2,8 +2,12 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.MessageChannelDto;
+import com.umeet.umeet.dtos.MessageFileDto;
+import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
+import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
+import com.umeet.umeet.entities.MessageFile;
 import com.umeet.umeet.feign.MessagesFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/msg")
@@ -54,34 +61,23 @@ public class MessagesController {
         msgFeign.mensajeCanal(msg.getId(),msg.getName(),msg.getText(), idChannel, u.getId());
     }
     
-    /*@ResponseBody
-    @PostMapping("/channel/sendFile")
-    public void mensajeFileCanal(Message msg, MessageFile msgFile, MultipartFile archivo,Long id){
+    @GetMapping("/addFile")
+    public String addFile(Model m, Long id){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        m.addAttribute("idUser", u.getId());
+        m.addAttribute("idChannel", id);
+        
+        return "addFile";
+    }
+    
+    @ResponseBody
+    @PostMapping("/channel/sendmsgfile")
+    public void mensajeFileCanal(String name, String text, MultipartFile archivo, Long id, Long idUser){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        msg.setChannel(repoChn.findById(id).get());
-        msg.setUser(repoUsr.findById(u.getId()).get());
-        msg.setName(msg.getUser().getNickName());
-        msg.setText("Fichero Subido");
-        
-        repoMsg.save(msg);
-        
-        
-        msgFile.setName(u.getUsername());
-        
-        String ruta = rutaRecursos + "/file/" + archivo.getOriginalFilename();
-        File f = new File(ruta);
-        f.getParentFile().mkdirs();
-        try {
-            Files.copy(archivo.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        msgFile.setUrl(ruta);
-        msgFile.setMessage(repoMsg.findById(msg.getId()).get());
-        
-        repoMsgFile.save(msgFile); 
-    }*/
+        msgFeign.mensajeFileCanal(u.getUsername(), "archivo", archivo, id, u.getId());
+    }
     
     @ResponseBody
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
@@ -91,23 +87,23 @@ public class MessagesController {
     }
     
        
-    /*@ResponseBody
-    @PostMapping("/private/sendFile")
-    public void mensajeFilePrivado(MessageFile msgFile, MultipartFile archivo,Long id){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        msgFile.setName(u.getUsername());
-        
-        String ruta = rutaRecursos + "/file/" + archivo.getOriginalFilename();
-        File f = new File(ruta);
-        f.getParentFile().mkdirs();
-        try {
-            Files.copy(archivo.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        msgFile.setUrl(ruta);
-        
-        repoMsgFile.save(msgFile); 
-    }*/
+//    @ResponseBody
+//    @PostMapping("/private/sendFile")
+//    public void mensajeFilePrivado(MessageFile msgFile, MultipartFile archivo,Long id){
+//        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+//        msgFile.setName(u.getUsername());
+//        
+//        String ruta = rutaRecursos + "/file/" + archivo.getOriginalFilename();
+//        File f = new File(ruta);
+//        f.getParentFile().mkdirs();
+//        try {
+//            Files.copy(archivo.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        
+//        msgFile.setUrl(ruta);
+//        
+//        repoMsgFile.save(msgFile); 
+//    }
 }
