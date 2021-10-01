@@ -46,6 +46,6 @@ public class ChannelController {
     @GetMapping("/deleteChannel")
     public String deleteChannel(Long idChannel) {
         Long idServer = chaFeign.deleteChannel(idChannel);
-        return "redirect:server/one?idServer=" + idServer;
+        return "redirect:/server/one?idServer=" + idServer;
     }
 }

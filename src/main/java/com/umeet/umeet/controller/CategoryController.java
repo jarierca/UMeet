@@ -45,10 +45,7 @@ public class CategoryController {
 
     @GetMapping("/deleteCategory")
     public String deleteCategory(Long idCategory) {
-
         Long idServer = catFeign.deleteCategory(idCategory);
-
         return "redirect:/server/one?idServer=" + idServer;
     }
-
 }
