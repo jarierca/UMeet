@@ -174,9 +174,18 @@ function chat(idCanal, channelName) {
             var len = pJson.length;
             var c = 0;
             var clase = "";
+            var fichero = "";
+            var texto = "";
             for (x of pJson) {
                 if(c == len-1){
                     clase = "animame";
+                }
+                if(x.messageFile != null){
+                    if(x.messageFile.name =="fichero"){
+                        fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank'><i class='far fa-file-alt' style='font-size:40px;'></i>  <i class='fas fa-download' style='font-size:40px;'></i></a>";   
+                    }else{
+                        texto = x.text ;
+                    }
                 }
                 if(x.text!=""){
                     if (x.user.username == userId.username) {
@@ -187,7 +196,7 @@ function chat(idCanal, channelName) {
                                 '</div>' +
                                 '<div class="name">' + x.user.nickName + '</div>' +
                                 '<div class="text">' +
-                                x.text +
+                                x.text  + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
 
@@ -199,7 +208,7 @@ function chat(idCanal, channelName) {
                                 '</div>' +
                                 '<div class="name">' + x.user.nickName + '</div>' +
                                 '<div class="text">' +
-                                x.text +
+                                x.text  + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
     //                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);   
@@ -280,9 +289,18 @@ function chatPrivado(idDestino, nameDestino) {
             var len = pJson.length;
             var c = 0;
             var clase = "";
+            var fichero = "";
+            var texto = "";
             for (x of pJson) {
                 if(c == len-1){
                     clase = "animame";
+                }
+                if(x.messageFile != null){
+                    if(x.messageFile.name =="fichero"){
+                        fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank'><i class='far fa-file-alt' style='font-size:40px'></i>  <i class='fas fa-download' style='font-size:40px;'></i></a>";   
+                    }else{
+                        texto = x.text ;
+                    }
                 }
                 if(x.text!=""){
                     if (x.user.username == userId.username) {
@@ -294,7 +312,7 @@ function chatPrivado(idDestino, nameDestino) {
                                 '</div>' +
                                 '<div class="name">' + x.name + '</div>' +
                                 '<div class="text">' +
-                                x.text +
+                                x.text + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
                     } else {
@@ -305,7 +323,7 @@ function chatPrivado(idDestino, nameDestino) {
                                 '</div>' +
                                 '<div class="name">' + x.name + '</div>' +
                                 '<div class="text">' +
-                                x.text +
+                                x.text  + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
                     }

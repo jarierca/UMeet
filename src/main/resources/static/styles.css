@@ -834,3 +834,11 @@ th{
     -webkit-animation-duration: 0.8s;
     animation-duration: 0.8s;
 }
+
+.right i{
+    color: white;
+}
+
+.left i{
+   color:#86C232
+}
