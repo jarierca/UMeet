@@ -108,16 +108,6 @@ public class ServerController {
         return servers;
     }
 
-    @GetMapping("/form")
-    public String viewServerCreation(Model model, Long idServer) {
-        if (idServer == null) {
-            model.addAttribute("server", new Server());
-        } else {
-            model.addAttribute("server", serverRepository.findById(idServer));
-        }
-        return "servers/formServer";
-    }
-
     @GetMapping("/{idServer}")
     public ServerDto viewServer(@PathVariable Long idServer) {
         Server server = serverRepository.findById(idServer).get();

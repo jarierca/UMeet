@@ -1,16 +1,15 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.CategoryDto;
+import com.umeet.umeet.dtos.ServerDto;
 import com.umeet.umeet.entities.Category;
+import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.repositories.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Controller
@@ -35,54 +34,23 @@ public class CategoryController {
     @Autowired
     private ModelMapper mapper;
 
-    /* @GetMapping("/form")
-    public String viewCategoryCreation(Model model, Long idCategory, Long idServer) {
-        Category category = new Category();
-        if (idCategory == null) {
-            category.setServer(serverRepository.findById(idServer).get());
-        } else {
-            category = categoryRepository.findById(idCategory).get();
-        }
-        model.addAttribute("category", category);
-        return "formCategory";
-    }*/
-    
-    @PostMapping("/form")
-    public Category viewCategoryCreation(Long idCategory, Long idServer) {
-        Category category = new Category();
-        if (idCategory == null) {
-            category.setServer(serverRepository.findById(idServer).get());
-        } else {
-            category = categoryRepository.findById(idCategory).get();
-        }
-       
-        return category;
-    }
-
-
-    /*@PostMapping("/addCategory")
-    public String addCategory(Category category, Long idServer){
-        category.setServer(serverRepository.findById(idServer).get());
-        if(category.getName()==null || ("").equals(category.getName())){
-            return "redirect:server/one?idServer="+category.getServer().getId();
-        }
-        categoryRepository.save(category);
-        return "redirect:server/one?idServer="+category.getServer().getId();
-    }*/
-    @PostMapping("/addCategory")
-    public CategoryDto addCategory(Category category, Long idServer) {
-        category.setServer(serverRepository.findById(idServer).get());
-        category = categoryRepository.save(category);
+    @GetMapping("/{idCategory}")
+    public CategoryDto getCategory(@PathVariable Long idCategory){
+        Category category = categoryRepository.findById(idCategory).get();
         CategoryDto categoryDto = mapper.map(category, CategoryDto.class);
         return categoryDto;
     }
 
-    /* @GetMapping("/deleteCategory")
-    public String deleteCategory(Long idCategory) {
-        long idServer = categoryRepository.findById(idCategory).get().getServer().getId();
-        categoryRepository.deleteById(idCategory);
-        return "redirect:server/one?idServer=" + idServer;
-    }*/
+    @PostMapping("/addCategory")
+    public CategoryDto addCategory(CategoryDto categoryDto, Long idServer) {
+        Category category = mapper.map(categoryDto, Category.class);
+        Server server = serverRepository.findById(idServer).get();
+        category.setServer(server);
+        category = categoryRepository.save(category);
+        categoryDto = mapper.map(category, CategoryDto.class);
+        return categoryDto;
+    }
+
     @GetMapping("/deleteCategory")
     public Long deleteCategory(Long idCategory) {
         long idServer = categoryRepository.findById(idCategory).get().getServer().getId();
