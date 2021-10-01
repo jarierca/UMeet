@@ -495,31 +495,16 @@ function removeFriend(idFriend){
     })
 }
 function enviarMsgFile(type,id){
-    var msg = '<form enctype="multipart/form-data" action="/msg/'+type+'/sendFile/" method="post">'+ 
-       ' <input  type="file" id="archivo" name="archivo"/>'+
-       ' <input value="' +id+ '" type="hidden" id="id" name="id"/>'+
-       ' <input  type="submit" value="Enviar"/>'+
-   ' </form>';
-    
-    bootbox.confirm({
-        message: msg,
-        callback: function (result) {
-            if (result) {
-//                $.ajax({
-//                    type: "POST",
-//                    url: "/msg/"+type+"/sendFile/",
-//                    data: {
-//                        archivo: $("#archivo").val(),
-//                        id: id
-//                    },
-//                    success: function (html) {
-////                        window.location = "/home";
-//                    },
-//                    error: function (xhr, status, error) {
-//                        console.log(xhr.responseText);
-//                    }
-//                })
-            }
+    $.ajax({
+        url: "/msg/addFile?id="+id,
+        success: function (html) {
+            bootbox.dialog({
+                title: 'Enviar Archivo',
+                message: html
+            })
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
         }
     })
 }

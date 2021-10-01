@@ -2,8 +2,12 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.MessageChannelDto;
+import com.umeet.umeet.dtos.MessageFileDto;
+import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
+import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.entities.Message;
+import com.umeet.umeet.entities.MessageFile;
 import com.umeet.umeet.feign.MessagesFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -55,12 +61,22 @@ public class MessagesController {
         msgFeign.mensajeCanal(msg.getId(),msg.getName(),msg.getText(), idChannel, u.getId());
     }
     
+    @GetMapping("/addFile")
+    public String addFile(Model m, Long id){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        m.addAttribute("idUser", u.getId());
+        m.addAttribute("idChannel", id);
+        
+        return "addFile";
+    }
+    
     @ResponseBody
-    @PostMapping("/channel/sendFile")
-    public void mensajeFileCanal(String name, String text, MultipartFile file, Long id, Long idUser){
+    @PostMapping("/channel/sendmsgfile")
+    public void mensajeFileCanal(String name, String text, MultipartFile archivo, Long id, Long idUser){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        msgFeign.mensajeFileCanal(u.getUsername(), "archivo", file, id, u.getId());
+        msgFeign.mensajeFileCanal(u.getUsername(), "archivo", archivo, id, u.getId());
     }
     
     @ResponseBody
