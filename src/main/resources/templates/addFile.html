@@ -9,17 +9,16 @@
             <form enctype="multipart/form-data" class="col-12" th:action="${action}" id="formulario"  method="POST">
                 <div class="form-group row">
                     <div>
-                        <input name="idUser" th:value="${idUser}" class="form-control">
-                        <input name="id" th:value="${idChannel}" class="form-control">
-                        <input name="name" type="text" class="form-control" value="name"/>
-                        <input name="text" type="text" value="text" class="form-control"/>
-                        <label for="avatar" class="text-white">Avatar</label>
+                        <input name="idUser" th:value="${idUser}" class="form-control" hidden>
+                        <input name="id" th:value="${idChannel}" class="form-control" hidden>
+                        <input name="name" type="text" class="form-control" value="name" hidden/>
+                        <input name="text" type="text" value="text" class="form-control" hidden/>
                         <input name="archivo" type="file" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-12 text-center">
-                        <input type="submit" class="btn btn-success col-6 ">
+                        <input type="submit" class="btn btn-success col-6 " value="Subir Archivo">
                     </div>
                 </div>  
             </form>
