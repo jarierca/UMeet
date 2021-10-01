@@ -139,7 +139,7 @@ public class MessagesController {
         
         MessageFile msgFile = new MessageFile();
         
-        msgFile.setName(u.getUsername());
+        msgFile.setName("fichero");
         
         String ruta = rutaRecursos + "/file/channel/"+id+"/"+ UUID.randomUUID().toString()+"_"+file.getOriginalFilename();
         File f = new File(ruta);
@@ -176,14 +176,14 @@ public class MessagesController {
         msg.setUserDestiny(repoUsr.findById(id).get());
         msg.setUser(u);
         msg.setName("Fichero");
-        msg.setText("Fichero Subido");
+        msg.setText("Fichero");
         
         mensajePrivado(msg, id, idUser);
         
         
         MessageFile msgFile = new MessageFile();
         
-        msgFile.setName(u.getUsername());
+        msgFile.setName("fichero");
         
         String ruta = rutaRecursos + "/file/user/"+idUser+"/"+ UUID.randomUUID().toString()+"_"+file.getOriginalFilename();
         File f = new File(ruta);
