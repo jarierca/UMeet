@@ -1,8 +1,11 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.CategoryDto;
+import com.umeet.umeet.dtos.CategoryParamDto;
+import com.umeet.umeet.dtos.ServerDto;
 import com.umeet.umeet.entities.Category;
 import com.umeet.umeet.feign.CategoryFeign;
+import com.umeet.umeet.feign.ServerFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,31 +20,32 @@ public class CategoryController {
     @Autowired
     private CategoryFeign catFeign;
 
+    @Autowired
+    private ServerFeign serverFeign;
+
     @GetMapping("/form")
     public String viewCategoryCreation(Model model, Long idCategory, Long idServer) {
-        Category category = catFeign.viewCategoryCreation(idCategory, idServer);
-
-        model.addAttribute("category", category);
+        CategoryDto categoryDto = new CategoryDto();
+        if(idCategory != null){
+            categoryDto = catFeign.getCategory(idCategory);
+        }
+        model.addAttribute("category", categoryDto);
+        model.addAttribute("idServer", idServer);
         return "formCategory";
     }
 
     @PostMapping("/addCategory")
-    public String addCategory(Category category, Long idServer) {
+    public String addCategory(CategoryParamDto category) {
         if(category.getName()==null || ("").equals(category.getName())){
-            return "redirect:/server/one?idServer=" + idServer;
+            return "redirect:/server/one?idServer=" + category.getIdServer();
         }
-
-        CategoryDto cat = catFeign.addCategory(category.getId(), category.getName(),idServer);
-
-        return "redirect:/server/one?idServer=" + cat.getServer().getId();
+        CategoryDto category2 = catFeign.addCategory(category);
+        return "redirect:/server/one?idServer=" + category2.getServer().getId();
     }
 
     @GetMapping("/deleteCategory")
     public String deleteCategory(Long idCategory) {
-
         Long idServer = catFeign.deleteCategory(idCategory);
-
         return "redirect:/server/one?idServer=" + idServer;
     }
-
 }
