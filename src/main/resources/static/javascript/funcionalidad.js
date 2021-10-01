@@ -177,30 +177,32 @@ function chat(idCanal, channelName) {
                 if(c == len-1){
                     clase = "animame";
                 }
-                if (x.user.username == userId.username) {
-                    $("<div>").html('<div class="answer '+clase +' right mx-4 pb-4">' +
-                            '<div class="avatar mb-4">' +
-                            '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
-                            '<span class="status offline"></span>' +
-                            '</div>' +
-                            '<div class="name">' + x.user.nickName + '</div>' +
-                            '<div class="text">' +
-                            x.text +
-                            '</div>' +
-                            '</div>').appendTo(salida);
+                if(x.text!=""){
+                    if (x.user.username == userId.username) {
+                        $("<div>").html('<div class="answer '+clase +' right mx-4 pb-4">' +
+                                '<div class="avatar mb-4">' +
+                                '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
+                                '<span class="status offline"></span>' +
+                                '</div>' +
+                                '<div class="name">' + x.user.nickName + '</div>' +
+                                '<div class="text">' +
+                                x.text +
+                                '</div>' +
+                                '</div>').appendTo(salida);
 
-                } else {
-                    $("<div>").html('<div class="answer '+clase +' left mx-4 pb-4">' +
-                            '<div class="avatar mb-4">' +
-                            '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
-                            '<span class="status offline"></span>' +
-                            '</div>' +
-                            '<div class="name">' + x.user.nickName + '</div>' +
-                            '<div class="text">' +
-                            x.text +
-                            '</div>' +
-                            '</div>').appendTo(salida);
-//                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);   
+                    } else {
+                        $("<div>").html('<div class="answer '+clase +' left mx-4 pb-4">' +
+                                '<div class="avatar mb-4">' +
+                                '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
+                                '<span class="status offline"></span>' +
+                                '</div>' +
+                                '<div class="name">' + x.user.nickName + '</div>' +
+                                '<div class="text">' +
+                                x.text +
+                                '</div>' +
+                                '</div>').appendTo(salida);
+    //                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);   
+                    }
                 }
                 c = c+1;
             }
@@ -281,29 +283,31 @@ function chatPrivado(idDestino, nameDestino) {
                 if(c == len-1){
                     clase = "animame";
                 }
-                if (x.user.username == userId.username) {
-
-                    $("<div>").html('<div class="answer '+clase +' right mx-4 pb-4">' +
-                            '<div class="avatar mb-4">' +
-                            '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
-                            '<span class="status offline"></span>' +
-                            '</div>' +
-                            '<div class="name">' + x.name + '</div>' +
-                            '<div class="text">' +
-                            x.text +
-                            '</div>' +
-                            '</div>').appendTo(salida);
-                } else {
-                    $("<div>").html('<div class="answer '+clase +' left mx-4 pb-4">' +
-                            '<div class="avatar mb-4">' +
-                            '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
-                            '<span class="status offline"></span>' +
-                            '</div>' +
-                            '<div class="name">' + x.name + '</div>' +
-                            '<div class="text">' +
-                            x.text +
-                            '</div>' +
-                            '</div>').appendTo(salida);
+                if(x.text!=""){
+                    if (x.user.username == userId.username) {
+                        
+                        $("<div>").html('<div class="answer '+clase +' right mx-4 pb-4">' +
+                                '<div class="avatar mb-4">' +
+                                '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
+                                '<span class="status offline"></span>' +
+                                '</div>' +
+                                '<div class="name">' + x.name + '</div>' +
+                                '<div class="text">' +
+                                x.text +
+                                '</div>' +
+                                '</div>').appendTo(salida);
+                    } else {
+                        $("<div>").html('<div class="answer '+clase +' left mx-4 pb-4">' +
+                                '<div class="avatar mb-4">' +
+                                '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
+                                '<span class="status offline"></span>' +
+                                '</div>' +
+                                '<div class="name">' + x.name + '</div>' +
+                                '<div class="text">' +
+                                x.text +
+                                '</div>' +
+                                '</div>').appendTo(salida);
+                    }
                 }
                 c = c+1;
             }
