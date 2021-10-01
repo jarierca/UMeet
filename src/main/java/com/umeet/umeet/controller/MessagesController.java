@@ -123,10 +123,11 @@ public class MessagesController {
         repoMsg.save(msg);
     }
     
-    /*@ResponseBody
+    @ResponseBody
     @PostMapping("/channel/sendFile")
-    public void mensajeFileCanal(Message msg, MessageFile msgFile, MultipartFile archivo,Long id,Long idUser){
+    public void mensajeFileCanal(String name, String text, MultipartFile file, Long id, Long idUser){
         User u = repoUsr.findById(idUser).get();
+        Message msg = new Message();
         msg.setChannel(repoChn.findById(id).get());
         msg.setUser(u);
         msg.setName(msg.getUser().getNickName());
@@ -134,14 +135,15 @@ public class MessagesController {
         
         repoMsg.save(msg);
         
+        MessageFile msgFile = new MessageFile();
         
         msgFile.setName(u.getUsername());
         
-        String ruta = rutaRecursos + "/file/" + archivo.getOriginalFilename();
+        String ruta = rutaRecursos + "/file/" + file.getOriginalFilename();
         File f = new File(ruta);
         f.getParentFile().mkdirs();
         try {
-            Files.copy(archivo.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(file.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -149,7 +151,7 @@ public class MessagesController {
         msgFile.setMessage(repoMsg.findById(msg.getId()).get());
         
         repoMsgFile.save(msgFile); 
-    }*/
+    }
     
     @ResponseBody
     @PostMapping("/private/sendmsg") //Guarda mensajes privados entre usuarios
@@ -161,18 +163,19 @@ public class MessagesController {
         repoMsg.save(msg); 
     }
     
-    /*   
+    
     @ResponseBody
     @PostMapping("/private/sendFile")
-    public void mensajeFilePrivado(MessageFile msgFile, MultipartFile archivo,Long id){
+    public void mensajeFilePrivado(String name, String text, MultipartFile file, Long id, Long idUser){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        MessageFile msgFile = new MessageFile();
         msgFile.setName(u.getUsername());
         
-        String ruta = rutaRecursos + "/file/" + archivo.getOriginalFilename();
+        String ruta = rutaRecursos + "/file/" + file.getOriginalFilename();
         File f = new File(ruta);
         f.getParentFile().mkdirs();
         try {
-            Files.copy(archivo.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(file.getInputStream(), f.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -180,5 +183,5 @@ public class MessagesController {
         msgFile.setUrl(ruta);
         
         repoMsgFile.save(msgFile); 
-    }*/
+    }
 }
