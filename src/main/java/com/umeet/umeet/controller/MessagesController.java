@@ -2,6 +2,7 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.MessageChannelDto;
+import com.umeet.umeet.dtos.MessageFileDto;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Channel;
@@ -24,6 +25,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -124,16 +126,19 @@ public class MessagesController {
     }
     
     @ResponseBody
-    @PostMapping("/channel/sendFile")
+    @PostMapping("/channel/sendmsgfile")
     public void mensajeFileCanal(String name, String text, MultipartFile file, Long id, Long idUser){
         User u = repoUsr.findById(idUser).get();
+        
         Message msg = new Message();
+        
         msg.setChannel(repoChn.findById(id).get());
         msg.setUser(u);
         msg.setName(msg.getUser().getNickName());
         msg.setText("Fichero Subido");
         
-        repoMsg.save(msg);
+        mensajeCanal(msg, id, idUser);
+        
         
         MessageFile msgFile = new MessageFile();
         
