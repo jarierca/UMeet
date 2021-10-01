@@ -170,10 +170,22 @@ public class MessagesController {
     
     
     @ResponseBody
-    @PostMapping("/private/sendFile")
+    @PostMapping("/private/sendmsgfile")
     public void mensajeFilePrivado(String name, String text, MultipartFile file, Long id, Long idUser){
-        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        User u = repoUsr.findById(idUser).get();
+        
+        Message msg = new Message();
+        
+        msg.setUserDestiny(repoUsr.findById(id).get());
+        msg.setUser(u);
+        msg.setName(msg.getUser().getNickName());
+        msg.setText("Fichero Subido");
+        
+        mensajePrivado(msg, id, idUser);
+        
+        
         MessageFile msgFile = new MessageFile();
+        
         msgFile.setName(u.getUsername());
         
         String ruta = rutaRecursos + "/file/" + file.getOriginalFilename();
@@ -184,8 +196,8 @@ public class MessagesController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
         msgFile.setUrl(ruta);
+        msgFile.setMessage(repoMsg.findById(msg.getId()).get());
         
         repoMsgFile.save(msgFile); 
     }
