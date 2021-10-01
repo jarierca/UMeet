@@ -55,8 +55,6 @@ public class CategoryController {
     public Long deleteCategory(Long idCategory) {
         long idServer = categoryRepository.findById(idCategory).get().getServer().getId();
         categoryRepository.deleteById(idCategory);
-        //return "redirect:server/one?idServer=" + idServer;
         return idServer;
     }
-
 }

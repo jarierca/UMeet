@@ -54,7 +54,6 @@ public class ChannelController {
     public Long deleteChannel(Long idChannel){
         long idServer = channelRepository.findById(idChannel).get().getCategory().getServer().getId();
         channelRepository.deleteById(idChannel);
-       // return "redirect:server/one?idServer="+idServer;
-       return idChannel;
+        return idServer;
     }
 }
