@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $("#loading-screen").css("display", "none");
     $("#screen").css("display", "block");
-
+    AOS.init();
     loadProfile();
     loadServers();
     msgSize();
@@ -24,7 +24,7 @@ $(document).ready(function () {
     var config = $.cookie("config");
     
     if(config == "v"){
-        vBarOn();  
+        vBarOn(); 
     }else{
         hBarOn();
     }
@@ -140,6 +140,7 @@ function servidor() {
         url: "/server/allServers",
         success: function (pHtml) {
             $("body").html(pHtml);
+            //$("#contentBody").addClass('magictime puffIn');
         },
         error: function (xhr, status, error) {
             console.log(xhr.responseText);
@@ -177,30 +178,32 @@ function chat(idCanal, channelName) {
                 if(c == len-1){
                     clase = "animame";
                 }
-                if (x.user.username == userId.username) {
-                    $("<div>").html('<div class="answer '+clase +' right mx-4 pb-4">' +
-                            '<div class="avatar mb-4">' +
-                            '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
-                            '<span class="status offline"></span>' +
-                            '</div>' +
-                            '<div class="name">' + x.user.nickName + '</div>' +
-                            '<div class="text">' +
-                            x.text +
-                            '</div>' +
-                            '</div>').appendTo(salida);
+                if(x.text!=""){
+                    if (x.user.username == userId.username) {
+                        $("<div>").html('<div class="answer '+clase +' right mx-4 pb-4">' +
+                                '<div class="avatar mb-4">' +
+                                '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
+                                '<span class="status offline"></span>' +
+                                '</div>' +
+                                '<div class="name">' + x.user.nickName + '</div>' +
+                                '<div class="text">' +
+                                x.text +
+                                '</div>' +
+                                '</div>').appendTo(salida);
 
-                } else {
-                    $("<div>").html('<div class="answer '+clase +' left mx-4 pb-4">' +
-                            '<div class="avatar mb-4">' +
-                            '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
-                            '<span class="status offline"></span>' +
-                            '</div>' +
-                            '<div class="name">' + x.user.nickName + '</div>' +
-                            '<div class="text">' +
-                            x.text +
-                            '</div>' +
-                            '</div>').appendTo(salida);
-//                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);   
+                    } else {
+                        $("<div>").html('<div class="answer '+clase +' left mx-4 pb-4">' +
+                                '<div class="avatar mb-4">' +
+                                '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
+                                '<span class="status offline"></span>' +
+                                '</div>' +
+                                '<div class="name">' + x.user.nickName + '</div>' +
+                                '<div class="text">' +
+                                x.text +
+                                '</div>' +
+                                '</div>').appendTo(salida);
+    //                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);   
+                    }
                 }
                 c = c+1;
             }
@@ -211,7 +214,7 @@ function chat(idCanal, channelName) {
 //                        setTimeout(function(){chat(idCanal)}, 20000);
             $("#sendMsg").focus();
             $("#contentChat").addClass("magictime slideUpReturn");
-            $("#sendit").addClass('magictime puffIn');
+            $("#sendit").addClass('magictime slideDownReturn');
             $(".animame.right").addClass('magictime slideRightReturn');
             $(".animame.left").addClass('magictime slideLeftReturn');
             
@@ -281,29 +284,31 @@ function chatPrivado(idDestino, nameDestino) {
                 if(c == len-1){
                     clase = "animame";
                 }
-                if (x.user.username == userId.username) {
-
-                    $("<div>").html('<div class="answer '+clase +' right mx-4 pb-4">' +
-                            '<div class="avatar mb-4">' +
-                            '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
-                            '<span class="status offline"></span>' +
-                            '</div>' +
-                            '<div class="name">' + x.name + '</div>' +
-                            '<div class="text">' +
-                            x.text +
-                            '</div>' +
-                            '</div>').appendTo(salida);
-                } else {
-                    $("<div>").html('<div class="answer '+clase +' left mx-4 pb-4">' +
-                            '<div class="avatar mb-4">' +
-                            '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
-                            '<span class="status offline"></span>' +
-                            '</div>' +
-                            '<div class="name">' + x.name + '</div>' +
-                            '<div class="text">' +
-                            x.text +
-                            '</div>' +
-                            '</div>').appendTo(salida);
+                if(x.text!=""){
+                    if (x.user.username == userId.username) {
+                        
+                        $("<div>").html('<div class="answer '+clase +' right mx-4 pb-4">' +
+                                '<div class="avatar mb-4">' +
+                                '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
+                                '<span class="status offline"></span>' +
+                                '</div>' +
+                                '<div class="name">' + x.name + '</div>' +
+                                '<div class="text">' +
+                                x.text +
+                                '</div>' +
+                                '</div>').appendTo(salida);
+                    } else {
+                        $("<div>").html('<div class="answer '+clase +' left mx-4 pb-4">' +
+                                '<div class="avatar mb-4">' +
+                                '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
+                                '<span class="status offline"></span>' +
+                                '</div>' +
+                                '<div class="name">' + x.name + '</div>' +
+                                '<div class="text">' +
+                                x.text +
+                                '</div>' +
+                                '</div>').appendTo(salida);
+                    }
                 }
                 c = c+1;
             }
@@ -311,7 +316,7 @@ function chatPrivado(idDestino, nameDestino) {
             $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
             $("#sendMsg").focus();
             $("#contentChat").addClass("magictime slideUpReturn");
-            $("#sendit").addClass('magictime puffIn');
+            $("#sendit").addClass('magictime slideDownReturn');
             $(".animame.right").addClass('magictime slideRightReturn');
             $(".animame.left").addClass('magictime slideLeftReturn');
         },
@@ -465,8 +470,20 @@ function vBarOn() {//11 V
     
     $.cookie("config", "v", { path: '/' }, 20*365)
 
-    msgSize();
+    msgSize(); 
+    
 }
+
+function animarBarra(lado){
+    if (lado=="v"){
+        vBarOn();
+        $("#nabar-v").addClass('magictime slideLeftReturn');
+    }else{
+        hBarOn();
+        $("#nabar-h").addClass('magictime slideUpReturn');
+    }
+}
+
 function sendMsgWithEnter() {
     $("#sendit").keyup(function (event) {
         if (event.keyCode === 13) {

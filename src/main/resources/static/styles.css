@@ -795,6 +795,18 @@ th{
 
 }
 
+/*footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  margin-left: 115px;
+
+}*/
+
 @media(max-width:1550px){
     .nav-hidden-h{
         display: none;
@@ -802,6 +814,11 @@ th{
 }
 
 .magictime.slideRightReturn {
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
+    -webkit-animation-duration: 0.25s;
+    animation-duration: 0.25s;
+}
+
+.magictime.swashIn {
+    -webkit-animation-duration: 0.8s;
+    animation-duration: 0.8s;
 }

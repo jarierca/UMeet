@@ -1,188 +1,182 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(htmlcuerpo)">
 
-<head>
-    <title>UMeet - ¡Chatea con tus amigos!</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="/javascript/magic.min.css">
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" type="image/png" href="/una.png" sizes="16x16">
-</head>
+    <head>
+        <title>UMeet - ¡Chatea con tus amigos!</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet" href="/javascript/magic.min.css">
+        <link rel="stylesheet" href="/styles.css">
+        <link rel="icon" type="image/png" href="/una.png" sizes="16x16">
+    </head>
 
-<body>
-    <div>
-        <div id="loading-screen">
-            <div class="container text-center" style="margin-top: 12.5%">
-                <div class="text-white h1 mb-5">Loading</div>
-                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    <body>
+        <div>
+            <div id="loading-screen">
+                <div class="container text-center" style="margin-top: 12.5%">
+                    <div class="text-white h1 mb-5">Loading</div>
+                    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                </div>
             </div>
-        </div>
-        <div class="row" id="screen"> 
-            <div class="col-md-12" id="size">
-                
-                <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid" id="nabar-h"> 
-                    <div class="container-fluid padre">
-                        <div class="col-4 row hijo">
-                            <div class="text-white col-1">
-                                <a onclick="vBarOn()"><i class="fas fa-chevron-left"></i></a>
-                            </div>
-                            <a class="nav-link tips" title="Incio" href="/home" style="margin-left: -50px;">
-                                <img src="/una.png" class="avatar ml-4">
-                            </a>
-                            <!-- Amigos -->
-                            <ul class="navbar-nav col-4">
-                                <li class="nav-item active">
-                                    <a class="nav-link tips" title="Lista de Amigos" href="/friends/friendsList">
-                                        <mystyle>
-                                            <i class="fas fa-user-friends"></i><span class="nav-hidden-h">Amigos</span>
-                                        </mystyle>
-                                    </a>
-                                </li>
-                            </ul>
-                            <!-- Mostrar servidores -->
-                            <ul class="navbar-nav col-4">
-                                <li class="nav-item active">
-                                    <a class="nav-link tips" title="Lista de Servidores" id="inventado" href="/server/allServers"><!-- onclick="servidor()" -->
-                                        <mystyle>
-                                            <i class="fas fa-server"></i><span class="nav-hidden-h"> Servidores</span>
-                                        </mystyle>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-8 row hijo">                            
-                            <!-- Lista servidores y anyadir -->
-                            <div class="tips" title="Crear Servidor">
-                                <a class="avatar" th:onclick="|editServer()|">
-                                    <img class="avatar" src="/plus.svg"/>
-                                </a>
-                            </div>
-                            <div class="col-9 ">
-                                <div id="userServers" class="overflow-auto"></div>
-                            </div>
+            <div class="row" id="screen"> 
+                <div class="col-md-12" id="size">
 
-                            <!-- Perfil usuario -->
-                            <div class="navbar-nav  row col-2 ml-4">
-                                <div class="dropdown">
-                                    <a class="nav-link" role="button" id="user-profile"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="/profile/view">Ver Perfil</a>
-                                        <a class="dropdown-item" onclick="editProfile()">Editar Perfil</a>
-                                        <a th:href="@{/log-out}"class="btn btn-success align-items-center dropdown-item">Desconectar</a>
-                                    </div>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark container-fluid" id="nabar-h"> 
+                        <div class="container-fluid padre">
+                            <div class="col-4 row hijo">
+                                <div class="text-white col-1">
+                                    <a onclick="animarBarra('v')"><i class="fas fa-chevron-left"></i></a>
                                 </div>
-                                <div class="dropdown">
-                                    <a role="button" data-toggle="dropdown" aria-haspopup="true" id="user-status"
-                                        aria-expanded="false">
-                                        &nbsp;
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="user-profile">
-                                        <a onClick="editStatus('conectado')" class="dropdown-item">Conectado</a>
-                                        <a onClick="editStatus('desconectado')" class="dropdown-item">Desconectado</a>
-                                        <a onClick="editStatus('ocupado')" class="dropdown-item">Ocupado</a>
-                                        <a onClick="editStatus('ausente')" class="dropdown-item">Ausente</a>
-                                    </div>
-                                </div>
+                                <a class="nav-link tips" title="Incio" href="/home" style="margin-left: -50px;">
+                                    <img src="/una.png" class="avatar ml-4">
+                                </a>
+                                <!-- Amigos -->
+                                <ul class="navbar-nav col-4">
+                                    <li class="nav-item active">
+                                        <a class="nav-link tips" title="Lista de Amigos" href="/friends/friendsList">
+                                            <mystyle>
+                                                <i class="fas fa-user-friends"></i><span class="nav-hidden-h">Amigos</span>
+                                            </mystyle>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- Mostrar servidores -->
+                                <ul class="navbar-nav col-4">
+                                    <li class="nav-item active">
+                                        <a class="nav-link tips" title="Lista de Servidores" id="inventado" href="/server/allServers"><!-- onclick="servidor()" -->
+                                            <mystyle>
+                                                <i class="fas fa-server"></i><span class="nav-hidden-h"> Servidores</span>
+                                            </mystyle>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                </nav>
-                <div class="row "><!<!-- h-100 -->
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark col-1" id="nabar-v" style="display: none">
-                        <div class="text-center">
-                            <div class="text-white mb-2">
-                                <a onclick="hBarOn()"><i class="fas fa-chevron-up"></i></a>
-                            </div>
-                            <a class="nav-link tips" title="Incio" href="/home">
-                                <img src="/una.png" class="avatar">
-                            </a>
-                            <ul class="nav flex-column">
-                                <li>
-                                    <hr class="mx-5" style="height: 2px;background-color: #2f3136">
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link tips" title="Lista de Amigos" href="/friends/friendsList">
-                                        <mystyle class="text-white" style="font-size:30px">
-                                            <i class="fas fa-user-friends"></i>
-                                        </mystyle>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link tips" title="Lista de Servidores" id="inventado" href="/server/allServers"><!-- onclick="servidor()" -->
-                                        <mystyle class="text-white" style="font-size:30px">
-                                            <i class="fas fa-server"></i>
-                                        </mystyle>
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="mx-5" style="height: 2px;background-color: #2f3136">
-                                </li>
-                            </ul>
-                            <div class="text-center mt-2">                            
-                                <div class="tips mx-3 mb-3" title="Crear Servidor">
+                            <div class="col-8 row hijo">                            
+                                <!-- Lista servidores y anyadir -->
+                                <div class="tips" title="Crear Servidor">
                                     <a class="avatar" th:onclick="|editServer()|">
                                         <img class="avatar" src="/plus.svg"/>
                                     </a>
                                 </div>
-                                <div class="mx-2">
-                                    <div id="userServers-v" class="overflow-col-auto"></div>
+                                <div class="col-9 ">
+                                    <div id="userServers" class="overflow-auto"></div>
                                 </div>
-                            </div>
-                            <li class="d-block mt-2">
-                                <hr class="mx-5" style="height: 2px;background-color: #2f3136">
-                            </li>
-                            <ul class="nav flex-column">
-                                <li class="nav-items">
-                                    <!-- Perfil usuario -->    
-                                    <div class="text-center mt-2">
-                                        <div class="dropright">
-                                            <a class="nav-link text-white" role="button" id="user-profile-v" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="/profile/view">Ver Perfil</a>
-                                                <a class="dropdown-item" onclick="editProfile()">Editar Perfil</a>
-                                                <a th:href="@{/log-out}"class="btn btn-success align-items-center dropdown-item">Desconectar</a>
-                                            </div>
-                                        </div>
-                                        <div class="dropup">
-                                            <a role="button" data-toggle="dropdown" aria-haspopup="true" id="user-status-v" aria-expanded="false">&nbsp;</a>
-                                            <div class="dropdown-menu" aria-labelledby="user-profile">
-                                                <a onClick="editStatus('conectado')" class="dropdown-item">Conectado</a>
-                                                <a onClick="editStatus('desconectado')" class="dropdown-item">Desconectado</a>
-                                                <a onClick="editStatus('ocupado')" class="dropdown-item">Ocupado</a>
-                                                <a onClick="editStatus('ausente')" class="dropdown-item">Ausente</a>
-                                            </div>
+
+                                <!-- Perfil usuario -->
+                                <div class="navbar-nav  row col-2 ml-4">
+                                    <div class="dropdown">
+                                        <a class="nav-link" role="button" id="user-profile"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="/profile/view">Ver Perfil</a>
+                                            <a class="dropdown-item" onclick="editProfile()">Editar Perfil</a>
+                                            <a th:href="@{/log-out}"class="btn btn-success align-items-center dropdown-item">Desconectar</a>
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-
-                    <div class="col-12" id="cuerpo" style="text-align: center; align-content:center;">
-                        <div id="contentBody" class="">
-                            <th:block th:include="${htmlcuerpo}"/>
-                        </div>
-                        <footer>
-                            <div class="row">
-                                <div class="offset-5 mt-4 mb-2">
-                                    <p> © Copyright 2021 U-Meet. Todos los Derechos Reservados <p>
+                                    <div class="dropdown">
+                                        <a role="button" data-toggle="dropdown" aria-haspopup="true" id="user-status"
+                                           aria-expanded="false">
+                                            &nbsp;
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="user-profile">
+                                            <a onClick="editStatus('conectado')" class="dropdown-item">Conectado</a>
+                                            <a onClick="editStatus('desconectado')" class="dropdown-item">Desconectado</a>
+                                            <a onClick="editStatus('ocupado')" class="dropdown-item">Ocupado</a>
+                                            <a onClick="editStatus('ausente')" class="dropdown-item">Ausente</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </footer>
+                        </div>
+                    </nav>
+                    <div class="row "><!<!-- h-100 -->
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark col-1" id="nabar-v" style="display: none">
+                            <div class="text-center">
+                                <div class="text-white mb-2">
+                                    <a onclick="animarBarra('h')"><i class="fas fa-chevron-up"></i></a>
+                                </div>
+                                <a class="nav-link tips" title="Incio" href="/home">
+                                    <img src="/una.png" class="avatar">
+                                </a>
+                                <ul class="nav flex-column">
+                                    <li>
+                                        <hr class="mx-5" style="height: 2px;background-color: #2f3136">
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link tips" title="Lista de Amigos" href="/friends/friendsList">
+                                            <mystyle class="text-white" style="font-size:30px">
+                                                <i class="fas fa-user-friends"></i>
+                                            </mystyle>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link tips" title="Lista de Servidores" id="inventado" href="/server/allServers"><!-- onclick="servidor()" -->
+                                            <mystyle class="text-white" style="font-size:30px">
+                                                <i class="fas fa-server"></i>
+                                            </mystyle>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="mx-5" style="height: 2px;background-color: #2f3136">
+                                    </li>
+                                </ul>
+                                <div class="text-center mt-2">                            
+                                    <div class="tips mx-3 mb-3" title="Crear Servidor">
+                                        <a class="avatar" th:onclick="|editServer()|">
+                                            <img class="avatar" src="/plus.svg"/>
+                                        </a>
+                                    </div>
+                                    <div class="mx-2">
+                                        <div id="userServers-v" class="overflow-col-auto"></div>
+                                    </div>
+                                </div>
+                                <li class="d-block mt-2">
+                                    <hr class="mx-5" style="height: 2px;background-color: #2f3136">
+                                </li>
+                                <ul class="nav flex-column">
+                                    <li class="nav-items">
+                                        <!-- Perfil usuario -->    
+                                        <div class="text-center mt-2">
+                                            <div class="dropright">
+                                                <a class="nav-link text-white" role="button" id="user-profile-v" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="/profile/view">Ver Perfil</a>
+                                                    <a class="dropdown-item" onclick="editProfile()">Editar Perfil</a>
+                                                    <a th:href="@{/log-out}"class="btn btn-success align-items-center dropdown-item">Desconectar</a>
+                                                </div>
+                                            </div>
+                                            <div class="dropup">
+                                                <a role="button" data-toggle="dropdown" aria-haspopup="true" id="user-status-v" aria-expanded="false">&nbsp;</a>
+                                                <div class="dropdown-menu" aria-labelledby="user-profile">
+                                                    <a onClick="editStatus('conectado')" class="dropdown-item">Conectado</a>
+                                                    <a onClick="editStatus('desconectado')" class="dropdown-item">Desconectado</a>
+                                                    <a onClick="editStatus('ocupado')" class="dropdown-item">Ocupado</a>
+                                                    <a onClick="editStatus('ausente')" class="dropdown-item">Ausente</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+
+                        <div class="col-12" id="cuerpo" style="text-align: center; align-content:center;">
+                            <div id="contentBody" class="">
+                                <th:block th:include="${htmlcuerpo}"/>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div id = "pot" class="invis">
-                    <img src="/estepi.png" width="50" height="50">
+
+                    <div id = "pot" class="invis">
+                        <img src="/estepi.png" width="50" height="50">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <myscripts th:fragment="scripts">
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -190,6 +184,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script src="/javascript/funcionalidad.js"></script>
     </myscripts>
 </body>
