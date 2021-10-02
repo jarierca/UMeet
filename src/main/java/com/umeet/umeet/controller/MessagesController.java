@@ -124,22 +124,24 @@ public class MessagesController {
     
     @ResponseBody
     @PostMapping("/channel/sendmsgfile")
-    public void mensajeFileCanal(String name, String text, MultipartFile file, Long id, Long idUser){
+    public void mensajeFileCanal(MultipartFile file, Long id, Long idUser){
         User u = repoUsr.findById(idUser).get();
+        
+        String filename = file.getOriginalFilename();
+        String [] urlSplit = filename.split("/");
+        filename = urlSplit[urlSplit.length-1];
         
         Message msg = new Message();
         
         msg.setChannel(repoChn.findById(id).get());
         msg.setUser(u);
         msg.setName("Fichero");
-        msg.setText("Fichero");
+        msg.setText(filename);
         
         mensajeCanal(msg, id, idUser);
         
         
         MessageFile msgFile = new MessageFile();
-        
-        msgFile.setName("fichero");
         
         String ruta = rutaRecursos + "/file/channel/"+id+"/"+ UUID.randomUUID().toString()+"_"+file.getOriginalFilename();
         File f = new File(ruta);
@@ -150,6 +152,9 @@ public class MessagesController {
             e.printStackTrace();
         }
         msgFile.setUrl(ruta);
+        
+        msgFile.setName("fichero");
+        
         msgFile.setMessage(repoMsg.findById(msg.getId()).get());
         
         repoMsgFile.save(msgFile); 
@@ -171,19 +176,21 @@ public class MessagesController {
     public void mensajeFilePrivado(String name, String text, MultipartFile file, Long id, Long idUser){
         User u = repoUsr.findById(idUser).get();
         
+        String filename = file.getOriginalFilename();
+        String [] urlSplit = filename.split("/");
+        filename = urlSplit[urlSplit.length-1];
+        
         Message msg = new Message();
         
         msg.setUserDestiny(repoUsr.findById(id).get());
         msg.setUser(u);
         msg.setName("Fichero");
-        msg.setText("Fichero");
+        msg.setText(filename);
         
         mensajePrivado(msg, id, idUser);
         
         
         MessageFile msgFile = new MessageFile();
-        
-        msgFile.setName("fichero");
         
         String ruta = rutaRecursos + "/file/user/"+idUser+"/"+ UUID.randomUUID().toString()+"_"+file.getOriginalFilename();
         File f = new File(ruta);
@@ -194,6 +201,9 @@ public class MessagesController {
             e.printStackTrace();
         }
         msgFile.setUrl(ruta);
+        
+        msgFile.setName("fichero");
+        
         msgFile.setMessage(repoMsg.findById(msg.getId()).get());
         
         repoMsgFile.save(msgFile); 
