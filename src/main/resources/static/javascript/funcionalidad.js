@@ -161,7 +161,7 @@ function chat(idCanal, channelName) {
         type: "POST",
         url: "/msg/channel/" + idCanal,
         success: function (pJson) {
-            console.log(pJson);
+//            console.log(pJson);
             $("#channel-name").html('<i class="fas fa-hashtag" style="margin-top:4px">&nbsp;</i>'+channelName); 
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                     "<a id='clickmsg' onclick=enviarMsgCanal(" + idCanal + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
@@ -180,12 +180,15 @@ function chat(idCanal, channelName) {
                 if(c == len-1){
                     clase = "animame";
                 }
-                if(x.messageFile != null){
-                    if(x.messageFile.name =="fichero"){
-                        fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank'><i class='far fa-file-alt' style='font-size:40px;'></i>  <i class='fas fa-download' style='font-size:40px;'></i></a>";   
+//                console.log(pJson[c]);
+                if(pJson[c].messageFile != null){
+                    if(pJson[c].messageFile.name =="fichero"){
+                        fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
                     }else{
-                        texto = x.text ;
+                        fichero = "";
                     }
+                }else{
+                    fichero = "";
                 }
                 if(x.text!=""){
                     if (x.user.username == userId.username) {
@@ -196,7 +199,7 @@ function chat(idCanal, channelName) {
                                 '</div>' +
                                 '<div class="name">' + x.user.nickName + '</div>' +
                                 '<div class="text">' +
-                                x.text  + fichero+
+                                x.text + "  " + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
 
@@ -208,7 +211,7 @@ function chat(idCanal, channelName) {
                                 '</div>' +
                                 '<div class="name">' + x.user.nickName + '</div>' +
                                 '<div class="text">' +
-                                x.text  + fichero+
+                                x.text + "  " +  fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
     //                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);   
@@ -224,9 +227,6 @@ function chat(idCanal, channelName) {
             $("#sendMsg").focus();
             $("#contentChat").addClass("magictime slideUpReturn");
             $("#sendit").addClass('magictime slideDownReturn');
-            $(".animame.right").addClass('magictime slideRightReturn');
-            $(".animame.left").addClass('magictime slideLeftReturn');
-            
         },
         error: function (xhr, status, error) {
             console.log(xhr.responseText);
@@ -247,6 +247,8 @@ function enviarMsgCanal(idCanal) {
             },
             success: function (pJson) {
 //                            console.log("Mensaje enviado");
+                $(".animame.right").addClass('magictime slideRightReturn');
+                $(".animame.left").addClass('magictime slideLeftReturn');
                 chat(idCanal);
 
                 $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
@@ -278,7 +280,7 @@ function chatPrivado(idDestino, nameDestino) {
         type: "POST",
         url: "/msg/private/" + idDestino,
         success: function (pJson) {
-            console.log(pJson);
+            //console.log(pJson);
             $("#user-chat-name").html(nameDestino);
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                     "<a id='clickmsg' onclick=enviarMsgPrivado(" + idDestino + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
@@ -295,12 +297,15 @@ function chatPrivado(idDestino, nameDestino) {
                 if(c == len-1){
                     clase = "animame";
                 }
-                if(x.messageFile != null){
-                    if(x.messageFile.name =="fichero"){
-                        fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank'><i class='far fa-file-alt' style='font-size:40px'></i>  <i class='fas fa-download' style='font-size:40px;'></i></a>";   
+                console.log(pJson[c]);
+                if(pJson[c].messageFile != null){
+                    if(pJson[c].messageFile.name =="fichero"){
+                        fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
                     }else{
-                        texto = x.text ;
+                        fichero = "";
                     }
+                }else{
+                    fichero = "";
                 }
                 if(x.text!=""){
                     if (x.user.username == userId.username) {
@@ -312,7 +317,7 @@ function chatPrivado(idDestino, nameDestino) {
                                 '</div>' +
                                 '<div class="name">' + x.name + '</div>' +
                                 '<div class="text">' +
-                                x.text + fichero+
+                                x.text + "  " + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
                     } else {
@@ -323,7 +328,7 @@ function chatPrivado(idDestino, nameDestino) {
                                 '</div>' +
                                 '<div class="name">' + x.name + '</div>' +
                                 '<div class="text">' +
-                                x.text  + fichero+
+                                x.text + "  " + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
                     }
@@ -335,8 +340,6 @@ function chatPrivado(idDestino, nameDestino) {
             $("#sendMsg").focus();
             $("#contentChat").addClass("magictime slideUpReturn");
             $("#sendit").addClass('magictime slideDownReturn');
-            $(".animame.right").addClass('magictime slideRightReturn');
-            $(".animame.left").addClass('magictime slideLeftReturn');
         },
         error: function (xhr, status, error) {
             console.log(xhr.responseText);
@@ -359,6 +362,8 @@ function enviarMsgPrivado(idDestino) {
                 chatPrivado(idDestino);
 
                 $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
+                $(".animame.right").addClass('magictime slideRightReturn');
+                $(".animame.left").addClass('magictime slideLeftReturn');
             },
             error: function (xhr, status, error) {
                 console.log(xhr.responseText);

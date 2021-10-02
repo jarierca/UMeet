@@ -82,12 +82,12 @@ public class MessagesController {
         return "addFile";
     }
     
-    @ResponseBody
     @PostMapping("/channel/sendmsgfile")
-    public void mensajeFileCanal(String name, String text, MultipartFile archivo, Long id, Long idUser){
+    public String mensajeFileCanal(MultipartFile archivo, Long id, Long idUser){
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        msgFeign.mensajeFileCanal(u.getUsername(), "archivo", archivo, id, u.getId());
+        msgFeign.mensajeFileCanal(archivo, id, u.getId());
+        return "redirect:/server/allServers";
     }
     
     @ResponseBody
@@ -97,13 +97,12 @@ public class MessagesController {
         msgFeign.mensajePrivado(msg.getId(),msg.getName(),msg.getText(), idUserDestiny, u.getId());
     }
     
-       
-    @ResponseBody
     @PostMapping("/private/sendmsgfile")
-    public void mensajeFilePrivado(MessageFile msgFile, MultipartFile archivo,Long id, Long idUser){
-       UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    public String mensajeFilePrivado(MessageFile msgFile, MultipartFile archivo,Long id, Long idUser){
+        UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        msgFeign.mensajeFilePrivado(u.getUsername(), "archivo", archivo, id, u.getId());
+        msgFeign.mensajeFilePrivado(archivo, id, u.getId());
+        return "redirect:/friends/friendsList";
     }
     
     @GetMapping("/download")

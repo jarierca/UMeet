@@ -22,12 +22,12 @@ public interface MessagesFeign {
     public void mensajeCanal(@RequestParam Long id, @RequestParam String name, @RequestParam String text, @RequestParam Long idChannel,@RequestParam Long idUser);
     
     @PostMapping(value="/channel/sendmsgfile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) 
-    public void mensajeFileCanal( @RequestParam String name, @RequestParam String text, @RequestPart(value = "file")  MultipartFile file, @RequestParam Long id, @RequestParam Long idUser);
+    public void mensajeFileCanal(@RequestPart(value = "file")  MultipartFile file, @RequestParam Long id, @RequestParam Long idUser);
     
     @PostMapping("/private/sendmsg") 
     public void mensajePrivado(@RequestParam Long id, @RequestParam String name, @RequestParam String text, @RequestParam Long idUserDestiny, @RequestParam  Long idUser);
     
     @PostMapping(value="/private/sendmsgfile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void mensajeFilePrivado(@RequestParam String name, @RequestParam String text,  @RequestPart(value = "file")  MultipartFile file, @RequestParam Long id, @RequestParam  Long idUser);
+    public void mensajeFilePrivado(@RequestPart(value = "file")  MultipartFile file, @RequestParam Long id, @RequestParam  Long idUser);
     
 }
