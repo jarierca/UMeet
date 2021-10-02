@@ -4,6 +4,7 @@ import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.UserServerRole;
+import com.umeet.umeet.feign.EmailFeign;
 import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
 import com.umeet.umeet.repositories.UserServerRoleRepository;
@@ -35,6 +36,9 @@ public class AccessController {
 
     @Autowired
     private UserServerRoleRepository usrRepo;
+    
+    @Autowired
+    private EmailFeign emailFeign;
 
     @GetMapping("/login")
     public String login() {
@@ -84,6 +88,10 @@ public class AccessController {
             user.setNickName(user.getUsername());
             user.setAvatar("C:/zzUpload/avatar/avatar-stock.png");
             user.setStatus("desconectado");
+            
+            String txt = "Hola " + user.getUsername() + ", te damos las gracias por unirte a nuestra comunidad de U-Meet, en la que te permite hablar y con tus amigos.";
+            
+            emailFeign.mail(user.getEmail(), "¡Bienvenido a U-Meet!", txt);
 
             userRepository.save(user);
 //            } 
