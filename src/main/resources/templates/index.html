@@ -1,18 +1,18 @@
+<!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
       th:replace="layout/layout::layout( ~{::body})">
 </head>
 <body>
     <div class=" fondo">
-        <div class= "probando mt-4">
+        <div class= "d-flex justify-content-center posicion-top">
 
-            <div class="index"> </div>
-            <div class="posicion">
+            <div class="index">
+                <div class="posicion text-center align-self-center mt-5">
+                    <p>La mejor plataforma social para encontrarte con tus amigos y explorar distintas comunidades </p>
+                    <h3>¡Empieza a explorar!</h3>
 
-
-                <p>La mejor plataforma social para encontrarte con tus amigos y explorar distintas comunidades </p>
-                <h3>¡Empieza a explorar!</h3>
-
-                <a th:href="@{server/allServers}" class="btn btn-primary mt-4"> ¡Vamos!</a>
+                    <a th:href="@{server/allServers}" class="btn btn-primary mt-4"> ¡Vamos!</a>
+                </div>
             </div>
         </div>
     </div>

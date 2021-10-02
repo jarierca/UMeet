@@ -11,12 +11,14 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: 100%;
-
-
 }
 .posicion{
-    position: relative;
-    top: -200px;
+    opacity: 1.0 !important;
+    /*position: absolute;*/
+    /*top: -200px;*/
+}
+.posicion-top{
+    padding-top: 200px;
 }
 .probando{
     width: 100%;
@@ -25,10 +27,7 @@ body {
 .index{
     width: 700px;
     height: 300px;
-    background: black;
-    opacity: .3;
-
-
+    background-color: rgba(0,0,0,0.3);
 }
 #loading-screen{
     position: absolute;
