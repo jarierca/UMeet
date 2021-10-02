@@ -91,7 +91,7 @@ public class AccessController {
             
             String txt = "Hola " + user.getUsername() + ", te damos las gracias por unirte a nuestra comunidad de U-Meet, en la que te permite hablar y con tus amigos.";
             
-            emailFeign.mail(user.getEmail(), "¡Bienvenido a U-Meet!", txt);
+//            emailFeign.mail(user.getEmail(), "¡Bienvenido a U-Meet!", txt);
 
             userRepository.save(user);
 //            } 
