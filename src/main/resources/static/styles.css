@@ -80,7 +80,7 @@ hr {
     font-size: 24px;
 }
 #nabar-h, #nabar-v{
-    z-index: 9999;
+    z-index: 999;
 }
 
 .ghost {
@@ -826,6 +826,9 @@ th{
         display: none;
     }
 }
+/*.tips{
+    z-index: 9999;
+}*/
 
 .magictime.slideRightReturn {
     -webkit-animation-duration: 0.25s;
