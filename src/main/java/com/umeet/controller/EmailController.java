@@ -12,6 +12,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/m")
@@ -20,8 +21,9 @@ public class EmailController {
     @Autowired
     private JavaMailSender javaMailSender;
     
+    @ResponseBody
     @GetMapping("/mail")
-    void sendEmail(String email, String subject, String text) {
+    public void sendEmail(String email, String subject, String text) {
 
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(email);
@@ -33,8 +35,9 @@ public class EmailController {
 
     }
 
+    @ResponseBody
     @GetMapping("/mailAttach")
-    void sendEmailWithAttachment(String email, String subject, String text, String file) throws MessagingException, IOException {
+    public void sendEmailWithAttachment(String email, String subject, String text, String file) throws MessagingException, IOException {
 
         MimeMessage msg = javaMailSender.createMimeMessage();
 
