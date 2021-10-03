@@ -1,3 +1,8 @@
-# Spring Boot - How to send email via SMTP
+# UMeet
+Proyecto Hiberus
 
-Article link : https://www.mkyong.com/spring-boot/spring-boot-how-to-send-email-via-smtp/
+Url: http://localhost:8083/
+
+-Microservicio - Email 
+
+-Envio de correos electronicos atraves de una cuenta de gmail
