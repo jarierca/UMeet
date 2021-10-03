@@ -1,5 +1,6 @@
 /*Funcionalidad general*/
 $(document).ready(function () {
+    
     $("#loading-screen").css("display", "none");
     $("#screen").css("display", "block");
     AOS.init();
@@ -175,7 +176,6 @@ function chat(idCanal, channelName) {
             var c = 0;
             var clase = "";
             var fichero = "";
-            var texto = "";
             for (x of pJson) {
                 if(c == len-1){
                     clase = "animame";
@@ -292,7 +292,6 @@ function chatPrivado(idDestino, nameDestino) {
             var c = 0;
             var clase = "";
             var fichero = "";
-            var texto = "";
             for (x of pJson) {
                 if(c == len-1){
                     clase = "animame";
@@ -373,7 +372,6 @@ function enviarMsgPrivado(idDestino) {
 }
 
 function amigos() {
-
     $.ajax({
         type: "POST",
         url: "/friends/friendsFilter",
