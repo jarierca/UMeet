@@ -608,9 +608,13 @@ function cambiarModo() {
     var tema = $.cookie("tema");
     if (tema == "c") {
         claro();
-    } else {
+    } else if (tema == "d"){
         oscuro();
     }
+    else{
+       cambiarModoC(); 
+    }
+    
 }
 
 function cambiarModoC() {
