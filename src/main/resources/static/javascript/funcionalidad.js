@@ -48,14 +48,14 @@ function loadProfile() {
         url: "/profile/getUser",
         success: function (pHtml) {
 
-            $("#user-profile").html('<span class="name tips" title="Mas información">' + pHtml.nickName + '</span>');
-            $("#user-status").html('<span class="avatar tips" style="position:absolute" title="Modifica tu estado">' +
+            $("#user-profile").html('<span class="name" title="Mas información">' + pHtml.nickName + '</span>');
+            $("#user-status").html('<span class="avatar" style="position:absolute" title="Modifica tu estado">' +
                     '<img alt="Avatar" class="avatar" src="/profile/avatar?url=' + pHtml.avatar + '">' +
                     '<span class="status-2 ' + pHtml.status + '"></span>' +
                     '</span>');
 
-            $("#user-profile-v").html('<span class="name tips" title="Mas información">' + pHtml.nickName + '</span>');
-            $("#user-status-v").html('<span class="avatar tips" style="position:absolute;left: 30%;" title="Modifica tu estado">' +
+            $("#user-profile-v").html('<span class="name" title="Mas información">' + pHtml.nickName + '</span>');
+            $("#user-status-v").html('<span class="avatar" style="position:absolute;left: 30%;" title="Modifica tu estado">' +
                     '<img alt="Avatar" class="avatar" src="/profile/avatar?url=' + pHtml.avatar + '">' +
                     '<span class="status-2 ' + pHtml.status + '"></span>' +
                     '</span>');
