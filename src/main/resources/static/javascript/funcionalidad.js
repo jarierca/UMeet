@@ -119,6 +119,8 @@ function loadServers() {
             //console.log(salida);
             $("#userServers").append(salida);
             $("#userServers-v").append(salida2);
+            
+            $(".tips").tooltip();
         },
         error: function (xhr, status, error) {
             alert(xhr.responseText);
