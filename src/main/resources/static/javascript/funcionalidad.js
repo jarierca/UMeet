@@ -59,6 +59,7 @@ function loadProfile() {
                     '<img alt="Avatar" class="avatar" src="/profile/avatar?url=' + pHtml.avatar + '">' +
                     '<span class="status-2 ' + pHtml.status + '"></span>' +
                     '</span>');
+            $(".tips").tooltip();
         },
         error: function (xhr, status, error) {
             console.log(xhr.responseText);
@@ -131,6 +132,8 @@ function loadServers() {
             //console.log(salida);
             $("#userServers").append(salida);
             $("#userServers-v").append(salida2);
+            
+            $(".tips").tooltip();
         },
         error: function (xhr, status, error) {
             alert(xhr.responseText);
@@ -603,13 +606,14 @@ function setup() {
 
 function cambiarModo() {
     var tema = $.cookie("tema");
-
-    if (tema == "d") {
-        oscuro();
-    } else {
+    if (tema == "c") {
         claro();
+    } else if (tema == "d"){
+        oscuro();
     }
-    
+    else{
+       cambiarModoC(); 
+    }
     
 }
 
