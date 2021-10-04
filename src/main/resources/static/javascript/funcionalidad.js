@@ -1,6 +1,6 @@
 /*Funcionalidad general*/
 $(document).ready(function () {
-    
+
     $("#loading-screen").css("display", "none");
     $("#screen").css("display", "block");
     AOS.init();
@@ -8,7 +8,7 @@ $(document).ready(function () {
     loadServers();
     msgSize();
     sendMsgWithEnter();
-    
+
     setup();
     contadorAfk = setInterval(ctrlTiempo, 6000);
 
@@ -20,15 +20,17 @@ $(document).ready(function () {
         $("#pot").toggleClass("invis")
     }, 66000);
     //$("#pot").toggleClass("invis");
-    
-    
+
+
     var config = $.cookie("config");
-    
-    if(config == "v"){
-        vBarOn(); 
-    }else{
+
+    if (config == "v") {
+        vBarOn();
+    } else {
         hBarOn();
     }
+cambiarModo();
+ 
 });
 function msgSize() {
     var height = $(window).height();
@@ -163,7 +165,7 @@ function chat(idCanal, channelName) {
         url: "/msg/channel/" + idCanal,
         success: function (pJson) {
 //            console.log(pJson);
-            $("#channel-name").html('<i class="fas fa-hashtag" style="margin-top:4px">&nbsp;</i>'+channelName); 
+            $("#channel-name").html('<i class="fas fa-hashtag" style="margin-top:4px">&nbsp;</i>' + channelName);
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
                     "<a id='clickmsg' onclick=enviarMsgCanal(" + idCanal + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
                     + "<a id='clickmsgfile' onclick=enviarMsgFile('channel'," + idCanal + ") clas='tips text-white' title='Enviar Archivo'><i class='fnt-aws-size fas fa-paperclip'></i></a>");
@@ -177,47 +179,47 @@ function chat(idCanal, channelName) {
             var clase = "";
             var fichero = "";
             for (x of pJson) {
-                if(c == len-1){
+                if (c == len - 1) {
                     clase = "animame";
                 }
 //                console.log(pJson[c]);
-                if(pJson[c].messageFile != null){
-                    if(pJson[c].messageFile.name =="fichero"){
-                        fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
-                    }else{
+                if (pJson[c].messageFile != null) {
+                    if (pJson[c].messageFile.name == "fichero") {
+                        fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";
+                    } else {
                         fichero = "";
                     }
-                }else{
+                } else {
                     fichero = "";
                 }
-                if(x.text!=""){
+                if (x.text != "") {
                     if (x.user.username == userId.username) {
-                        $("<div>").html('<div class="answer '+clase +' right mx-4 pb-4">' +
+                        $("<div>").html('<div class="answer ' + clase + ' right mx-4 pb-4">' +
                                 '<div class="avatar mb-4">' +
                                 '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.user.nickName + '</div>' +
                                 '<div class="text">' +
-                                x.text + "  " + fichero+
+                                x.text + "  " + fichero +
                                 '</div>' +
                                 '</div>').appendTo(salida);
 
                     } else {
-                        $("<div>").html('<div class="answer '+clase +' left mx-4 pb-4">' +
+                        $("<div>").html('<div class="answer ' + clase + ' left mx-4 pb-4">' +
                                 '<div class="avatar mb-4">' +
                                 '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.user.nickName + '</div>' +
                                 '<div class="text">' +
-                                x.text + "  " +  fichero+
+                                x.text + "  " + fichero +
                                 '</div>' +
                                 '</div>').appendTo(salida);
-    //                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);   
+                        //                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);   
                     }
                 }
-                c = c+1;
+                c = c + 1;
             }
 //                        salida.appendTo("#contentChat");
             $("#contentChat").append(salida);
@@ -293,46 +295,46 @@ function chatPrivado(idDestino, nameDestino) {
             var clase = "";
             var fichero = "";
             for (x of pJson) {
-                if(c == len-1){
+                if (c == len - 1) {
                     clase = "animame";
                 }
                 console.log(pJson[c]);
-                if(pJson[c].messageFile != null){
-                    if(pJson[c].messageFile.name =="fichero"){
-                        fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
-                    }else{
+                if (pJson[c].messageFile != null) {
+                    if (pJson[c].messageFile.name == "fichero") {
+                        fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";
+                    } else {
                         fichero = "";
                     }
-                }else{
+                } else {
                     fichero = "";
                 }
-                if(x.text!=""){
+                if (x.text != "") {
                     if (x.user.username == userId.username) {
-                        
-                        $("<div>").html('<div class="answer '+clase +' right mx-4 pb-4">' +
+
+                        $("<div>").html('<div class="answer ' + clase + ' right mx-4 pb-4">' +
                                 '<div class="avatar mb-4">' +
                                 '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.name + '</div>' +
                                 '<div class="text">' +
-                                x.text + "  " + fichero+
+                                x.text + "  " + fichero +
                                 '</div>' +
                                 '</div>').appendTo(salida);
                     } else {
-                        $("<div>").html('<div class="answer '+clase +' left mx-4 pb-4">' +
+                        $("<div>").html('<div class="answer ' + clase + ' left mx-4 pb-4">' +
                                 '<div class="avatar mb-4">' +
                                 '<img src=/profile/avatar?url=' + x.user.avatar + ' alt="User name" width="40" height="40">' +
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.name + '</div>' +
                                 '<div class="text">' +
-                                x.text + "  " + fichero+
+                                x.text + "  " + fichero +
                                 '</div>' +
                                 '</div>').appendTo(salida);
                     }
                 }
-                c = c+1;
+                c = c + 1;
             }
             salida.appendTo("#panelChat");
             $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
@@ -452,7 +454,7 @@ function confirmServer(idServer, title, url) {
                         idServer: idServer
                     },
                     success: function (html) {
-                        window.location="/friends/friendsList";
+                        window.location = "/friends/friendsList";
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);
@@ -477,8 +479,8 @@ function hBarOn() {//12 H
 
     $("#cuerpo").removeClass("col-11");
     $("#cuerpo").addClass("col-12");
-    
-    $.cookie("config", "h", { path: '/' }, 20*365)
+
+    $.cookie("config", "h", {path: '/'}, 20 * 365)
 
     msgSize();
 }
@@ -488,18 +490,18 @@ function vBarOn() {//11 V
 
     $("#cuerpo").removeClass("col-12");
     $("#cuerpo").addClass("col-11");
-    
-    $.cookie("config", "v", { path: '/' }, 20*365)
 
-    msgSize(); 
-    
+    $.cookie("config", "v", {path: '/'}, 20 * 365)
+
+    msgSize();
+
 }
 
-function animarBarra(lado){
-    if (lado=="v"){
+function animarBarra(lado) {
+    if (lado == "v") {
         vBarOn();
         $("#nabar-v").addClass('magictime slideLeftReturn');
-    }else{
+    } else {
         hBarOn();
         $("#nabar-h").addClass('magictime slideUpReturn');
     }
@@ -513,7 +515,7 @@ function sendMsgWithEnter() {
         }
     });
 }
-function removeFriend(idFriend){
+function removeFriend(idFriend) {
     bootbox.confirm({
         message: "¿Estas seguro que deseas eliminar a este amigo?",
         callback: function (result) {
@@ -532,13 +534,13 @@ function removeFriend(idFriend){
         }
     })
 }
-function enviarMsgFile(type,id){
+function enviarMsgFile(type, id) {
     $.ajax({
         type: "GET",
         url: "/msg/addFile",
         data: {
-            type:type,
-            id: id     
+            type: type,
+            id: id
         },
         success: function (html) {
             bootbox.dialog({
@@ -588,4 +590,52 @@ function setup() {
     this.addEventListener("mousewheel", resetearTimer, false);
     this.addEventListener("touchmove", resetearTimer, false);
     this.addEventListener("MSPointerMove", resetearTimer, false);
+}
+
+
+function cambiarModo() {
+    var tema = $.cookie("tema");
+
+    if (tema == "d") {
+        oscuro();
+    } else {
+        claro();
+    }
+    
+    
+}
+
+
+
+function cambiarModoC() {
+    var tema = $.cookie("tema");
+
+    if (tema == "d") {
+        oscuroC();
+    } else {
+        claroC();
+    }
+}
+function oscuro() {
+    $('#tema').attr('href', '/styles.css');
+
+}
+
+function claro() {
+    $('#tema').attr('href', '/claro.css');
+
+}
+
+function oscuroC() {
+
+    $('#tema').attr('href', '/claro.css');
+    $.cookie("tema", "c", {path: '/'}, 20 * 365)
+
+}
+
+function claroC() {
+
+    $('#tema').attr('href', '/styles.css');
+    $.cookie("tema", "d", {path: '/'}, 20 * 365)
+
 }
