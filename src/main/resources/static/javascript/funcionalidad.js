@@ -202,7 +202,7 @@ function chat(idCanal, channelName) {
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.user.nickName + '</div>' +
-                                '<div class="text">' +
+                                '<div class="text text-left">' +
                                 x.text + "  " + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
@@ -214,7 +214,7 @@ function chat(idCanal, channelName) {
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.user.nickName + '</div>' +
-                                '<div class="text">' +
+                                '<div class="text text-left">' +
                                 x.text + "  " +  fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
@@ -323,7 +323,7 @@ function chatPrivado(idDestino, nameDestino) {
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.name + '</div>' +
-                                '<div class="text">' +
+                                '<div class="text text-left">' +
                                 x.text + "  " + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
@@ -334,7 +334,7 @@ function chatPrivado(idDestino, nameDestino) {
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.name + '</div>' +
-                                '<div class="text">' +
+                                '<div class="text text-left">' +
                                 x.text + "  " + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
