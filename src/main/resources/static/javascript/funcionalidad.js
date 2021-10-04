@@ -183,10 +183,14 @@ function chat(idCanal, channelName) {
                     clase = "animame";
                 }
 //                console.log(pJson[c]);
-                if (pJson[c].messageFile != null) {
-                    if (pJson[c].messageFile.name == "fichero") {
-                        fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";
-                    } else {
+                if(pJson[c].messageFile != null){
+                    if(pJson[c].messageFile.name =="fichero"){
+                        if (pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg")){
+                            fichero = "<br /> <img src='/msg/download?url="+ x.messageFile.url+"' class='text-center' style='max-width:50%' />";   
+                        }else{
+                            fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
+                        }
+                    }else{
                         fichero = "";
                     }
                 } else {
@@ -200,8 +204,8 @@ function chat(idCanal, channelName) {
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.user.nickName + '</div>' +
-                                '<div class="text">' +
-                                x.text + "  " + fichero +
+                                '<div class="text text-left wrap">' +
+                                x.text + "  " + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
 
@@ -212,8 +216,8 @@ function chat(idCanal, channelName) {
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.user.nickName + '</div>' +
-                                '<div class="text">' +
-                                x.text + "  " + fichero +
+                                '<div class="text text-left wrap">' +
+                                x.text + "  " +  fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
                         //                            $("<tr>").html("<td><p><span class='mensaje'><img alt='Avatar' class='avatar-msg' src=/profile/avatar?url=" + x.user.avatar + " />  " + x.user.nickName + ":<br></span><span class='mensaje-2'> " + x.text + "</span></p></td>").appendTo(salida);   
@@ -299,10 +303,14 @@ function chatPrivado(idDestino, nameDestino) {
                     clase = "animame";
                 }
                 console.log(pJson[c]);
-                if (pJson[c].messageFile != null) {
-                    if (pJson[c].messageFile.name == "fichero") {
-                        fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";
-                    } else {
+                if(pJson[c].messageFile != null){
+                    if(pJson[c].messageFile.name =="fichero"){
+                        if (pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg")){
+                            fichero = "<br /> <img src='/msg/download?url="+ x.messageFile.url+"' class='text-center' style='max-width:50%' />";   
+                        }else{
+                            fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
+                        }
+                    }else{
                         fichero = "";
                     }
                 } else {
@@ -317,8 +325,8 @@ function chatPrivado(idDestino, nameDestino) {
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.name + '</div>' +
-                                '<div class="text">' +
-                                x.text + "  " + fichero +
+                                '<div class="text text-left wrap">' +
+                                x.text + "  " + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
                     } else {
@@ -328,8 +336,8 @@ function chatPrivado(idDestino, nameDestino) {
                                 '<span class="status offline"></span>' +
                                 '</div>' +
                                 '<div class="name">' + x.name + '</div>' +
-                                '<div class="text">' +
-                                x.text + "  " + fichero +
+                                '<div class="text text-left wrap">' +
+                                x.text + "  " + fichero+
                                 '</div>' +
                                 '</div>').appendTo(salida);
                     }
