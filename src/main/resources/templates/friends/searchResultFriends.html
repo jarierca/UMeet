@@ -4,7 +4,6 @@
 </head>
 <body>
     <div class="m-5" th:if="${!name.isEmpty()}" >
-        <h3>¡Hemos encontrado al usuario que buscas!</h3>
 
         <h3 class="m-5">¡Hemos encontrado al usuario que buscas!</h3>
 
@@ -27,7 +26,6 @@
             </table> 
         </div>
 
-
     </div>
 
     <div class="m-5" th:if="${name.isEmpty()}"> 
@@ -40,14 +38,11 @@
         </div>
 
         <p>Pero tranquilo, no estás solo en la vida,  puedes seguir explorarando y conocer a tus primeros amigos</p>
+
+        <div class="h5 text-white"><a href="/friends/friendsList" class="text-white" style="text-decoration: none"><i class="fas fa-users"></i>  Busca nuevos amigos</a></div>
     </div>
 
 
 
-
-
-
-
-  
 </body>
 </html>

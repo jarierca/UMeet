@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="/javascript/magic.min.css">
-        <link rel="stylesheet" href="/styles.css">
+        <link rel="stylesheet"  id="tema" href="/styles.css">
         <link rel="icon" type="image/png" href="/una.png" sizes="16x16">
     </head>
 
@@ -91,6 +91,7 @@
                                     </div>
                                 </div>
                             </div>
+                           
                         </div>
                     </nav>
                     <div class="row "><!<!-- h-100 -->
@@ -159,10 +160,14 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </li>
                                 </ul>
                             </div>
+                              <button type="button" class="btn btn-dark" onclick="cambiarModoC()">a/b</button>
                         </nav>
+
+
 
                         <div class="col-12" id="cuerpo" style="text-align: center; align-content:center;">
                             <div id="contentBody" class="">
@@ -178,6 +183,7 @@
             </div>
         </div>
 
+
     <myscripts th:fragment="scripts">
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
@@ -186,6 +192,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.js"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script src="/javascript/funcionalidad.js"></script>
+
     </myscripts>
 </body>
 
