@@ -85,13 +85,15 @@ public class MessagesController {
     @ResponseBody
     @PostMapping("/private/{id_destino}") //Devuelve un Json con todos los mensajes privados entre el usuario logueado y el usuario destino
     public List<MessageChannelDto> privados(@PathVariable Long id_destino,Long idUser){
-        
-        List<Message> aux = repoMsg.findByUser(repoUsr.findById(idUser).get());
-        if (!aux.isEmpty()){
+        User u = repoUsr.findById(idUser).get();
+        User uD = repoUsr.findById(id_destino).get();
+        List<Message> aux = repoMsg.findByUser(u);
+        List<Message> rec = repoMsg.findByUserDestiny(u);
+        if (!aux.isEmpty() || !rec.isEmpty()){
             List <Message> origen = aux.stream()
                                    .filter(x->x.getUserDestiny()!=null && x.getUserDestiny().getId()==id_destino)
                                    .collect(Collectors.toList());
-            if(!repoMsg.findByUserDestiny(repoUsr.findById(id_destino).get()).isEmpty()){
+            //if(!repoMsg.findByUserDestiny(uD).isEmpty()){
                 List<Message> aux2 = repoMsg.findByUser(repoUsr.findById(id_destino).get());
                 
                 List<Message> destino = aux2.stream()
@@ -106,9 +108,11 @@ public class MessagesController {
                                 .collect(Collectors.toList()));
                 res.sort(Comparator.comparing(MessageChannelDto::getId));
                 return res;          
-            }
+         //   }
         }
-        return null;
+        List<MessageChannelDto> vacio = List.of(new MessageChannelDto(null,u.getNickName(),"",null,mapper.map(u,UserDto.class),null,mapper.map(uD,UserDto.class))); 
+        return vacio;
+        //return null;
     }
     
     
