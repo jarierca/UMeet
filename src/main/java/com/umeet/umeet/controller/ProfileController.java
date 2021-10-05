@@ -161,7 +161,7 @@ public class ProfileController {
         
         profileFeign.modifyPass(pass, user.getId());
         
-        return "redirect:login";
+        return "redirect:/login";
     }
     
     @PostMapping("/newCode")
