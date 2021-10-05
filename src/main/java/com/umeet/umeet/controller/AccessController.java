@@ -1,9 +1,11 @@
 package com.umeet.umeet.controller;
 
+import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.UserServerRole;
+import com.umeet.umeet.feign.AccesFeign;
 import com.umeet.umeet.feign.EmailFeign;
 import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
@@ -40,6 +42,9 @@ public class AccessController {
     @Autowired
     private EmailFeign emailFeign;
 
+    @Autowired
+    private AccesFeign accesFeign;
+
     @GetMapping("/login")
     public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -56,7 +61,7 @@ public class AccessController {
         if (auth.getPrincipal() != "anonymousUser") {
             return "redirect:home";
         } else {
-            m.addAttribute("user", new User());
+            m.addAttribute("user", new UserDto());
             return "register";
         }
     }
@@ -73,29 +78,12 @@ public class AccessController {
     }
 
     @PostMapping("/newregister")
-    public String newregister(Model m, User user) {
-        Optional<User> usuarios = userRepository.findByUsername(user.getUsername());
-        if (!usuarios.isPresent()) {
-
-            //Restringe si la pass del user es mayor de 8 pero el error que muestra es el otro
-//            if(user.getPass().length() < 8){
-//                 m.addAttribute("error","La contraseña es demasiado corta");
-//                return "register";
-//            }else{
-            String encodedPassword = passwordEncoder.encode(user.getPass());
-            user.setPass(encodedPassword);
-
-            user.setNickName(user.getUsername());
-            user.setAvatar("C:/zzUpload/avatar/avatar-stock.png");
-            user.setStatus("desconectado");
-
-            userRepository.save(user);
-            
+    public String newregister(Model m, UserDto user) {
+        user.setPass(passwordEncoder.encode(user.getPass()));
+        Boolean register = accesFeign.newRegister(user);
+        if (register) {
             String txt = "Hola " + user.getUsername() + ",</br> te damos las gracias por unirte a nuestra comunidad de U-Meet, en la que te permite hablar y con tus amigos.";
-            //Enviar el email
             emailFeign.mail(user.getEmail(), "¡Bienvenido a U-Meet!", txt);
-//            } 
-
             return "login";
         } else {
             m.addAttribute("error", "El usuario que has introducido no esta disponible");
