@@ -16,4 +16,5 @@ public class UserDto {
     private String email;
     private String avatar;
     private String status;
+    private String codigo;
 }

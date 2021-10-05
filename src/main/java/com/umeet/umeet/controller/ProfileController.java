@@ -123,5 +123,48 @@ public class ProfileController {
         
         //m.addAttribute("user",user.get());
         return userDto;
-    }           
+    }    
+    
+    @GetMapping("/getUsername")
+    public UserDto getUsername(Model m, String username){
+        Optional<User> user = profileRepository.findByUsername(username);
+        UserDto userDto = mapper.map(user.get(), UserDto.class);
+        
+        //m.addAttribute("user",user.get());
+        return userDto;
+    }  
+    
+    @GetMapping("/recoverPass")
+    public UserDto recoverPass(Model m, String username, String codigo){
+        Optional<User> user = profileRepository.findByUsername(username);
+        UserDto userDto = mapper.map(user.get(), UserDto.class);
+        
+        if(userDto.getCodigo().equals(codigo)){
+            return userDto;
+        }else{
+            return null;
+        }
+        //m.addAttribute("user",user.get());
+        
+    }  
+    
+    @GetMapping("/newCode")
+    public void newCode(Model m, Long idUser, String codigo){
+        Optional<User> user = profileRepository.findById(idUser);
+        user.get().setCodigo(codigo);
+        profileRepository.save(user.get());
+        
+        UserDto userDto = mapper.map(user.get(), UserDto.class);
+        
+//        return userDto;
+    }  
+    
+    @PostMapping("/modifyPass")
+    public void modifyPass(String password, Long idUser){
+        
+        Optional<User> user = profileRepository.findById(idUser);
+        user.get().setPass(password);
+        
+        profileRepository.save(user.get());
+    } 
 }
