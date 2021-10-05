@@ -5,6 +5,7 @@ import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.repositories.ProfileRepository;
+import com.umeet.umeet.repositories.UserRepository;
 import com.umeet.umeet.services.FriendService;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,6 +47,9 @@ public class ProfileController {
     
     @Autowired
     FriendService friendService;
+
+    @Autowired
+    UserRepository userRepository;
     
     //Visualizar los datos del user
     @GetMapping("/view")
@@ -167,4 +171,20 @@ public class ProfileController {
         
         profileRepository.save(user.get());
     } 
+
+
+    @GetMapping("/getUserByUsername")
+    public UserDto getUserByUserName(String username){
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isPresent()){
+            return mapper.map(user.get(), UserDto.class);
+        } else {
+            return new UserDto();
+        }
+    }
+
+    @PostMapping("/save")
+    public void save(UserDto userDto){
+        userRepository.save(mapper.map(userDto, User.class));
+    }
 }

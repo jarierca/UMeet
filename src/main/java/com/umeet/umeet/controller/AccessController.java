@@ -1,6 +1,7 @@
 
 package com.umeet.umeet.controller;
 
+import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
@@ -12,17 +13,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/b")
 public class AccessController {
     
     @Autowired
@@ -36,6 +38,9 @@ public class AccessController {
     
     @Autowired
     private UserServerRoleRepository usrRepo;
+
+    @Autowired
+    private ModelMapper mapper;
     
     @GetMapping("/login")
     public String login(){ 
@@ -47,16 +52,16 @@ public class AccessController {
         }
     }
     
-    @GetMapping("/register")
-    public String register(Model m){
-        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() != "anonymousUser") {
-            return "redirect:home";
-        }else{
-            m.addAttribute("user", new User());
-            return "register";
-        }
-    }
+//    @GetMapping("/register")
+//    public String register(Model m){
+//        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+//        if (auth.getPrincipal() != "anonymousUser") {
+//            return "redirect:home";
+//        }else{
+//            m.addAttribute("user", new User());
+//            return "register";
+//        }
+//    }
     
     @GetMapping("/info")
     @ResponseBody
@@ -70,29 +75,20 @@ public class AccessController {
     } 
     
     @PostMapping("/newregister")
-    public String newregister(Model m, User user){
-        Optional<User> usuarios = userRepository.findByUsername(user.getUsername());
+    public Boolean newregister(UserDto userDto){
+        Optional<User> usuarios = userRepository.findByUsername(userDto.getUsername());
         if (!usuarios.isPresent()) {
 
-            //Restringe si la pass del user es mayor de 8 pero el error que muestra es el otro
-//            if(user.getPass().length() < 8){
-//                 m.addAttribute("error","La contraseña es demasiado corta");
-//                return "register";
-//            }else{
-                String encodedPassword = passwordEncoder.encode(user.getPass());
-                user.setPass(encodedPassword);
+            userDto.setNickName(userDto.getUsername());
+            userDto.setAvatar("C:/zzUpload/avatar/avatar-stock.png");
+            userDto.setStatus("desconectado");
 
-                user.setNickName(user.getUsername());
-                user.setAvatar("C:/zzUpload/avatar/avatar-stock.png");
-                user.setStatus("desconectado");
+            User user = mapper.map(userDto, User.class);
+            userRepository.save(user);
 
-                userRepository.save(user);
-//            } 
-            
-            return "login";
+            return true;
         }else{
-            m.addAttribute("error","El usuario que has introducido no esta disponible");
-            return "register";
+            return false;
         }
     }
     
