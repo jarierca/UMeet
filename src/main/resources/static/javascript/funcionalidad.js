@@ -242,7 +242,8 @@ function chat(idCanal, channelName) {
             $("#contentChat").addClass("magictime slideUpReturn");
             $("#sendit").addClass('magictime slideDownReturn');
             if (globo==0){
-                autoChat(idCanal);
+                setTimeout(function () { autoChat(idCanal) }, 10000);
+                //autoChat(idCanal);
                 globo = 1;
             }          
         },
@@ -362,7 +363,8 @@ function chatPrivado(idDestino, nameDestino) {
             $("#contentChat").addClass("magictime slideUpReturn");
             $("#sendit").addClass('magictime slideDownReturn');
             if(privi==0){
-                autoPrivado(idDestino,nameDestino);
+                setTimeout(function () { autoPrivado(idDestino,nameDestino) }, 10000);
+                //autoPrivado(idDestino,nameDestino);
                 privi = 1;
             }
         },
