@@ -5,8 +5,7 @@ import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.UserServerRole;
-import com.umeet.umeet.feign.AccesFeign;
-import com.umeet.umeet.feign.EmailFeign;
+import com.umeet.umeet.feign.*;
 import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
 import com.umeet.umeet.repositories.UserServerRoleRepository;
@@ -14,6 +13,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,22 +29,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AccessController {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private FriendRepository friendRepo;
-
-    @Autowired
-    private UserServerRoleRepository usrRepo;
     
     @Autowired
     private EmailFeign emailFeign;
 
     @Autowired
     private AccesFeign accesFeign;
+
+    @Autowired
+    private ProfileFeign profileFeign;
+
+    @Autowired
+    private UserServerRoleFeign usrFeign;
+
+    @Autowired
+    private FriendFeign friendFeign;
+
+    @Autowired
+    private ModelMapper mapper;
 
     @GetMapping("/login")
     public String login() {
@@ -98,11 +102,15 @@ public class AccessController {
 
             String username = auth.getName();
             UserValidacionDto u = (UserValidacionDto) auth.getPrincipal();
-            Optional<User> user = userRepository.findByUsername(username);              //Obtenemos lista de amigos e invitado para index
-            m.addAttribute("friendsAccepted", friendRepo.findByAmigos(u.getId(), "aceptado"));
-            m.addAttribute("friendsPending", friendRepo.findByAmigos(u.getId(), "invitado"));
+            UserDto user = profileFeign.getUserByUsername(username);              //Obtenemos lista de amigos e invitado para index
+            m.addAttribute("friendsAccepted", friendFeign.getUsersByFriends(u.getId(), "aceptado"));
+            m.addAttribute("friendsPending", friendFeign.getUsersByFriends(u.getId(), "invitado"));
 
-            List<UserServerRole> usrAux = usrRepo.findByUser(user.get());               //Obtenemos lista de servidores por usuario
+            List<UserServerRole> usrAux = usrFeign.usrsByUser(user)
+                    .stream()
+                    .map(x->mapper.map(x, UserServerRole.class))
+                    .collect(Collectors.toList());
+            //Obtenemos lista de servidores por usuario
             List<Server> servers = usrAux.stream().map(x -> x.getServer()).collect(Collectors.toList());
             m.addAttribute("userServers", servers);
         }
@@ -115,9 +123,9 @@ public class AccessController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getPrincipal() != "anonymousUser") {
             String username = auth.getName();
-            User user = userRepository.findByUsername(username).get();
+            UserDto user = profileFeign.getUserByUsername(username);
             user.setStatus("desconectado");
-            userRepository.save(user);
+            profileFeign.save(user);
         }
         System.out.println("\n\nEBNTRAZQA\n\n");
 
