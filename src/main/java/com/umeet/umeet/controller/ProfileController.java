@@ -4,6 +4,7 @@ package com.umeet.umeet.controller;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.User;
+import com.umeet.umeet.feign.EmailFeign;
 import com.umeet.umeet.feign.ProfileFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -23,11 +24,22 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.UUID;
+import javax.websocket.server.PathParam;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
 
+    @Value("${ruta.enlace.umeet}")
+    private String enlace;
+    
+    @Autowired
+    private EmailFeign emailFeign;
+    
     @Autowired
     private ProfileFeign profileFeign;
     
@@ -121,5 +133,62 @@ public class ProfileController {
         UserDto userDto = profileFeign.getUser(u.getId());
         
         return userDto;
-    }           
+    }     
+    
+    @GetMapping("/sendEmail")
+    public String sendEmail(Model m){
+        return "profile/setUsername";
+    }
+    
+    @PostMapping("/resetPassView")
+    public String resetPassView(Model m, String username){
+        
+        UserDto user = profileFeign.getUsername(username);
+        if(user != null){
+            m.addAttribute("username",username);
+            return "profile/resetPass";
+        }else{
+            return "profile/setUsername";
+        }  
+    }
+    
+    @PostMapping("/modifyPass")
+    public String modifyPass(Model m, String pass, String username){
+        UserDto user = profileFeign.getUsername(username);
+        
+        BCryptPasswordEncoder cifrar = new BCryptPasswordEncoder();
+        pass = cifrar.encode(pass);
+        
+        profileFeign.modifyPass(pass, user.getId());
+        
+        return "redirect:login";
+    }
+    
+    @PostMapping("/newCode")
+    public String newCode(Model m, String username){
+        UserDto user = profileFeign.getUsername(username);
+        
+        String codigo = UUID.randomUUID().toString();
+        
+        profileFeign.newCode(user.getId(),codigo);
+        
+        String txt = "Hola " + user.getUsername() + ", has iniciado el proceso de recuperacion de tu contraseña para ello puedos haerlo con el siguiente codigo \""+codigo
+                +"\" o tambien puedes usar este enlace "+ enlace+"/"+codigo+"/"+username;
+        emailFeign.mail(user.getEmail(), "Recuperar Contraseña", txt);
+        
+        return "redirect:/login";
+    }
+    
+    @GetMapping("/recoverPass/{codigo}/{username}")
+    public String recoverPass(Model m,@PathVariable String codigo,@PathVariable String username){
+        
+        UserDto userDto = profileFeign.recoverPass(username,codigo);
+        
+        if(userDto != null){
+            m.addAttribute("username",username);
+            return "/profile/resetPass";
+        }else{
+            return null;
+        }
+    }
 }
