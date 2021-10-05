@@ -26,16 +26,7 @@ public class FriendController {
     @Autowired
     private FriendFeign friendFeign;
 
-    @Autowired
-    private FriendRepository friendRepo;
-
-    @Autowired
-    private UserRepository userRepo;
-
-    @Autowired
-    private ModelMapper mapper;
 //List friends
-
     @GetMapping("/friendsList") //Va la vista poniendo detras ?idUser=1 (http://localhost:8090/friends/friendsList?idUser=3)
     public String listFriends(Model m) {
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -95,21 +86,10 @@ public class FriendController {
 
     @PostMapping("/accept")
     public String accept(Model m, Long idUserFriend) {
-
         UserValidacionDto u = (UserValidacionDto) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-//        friend.setUser1(userRepo.findById(u.getId()).get());
-//        friend.setUser2(userRepo.findById(idUserFriend).get());
+        friendFeign.accept(u.getId(), idUserFriend);
 
-        User user = userRepo.findById(idUserFriend).get();
-        User user2 = userRepo.findById(u.getId()).get();
-
-        Friend f1 = friendRepo.findByUser1AndUser2(user, user2);
-
-        f1.setStatus("aceptado");
-
-        friendRepo.save(f1);
-
-        return "redirect:/home";
+        return "redirect:friendsList";
     }
 
     @GetMapping("/removeFriend")

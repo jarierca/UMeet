@@ -7,10 +7,8 @@ package com.umeet.umeet.feign;
 
 import com.umeet.umeet.dtos.CategoryDto;
 import com.umeet.umeet.dtos.CategoryParamDto;
-import com.umeet.umeet.entities.Category;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -20,9 +18,6 @@ public interface CategoryFeign {
     
      @PostMapping("/form")
     public CategoryDto viewCategoryCreation(@RequestParam Long idCategory, @RequestParam Long idServer);
-    
-//    @PostMapping("/addCategory")
-//    public CategoryDto addCategory(@RequestParam Long id, @RequestParam String name, @RequestParam Long idServer);
 
     @PostMapping("/addCategory")
     public CategoryDto addCategory(@SpringQueryMap CategoryParamDto categoryDto);
