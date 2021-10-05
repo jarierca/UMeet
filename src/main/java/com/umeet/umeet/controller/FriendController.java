@@ -164,20 +164,14 @@ public class FriendController {
     }
 
     @PostMapping("/accept")
-    public User accept(Long idUser, Long idUserFriend) {
-        User u = userRepo.findById(idUser).get();
-
+    public void accept(Long idUser, Long idUserFriend) {
         User user = userRepo.findById(idUserFriend).get();
-        User user2 = userRepo.findById(u.getId()).get();
+        User user2 = userRepo.findById(idUser).get();
         Friend f1 = friendRepo.findByUser1AndUser2(user, user2);
 
         f1.setStatus("aceptado");
 
         friendRepo.save(f1);
-
-        return user;
-
-        // return "redirect:home";
     }
 
     @GetMapping("/removeFriend")
@@ -194,4 +188,11 @@ public class FriendController {
 
     }
 
+    @GetMapping("/getUsersByFriends")
+    public List<UserDto> getUsersByFreinds(Long idUser, String status){
+        return friendRepo.findByAmigosTodos(idUser, status)
+                .stream()
+                .map(x->mapper.map(x, UserDto.class))
+                .collect(Collectors.toList());
+    }
 }
