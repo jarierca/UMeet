@@ -1,16 +1,17 @@
 body {
-    background-color:#EBEBEB;
+    
+    background-color:#F2F3F5;
     overflow-y:auto;
     overflow-x: hidden;
 }
 .navbar{
-    background-color: #D9D9D9 !important;
+    background-color: #E3E5E8 !important;
 }
 
 .fondo{
     height: 850px;
     width: 100%;
-    background-image: url("https://imgur.com/Qv0cbKF.jpg");
+    background-image: url("https://i.imgur.com/Z0650li.jpg");
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -48,7 +49,7 @@ a:hover{
 }
 
 .btn-primary {
-    background-color: #3C6E71;
+    background-color: #22223B;
     border-color: #61892F;
     align: center;
 }
@@ -79,7 +80,7 @@ hr {
 }
 
 .navbar-nav,.umeet {
-    color: #3C6E71;
+    color: #22223B;
     padding-right: 10px;
     font-size: 24px;
 }
@@ -108,11 +109,16 @@ h3 {
 }
 
 .btn-success {
-    background-color: #3C6E71;
-    border-color: #3C6E71 ;
+    background-color: #3BA55D;
+    border-color: #3BA55D ;
     float: center;
 }
 
+.btn-success:hover {
+    background-color: #3BA55D;
+    border-color: #3BA55D ;
+    float: center;
+}
 .avatar {
     vertical-align: middle;
     width: 50px;
@@ -216,7 +222,6 @@ h3 {
     border-radius: 30px;
     box-shadow: inset 0px 0px 0px 0px #F0F0F0;
 }
-
 .server-text{
     margin-bottom: 1.5rem;
     /*margin-left: .5rem;*/
@@ -253,20 +258,20 @@ h3 {
 #contentBody .col-sm-3{
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-    background-color: #E0E0E0;
+    background-color: #F2F3F5;
     text-align: left !important;
 }
 #contentBody .col-sm-8, #contentBody .col-sm-7{
-    background-color: #E0E0E0;
+    background-color: #F2F3F5;
 }
 #contentBody .col-sm-2{
-    background-color: #E0E0E0;
+    background-color: #F2F3F5;
     /*    border-top-left-radius: 15px;
         border-bottom-left-radius: 15px;*/
     text-align: left !important;
 }
 #contentBody .col-sm-1{
-    background-color: #E0E0E0;
+    background-color: #F2F3F5;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     text-align: left !important;
@@ -320,7 +325,7 @@ ul li :hover{
     background-color: #EBEBEB;
     width: 90%;
     border-radius: 10px;
-    color: #EBEBEB;
+    color: #2E3338;
     height: 45px;
     border: 0;
 }
@@ -344,6 +349,11 @@ ul li :hover{
     text-align: left;
 }
 .fnt-aws-size{
+    color:#3BA55D;
+    font-size: 22px !important;
+}
+.fnt-aws-size:hoover{
+    color:#3BA55D;
     font-size: 22px !important;
 }
 .prueba{
@@ -351,7 +361,7 @@ ul li :hover{
 }
 .mensaje{
     padding-left: 20px; 
-    color:#3C6E71;
+    color:#22223B;
 }
 .mensaje-2{
     padding-left: 60px; 
@@ -387,13 +397,13 @@ i {
 
 }
 p{
-    color: #EDFED5;
+    color: #2E3338;
 
 }
 .banner{
     height: 250px;
     width: 1500px;
-    background-image: url("https://i.imgur.com/XI6nt7i.jpg");
+    background-image: url("https://i.imgur.com/8lfR9Pj.png");
     background-position: center;
     background-size: cover;
     border-radius: 15px;
@@ -425,7 +435,7 @@ input:focus {
 }
 
 mystyle:hover{
-    color:#3C6E71;
+    color:#22223B;
 }
 
 .bootbox-body{
@@ -485,7 +495,7 @@ mystyle:hover{
 }
 
 .iconServer:hover{
-    color: #3C6E71;
+    color: #22223B;
     background-color: #2f3136;
 }
 .serverImg{
@@ -497,8 +507,7 @@ mystyle:hover{
     overflow: hidden;
     justify-content: center;
     align-items: center;
-    -webkit-box-shadow: 0px 5px 35px -10px rgba(0,0,0,0.83); 
-    box-shadow: 0px 5px 35px -10px rgba(0,0,0,0.83);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .bgImg{
     /*        min-width:100%;
@@ -511,6 +520,7 @@ mystyle:hover{
     object-position: center center;
 }
 .hola{
+   background-color: E3E5E8!important;
     display: flex;
     align-items: center;  
 }
@@ -521,13 +531,13 @@ th{
     border-top: 2px solid transparent
 }
 #userServers a:hover{
-    border-top: 2px solid #3C6E71;
+    border-top: 2px solid #22223B;
 }
 #userServers-v a{
     border-left: 2px solid transparent
 }
 #userServers-v a:hover{
-    border-left: 2px solid #3C6E71;
+    border-left: 2px solid #22223B;
 }
 .hover-server:hover{
     background-color: #EBEBEB!important;
@@ -697,7 +707,7 @@ th{
 }
 .chat-body .answer.left .text {
     background: #ebebeb;
-    color: E0E0E0;
+   
     border-radius: 8px 8px 8px 0;
 }
 .chat-body .answer .text {
@@ -744,14 +754,14 @@ th{
 }
 .chat-body .answer.right .text {
     /*    background: #7266ba;*/
-    background: #3C6E71;
+    background: #22223B;
     color: #ffffff;
     border-radius: 8px 8px 0 8px;
 }
 .chat-body .answer.right .text:before {
     right: -30px;
     /*border-left-color: #7266ba;*/
-    border-left-color: #3C6E71;
+    border-left-color: #22223B;
     border-left-width: 12px;
 }
 .chat-body .answer.right .time {
@@ -830,7 +840,7 @@ th{
 }
 
 .left i{
-   color:#3C6E71
+   color:#22223B
 }
 
 .wrap { 
@@ -840,14 +850,33 @@ th{
     white-space: -o-pre-wrap;   /* Opera 7 */    
     word-wrap: break-word;      /* IE */
  }
- 
- .btn-outline-success{
-    color: #3F13A4;
-    border-color:#3F13A4;
+  .btn-outline-success{
+    color: #3BA55D;
+    border-color:#3BA55D;
 }
-
 .btn-outline-success:hover{
     
-    border-color: #6B35E8;
-    background-color: #6B35E8;
+    border-color: #3BA55D;
+    background-color: #3BA55D;
 }
+#contentChat{
+    box-shadow: inset 20px 0px 20px 10px #F2F3F5;
+    background-image: url("https://i.imgur.com/t0o3dIt.jpg");
+    background-repeat: repeat;
+    background-color: rgba(0,0,0,0.25);
+    background-position: center;
+}
+
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color:#5AC47B;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #3BA55D;
+}
+
+.fa, .fas {
+    color:#3BA55D;
+}
+
