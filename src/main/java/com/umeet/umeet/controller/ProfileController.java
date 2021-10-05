@@ -144,6 +144,8 @@ public class ProfileController {
         UserDto userDto = mapper.map(user.get(), UserDto.class);
         
         if(userDto.getCodigo().equals(codigo)){
+            user.get().setCodigo("");
+            profileRepository.save(user.get());
             return userDto;
         }else{
             return null;
