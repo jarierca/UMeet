@@ -279,12 +279,13 @@ function enviarMsgCanal(idCanal,channelName) {
 }
 //Rueda mouse horizontal 
 var item = document.getElementById("userServers");
-window.addEventListener("wheel", function (e) {
+item.addEventListener("wheel", function (e) {
     if (e.deltaY > 0)
         item.scrollLeft += 100;
     else
         item.scrollLeft -= 100;
 });
+
 function chatPrivado(idDestino, nameDestino) {
     var userId = "";
     $.ajax({
