@@ -1,9 +1,12 @@
 package com.umeet.umeet.feign;
 
+import com.umeet.umeet.dtos.FriendDto;
 import com.umeet.umeet.dtos.ListasFriendDto;
+import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.entities.User;
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,4 +35,8 @@ public interface FriendFeign {
 
     @GetMapping("/removeFriend")
     public void remove(@RequestParam Long idUser, @RequestParam Long idFriend);
+
+    @GetMapping("/getUsersByFriends")
+    public List<UserDto> getUsersByFriends(@RequestParam Long idUser, @RequestParam String status);
+
 }
