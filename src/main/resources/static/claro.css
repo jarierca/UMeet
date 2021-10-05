@@ -1,7 +1,10 @@
 body {
-    background-color:white;
+    background-color:#EBEBEB;
     overflow-y:auto;
     overflow-x: hidden;
+}
+.navbar{
+    background-color: #D9D9D9 !important;
 }
 
 .fondo{
@@ -45,37 +48,38 @@ a:hover{
 }
 
 .btn-primary {
-    background-color: #61892F;
+    background-color: #3C6E71;
     border-color: #61892F;
     align: center;
 }
 
+
 .btn-primary:hover {
-    background-color: #86C232;
-    border-color: #86C232;
+    background-color:#595959;
+    border-color: #595959;
 }
 
 .form-control {
-    background-color: #3B4247;
-    border-color: #3B4247;
+    background-color: #dedede;
+    border-color: #dedede;
     color: #EDFED5;
 }
 
 td {
-    color: #EDFED5;
+    color: #6B6E70;
 }
 
 hr {
-    background-color: #3B4247;
+    background-color: #dedede;
 }
 
 .dropdown-menu, .dropdown-item {
-    background-color: #3B4247;
+    background-color: #dedede;
     color: #EDFED5;
 }
 
 .navbar-nav,.umeet {
-    color: #86C232;
+    color: #3C6E71;
     padding-right: 10px;
     font-size: 24px;
 }
@@ -89,19 +93,23 @@ hr {
     text-align: center;
     opacity: 0.2;
 }
-
+.text-white{
+    color: #353535!important;
+}
 h3 {
-    color: #6B6E70;
+    color: #595959;
     text-align: center;
 }
-
+.h4{
+    color: #6B6E70!important;
+}
 .fa-user-friends {
     padding-right: 5px;
 }
 
 .btn-success {
-    background-color: #61892F;
-    border-color: #61892F ;
+    background-color: #3C6E71;
+    border-color: #3C6E71 ;
     float: center;
 }
 
@@ -133,10 +141,10 @@ h3 {
     width: 480px;
 }
 .text-color-primary{
-    color:#61892F;
+    color:#353535;
 }
 .bg-user-profile{
-    background-color: #343a40;
+    background-color: #EBEBEB;
 }
 .font-btn-user-profile{
     font-size: 18px !important;
@@ -154,7 +162,7 @@ h3 {
     background-color: green;   
 }
 .badge-desconectado{
-    border: 3px solid white;
+    border: 3px solid #EBEBEB;
     background-color: #343a40;
 }
 .badge-ocupado{
@@ -166,10 +174,10 @@ h3 {
     background-color: orange;
 }
 .modal-content{
-    background-color: #343a40;
+    background-color: #EBEBEB;
 }
 .modal-title{
-    color: white;
+    color: #EBEBEB;
 }
 
 /*Avatares horizontal*/
@@ -227,7 +235,7 @@ h3 {
     height:82%
 }
 #contentChat{
-    background-color: #343a40;
+    background-color: #EBEBEB;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     height:100%
@@ -245,36 +253,36 @@ h3 {
 #contentBody .col-sm-3{
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-    background-color: #2f3136;
+    background-color: #E0E0E0;
     text-align: left !important;
 }
 #contentBody .col-sm-8, #contentBody .col-sm-7{
-    background-color: #2f3136;
+    background-color: #E0E0E0;
 }
 #contentBody .col-sm-2{
-    background-color: #2f3136;
+    background-color: #E0E0E0;
     /*    border-top-left-radius: 15px;
         border-bottom-left-radius: 15px;*/
     text-align: left !important;
 }
 #contentBody .col-sm-1{
-    background-color: #2f3136;
+    background-color: #E0E0E0;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     text-align: left !important;
 }
 a#home-tab.nav-link{
-    color: #EDFED5;
+    color: #6B6E70;
 }
 a#profile-tab.nav-link{  
-    color: #EDFED5; 
+    color: #6B6E70; 
 }
 a#home-tab.nav-link.active{
-    background-color: #3B4247;
+    background-color: #6B6E70;
     color: #EDFED5;
 }
 a#profile-tab.nav-link.active{
-    background-color: #3B4247;
+    background-color: #dedede;
     color: #EDFED5;
 }
 ul li{
@@ -282,8 +290,8 @@ ul li{
     border: 0;
 }
 ul li :hover{
-    /*background-color: #3B4247;*/
-    color: #61892F;
+    /*background-color: #dedede;*/
+    color: #6B6E70;
 }
 .list-group-item {
     border: 0;
@@ -302,28 +310,28 @@ ul li :hover{
 }
 .send-msg-field {
     margin-top: 5px;
-    background-color: #3b3f45;
+    background-color: #EBEBEB;
     width: 100%;
     position: static;
     border-radius: 10px;
 }
 .send-msg-field input {
     outline-width: 0;
-    background-color: #3b3f45;
+    background-color: #EBEBEB;
     width: 90%;
     border-radius: 10px;
-    color: white;
+    color: #EBEBEB;
     height: 45px;
     border: 0;
 }
 ::placeholder{
-    color: white;
+    color: #EBEBEB;
 }
 .list-group-item{
     background-color: transparent;
 }
 .list-group-item a{
-    color: white;
+    color: #353535;
     text-decoration: none;
 }
 #contentChat{
@@ -343,11 +351,11 @@ ul li :hover{
 }
 .mensaje{
     padding-left: 20px; 
-    color:#86C232;
+    color:#3C6E71;
 }
 .mensaje-2{
     padding-left: 60px; 
-    color: white;
+    color: #EBEBEB;
     word-break: break-all;
 }
 /*
@@ -361,7 +369,7 @@ p{
 }
 
 label {
-    color:white;
+    color:#EBEBEB;
 }
 
 #sendit{
@@ -385,7 +393,7 @@ p{
 .banner{
     height: 250px;
     width: 1500px;
-    background-image: url("15.jpg");
+    background-image: url("https://i.imgur.com/XI6nt7i.jpg");
     background-position: center;
     background-size: cover;
     border-radius: 15px;
@@ -417,11 +425,11 @@ input:focus {
 }
 
 mystyle:hover{
-    color:#86C232;
+    color:#3C6E71;
 }
 
 .bootbox-body{
-    color: white;
+    color: #EBEBEB;
 }
 #pot{
     left:-35px;
@@ -473,22 +481,15 @@ mystyle:hover{
 }
 
 .iconServer{
-    color: white;
+    color: #EBEBEB;
 }
 
 .iconServer:hover{
-    color: #86C232;
+    color: #3C6E71;
     background-color: #2f3136;
 }
 .serverImg{
-    /*    position:relative;
-        overflow:hidden;
-        border-radius:5px;
-        width:300px;
-        height:200px;
-        margin-top: 10px;
-        
-        text-align: center;*/
+    
     display: flex;
     height: 200px;
     width: 300px;
@@ -520,16 +521,16 @@ th{
     border-top: 2px solid transparent
 }
 #userServers a:hover{
-    border-top: 2px solid #86C232;
+    border-top: 2px solid #3C6E71;
 }
 #userServers-v a{
     border-left: 2px solid transparent
 }
 #userServers-v a:hover{
-    border-left: 2px solid #86C232;
+    border-left: 2px solid #3C6E71;
 }
 .hover-server:hover{
-    background-color: #343a40!important;
+    background-color: #EBEBEB!important;
     border-radius: 15px;
 }
 
@@ -544,7 +545,7 @@ th{
     height: calc(100vh - 180px);
 }
 .decor-default {
-    background-color: #ffffff;
+    background-color: #222629;
 }
 .chat-users h6 {
     font-size: 20px;
@@ -584,7 +585,7 @@ th{
     background: #dc3545;
 }
 .avatar .status.ausente {
-    border: 1px solid #5a5a5a;
+    border: 1px solid orange;
     background: orange;
 }
 .chat-users .user .status {
@@ -610,7 +611,7 @@ th{
     background: #dc3545;
 }
 .avatar .status-2.ausente {
-    border: 1px solid #5a5a5a;
+    border: 1px solid orange;
     background: orange;
 }
 .avatar .status-2 {
@@ -696,7 +697,7 @@ th{
 }
 .chat-body .answer.left .text {
     background: #ebebeb;
-    color: #333333;
+    color: E0E0E0;
     border-radius: 8px 8px 8px 0;
 }
 .chat-body .answer .text {
@@ -743,14 +744,14 @@ th{
 }
 .chat-body .answer.right .text {
     /*    background: #7266ba;*/
-    background: #86C232;
+    background: #3C6E71;
     color: #ffffff;
     border-radius: 8px 8px 0 8px;
 }
 .chat-body .answer.right .text:before {
     right: -30px;
     /*border-left-color: #7266ba;*/
-    border-left-color: #86C232;
+    border-left-color: #3C6E71;
     border-left-width: 12px;
 }
 .chat-body .answer.right .time {
@@ -805,22 +806,6 @@ th{
     background-size: 100%;
 }
 
-
-@media(max-width:1550px){
-    .nav-hidden-h{
-    }
-}
-
-.magictime.slideRightReturn {
-    -webkit-animation-duration: 0.25s;
-    animation-duration: 0.25s;
-}
-
-.magictime.swashIn {
-    -webkit-animation-duration: 0.8s;
-    animation-duration: 0.8s;
-}
-
 @media(max-width:1550px){
     .nav-hidden-h{
         display: none;
@@ -841,9 +826,28 @@ th{
 }
 
 .right i{
-    color: white;
+    color: #EBEBEB;
 }
 
 .left i{
-   color:#86C232
+   color:#3C6E71
+}
+
+.wrap { 
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;      /* IE */
+ }
+ 
+ .btn-outline-success{
+    color: #3F13A4;
+    border-color:#3F13A4;
+}
+
+.btn-outline-success:hover{
+    
+    border-color: #6B35E8;
+    background-color: #6B35E8;
 }
