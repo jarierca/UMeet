@@ -173,7 +173,7 @@ h3 {
 }
 
 /*Avatares horizontal*/
-.overflow-auto{
+#userServers.overflow-auto{
     display: flex;
     flex-direction: row;
 }
@@ -231,6 +231,9 @@ h3 {
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     height:100%
+}
+#contentChat.overflow-auto{
+    overflow-x: auto;
 }
 .row-sin-m{
     display: flex;
@@ -805,6 +808,22 @@ th{
     background-size: 100%;
 }
 
+
+@media(max-width:1550px){
+    .nav-hidden-h{
+    }
+}
+
+.magictime.slideRightReturn {
+    -webkit-animation-duration: 0.25s;
+    animation-duration: 0.25s;
+}
+
+.magictime.swashIn {
+    -webkit-animation-duration: 0.8s;
+    animation-duration: 0.8s;
+}
+
 @media(max-width:1550px){
     .nav-hidden-h{
         display: none;
@@ -832,10 +851,15 @@ th{
    color:#86C232
 }
 
-.wrap { 
-    white-space: pre-wrap;      /* CSS3 */   
-    white-space: -moz-pre-wrap; /* Firefox */    
-    white-space: -pre-wrap;     /* Opera <7 */   
-    white-space: -o-pre-wrap;   /* Opera 7 */    
-    word-wrap: break-word;      /* IE */
- }
+/*Hover botones enviar mensaje-archivos*/
+.fnt-aws-size:hover{
+    color: #86c232;
+}
+
+#contentChat{
+    box-shadow: inset 20px 0px 20px 10px #2f3136;
+    background-image: url("https://i.imgur.com/GklXquV.png");
+    background-repeat: repeat;
+    background-color: rgba(0,0,0,0.25);
+    background-position: center;
+}

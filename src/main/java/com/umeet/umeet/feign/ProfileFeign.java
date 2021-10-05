@@ -4,6 +4,7 @@ package com.umeet.umeet.feign;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.entities.User;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,5 +54,10 @@ public interface ProfileFeign {
     
     @PostMapping("/modifyPass")
     public void modifyPass(@RequestParam String password, @RequestParam Long idUser);
-    
+
+    @GetMapping("/getUserByUsername")
+    public UserDto getUserByUsername(@RequestParam String username);
+
+    @PostMapping("/save")
+    public void save(@SpringQueryMap UserDto userDto);
 }

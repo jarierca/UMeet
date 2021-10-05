@@ -2,10 +2,7 @@ package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.CategoryDto;
 import com.umeet.umeet.dtos.CategoryParamDto;
-import com.umeet.umeet.dtos.ServerDto;
-import com.umeet.umeet.entities.Category;
 import com.umeet.umeet.feign.CategoryFeign;
-import com.umeet.umeet.feign.ServerFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +16,6 @@ public class CategoryController {
 
     @Autowired
     private CategoryFeign catFeign;
-
-    @Autowired
-    private ServerFeign serverFeign;
 
     @GetMapping("/form")
     public String viewCategoryCreation(Model model, Long idCategory, Long idServer) {
