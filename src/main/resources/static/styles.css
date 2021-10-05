@@ -847,3 +847,8 @@ th{
 .left i{
    color:#86C232
 }
+
+/*Hover botones enviar mensaje-archivos*/
+.fnt-aws-size:hover{
+    color: #86c232;
+}
