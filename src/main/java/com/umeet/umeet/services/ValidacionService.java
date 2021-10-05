@@ -1,7 +1,9 @@
 package com.umeet.umeet.services;
 
+import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.User;
+import com.umeet.umeet.feign.ProfileFeign;
 import com.umeet.umeet.repositories.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,22 +21,25 @@ public class ValidacionService implements UserDetailsService{
     
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ProfileFeign profileFeign;
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> usuario = userRepository.findByUsername(username);
+        UserDto user = profileFeign.getUserByUsername(username);
         
-        if (usuario.isPresent()){
+        if (user.getId()!=null){
             
-            UserValidacionDto user = new UserValidacionDto();
-            user.setId(usuario.get().getId());
-            user.setUsername(usuario.get().getUsername());
-            user.setPassword(usuario.get().getPass());
+            UserValidacionDto userValidation = new UserValidacionDto();
+            userValidation.setId(user.getId());
+            userValidation.setUsername(user.getUsername());
+            userValidation.setPassword(user.getPass());
             List<GrantedAuthority> lista=new ArrayList<GrantedAuthority>();
             lista.add(new SimpleGrantedAuthority("ROLE_Usuario"));
-            user.setRoles(lista);
+            userValidation.setRoles(lista);
              
-            return user;
+            return userValidation;
         }else{
             throw new UsernameNotFoundException("Usuario/Password incorrecto");
         }

@@ -193,7 +193,7 @@ function chat(idCanal, channelName) {
 //                console.log(pJson[c]);
                 if(pJson[c].messageFile != null){
                     if(pJson[c].messageFile.name =="fichero"){
-                        if (pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")){
+                        if (pJson[c].messageFile.url.toLowerCase().includes(".gif") || pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")){
                             fichero = "<br /> <img src='/msg/download?url="+ x.messageFile.url+"' class='text-center' style='max-width:50%' />";   
                         }else{
                             fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
@@ -242,7 +242,8 @@ function chat(idCanal, channelName) {
             $("#contentChat").addClass("magictime slideUpReturn");
             $("#sendit").addClass('magictime slideDownReturn');
             if (globo==0){
-                autoChat(idCanal);
+                setTimeout(function () { autoChat(idCanal) }, 10000);
+                //autoChat(idCanal);
                 globo = 1;
             }          
         },
@@ -318,7 +319,7 @@ function chatPrivado(idDestino, nameDestino) {
                 console.log(pJson[c]);
                 if(pJson[c].messageFile != null){
                     if(pJson[c].messageFile.name =="fichero"){
-                        if (pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")){
+                        if (pJson[c].messageFile.url.toLowerCase().includes(".gif") || pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")){
                             fichero = "<br /> <img src='/msg/download?url="+ x.messageFile.url+"' class='text-center' style='max-width:50%' />";   
                         }else{
                             fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
@@ -363,7 +364,8 @@ function chatPrivado(idDestino, nameDestino) {
             $("#contentChat").addClass("magictime slideUpReturn");
             $("#sendit").addClass('magictime slideDownReturn');
             if(privi==0){
-                autoPrivado(idDestino,nameDestino);
+                setTimeout(function () { autoPrivado(idDestino,nameDestino) }, 10000);
+                //autoPrivado(idDestino,nameDestino);
                 privi = 1;
             }
         },
@@ -696,7 +698,7 @@ function autoChat(idCanal, channelName) {
                     }
                     if (pJson[c].messageFile != null) {
                         if (pJson[c].messageFile.name == "fichero") {
-                            if (pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")) {
+                            if (pJson[c].messageFile.url.toLowerCase().includes(".gif") || pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")) {
                                 fichero = "<br /> <img src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:50%' />";
                             } else {
                                 fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";
@@ -788,7 +790,7 @@ function autoPrivado(idDestino, nameDestino) {
                     console.log(pJson[c]);
                     if (pJson[c].messageFile != null) {
                         if (pJson[c].messageFile.name == "fichero") {
-                            if (pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")) {
+                            if (pJson[c].messageFile.url.toLowerCase().includes(".gif") || pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")) {
                                 fichero = "<br /> <img src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:50%' />";
                             } else {
                                 fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";

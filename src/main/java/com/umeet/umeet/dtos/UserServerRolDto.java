@@ -11,4 +11,5 @@ public class UserServerRolDto {
     private Long id;
     private UserDto user;
     private RolDto rol;
+    private ServerDto server;
 }
