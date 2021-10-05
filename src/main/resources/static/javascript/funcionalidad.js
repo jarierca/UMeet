@@ -173,8 +173,8 @@ function chat(idCanal, channelName) {
 //            console.log(pJson);
             $("#channel-name").html('<i class="fas fa-hashtag" style="margin-top:4px">&nbsp;</i>' + channelName);
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
-                    "<a id='clickmsg' onclick=enviarMsgCanal(" + idCanal + ",\""+channelName +"\") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
-                    + "<a id='clickmsgfile' onclick=enviarMsgFile('channel'," + idCanal + ") clas='tips text-white' title='Enviar Archivo'><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                    "<a id='clickmsg' onclick=enviarMsgCanal(" + idCanal + ",\""+channelName +"\") class='mx-1 tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
+                    + "<a id='clickmsgfile' onclick=enviarMsgFile('channel'," + idCanal + ") class='mx-3 tips text-white' title='Enviar Archivo'><i class='fnt-aws-size fas fa-paperclip'></i></a>");
 
             var salida = $("<div class='w-100'>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>");
 //                        $("<tr>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Te damos la bienvenida al canal!<br><br></div>")
@@ -299,8 +299,8 @@ function chatPrivado(idDestino, nameDestino) {
             //console.log(pJson);
             $("#user-chat-name").html(nameDestino);
             $("#sendit").html("<input type='text' id='sendMsg' name='text' placeholder='Escribe un mensaje'>" +
-                    "<a id='clickmsg' onclick=enviarMsgPrivado(" + idDestino + ") class='tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
-                    + "   <a id='clickmsgfile' onclick=enviarMsgFile('private'," + idDestino + ") class='tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
+                    "<a id='clickmsg' onclick=enviarMsgPrivado(" + idDestino + ") class='mx-1tips text-white' title='Enviar Mensaje' ><i class='fnt-aws-size far fa-paper-plane'></i></a>"
+                    + "   <a id='clickmsgfile' onclick=enviarMsgFile('private'," + idDestino + ") class='mx-3 tips text-white' title='Enviar Archivo' ><i class='fnt-aws-size fas fa-paperclip'></i></a>");
             var salida = $("<div class='w-100'>").html("<div class='h3 mx-4 my-4 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
 //                                $("<tr>").html("<div class='h2 mx-2 my-2 pt-4 pl-3 text-aling-center'>¡Este es el comienzo de tus mensajes privados!<br><br></div>");
             $("#panelChat").html("");
