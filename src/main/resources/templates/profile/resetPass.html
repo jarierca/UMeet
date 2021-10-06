@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <!--th:replace="layout/layout::layout( ~{::body})">-->
+
+    <body>
+        <div class="container">
+            <form action="/profile/modifyPass" method="post" onsubmit="comprobar()">
+                <input name="username" th:value="${username}"id="username" type="text">
+                <input name="pass" id="pass" type="password">
+                <input name="pass-comp" id="pass-comp" type="password">
+                <input type="submit" value="Modificar Contraseña">
+            </form>
+        </div>
+    </body>
+    <script>
+        function comprobar(evt) {
+            if(!$("#pass").val().equals($("#pass-comp").val())){
+                evt.preventDefault();
+            }else{
+                alert("Error");
+            }
+        }
+    </script>
+</html>

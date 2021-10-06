@@ -173,7 +173,7 @@ h3 {
 }
 
 /*Avatares horizontal*/
-.overflow-auto{
+#userServers.overflow-auto{
     display: flex;
     flex-direction: row;
 }
@@ -231,6 +231,9 @@ h3 {
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     height:100%
+}
+#contentChat.overflow-auto{
+    overflow-x: auto;
 }
 .row-sin-m{
     display: flex;

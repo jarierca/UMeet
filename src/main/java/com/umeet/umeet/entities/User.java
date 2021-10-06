@@ -25,6 +25,7 @@ public class User {
     private String pass;
     private String avatar;
     private String status;
+    private String codigo;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<UserServerRole> userServerRole;

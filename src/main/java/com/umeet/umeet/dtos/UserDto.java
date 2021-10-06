@@ -17,4 +17,5 @@ public class UserDto {
     private String pass;
     private String avatar;
     private String status;
+    private String codigo;
 }

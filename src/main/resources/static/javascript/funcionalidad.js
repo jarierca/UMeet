@@ -194,7 +194,7 @@ function chat(idCanal, channelName) {
                 if(pJson[c].messageFile != null){
                     if(pJson[c].messageFile.name =="fichero"){
                         if (pJson[c].messageFile.url.toLowerCase().includes(".gif") || pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")){
-                            fichero = "<br /> <img src='/msg/download?url="+ x.messageFile.url+"' class='text-center' style='max-width:50%' />";   
+                            fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download'></i></a> <br /> <img src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:50%' />";
                         }else{
                             fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
                         }
@@ -280,12 +280,13 @@ function enviarMsgCanal(idCanal,channelName) {
 }
 //Rueda mouse horizontal 
 var item = document.getElementById("userServers");
-window.addEventListener("wheel", function (e) {
+item.addEventListener("wheel", function (e) {
     if (e.deltaY > 0)
         item.scrollLeft += 100;
     else
         item.scrollLeft -= 100;
 });
+
 function chatPrivado(idDestino, nameDestino) {
     var userId = "";
     $.ajax({
@@ -319,7 +320,7 @@ function chatPrivado(idDestino, nameDestino) {
                 if(pJson[c].messageFile != null){
                     if(pJson[c].messageFile.name =="fichero"){
                         if (pJson[c].messageFile.url.toLowerCase().includes(".gif") || pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")){
-                            fichero = "<br /> <img src='/msg/download?url="+ x.messageFile.url+"' class='text-center' style='max-width:50%' />";   
+                            fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download'></i></a> <br /> <img src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:50%' />";
                         }else{
                             fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
                         }

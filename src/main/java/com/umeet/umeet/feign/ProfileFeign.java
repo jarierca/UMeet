@@ -38,7 +38,22 @@ public interface ProfileFeign {
     public void statusDrop(@RequestParam String status, @RequestParam Long idUser);
     
     @GetMapping("/getUser")
-    public UserDto getUser(@RequestParam  Long idUser);
+    public UserDto getUser(@RequestParam  Long idUser);  
+    
+    @GetMapping("/getUsername")
+    public UserDto getUsername(@RequestParam  String username);
+    
+    @GetMapping("/resetPass")
+    public UserDto resetPass(@RequestParam Long idUser, @RequestParam String codigo);
+    
+    @GetMapping("/recoverPass")
+    public UserDto recoverPass(@RequestParam String username, @RequestParam String codigo);
+    
+    @GetMapping("/newCode")
+    public void newCode(@RequestParam Long idUser, @RequestParam String codigo);
+    
+    @PostMapping("/modifyPass")
+    public void modifyPass(@RequestParam String password, @RequestParam Long idUser);
 
     @GetMapping("/getUserByUsername")
     public UserDto getUserByUsername(@RequestParam String username);
