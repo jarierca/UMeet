@@ -173,7 +173,7 @@ h3 {
 }
 
 /*Avatares horizontal*/
-.overflow-auto{
+#userServers.overflow-auto{
     display: flex;
     flex-direction: row;
 }
@@ -231,6 +231,9 @@ h3 {
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     height:100%
+}
+#contentChat.overflow-auto{
+    overflow-x: auto;
 }
 .row-sin-m{
     display: flex;
@@ -629,6 +632,13 @@ th{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.name-div{
+    max-width: 150px;
+    /* line-height: 20px; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .chat-users .user .mood {
     font: 200 14px/20px "Raleway", sans-serif;
     white-space: nowrap;
@@ -860,3 +870,11 @@ th{
     background-color: rgba(0,0,0,0.25);
     background-position: center;
 }
+
+.wrap { 
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;      /* IE */
+ }

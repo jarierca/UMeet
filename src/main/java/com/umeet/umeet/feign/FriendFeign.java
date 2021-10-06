@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@FeignClient(contextId = "feignFriends", name = "UMeetBack", url= "http://localhost:8082")
+@FeignClient(contextId = "feignFriends", name = "UMeetBack")
 @RequestMapping("/b/friends")
 
 public interface FriendFeign {

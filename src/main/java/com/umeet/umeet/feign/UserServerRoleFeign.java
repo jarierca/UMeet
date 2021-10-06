@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 
-@FeignClient(contextId = "feignUsr", name = "UMeetBack", url= "http://localhost:8082")
+@FeignClient(contextId = "feignUsr", name = "UMeetBack")
 @RequestMapping("/b/usr")
 public interface UserServerRoleFeign {
     

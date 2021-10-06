@@ -12,7 +12,7 @@ import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
 
 
-@FeignClient(contextId = "feignCategorias", name = "UMeetBack", url= "http://localhost:8082")
+@FeignClient(contextId = "feignCategorias", name = "UMeetBack")
 @RequestMapping("/b/category")
 public interface CategoryFeign {
     

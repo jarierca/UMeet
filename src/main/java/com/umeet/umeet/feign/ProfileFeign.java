@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(name = "profileInvent",url="http://localhost:8082")
+@FeignClient(contextId = "profileFeign", name = "UMeetBack")
 @RequestMapping("/b/profile")
 public interface ProfileFeign {
     
@@ -38,7 +38,22 @@ public interface ProfileFeign {
     public void statusDrop(@RequestParam String status, @RequestParam Long idUser);
     
     @GetMapping("/getUser")
-    public UserDto getUser(@RequestParam  Long idUser);
+    public UserDto getUser(@RequestParam  Long idUser);  
+    
+    @GetMapping("/getUsername")
+    public UserDto getUsername(@RequestParam  String username);
+    
+    @GetMapping("/resetPass")
+    public UserDto resetPass(@RequestParam Long idUser, @RequestParam String codigo);
+    
+    @GetMapping("/recoverPass")
+    public UserDto recoverPass(@RequestParam String username, @RequestParam String codigo);
+    
+    @GetMapping("/newCode")
+    public void newCode(@RequestParam Long idUser, @RequestParam String codigo);
+    
+    @PostMapping("/modifyPass")
+    public void modifyPass(@RequestParam String password, @RequestParam Long idUser);
 
     @GetMapping("/getUserByUsername")
     public UserDto getUserByUsername(@RequestParam String username);

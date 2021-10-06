@@ -13,7 +13,7 @@ import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(contextId = "feignChannel", name = "UMeetBack", url= "http://localhost:8082")
+@FeignClient(contextId = "feignChannel", name = "UMeetBack")
 @RequestMapping("/b/channel")
 public interface ChannelFeign {
 
