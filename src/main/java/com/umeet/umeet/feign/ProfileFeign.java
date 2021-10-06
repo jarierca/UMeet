@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(contextId = "profileFeign", name = "UMeetBack",url="http://localhost:8082")
+@FeignClient(contextId = "profileFeign", name = "UMeetBack")
 @RequestMapping("/b/profile")
 public interface ProfileFeign {
     

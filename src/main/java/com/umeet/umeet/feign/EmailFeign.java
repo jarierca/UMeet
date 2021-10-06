@@ -3,7 +3,7 @@ package com.umeet.umeet.feign;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(contextId = "feignEmail", name = "UMeetEmail", url= "http://localhost:8083")
+@FeignClient(contextId = "feignEmail", name = "UMeetEmail")
 @RequestMapping("/m")
 public interface EmailFeign {
     

@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 
-@FeignClient(contextId = "feign2", name = "UMeetBack", url= "http://localhost:8082")
+@FeignClient(contextId = "feign2", name = "UMeetBack")
 @RequestMapping("/b/server")
 public interface ServerFeign {
 

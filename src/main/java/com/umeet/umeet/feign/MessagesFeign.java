@@ -8,7 +8,7 @@ import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(contextId = "feign1", name = "UMeetBack", url= "http://localhost:8082")
+@FeignClient(contextId = "feign1", name = "UMeetBack")
 @RequestMapping("/b/msg")
 public interface MessagesFeign {
 

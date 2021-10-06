@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient(contextId = "feignAccess", name = "UMeetBack",url="http://localhost:8082")
+@FeignClient(contextId = "feignAccess", name = "UMeetBack")
 @RequestMapping("/b")
 public interface AccesFeign {
 
