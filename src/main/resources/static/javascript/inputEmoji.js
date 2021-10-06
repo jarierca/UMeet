@@ -50,8 +50,8 @@
 				input.selectionEnd = endPos + 2;
 			}
 
-			var $button = $("<span>").html(settings.button).css({cursor: 'pointer', 'font-size': settings.fontSize}).on('click', showEmoji);
-			var $list = $('<div>').css(defaults.listCSS).css(settings.listCSS).addClass("magictime slideLeftReturn");
+			var $button = $("<span>").html(settings.button).css({cursor: 'pointer', 'font-size': settings.fontSize}).on('click', showEmoji).addClass("emojiVerde");
+			var $list = $('<div>').css(defaults.listCSS).css(settings.listCSS).addClass("magictime slideLeftReturn iconos");
 			for (var n in settings.emojis) {
 				if (n > 0 && n % settings.rowSize == 0) {
 					$("<br>").appendTo($list);

@@ -31,7 +31,7 @@ body {
 .index{
     width: 700px;
     height: 300px;
-/*    background-color: rgba(0,0,0,0.3);*/
+    /*    background-color: rgba(0,0,0,0.3);*/
 }
 #loading-screen{
     position: absolute;
@@ -369,7 +369,7 @@ p{
 }
 
 label {
-/*    color:#EBEBEB;*/
+    /*    color:#EBEBEB;*/
 }
 
 #sendit{
@@ -852,7 +852,7 @@ th{
 }
 #contentChat{
     box-shadow: inset 20px 0px 20px 10px #EBEBEB;
-       background-image: url("https://i.imgur.com/QAkEwZ5.jpg");
+    background-image: url("https://i.imgur.com/QAkEwZ5.jpg");
     background-repeat: repeat;
     background-color: rgba(0,0,0,0.25);
     background-position: center;
@@ -871,10 +871,11 @@ th{
 .navbar-dark .navbar-nav .nav-link {
     color: #3BA55D;
 }
-
 .navbar-dark .navbar-nav .nav-link:hover {
     color: #5AC47B;
 }
+
+
 .card-footer {
     background-color: E3E5E8!important;;
 
@@ -884,5 +885,16 @@ th{
 }
 .table{
     background-color: #F2F3F5!important;
+}
+.iconos{
+    background-color: #EBEBEB!important;
+    border:none!important;
+}
+.emojiVerde{
+    color:#3BA55D;
+}
+.name{
+    font-weight: bold;
+   
 }
 
