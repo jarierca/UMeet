@@ -79,14 +79,49 @@ public class AccessController {
         //Paso 2. Hacer login.
         
         //Login con github
+        
         if(user.getAttribute("url").equals("https://api.github.com/users/"+user.getAttribute("login"))){
-            System.out.println(""+user.getAttribute("login"));
-            UsernamePasswordAuthenticationToken u=new UsernamePasswordAuthenticationToken(user.getAttribute("login"), "2");
-            Authentication auth = authMan.authenticate(u);
-            SecurityContextHolder.getContext().setAuthentication(auth);
+            //Compruebo si el usuario existe
+            if(!accesFeign.userExist(user.getAttribute("login"))){
+                UserDto usuario = new UserDto();
+                usuario.setPass(passwordEncoder.encode("2"));
+
+                usuario.setNickName(user.getAttribute("login"));
+                usuario.setUsername(user.getAttribute("login"));
+
+                usuario.setAvatar(user.getAttribute("avatar_url"));
+                usuario.setStatus("desconectado");
+
+                accesFeign.newregisterOAuth(usuario);
+            }else{
+                UsernamePasswordAuthenticationToken u=new UsernamePasswordAuthenticationToken(user.getAttribute("login"), "2");
+                Authentication auth = authMan.authenticate(u);
+                SecurityContextHolder.getContext().setAuthentication(auth); 
+            }
+            
+            return "redirect:home";
+        }else if(user.getAttribute("iss").equals("https://accounts.google.com")){
+            //Compruebo si el usuario existe
+            if(!accesFeign.userExist(user.getAttribute("name"))){
+                UserDto usuario = new UserDto();
+                usuario.setPass(passwordEncoder.encode("2"));
+
+                usuario.setNickName(user.getAttribute("name"));
+                usuario.setUsername(user.getAttribute("name"));
+                usuario.setAvatar(user.getAttribute("picture"));
+                usuario.setEmail(user.getAttribute("email"));
+                usuario.setStatus("desconectado");
+
+                accesFeign.newregisterOAuth(usuario);
+            }else{
+                UsernamePasswordAuthenticationToken u=new UsernamePasswordAuthenticationToken(user.getAttribute("name"), "2");
+                Authentication auth = authMan.authenticate(u);
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+           
             return "redirect:home";
         }else{
-            return "redirect:home";
+            return "redirect:login";
         }   
     }
 
