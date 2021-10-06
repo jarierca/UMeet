@@ -281,10 +281,13 @@ function enviarMsgCanal(idCanal,channelName) {
 //Rueda mouse horizontal 
 var item = document.getElementById("userServers");
 item.addEventListener("wheel", function (e) {
-    if (e.deltaY > 0)
+    if (e.deltaY > 0){
         item.scrollLeft += 100;
-    else
+    }
+    else{
         item.scrollLeft -= 100;
+    }
+    event.preventDefault();
 });
 
 function chatPrivado(idDestino, nameDestino) {
