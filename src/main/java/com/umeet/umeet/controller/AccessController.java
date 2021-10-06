@@ -130,4 +130,21 @@ public class AccessController {
     public String logout(){
         return "login";
     }
+    
+    @PostMapping("/userExist")
+    public Boolean userExist(String username){
+        Optional<User> usuarios = userRepository.findByUsername(username);
+        if (usuarios.isPresent()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    //No le llega el objeto
+    @PostMapping("/newregisterOAuth")
+    public void newregisterOAuth(UserDto userDto){
+        User user = mapper.map(userDto, User.class);
+        userRepository.save(user);
+    }
 }
