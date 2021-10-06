@@ -4,6 +4,7 @@ package com.umeet.umeet.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -34,6 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .authorizeRequests()
                 .antMatchers("/newregister").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/login/**").permitAll()
+                .antMatchers("/loginSuccess").permitAll()
+                .antMatchers("/verUsuario").permitAll()
                 .antMatchers("/login").permitAll()
 //                .antMatchers("/profile/*").permitAll()
                 .antMatchers("/profile/recoverPass/**").permitAll()
@@ -50,6 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/home", true)
+                .and()
+            .oauth2Login().loginPage("/loginOAuth").defaultSuccessUrl("/loginSuccess")
                 .and()
             .logout()
                 .logoutUrl("/logout")  
@@ -83,4 +89,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }  
+
+    @Override
+    @Bean
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+ 
 }

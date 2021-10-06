@@ -10,15 +10,20 @@ import com.umeet.umeet.repositories.FriendRepository;
 import com.umeet.umeet.repositories.UserRepository;
 import com.umeet.umeet.repositories.UserServerRoleRepository;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +53,16 @@ public class AccessController {
 
     @Autowired
     private ModelMapper mapper;
+    
+    @Autowired
+    private AuthenticationManager authMan;
 
+    @GetMapping("/verUsuario")
+    @ResponseBody
+    public Map<String,Object> info(@AuthenticationPrincipal OAuth2User persona){
+        return persona.getAttributes();
+    }    
+    
     @GetMapping("/login")
     public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -57,6 +71,23 @@ public class AccessController {
         } else {
             return "login";
         }
+    }
+    
+    @GetMapping("/loginSuccess")
+    public String loginSuccess(@AuthenticationPrincipal OAuth2User user ) {
+        //Paso 1. Si no esta el usuario se da de alta
+        //Paso 2. Hacer login.
+        
+        //Login con github
+        if(user.getAttribute("url").equals("https://api.github.com/users/"+user.getAttribute("login"))){
+            System.out.println(""+user.getAttribute("login"));
+            UsernamePasswordAuthenticationToken u=new UsernamePasswordAuthenticationToken(user.getAttribute("login"), "2");
+            Authentication auth = authMan.authenticate(u);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            return "redirect:home";
+        }else{
+            return "redirect:home";
+        }   
     }
 
     @GetMapping("/register")
