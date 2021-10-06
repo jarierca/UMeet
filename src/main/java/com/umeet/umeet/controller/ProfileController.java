@@ -172,8 +172,7 @@ public class ProfileController {
         
         profileFeign.newCode(user.getId(),codigo);
         
-        String txt = "Hola " + user.getUsername() + ", has iniciado el proceso de recuperacion de tu contraseña para ello puedos haerlo con el siguiente codigo \""+codigo
-                +"\" o tambien puedes usar este enlace "+ enlace+"/"+codigo+"/"+username;
+        String txt = "Hola " + user.getUsername() + ", has iniciado el proceso de recuperacion de tu contraseña para ello puedos hacerlo con el siguiente enlace "+ enlace+"/"+codigo+"/"+username;
         emailFeign.mail(user.getEmail(), "Recuperar Contraseña", txt);
         
         return "redirect:/login";
