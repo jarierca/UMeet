@@ -890,4 +890,11 @@ th{
     background-color: #EBEBEB!important;
     border:none!important;
 }
+.emojiVerde{
+    color:#3BA55D;
+}
+.name{
+    font-weight: bold;
+   
+}
 
