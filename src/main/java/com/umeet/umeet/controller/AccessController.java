@@ -3,27 +3,22 @@ package com.umeet.umeet.controller;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
-import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.UserServerRole;
 import com.umeet.umeet.feign.*;
-import com.umeet.umeet.repositories.FriendRepository;
-import com.umeet.umeet.repositories.UserRepository;
-import com.umeet.umeet.repositories.UserServerRoleRepository;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletResponse;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AccessController {

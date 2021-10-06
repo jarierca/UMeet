@@ -1,7 +1,6 @@
 package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.UserValidacionDto;
-import com.umeet.umeet.entities.Server;
 import com.umeet.umeet.feign.UserServerRoleFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

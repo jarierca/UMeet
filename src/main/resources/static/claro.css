@@ -176,7 +176,7 @@ h3 {
     background-color: #EBEBEB;
 }
 .modal-title{
-    color: #EBEBEB;
+    color: #595959;;
 }
 
 /*Avatares horizontal*/
@@ -342,8 +342,8 @@ ul li{
     color:#3BA55D;
     font-size: 22px !important;
 }
-.fnt-aws-size:hoover{
-    color:#3BA55D;
+.fnt-aws-size:hover{
+    color:#5AC47B;
     font-size: 22px !important;
 }
 .prueba{
@@ -369,7 +369,7 @@ p{
 }
 
 label {
-    color:#EBEBEB;
+/*    color:#EBEBEB;*/
 }
 
 #sendit{
@@ -696,7 +696,7 @@ th{
     bottom: 0;
 }
 .chat-body .answer.left .text {
-    background: #ebebeb;
+    background: #3BA55D;
 
     border-radius: 8px 8px 8px 0;
 }
@@ -705,10 +705,11 @@ th{
     font-size: 16px;
     line-height: 26px;
     position: relative;
+    color:#EBEBEB;
 }
 .chat-body .answer.left .text:before {
     left: -30px;
-    border-right-color: #ebebeb;
+    border-right-color: #3BA55D;
     border-right-width: 12px;
 }
 .chat-body .answer .text:before {
@@ -744,14 +745,14 @@ th{
 }
 .chat-body .answer.right .text {
     /*    background: #7266ba;*/
-    background: #22223B;
+    background: #3BA55D;
     color: #ffffff;
     border-radius: 8px 8px 0 8px;
 }
 .chat-body .answer.right .text:before {
     right: -30px;
     /*border-left-color: #7266ba;*/
-    border-left-color: #22223B;
+    border-left-color: #3BA55D;
     border-left-width: 12px;
 }
 .chat-body .answer.right .time {
@@ -850,12 +851,13 @@ th{
     background-color: #3BA55D;
 }
 #contentChat{
-    box-shadow: inset 20px 0px 20px 10px #F2F3F5;
-    background-image: url("https://i.imgur.com/t0o3dIt.jpg");
+    box-shadow: inset 20px 0px 20px 10px #EBEBEB;
+       background-image: url("https://i.imgur.com/QAkEwZ5.jpg");
     background-repeat: repeat;
     background-color: rgba(0,0,0,0.25);
     background-position: center;
 }
+
 
 
 /*.fa, .fas {

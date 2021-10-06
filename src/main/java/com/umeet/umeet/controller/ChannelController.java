@@ -2,7 +2,6 @@ package com.umeet.umeet.controller;
 
 import com.umeet.umeet.dtos.ChannelDto;
 import com.umeet.umeet.dtos.ChannelParamDto;
-import com.umeet.umeet.entities.Channel;
 import com.umeet.umeet.feign.CategoryFeign;
 import com.umeet.umeet.feign.ChannelFeign;
 import org.springframework.beans.factory.annotation.Autowired;
