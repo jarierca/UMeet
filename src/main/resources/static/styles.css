@@ -632,6 +632,13 @@ th{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.name-div{
+    max-width: 150px;
+    /* line-height: 20px; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .chat-users .user .mood {
     font: 200 14px/20px "Raleway", sans-serif;
     white-space: nowrap;
