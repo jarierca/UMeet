@@ -242,8 +242,8 @@ function chat(idCanal, channelName) {
             $("#contentChat").addClass("magictime slideUpReturn");
             $("#sendit").addClass('magictime slideDownReturn');
             if (globo==0){
-                setTimeout(function () { autoChat(idCanal) }, 10000);
-                //autoChat(idCanal);
+                //setTimeout(function () { autoChat(idCanal) }, 10000);
+                autoChat(idCanal);
                 globo = 1;
             }          
         },
@@ -334,7 +334,7 @@ function chatPrivado(idDestino, nameDestino) {
                     fichero = "";
                 }
                 if (x.text != "") {
-                    if (x.user.username == userId.username) {
+                    if (x.user.username != userId.username) {
 
                         $("<div>").html('<div class="answer ' + clase + ' right mx-4 pb-4">' +
                                 '<div class="avatar mb-4">' +
@@ -367,8 +367,8 @@ function chatPrivado(idDestino, nameDestino) {
             $("#contentChat").addClass("magictime slideUpReturn");
             $("#sendit").addClass('magictime slideDownReturn');
             if(privi==0){
-                setTimeout(function () { autoPrivado(idDestino,nameDestino) }, 10000);
-                //autoPrivado(idDestino,nameDestino);
+                //setTimeout(function () { autoPrivado(idDestino,nameDestino) }, 10000);
+                autoPrivado(idDestino,nameDestino);
                 privi = 1;
             }
         },
@@ -805,7 +805,7 @@ function autoPrivado(idDestino, nameDestino) {
                         fichero = "";
                     }
                     if (x.text != "") {
-                        if (x.user.username == userId.username) {
+                        if (x.user.username != userId.username) {
 
                             $("<div>").html('<div class="answer ' + clase + ' right mx-4 pb-4">' +
                                 '<div class="avatar mb-4">' +
