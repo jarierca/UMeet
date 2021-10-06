@@ -339,7 +339,7 @@ function chatPrivado(idDestino, nameDestino) {
                     fichero = "";
                 }
                 if (x.text != "") {
-                    if (x.user.username == userId.username) {
+                    if (x.user.username != userId.username) {
 
                         $("<div>").html('<div class="answer ' + clase + ' right mx-4 pb-4">' +
                                 '<div class="avatar mb-4">' +
@@ -815,7 +815,7 @@ function autoPrivado(idDestino, nameDestino) {
                         fichero = "";
                     }
                     if (x.text != "") {
-                        if (x.user.username == userId.username) {
+                        if (x.user.username != userId.username) {
 
                             $("<div>").html('<div class="answer ' + clase + ' right mx-4 pb-4">' +
                                 '<div class="avatar mb-4">' +

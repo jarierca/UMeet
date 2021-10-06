@@ -696,7 +696,7 @@ th{
     bottom: 0;
 }
 .chat-body .answer.left .text {
-    background: #3BA55D;
+    background: #1B4B2A;
 
     border-radius: 8px 8px 8px 0;
 }
@@ -709,7 +709,7 @@ th{
 }
 .chat-body .answer.left .text:before {
     left: -30px;
-    border-right-color: #3BA55D;
+    border-right-color: #1B4B2A;
     border-right-width: 12px;
 }
 .chat-body .answer .text:before {
@@ -852,7 +852,7 @@ th{
 }
 #contentChat{
     box-shadow: inset 20px 0px 20px 10px #EBEBEB;
-    background-image: url("https://i.imgur.com/QAkEwZ5.jpg");
+    background-image: url("https://i.imgur.com/x7eEOLr.jpg");
     background-repeat: repeat;
     background-color: rgba(0,0,0,0.25);
     background-position: center;
