@@ -88,6 +88,8 @@ public class AccessController {
 
                 usuario.setNickName(user.getAttribute("login"));
                 usuario.setUsername(user.getAttribute("login"));
+                
+                usuario.setEmail("");
 
                 usuario.setAvatar(user.getAttribute("avatar_url"));
                 usuario.setStatus("desconectado");
@@ -108,6 +110,9 @@ public class AccessController {
 
                 usuario.setNickName(user.getAttribute("name"));
                 usuario.setUsername(user.getAttribute("name"));
+                
+                usuario.setEmail("");
+                
                 usuario.setAvatar(user.getAttribute("picture"));
                 usuario.setEmail(user.getAttribute("email"));
                 usuario.setStatus("desconectado");

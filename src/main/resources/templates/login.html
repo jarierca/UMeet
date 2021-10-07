@@ -26,6 +26,13 @@
                 background-color: #61892F;
                 border-color: #61892F;
             }
+            .btn-outline-primary{
+                border-color: #61892F;
+            }
+            .btn-outline-primary:hover{
+                background-color: #61892F;
+                border-color: #61892F;
+            }
             .btn-primary:hover {
                 background-color: #86C232;
                 border-color: #86C232;
@@ -44,6 +51,18 @@
             }
             a:hover{
                 color: #86C232;
+            }
+            .options-divider, .options-divider {
+                display: block;
+                content: '';
+                flex-grow: 1;
+                margin-top: 12px;
+                height: 2px;
+                background-color: #bfbfbf;
+                width: 80%
+            }
+            .divider-text {
+                white-space: nowrap;
             }
         </style>
     </head>
@@ -73,15 +92,6 @@
               <label class="form-label">Password</label>
               <input name="password" type="password" class="form-control">
             </div>
-
-            <!--        <div class="mb-3">
-                <label th:for="usu: ${usu.email}" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" th:id="usu: ${usu.email}">
-            </div>
-            <div class="mb-3">
-              <label th:for="usu: ${usu.pass}" class="form-label">Password</label>
-              <input type="password" class="form-control" th:id="usu: ${usu.pass}">
-            </div>-->
             
             <div class="mb-2 form-check flex">
                 <div class="me-auto">
@@ -92,12 +102,22 @@
            <div class="mb-2 flex">
                 <a class="primary" href="/profile/sendEmail">Contraseña olvidada</a>
             </div>
-            <div class="mb-5 flex">
+            <div class="mb-4 flex">
                 <a class="primary" href="/register">Registrarse</a>
             </div>
             <button type="submit" class="btn btn-primary">Aceptar</button>
-            Validar con Github <a href="/oauth2/authorization/github">Validar con GitHub</a>
-            Validar con Google <a href="/oauth2/authorization/google">Validar con Google</a>
+            <!--<div class="text-white mt-3"><div class="options-divider"><span class="divider-text">o</span></div></div>-->
+            
+            <div class="text-white mt-4 d-flex">
+                <span class="options-divider"></span>
+                <span class="divider-text mx-2">O</span>
+                <span class="options-divider"></span>
+            </div>
+            
+            <div class="d-flex mt-4">
+                <a href="/oauth2/authorization/github" class="btn btn-outline-primary text-white"><i class="fab fa-github"></i> Validar con GitHub</a>&nbsp;&nbsp;
+                <a href="/oauth2/authorization/google" class="btn btn-outline-primary text-white"><i class="fab fa-google"></i> Validar con Google</a>
+            </div>
         </form>
         </div>
         
