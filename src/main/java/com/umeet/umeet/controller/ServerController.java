@@ -59,6 +59,16 @@ public class ServerController {
         return "/servers/formServer";
     }
 
+    @GetMapping("/checkName")
+    @ResponseBody
+    public String checkName(String name) {
+        if (serverFeign.checkName(name)){
+            return "ok";
+        }else{
+            return "ko";
+        }
+    }
+
     @PostMapping("/addServer")
     public String addServer(ServerDto serverDto, MultipartFile file) {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
