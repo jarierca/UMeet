@@ -29,50 +29,9 @@ public class AccessController {
     
     @Autowired
     private UserRepository userRepository;
-    
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    private FriendRepository friendRepo;
-    
-    @Autowired
-    private UserServerRoleRepository usrRepo;
 
     @Autowired
     private ModelMapper mapper;
-    
-    @GetMapping("/login")
-    public String login(){ 
-        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() != "anonymousUser") {
-            return "redirect:home";
-        }else{
-            return "login";
-        }
-    }
-    
-//    @GetMapping("/register")
-//    public String register(Model m){
-//        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
-//        if (auth.getPrincipal() != "anonymousUser") {
-//            return "redirect:home";
-//        }else{
-//            m.addAttribute("user", new User());
-//            return "register";
-//        }
-//    }
-    
-    @GetMapping("/info")
-    @ResponseBody
-    public String info(){
-        Authentication auth= SecurityContextHolder.getContext().getAuthentication();
-        if (auth!=null){
-            return auth.getName() + auth.getDetails().toString();
-        }else{
-            return "Nadie";
-        }
-    } 
     
     @PostMapping("/newregister")
     public Boolean newregister(UserDto userDto){
