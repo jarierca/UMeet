@@ -15,7 +15,7 @@ public interface AccesFeign {
     public Boolean newRegister(@SpringQueryMap UserDto user);
     
     @PostMapping("/userExist")
-    public Boolean userExist(@RequestParam String username);
+    public Boolean userExist(@RequestParam String username, @RequestParam String oauth);
     
     @PostMapping("/newregisterOAuth")
     public void newregisterOAuth(@SpringQueryMap UserDto userDto);

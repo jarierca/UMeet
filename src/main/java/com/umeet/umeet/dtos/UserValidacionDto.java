@@ -21,6 +21,7 @@ public class UserValidacionDto implements UserDetails{
     private String username;
     private String password;
     private String status;
+    private String oauth;
     private List<GrantedAuthority> roles;
 
     @Override

@@ -18,4 +18,5 @@ public class UserDto {
     private String avatar;
     private String status;
     private String codigo;
+    private String oauth2;
 }

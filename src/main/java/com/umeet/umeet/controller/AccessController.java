@@ -1,5 +1,6 @@
 package com.umeet.umeet.controller;
 
+import com.ctc.wstx.shaded.msv_core.util.Uri;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
@@ -80,9 +81,25 @@ public class AccessController {
         
         //Login con github
         
-        if(user.getAttribute("url").equals("https://api.github.com/users/"+user.getAttribute("login"))){
+        String url = user.getAttribute("url");
+        if(url == null){
+            url = "vacio";
+        }
+        
+        String login = user.getAttribute("login");
+        if(login == null){
+            login = "login";
+        }
+        
+//        Uri uriIss = user.getAttribute("iss");
+        String iss = ""+user.getAttribute("iss");
+        if(iss.equals("null")){
+            iss = "iss";
+        }
+        
+        if(url.equals("https://api.github.com/users/"+login)){
             //Compruebo si el usuario existe
-            if(!accesFeign.userExist(user.getAttribute("login"))){
+            if(!accesFeign.userExist(user.getAttribute("login"),"github")){
                 UserDto usuario = new UserDto();
                 usuario.setPass(passwordEncoder.encode("2"));
 
@@ -91,20 +108,27 @@ public class AccessController {
                 
                 usuario.setEmail("");
 
-                usuario.setAvatar(user.getAttribute("avatar_url"));
+                usuario.setAvatar("C:/zzUpload/avatar/avatar-stock.png");
                 usuario.setStatus("desconectado");
+                
+                usuario.setOauth2("github");
 
                 accesFeign.newregisterOAuth(usuario);
-            }else{
-                UsernamePasswordAuthenticationToken u=new UsernamePasswordAuthenticationToken(user.getAttribute("login"), "2");
+                
+                UsernamePasswordAuthenticationToken u=new UsernamePasswordAuthenticationToken(user.getAttribute("login")+"##_##github", "2");
+                Authentication auth = authMan.authenticate(u);
+                SecurityContextHolder.getContext().setAuthentication(auth); 
+                
+            }else{//"##_##github"
+                UsernamePasswordAuthenticationToken u=new UsernamePasswordAuthenticationToken(user.getAttribute("login")+"##_##github", "2");
                 Authentication auth = authMan.authenticate(u);
                 SecurityContextHolder.getContext().setAuthentication(auth); 
             }
             
             return "redirect:home";
-        }else if(user.getAttribute("iss").equals("https://accounts.google.com")){
+        }else if(iss.equals("https://accounts.google.com")){
             //Compruebo si el usuario existe
-            if(!accesFeign.userExist(user.getAttribute("name"))){
+            if(!accesFeign.userExist(user.getAttribute("name"),"google")){
                 UserDto usuario = new UserDto();
                 usuario.setPass(passwordEncoder.encode("2"));
 
@@ -113,13 +137,20 @@ public class AccessController {
                 
                 usuario.setEmail("");
                 
-                usuario.setAvatar(user.getAttribute("picture"));
+                usuario.setAvatar("C:/zzUpload/avatar/avatar-stock.png");
                 usuario.setEmail(user.getAttribute("email"));
                 usuario.setStatus("desconectado");
+                
+                usuario.setOauth2("google");
 
                 accesFeign.newregisterOAuth(usuario);
+                
+                UsernamePasswordAuthenticationToken u=new UsernamePasswordAuthenticationToken(user.getAttribute("name")+ "##_##google", "2");
+                Authentication auth = authMan.authenticate(u);
+                SecurityContextHolder.getContext().setAuthentication(auth);
+                //+ "##_##google"
             }else{
-                UsernamePasswordAuthenticationToken u=new UsernamePasswordAuthenticationToken(user.getAttribute("name"), "2");
+                UsernamePasswordAuthenticationToken u=new UsernamePasswordAuthenticationToken(user.getAttribute("name")+ "##_##google", "2");
                 Authentication auth = authMan.authenticate(u);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
@@ -157,10 +188,11 @@ public class AccessController {
         user.setPass(passwordEncoder.encode(user.getPass()));
         Boolean register = accesFeign.newRegister(user);
         if (register) {
-            String txt = "Hola " + user.getUsername() + ",</br> te damos las gracias por unirte a nuestra comunidad de U-Meet, en la que te permite hablar y con tus amigos.";
+            String txt = "Hola " + user.getUsername() + ",te damos las gracias por unirte a nuestra comunidad de U-Meet, en la que te permite hablar y con tus amigos.";
             emailFeign.mail(user.getEmail(), "¡Bienvenido a U-Meet!", txt);
             return "login";
         } else {
+            m.addAttribute("user", new UserDto());
             m.addAttribute("error", "El usuario que has introducido no esta disponible");
             return "register";
         }
@@ -173,7 +205,8 @@ public class AccessController {
 
             String username = auth.getName();
             UserValidacionDto u = (UserValidacionDto) auth.getPrincipal();
-            UserDto user = profileFeign.getUserByUsername(username);              //Obtenemos lista de amigos e invitado para index
+            String oauth = u.getOauth();
+            UserDto user = profileFeign.getUserByUsernameAndOAuth2(username,oauth);              //Obtenemos lista de amigos e invitado para index
             m.addAttribute("friendsAccepted", friendFeign.getUsersByFriends(u.getId(), "aceptado"));
             m.addAttribute("friendsPending", friendFeign.getUsersByFriends(u.getId(), "invitado"));
 

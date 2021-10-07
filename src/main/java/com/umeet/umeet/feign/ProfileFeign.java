@@ -60,4 +60,7 @@ public interface ProfileFeign {
 
     @PostMapping("/save")
     public void save(@SpringQueryMap UserDto userDto);
+
+    @PostMapping("/getUserByUsernameAndOAuth2")
+    public UserDto getUserByUsernameAndOAuth2(@RequestParam String sUsername, @RequestParam String sOAuth);
 }

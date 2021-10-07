@@ -166,7 +166,7 @@ public class ProfileController {
     
     @PostMapping("/newCode")
     public String newCode(Model m, String username){
-        UserDto user = profileFeign.getUsername(username);
+        UserDto user = profileFeign.getUserByUsernameAndOAuth2(username,"user");
         
         String codigo = UUID.randomUUID().toString();
         
