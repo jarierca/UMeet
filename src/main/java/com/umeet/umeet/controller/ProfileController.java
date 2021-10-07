@@ -98,7 +98,7 @@ public class ProfileController {
         UserValidacionDto u=(UserValidacionDto)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         profileFeign.remove(u.getId());
-        return "redirect:logout";
+        return "redirect:/logout";
     }
     
     //Modificar estado del user
