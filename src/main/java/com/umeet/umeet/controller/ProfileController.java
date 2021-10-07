@@ -185,6 +185,16 @@ public class ProfileController {
         }
     }
 
+    @PostMapping("/getUserByUsernameAndOAuth2")
+    public UserDto getUserByUsernameAndOAuth2(String sUsername,String sOAuth){
+        Optional<User> user = userRepository.findByUsernameAndOauth2(sUsername,sOAuth);
+        if(user.isPresent()){
+            return mapper.map(user.get(), UserDto.class);
+        } else {
+            return new UserDto();
+        }
+    }
+    
     @PostMapping("/save")
     public void save(UserDto userDto){
         userRepository.save(mapper.map(userDto, User.class));

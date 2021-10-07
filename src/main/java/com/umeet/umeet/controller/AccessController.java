@@ -82,6 +82,7 @@ public class AccessController {
             userDto.setNickName(userDto.getUsername());
             userDto.setAvatar("C:/zzUpload/avatar/avatar-stock.png");
             userDto.setStatus("desconectado");
+            userDto.setOauth2("user");
 
             User user = mapper.map(userDto, User.class);
             userRepository.save(user);
@@ -132,8 +133,8 @@ public class AccessController {
     }
     
     @PostMapping("/userExist")
-    public Boolean userExist(String username){
-        Optional<User> usuarios = userRepository.findByUsername(username);
+    public Boolean userExist(String username, String oauth){
+        Optional<User> usuarios = userRepository.findByUsernameAndOauth2(username,oauth);
         if (usuarios.isPresent()) {
             return true;
         }else{
