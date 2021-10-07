@@ -85,6 +85,7 @@ public class AccessController {
             emailFeign.mail(user.getEmail(), "¡Bienvenido a U-Meet!", txt);
             return "login";
         } else {
+            m.addAttribute("user", new UserDto());
             m.addAttribute("error", "El usuario que has introducido no esta disponible");
             return "register";
         }

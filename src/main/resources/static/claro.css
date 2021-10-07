@@ -34,6 +34,7 @@ body {
     /*    background-color: rgba(0,0,0,0.3);*/
 }
 #loading-screen{
+    background-color:#F2F3F5;
     position: absolute;
     top: 0;
     left: 0;

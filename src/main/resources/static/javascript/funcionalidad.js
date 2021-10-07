@@ -193,7 +193,8 @@ function chat(idCanal, channelName) {
                 if(pJson[c].messageFile != null){
                     if(pJson[c].messageFile.name =="fichero"){
                         if (pJson[c].messageFile.url.toLowerCase().includes(".gif") || pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")){
-                            fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download'></i></a> <br /> <img src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:50%' />";
+                            fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download'></i></a> <br />" +
+                            "<img onload='bajarScroll(this)' src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:50%' />";
                         }else{
                             fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
                         }
@@ -235,7 +236,7 @@ function chat(idCanal, channelName) {
 //                        salida.appendTo("#contentChat");
             $("#contentChat").append(salida);
 
-            $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
+            //$('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
 //                        setTimeout(function(){chat(idCanal)}, 20000);
             $("#sendMsg").focus();
             $("#contentChat").addClass("magictime slideUpReturn");
@@ -376,7 +377,7 @@ function chatPrivado(idDestino, nameDestino) {
                 c = c + 1;
             }
             salida.appendTo("#panelChat");
-            $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
+            //$('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
             $("#sendMsg").focus();
             $("#contentChat").addClass("magictime slideUpReturn");
             $("#sendit").addClass('magictime slideDownReturn');
@@ -721,7 +722,7 @@ function autoChat(idCanal, channelName) {
                     if (pJson[c].messageFile != null) {
                         if (pJson[c].messageFile.name == "fichero") {
                             if (pJson[c].messageFile.url.toLowerCase().includes(".gif") || pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")) {
-                                fichero = "<br /> <img src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:50%' />";
+                                fichero = "<br /> <img onload='bajarScroll(this)' src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:50%' />";
                             } else {
                                 fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";
                             }
@@ -763,7 +764,7 @@ function autoChat(idCanal, channelName) {
                 //                        salida.appendTo("#contentChat");
                 $("#contentChat").append(salida);
 
-                $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
+                //$('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
                 //                        setTimeout(function(){chat(idCanal)}, 20000);
                 $("#sendMsg").focus();
                 $("#contentChat").addClass("magictime slideUpReturn");
@@ -813,7 +814,7 @@ function autoPrivado(idDestino, nameDestino) {
                     if (pJson[c].messageFile != null) {
                         if (pJson[c].messageFile.name == "fichero") {
                             if (pJson[c].messageFile.url.toLowerCase().includes(".gif") || pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")) {
-                                fichero = "<br /> <img src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:50%' />";
+                                fichero = "<br /> <img onload='bajarScroll(this)' src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:50%' />";
                             } else {
                                 fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";
                             }
@@ -852,7 +853,7 @@ function autoPrivado(idDestino, nameDestino) {
                     c = c + 1;
                 }
                 salida.appendTo("#panelChat");
-                $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
+               // $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
                 $("#sendMsg").focus();
                 $("#contentChat").addClass("magictime slideUpReturn");
                 $("#sendit").addClass('magictime slideDownReturn');
