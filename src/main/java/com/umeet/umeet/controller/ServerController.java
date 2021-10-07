@@ -3,15 +3,8 @@ package com.umeet.umeet.controller;
 import com.umeet.umeet.dtos.ServerDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.dtos.ViewServerDto;
-import com.umeet.umeet.entities.Server;
-import com.umeet.umeet.entities.User;
-import com.umeet.umeet.entities.UserServerRole;
 import com.umeet.umeet.feign.ServerFeign;
-import com.umeet.umeet.interfaces.IServerService;
-import com.umeet.umeet.repositories.*;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Controller
@@ -65,6 +57,16 @@ public class ServerController {
             model.addAttribute("server", serverFeign.viewServer(idServer));
         }
         return "/servers/formServer";
+    }
+
+    @GetMapping("/checkName")
+    @ResponseBody
+    public String checkName(String name) {
+        if (serverFeign.checkName(name)){
+            return "ok";
+        }else{
+            return "ko";
+        }
     }
 
     @PostMapping("/addServer")

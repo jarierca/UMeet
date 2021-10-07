@@ -1,11 +1,12 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
     <div>
-        <form th:object="${server}" action="/server/addServer" method="post" enctype="multipart/form-data">
+        <form id="formServer" th:object="${server}" action="/server/addServer" method="post" enctype="multipart/form-data">
             <input type="hidden" th:field="*{id}">
             <div class="form-group">
                 <label>Nombre:</label>
-                <input autofocus  required class="form-control" th:field="*{name}">
+                <input onkeyup="checkName()" autofocus  required class="form-control" th:field="*{name}" />
+                <span id="errorServer" class="invis" style='color: red'>El servidor ya existe</span>
             </div>
             <div class="form-group">
                 <label>Descripcion:</label>
@@ -15,9 +16,34 @@
                 <label>Avatar</label>
                 <input class="form-control" type="file" name="file">
             </div>
-            <input class="btn btn-success" type="submit">
+            <input class="btn btn-success" type="submit" id="buttonServer" >
         </form>
         <!--<a th:onclick="|confirmServer(${idServer},'¿Desea eliminar el servidor?','/server/deleteServer')|">Eliminar servidor</a>-->
     </div>
+<script>
+    function checkName(){
+        $.ajax({
+            url: "/server/checkName",
+            data: {
+                name: $("#name").val()
+            },
+            success: function (html) {
+                console.log($('#name').val());
+                if("ko" === html){
+                    $("#name").addClass("bg-danger");
+                    $("#buttonServer").prop("disabled", true);
+                    $('#errorServer').removeClass('invis');
+                } else {
+                    $("#name").removeClass("bg-danger");
+                    $("#buttonServer").prop("disabled", false);
+                    $('#errorServer').addClass('invis');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        })
+    }
+</script>
 </body>
 </html>

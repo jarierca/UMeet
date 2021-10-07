@@ -4,7 +4,6 @@ import com.ctc.wstx.shaded.msv_core.util.Uri;
 import com.umeet.umeet.dtos.UserDto;
 import com.umeet.umeet.dtos.UserValidacionDto;
 import com.umeet.umeet.entities.Server;
-import com.umeet.umeet.entities.User;
 import com.umeet.umeet.entities.UserServerRole;
 import com.umeet.umeet.feign.*;
 import com.umeet.umeet.repositories.FriendRepository;
@@ -27,9 +26,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AccessController {
