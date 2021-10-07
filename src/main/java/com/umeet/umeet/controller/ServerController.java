@@ -115,6 +115,15 @@ public class ServerController {
         return serverDto;
     }
 
+    @GetMapping("/checkName")
+    public Boolean checkName(String serverName){
+        if(serverRepository.findByName(serverName).isEmpty()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @PostMapping("/addServer")
     public ServerDto addServer(Long idUser, ServerDto serverDto, MultipartFile file) {
         Server server = mapper.map(serverDto, Server.class);
