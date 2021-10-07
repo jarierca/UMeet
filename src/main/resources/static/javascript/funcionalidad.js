@@ -295,6 +295,16 @@ item.addEventListener("wheel", function (e) {
     event.preventDefault();
 });
 
+function bajarScroll(obj){
+    if(obj.complete){
+        $('#contentChat').scrollTop($('#contentChat').prop('scrollHeight'));
+    }else{
+        setTimeout(function(){
+            bajarScroll(obj);
+        }, 1000);
+    }
+}
+
 function chatPrivado(idDestino, nameDestino) {
     var userId = "";
     $.ajax({
@@ -328,7 +338,7 @@ function chatPrivado(idDestino, nameDestino) {
                 if(pJson[c].messageFile != null){
                     if(pJson[c].messageFile.name =="fichero"){
                         if (pJson[c].messageFile.url.toLowerCase().includes(".gif") || pJson[c].messageFile.url.toLowerCase().includes(".png") || pJson[c].messageFile.url.toLowerCase().includes(".jpg") || pJson[c].messageFile.url.toLowerCase().includes(".jpeg")){
-                            fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download'></i></a> <br /> <img src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:50%' />";
+                            fichero = "<a href='/msg/download?url=" + x.messageFile.url + "' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download'></i></a> <br /> <img onload='bajarScroll(this)' src='/msg/download?url=" + x.messageFile.url + "' class='text-center' style='max-width:30%' />";
                         }else{
                             fichero = "<a href='/msg/download?url="+ x.messageFile.url+"' target='_blank' title='Descargar' class='tips'><i class='fas fa-file-download' style='font-size:35px;'></i></a>";   
                         }
