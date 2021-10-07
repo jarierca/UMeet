@@ -33,8 +33,7 @@ $(document).ready(function () {
     } else {
         hBarOn();
     }
-cambiarModo();
- 
+    cambiarModo();
 });
 function msgSize() {
     var height = $(window).height();

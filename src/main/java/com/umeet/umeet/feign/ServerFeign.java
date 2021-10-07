@@ -35,4 +35,7 @@ public interface ServerFeign {
 
     @GetMapping("/one")
     public ViewServerDto getViewServerDto(@RequestParam Long idUser, @RequestParam Long idServer);
+
+    @GetMapping("/checkName")
+    public Boolean checkName(@RequestParam String serverName);
 }
