@@ -8,8 +8,8 @@
 
                 <form action="/server/filtered" method="post" class="centrado">
                     <div class="input-group">
-                        <input type="text" name="name" placeholder="Encuentra un servidor" class="form-control mb-2 ">
-                        <button class="btn btn-outline-success mb-2"><i class="fas fa-search"></i></button>
+                        <input type="text" name="name" placeholder="Encuentra un servidor" class="form-control mb-2">
+                        <button class="btn btn-outline-success mb-2 tips" title="Buscar Servidores"><i class="fas fa-search"></i></button>
                     </div>
                 </form>     
             </div>
@@ -25,7 +25,7 @@
                         <p  th:text="${sv.description}"class="card-text"></p>
                     </div>
                     <div class="card-footer">
-                        <a th:href="@{/usr/joinServer(idServer=${sv.id})}" class="btn btn-primary m-2">Unirse</a>
+                        <a th:href="@{/usr/joinServer(idServer=${sv.id})}" class="btn btn-primary m-2 ">Unirse</a>
                     </div>
                 </div>
             </div>

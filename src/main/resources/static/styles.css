@@ -878,3 +878,9 @@ th{
     white-space: -o-pre-wrap;   /* Opera 7 */    
     word-wrap: break-word;      /* IE */
  }
+ 
+ .card-footer {
+    background-color: #343A40!important;
+
+}
+

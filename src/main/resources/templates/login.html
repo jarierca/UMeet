@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
@@ -26,6 +27,13 @@
                 background-color: #61892F;
                 border-color: #61892F;
             }
+            .btn-outline-primary{
+                border-color: #61892F;
+            }
+            .btn-outline-primary:hover{
+                background-color: #61892F;
+                border-color: #61892F;
+            }
             .btn-primary:hover {
                 background-color: #86C232;
                 border-color: #86C232;
@@ -45,61 +53,78 @@
             a:hover{
                 color: #86C232;
             }
+            .options-divider, .options-divider {
+                display: block;
+                content: '';
+                flex-grow: 1;
+                margin-top: 12px;
+                height: 2px;
+                background-color: #bfbfbf;
+                width: 80%
+            }
+            .divider-text {
+                white-space: nowrap;
+            }
         </style>
     </head>
     <body>
         <div class="mx-auto" style="width: 400px;">
 
             <form class="container-fluid" th:action="@{/login}" method="post">
-            <div class="umeet">
-                <img src="/una.png" style="width: 150px;" class="mb-3"/></br>
-                <label>UMeet</label>
-                </br>
-                <label class="inicio">Iniciar Sesión</label>
-            </div>
-                
-            <div th:if="${param.error}" class="alert alert-error" style="color: red">    
-                El usuario o contraseña que has introducido son incorrectos
-            </div>
-            <div th:if="${param.logout}" class="alert alert-success" style="color: green"> 
-                You have been logged out.
-            </div>   
-                
-            <div class="mb-3">
-              <label  class="form-label">Usuario</label>
-              <input name="username" type="text" class="form-control" >
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input name="password" type="password" class="form-control">
-            </div>
-
-            <!--        <div class="mb-3">
-                <label th:for="usu: ${usu.email}" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" th:id="usu: ${usu.email}">
-            </div>
-            <div class="mb-3">
-              <label th:for="usu: ${usu.pass}" class="form-label">Password</label>
-              <input type="password" class="form-control" th:id="usu: ${usu.pass}">
-            </div>-->
-            
-            <div class="mb-2 form-check flex">
-                <div class="me-auto">
-                    <input type="checkbox" class="form-check-input" name="remember-me" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Recordarme</label>
+                <div class="umeet">
+                    <img src="/una.png" style="width: 150px;" class="mb-3"/></br>
+                    <label>UMeet</label>
+                    </br>
+                    <label class="inicio">Iniciar Sesión</label>
                 </div>
-            </div>
-           <div class="mb-2 flex">
-                <a class="primary" href="/profile/sendEmail">Contraseña olvidada</a>
-            </div>
-            <div class="mb-5 flex">
-                <a class="primary" href="/register">Registrarse</a>
-            </div>
-            <button type="submit" class="btn btn-primary">Aceptar</button>
-        </form>
+
+                <div th:if="${param.error}" class="alert alert-error" style="color: red">    
+                    El usuario o contraseña que has introducido son incorrectos
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success" style="color: green"> 
+                    You have been logged out.
+                </div>   
+
+                <div class="mb-3">
+                    <label  class="form-label">Usuario</label>
+                    <input name="username" type="text" class="form-control" >
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input name="password" type="password" class="form-control">
+                </div>
+
+                <div class="mb-2 form-check flex">
+                    <div class="me-auto">
+                        <input type="checkbox" class="form-check-input" name="remember-me" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Recordarme</label>
+                    </div>
+                </div>
+                <div class="mb-2 flex">
+                    <a class="primary" href="/profile/sendEmail">Contraseña olvidada</a>
+                </div>
+                <div class="mb-4 flex">
+                    <a class="primary" href="/register">Registrarse</a>
+                </div>
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+                <!--<div class="text-white mt-3"><div class="options-divider"><span class="divider-text">o</span></div></div>-->
+
+                <div class="text-white mt-4 d-flex">
+                    <span class="options-divider"></span>
+                    <span class="divider-text mx-2">O</span>
+                    <span class="options-divider"></span>
+                </div>
+
+                <div class="row m-3">
+                    
+                    <a href="/oauth2/authorization/github" class="btn btn-outline-primary text-white"><i class="fab fa-github"></i> Validar con GitHub</a>&nbsp;&nbsp;
+                    <a href="/oauth2/authorization/google" class="btn btn-outline-primary text-white"><i class="fab fa-google"></i> Validar con Google</a>
+                    
+                </div>
+            </form>
         </div>
-        
-        
+
+
         <!-- La solución optima es poner los scripts al final -->
         <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>    
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" ></script>
