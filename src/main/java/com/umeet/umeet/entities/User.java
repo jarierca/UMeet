@@ -21,9 +21,6 @@ public class User {
     private String avatar;
     private String status;
     private String codigo;
-    private String oauth2;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<UserServerRole> userServerRole;
     private List<Message> messages;
     private List<Friend> friends1;
