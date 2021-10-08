@@ -883,4 +883,23 @@ th{
     background-color: #343A40!important;
 
 }
+.fondo3{
+    
+    width: 300px;
+    height: 300px;
+    background-image: url("https://i.imgur.com/QvroxkY.gif");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    
+}
+
+.fondo4{
+    
+    width: 300px;
+    height: 300px;
+    background-image: url("https://i.imgur.com/bhID1ac.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    
+}
 
