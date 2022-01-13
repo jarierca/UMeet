@@ -9,3 +9,7 @@ Microservicio Email---> https://github.com/jarierca/UMeet/tree/mail
 
 
 Crear BBDD con nombre umeet, las tablas se crean automaticamente, importar datosPruebas.sql --> UMeet/src/main/resources/db/datosPruebas.sql
+
+
+PUEDES PROBAR UNA VERSION ANTIGUA
+https://umeetjavi.herokuapp.com/
